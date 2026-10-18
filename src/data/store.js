@@ -19,6 +19,9 @@ function load() {
       if (!saved.settings?.heroVideo || saved.settings?.heroVideo === '/videos/hero-arcachon.mp4') {
         saved.settings = { ...saved.settings, heroVideo: defaultData.settings.heroVideo };
       }
+      if (!saved.settings?.stripePaymentUrl) {
+        saved.settings = { ...saved.settings, stripePaymentUrl: defaultData.settings.stripePaymentUrl };
+      }
       const have = new Map((saved.experiences || []).map((e) => [e.slug, e]));
       const exps = defaultData.experiences.map((def) => {
         const cur = have.get(def.slug);
@@ -27,7 +30,7 @@ function load() {
           ...def,
           ...cur,
           depositPerPlace: (!cur.depositPerPlace || cur.depositPerPlace === 35) ? def.depositPerPlace : cur.depositPerPlace,
-          paymentLink: cur.paymentLink || def.paymentLink,
+          paymentLink: (cur.paymentLink && cur.paymentLink.length > 5) ? cur.paymentLink : def.paymentLink,
           image: cur.image || def.image,
           gallery: (cur.gallery && cur.gallery[0]?.src) ? cur.gallery : def.gallery,
         };

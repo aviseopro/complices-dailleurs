@@ -8,6 +8,7 @@ export const defaultData = {
     almaActive: false, // Alma affiché « bientôt disponible » tant que false
     heroImage: '/img/hero-arcachon-net.jpg',
     heroVideo: '/videos/hero-arcachon.mp4?v=2',
+    stripePaymentUrl: 'https://buy.stripe.com/5kQaEZb38efo3Nh8x6afS00',
     contactEmail: 'contact@exemple.fr',
     instagram: 'https://www.instagram.com/',
     adminPassword: 'demo',
@@ -25,7 +26,7 @@ export const defaultData = {
       kind: 'preorder', // preorder | booking | future
       minParticipants: 8,
       depositPerPlace: 100,
-      paymentLink: '', // Lien de paiement Stripe (ex: https://buy.stripe.com/...)
+      paymentLink: 'https://buy.stripe.com/5kQaEZb38efo3Nh8x6afS00',
       pricePerPerson: null,
       capacity: null,
       dates: [],
