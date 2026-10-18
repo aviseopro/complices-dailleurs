@@ -3,6 +3,7 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import Header from './components/Header.jsx';
 import Footer from './components/Footer.jsx';
 import CookieBanner from './components/CookieBanner.jsx';
+import WhatsAppButton from './components/WhatsAppButton.jsx';
 import Home from './pages/Home.jsx';
 import Experience from './pages/Experience.jsx';
 import Booking from './pages/Booking.jsx';
@@ -45,6 +46,7 @@ export default function App() {
       </main>
       {!admin && <Footer />}
       {!admin && <CookieBanner />}
+      {!admin && <WhatsAppButton />}
     </>
   );
 }

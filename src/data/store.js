@@ -22,6 +22,9 @@ function load() {
       if (!saved.settings?.stripePaymentUrl) {
         saved.settings = { ...saved.settings, stripePaymentUrl: defaultData.settings.stripePaymentUrl };
       }
+      if (!saved.settings?.whatsapp) {
+        saved.settings = { ...saved.settings, whatsapp: defaultData.settings.whatsapp };
+      }
       const have = new Map((saved.experiences || []).map((e) => [e.slug, e]));
       const exps = defaultData.experiences.map((def) => {
         const cur = have.get(def.slug);

@@ -123,6 +123,7 @@ function Settings() {
       <T k="almaActive" label="Alma actif (uniquement si contrat et intégration validés)" />
       <I k="heroImage" label="Image du hero (chemin ou URL)" />
       <I k="heroVideo" label="Vidéo du hero (optionnelle : chemin .mp4 ou URL — sinon tableau vivant cinemagraph)" />
+      <I k="whatsapp" label="Numéro WhatsApp (ex: 0629849653)" />
       <I k="instagram" label="Lien Instagram" />
       <I k="contactEmail" label="Email de contact" />
       <I k="adminPassword" label="Mot de passe admin (démo)" />

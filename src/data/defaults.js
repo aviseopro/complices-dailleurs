@@ -9,6 +9,7 @@ export const defaultData = {
     heroImage: '/img/hero-arcachon-net.jpg',
     heroVideo: '/videos/hero-arcachon.mp4?v=2',
     stripePaymentUrl: 'https://buy.stripe.com/5kQaEZb38efo3Nh8x6afS00',
+    whatsapp: '0629849653',
     contactEmail: 'contact@exemple.fr',
     instagram: 'https://www.instagram.com/',
     adminPassword: 'demo',
