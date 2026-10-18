@@ -53,6 +53,21 @@ export const VILLA_PHOTOS = [
     title: 'Couchages esprit cabane colorée',
     caption: 'Lits cocons en bois et métal aux couleurs des cabanes du Bassin d’Arcachon.',
   },
+  {
+    src: '/img/villa-filet-mezzanine.png',
+    title: 'Le filet suspendu en mezzanine',
+    caption: 'Un espace insolite et ultra-cocooning perché sous les toits pour lire, discuter entre femmes ou se reposer.',
+  },
+  {
+    src: '/img/villa-table-exterieure.jpg',
+    title: 'Déjeuners & brunchs sous la pergola',
+    caption: 'Table conviviale dressée à l’ombre pour partager une cuisine végétarienne saine, locale et gourmande.',
+  },
+  {
+    src: '/img/villa-cuisine-verriere.png',
+    title: 'Cuisine ouverte & carreaux de ciment',
+    caption: 'Un espace chaleureux avec verrière d’atelier et fruits frais à disposition tout au long du séjour.',
+  },
 ];
 
 export default function VillaShowcase() {
