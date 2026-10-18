@@ -59,34 +59,34 @@ export default function Experience() {
                 <Reveal>
                   <div className="premium-banner" style={{ margin: '2rem 0' }}>
                     <div className="premium-banner-head">
-                      <span className="premium-tag">✨ Plus de 300 € de soins &amp; pratiques inclus sur place</span>
-                      <h2 id="soins" style={{ marginTop: '.4rem' }}>La valeur d’une cure Haute Beauté &amp; Bien-être incluse dans votre séjour</h2>
-                      <p>Émilie et Virginie, toutes deux esthéticiennes diplômées, déplacent leurs <strong>machines esthétiques dernier cri</strong> directement sur notre lieu d’exception autour du Bassin d’Arcachon :</p>
+                      <span className="premium-tag">✨ Plus de 300 € de soins &amp; rituels inclus sur place</span>
+                      <h2 id="soins" style={{ marginTop: '.4rem' }}>Une parenthèse au cœur du féminin, avec la valeur d’une véritable cure en Spa &amp; Institut</h2>
+                      <p>Parce que prendre soin de sa féminité, c’est s’accorder le meilleur sans compter : Émilie et Virginie vous entourent de bienveillance et déplacent leurs <strong>machines esthétiques dernier cri</strong> directement sur notre lieu de séjour autour du Bassin d’Arcachon :</p>
                     </div>
                     <div className="premium-grid">
                       <div className="premium-card">
                         <span className="premium-badge">Soin Signature · Inclus</span>
                         <h4>Soin du visage Haute Technologie</h4>
-                        <p>Rituel Jeunesse ou Soin Glow sur-mesure réalisé avec nos machines esthétiques dernier cri.</p>
+                        <p>Rituel Jeunesse ou Soin Glow sur-mesure réalisé avec nos machines esthétiques dernier cri pour sublimer votre éclat.</p>
                       </div>
                       <div className="premium-card">
                         <span className="premium-badge">Modelage Expert · Inclus</span>
                         <h4>Massage relaxant sur-mesure</h4>
-                        <p>Massage complet par nos esthéticiennes diplômées pour un relâchement profond du corps et de l’esprit.</p>
+                        <p>Massage enveloppant par nos esthéticiennes diplômées pour déposer la charge mentale et relâcher le corps.</p>
                       </div>
                       <div className="premium-card">
-                        <span className="premium-badge">Atelier &amp; LED · Inclus</span>
+                        <span className="premium-badge">Atelier Féminin · Inclus</span>
                         <h4>Cours d’auto-massage &amp; LED</h4>
-                        <p>Apprentissage des gestes liftants d’auto-massage du visage combiné à une séance de luminothérapie LED professionnelle.</p>
+                        <p>Un moment complice entre femmes pour apprendre les gestes liftants du visage, combiné à une séance de luminothérapie LED professionnelle.</p>
                       </div>
                       <div className="premium-card">
-                        <span className="premium-badge">Pratique Guidée · Inclus</span>
-                        <h4>Yoga, respiration &amp; méditation</h4>
-                        <p>Séances de Yin Yoga et Hatha Yoga enseignées par Virginie, professeure de yoga diplômée.</p>
+                        <span className="premium-badge">Reconnexion · Inclus</span>
+                        <h4>Yoga, cercle de femmes &amp; méditation</h4>
+                        <p>Yin Yoga, Hatha Yoga et cercles de parole guidés par Virginie, professeure diplômée, dans la douceur de la sororité.</p>
                       </div>
                     </div>
                     <p className="premium-summary">
-                      💎 <strong>Plus de 300 € de prestations Haute Beauté &amp; Bien-être incluses sur place :</strong> en institut et spa sur le Bassin d’Arcachon, l’ensemble de ces soins et séances (soin visage haute technologie, massage relaxant, luminothérapie LED professionnelle, cours d’auto-massage facial et yoga) représente à lui seul plus de 300 € de prestations — ici intégralement compris dans votre séjour avec l’hébergement de charme et la pension complète végétarienne.
+                      💎 <strong>Plus de 300 € de prestations Haute Beauté &amp; Bien-être incluses sur place :</strong> en institut et spa sur le Bassin d’Arcachon, l’ensemble de ces soins et séances (soin visage haute technologie, massage relaxant, luminothérapie LED professionnelle, cours d’auto-massage facial et yoga) représente à lui seul plus de 300 € de prestations — ici intégralement compris dans votre week-end entre femmes avec l’hébergement de charme et la pension complète végétarienne.
                     </p>
                     <p className="small" style={{ marginTop: '.6rem', marginBottom: 0 }}>Il s’agit de soins de bien-être et de beauté ; aucune promesse médicale n’est faite.</p>
                   </div>

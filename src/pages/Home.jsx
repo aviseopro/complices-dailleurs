@@ -8,20 +8,20 @@ import Newsletter from '../components/Newsletter.jsx';
 import { useData } from '../data/store.js';
 
 const strip = [
-  [Flower2, 'Yoga & méditation', 'professeure diplômée'],
-  [Leaf, 'Soin visage expert', 'machines dernier cri'],
-  [Sparkles, 'Massage relaxant', 'sur-mesure inclus'],
-  [Sun, 'Auto-massage & LED', 'cours & luminothérapie'],
+  [Users, 'Entre femmes', 'sororité & partage'],
+  [Flower2, 'Yoga & méditation', 'reconnexion au féminin'],
+  [Leaf, 'Haute beauté', 'machines dernier cri'],
+  [Sparkles, 'Massage & LED', 'soins experts inclus'],
   [Shell, 'Bassin d’Arcachon', 'lieu d’exception'],
   [Gem, '+ de 300 € de soins', 'inclus sur place'],
 ];
 
 const signature = [
-  ['Yoga & méditation', 'Yin Yoga et Hatha Yoga inclus', '/img/arcachon-yoga-net.jpg'],
-  ['Soin visage Haute Techno', 'Machines dernier cri : Jeunesse ou Glow', '/img/arcachon-soin-visage-net.jpg'],
+  ['Yoga & méditation', 'Yin Yoga et Hatha Yoga au féminin', '/img/arcachon-yoga-net.jpg'],
+  ['Soin visage & LED', 'Machines dernier cri : Jeunesse ou Glow', '/img/arcachon-soin-visage-net.jpg'],
   ['Massage relaxant', 'Modelage expert sur-mesure inclus', '/img/spa-massage-net.jpg'],
   ['Bassin d’Arcachon', 'Lieu de charme & balade méditative', '/img/arcachon-balade-net.jpg'],
-  ['Auto-massage & LED', 'Atelier visage & luminothérapie pro', '/img/spa-led-net.jpg'],
+  ['Cercle de femmes', 'Sororité, écoute & renaissance à soi', '/img/arcachon-cercle-net.jpg'],
 ];
 
 const soins = [
@@ -35,22 +35,22 @@ const premiumValues = [
   {
     badge: 'Soin Signature · Inclus',
     title: 'Soin visage Haute Technologie',
-    desc: 'Réalisé avec nos machines esthétiques dernier cri transportées sur place : Rituel Jeunesse ou Soin Glow sur-mesure.',
+    desc: 'Réalisé avec nos machines esthétiques dernier cri transportées sur place : Rituel Jeunesse ou Soin Glow pour révéler votre éclat.',
   },
   {
     badge: 'Modelage Expert · Inclus',
     title: 'Massage relaxant sur-mesure',
-    desc: 'Un massage complet et profond pratiqué par Émilie et Virginie, esthéticiennes diplômées, pour dénouer toutes les tensions.',
+    desc: 'Un massage enveloppant pratiqué par Émilie et Virginie, esthéticiennes diplômées, pour déposer la fatigue et lâcher prise.',
   },
   {
-    badge: 'Atelier & Techno · Inclus',
+    badge: 'Atelier Féminin · Inclus',
     title: 'Cours d’auto-massage & LED',
-    desc: 'Apprenez les gestes liftants d’auto-massage facial combinés à une séance de photomodulation LED professionnelle.',
+    desc: 'Un moment complice entre femmes pour apprendre les gestes liftants du visage, suivi d’une séance de luminothérapie LED professionnelle.',
   },
   {
-    badge: 'Pratique Guidée · Inclus',
-    title: 'Yoga, respiration & méditation',
-    desc: 'Séances de Yin Yoga et Hatha Yoga accessibles à toutes, guidées par Virginie, professeure de yoga diplômée.',
+    badge: 'Reconnexion · Inclus',
+    title: 'Yoga, cercle de femmes & méditation',
+    desc: 'Yin Yoga, Hatha Yoga et cercles de parole guidés avec douceur par Virginie, pour se retrouver et célébrer sa féminité.',
   },
 ];
 
@@ -91,9 +91,9 @@ export default function Home() {
         </div>
         <div className="hero-shade" />
         <div className="wrap hero-in">
-          <p className="eyebrow light">Bassin d’Arcachon · Séjour Haute Beauté &amp; Yoga</p>
+          <p className="eyebrow light">Bassin d’Arcachon · Parenthèse entre femmes</p>
           <h1>Bien plus qu’un week-end <span className="script">bien-être…</span></h1>
-          <p className="lead light">Un institut haute technologie privatisé pour vous, du yoga et des soins d’exception inclus autour du Bassin d’Arcachon.</p>
+          <p className="lead light">Une expérience rare et précieuse, imaginée par des femmes, pour des femmes : déposer sa charge mentale, rayonner et se retrouver.</p>
           <p className="sig light">Voyage au cœur du féminin</p>
           <div className="cta-row">
             <Link to="/experiences/arcachon-entre-femmes" className="btn btn-light">Découvrir l’expérience Bassin d’Arcachon <ArrowRight size={16} /></Link>
@@ -121,13 +121,13 @@ export default function Home() {
           <Reveal delay={120}>
             <p className="eyebrow">Les visages derrière Complices d’ailleurs</p>
             <h2>Nous, Émilie &amp; Virginie</h2>
-            <p className="script-sub">Deux esthéticiennes, une passion commune : le bien-être des femmes</p>
-            <p>Toutes deux esthéticiennes diplômées, nous avons imaginé une expérience unique : <strong>déplacer notre savoir-faire et nos machines esthétiques dernier cri directement dans un lieu d’exception autour du Bassin d’Arcachon</strong>. Virginie est également professeure de yoga diplômée.</p>
+            <p className="script-sub">Deux femmes, deux esthéticiennes, une même vocation : sublimer et accompagner les femmes</p>
+            <p>Toutes deux esthéticiennes diplômées — et Virginie également professeure de yoga diplômée —, nous avons créé <em>Complices d’ailleurs</em> pour offrir aux femmes ces parenthèses que l’on s’accorde trop rarement : <strong>un cocon de sororité, de douceur et d’écoute autour du Bassin d’Arcachon, où nous déplaçons aussi nos machines esthétiques dernier cri pour vous choyer pleinement</strong>.</p>
             <ul className="ticks">
-              <li><Heart size={14} /> Soins haute technologie &amp; massages experts inclus</li>
+              <li><Heart size={14} /> Voyages &amp; parenthèses au cœur du féminin</li>
+              <li><Heart size={14} /> Sororité, cercles de parole &amp; bienveillance</li>
               <li><Heart size={14} /> Yoga &amp; méditation avec une professeure diplômée</li>
-              <li><Heart size={14} /> Lieu de charme sélectionné autour du Bassin d’Arcachon</li>
-              <li><Heart size={14} /> Sororité, bienveillance &amp; lâcher-prise total</li>
+              <li><Heart size={14} /> Soins haute technologie &amp; massages experts inclus</li>
             </ul>
             <Link to="/notre-histoire" className="btn btn-terra">Découvrir notre histoire <ArrowRight size={16} /></Link>
           </Reveal>
@@ -138,9 +138,9 @@ export default function Home() {
         <div className="wrap">
           <Reveal className="sig-head">
             <div>
-              <p className="eyebrow">Notre expérience signature · Édition Prestige</p>
+              <p className="eyebrow">Notre expérience signature · Voyage au cœur du féminin</p>
               <h2>Bassin d’Arcachon<br />Entre femmes</h2>
-              <p className="small-caps">Un séjour ultra-complet où tout est inclus pour prendre soin de vous</p>
+              <p className="small-caps">Un week-end pour revenir à soi, se relier entre femmes et se laisser choyer</p>
               <p>{arca.intro}</p>
               <div className="cta-row">
                 <Link to="/reserver/arcachon-entre-femmes" className="btn btn-blue">Pré-réserver — {arca?.depositPerPlace || 95} €</Link>
@@ -152,9 +152,9 @@ export default function Home() {
           <Reveal>
             <div className="premium-banner">
               <div className="premium-banner-head">
-                <span className="premium-tag"><Gem size={15} /> Plus de 300 € de soins &amp; pratiques inclus sur place</span>
-                <h3>La valeur d’une véritable cure en Spa &amp; Institut, directement incluse dans votre séjour</h3>
-                <p>Contrairement aux retraites classiques où les soins sont en supplément, nous déplaçons notre institut haute technologie sur notre lieu de séjour au Bassin d’Arcachon :</p>
+                <span className="premium-tag"><Gem size={15} /> Plus de 300 € de soins &amp; rituels inclus sur place</span>
+                <h3>Parce que les femmes méritent l’excellence : la valeur d’une véritable cure en Spa &amp; Institut incluse dans votre parenthèse</h3>
+                <p>Pour que vous puissiez lâcher prise sans jamais compter, nous avons réuni la puissance de la sororité et l’excellence de nos soins d’institut directement sur notre lieu de séjour au Bassin d’Arcachon :</p>
               </div>
               <div className="premium-grid">
                 {premiumValues.map((item) => (
@@ -166,7 +166,7 @@ export default function Home() {
                 ))}
               </div>
               <p className="premium-summary">
-                ✨ <strong>Une valeur réelle de plus de 300 € de soins et rituels sur place :</strong> en institut et spa sur le Bassin d’Arcachon, l’ensemble de ce protocole (soin du visage haute technologie avec machines dernier cri, massage relaxant expert, séance de luminothérapie LED professionnelle, cours d’auto-massage facial et séances de yoga) représente à lui seul plus de 300 € de prestations — ici entièrement inclus dans votre week-end avec l’hébergement de charme et la pension complète gourmande.
+                ✨ <strong>Une valeur réelle de plus de 300 € de soins et rituels sur place :</strong> en institut et spa sur le Bassin d’Arcachon, l’ensemble de ce protocole (soin du visage haute technologie avec machines dernier cri, massage relaxant expert, séance de luminothérapie LED professionnelle, cours d’auto-massage facial et séances de yoga) représente à lui seul plus de 300 € de prestations — ici entièrement inclus dans votre week-end entre femmes avec l’hébergement de charme et la pension complète gourmande.
               </p>
             </div>
           </Reveal>
@@ -186,14 +186,14 @@ export default function Home() {
       <section className="section sand" id="soins">
         <div className="wrap exclu">
           <Reveal>
-            <p className="eyebrow">Haute beauté &amp; technologies de pointe</p>
-            <h2>Nos machines dernier cri, privatisées pour vous</h2>
-            <p>Deux esthéticiennes diplômées, des gestes experts et nos <strong>machines esthétiques dernier cri</strong> transportées directement sur notre lieu de séjour au Bassin d’Arcachon :</p>
+            <p className="eyebrow">Célébrer sa féminité &amp; rayonner</p>
+            <h2>La beauté, comme un véritable rituel entre femmes</h2>
+            <p>Deux esthéticiennes diplômées, une écoute bienveillante et nos <strong>machines esthétiques dernier cri</strong> transportées directement sur notre lieu de séjour au Bassin d’Arcachon, pour créer un cocon intime dédié à votre féminité :</p>
             <ul className="ticks">
               <li><Check size={15} /> <strong>Soin visage Haute Technologie</strong> : Rituel Jeunesse ou Soin Glow</li>
               <li><Check size={15} /> <strong>Massage relaxant sur-mesure</strong> par nos esthéticiennes diplômées</li>
               <li><Check size={15} /> <strong>Cours d’auto-massage du visage &amp; Luminothérapie LED professionnelle</strong></li>
-              <li><Check size={15} /> <strong>Séances de Yoga (Yin &amp; Hatha)</strong>, respiration &amp; méditation</li>
+              <li><Check size={15} /> <strong>Séances de Yoga (Yin &amp; Hatha)</strong>, cercles de femmes &amp; méditation</li>
             </ul>
             <p className="small">Soins de bien-être et de beauté : aucune promesse médicale.</p>
             <Link to="/experiences/arcachon-entre-femmes#soins" className="btn btn-terra">Voir le détail des soins</Link>

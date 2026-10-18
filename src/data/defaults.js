@@ -21,7 +21,7 @@ export const defaultData = {
       slug: 'arcachon-entre-femmes',
       theme: 'arcachon',
       title: 'Bassin d’Arcachon — Entre femmes',
-      short: 'Séjour bien-être & haute beauté au cœur du Bassin d’Arcachon',
+      short: 'Voyage au cœur du féminin : bien-être, sororité & haute beauté sur le Bassin d’Arcachon',
       image: '/img/hero-arcachon-net.jpg',
       status: 'open', // open | waitlist | soon
       kind: 'preorder', // preorder | booking | future
@@ -31,11 +31,11 @@ export const defaultData = {
       pricePerPerson: null,
       capacity: null,
       dates: [],
-      duration: 'Un week-end d’exception (durée exacte à confirmer)',
+      duration: 'Un week-end entre femmes (durée exacte à confirmer)',
       lodging: 'Lieu de charme privatisé autour du Bassin d’Arcachon',
       location: 'Bassin d’Arcachon — lieu d’exception sélectionné pour le séjour',
       intro:
-        'Une parenthèse ultra-privilégiée autour du Bassin d’Arcachon où tout est pensé pour vous : un véritable institut haute technologie privatisé sur place, des soins experts à haute valeur ajoutée, du yoga et la douceur des pins.',
+        'Une parenthèse rare et précieuse entre femmes autour du Bassin d’Arcachon, pour déposer sa charge mentale, se reconnecter à sa féminité et savourer le bonheur de n’avoir rien d’autre à faire que prendre soin de soi, entourée de bienveillance.',
       conditions: {
         imputation: null,
         remboursement: null,
@@ -47,10 +47,10 @@ export const defaultData = {
         'Soin du visage haute technologie avec nos machines dernier cri : rituel Jeunesse ou soin Glow',
         'Massage relaxant sur-mesure par nos esthéticiennes diplômées',
         'Cours d’auto-massage du visage & séance de luminothérapie LED professionnelle',
-        'Séances de yoga (Yin Yoga & Hatha Yoga), respiration et méditation avec Virginie, professeure diplômée',
+        'Séances de yoga au féminin (Yin Yoga & Hatha Yoga), respiration et méditation avec Virginie, professeure diplômée',
+        'Cercle de femmes, sororité, partage et atelier créatif',
         'Balade méditative au bord de l’eau sur le Bassin d’Arcachon',
         'Cuisine végétarienne saine, gourmande et raffinée',
-        'Cercle de parole, sororité et atelier créatif',
       ],
       excluded: ['Transport jusqu’au Bassin d’Arcachon', 'Dépenses personnelles', 'Jacuzzi : selon le lieu sélectionné sur le Bassin d’Arcachon'],
       program: [
