@@ -35,7 +35,7 @@ export const defaultData = {
       lodging: 'Lieu de charme privatisé autour du Bassin d’Arcachon',
       location: 'Bassin d’Arcachon — lieu d’exception sélectionné pour le séjour',
       intro:
-        'Une parenthèse rare et précieuse entre femmes autour du Bassin d’Arcachon, pour déposer sa charge mentale, se reconnecter à sa féminité et savourer le bonheur de n’avoir rien d’autre à faire que prendre soin de soi, entourée de bienveillance.',
+        'Portées par notre complicité, notre harmonie et notre simplicité, nous vous accueillons autour du Bassin d’Arcachon pour une parenthèse vraie entre femmes : un lieu chaleureux où chacune peut déposer son quotidien, livrer ses soucis en toute confiance, se laisser choyer et repartir plus légère.',
       conditions: {
         imputation: null,
         remboursement: null,

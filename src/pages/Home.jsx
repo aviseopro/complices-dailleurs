@@ -121,12 +121,12 @@ export default function Home() {
           <Reveal delay={120}>
             <p className="eyebrow">Les visages derrière Complices d’ailleurs</p>
             <h2>Nous, Émilie &amp; Virginie</h2>
-            <p className="script-sub">Deux femmes, deux esthéticiennes, une même vocation : sublimer et accompagner les femmes</p>
-            <p>Toutes deux esthéticiennes diplômées — et Virginie également professeure de yoga diplômée —, nous avons créé <em>Complices d’ailleurs</em> pour offrir aux femmes ces parenthèses que l’on s’accorde trop rarement : <strong>un cocon de sororité, de douceur et d’écoute autour du Bassin d’Arcachon, où nous déplaçons aussi nos machines esthétiques dernier cri pour vous choyer pleinement</strong>.</p>
+            <p className="script-sub">Deux femmes simples et complices, unies par une belle harmonie</p>
+            <p>Entre nous, tout est affaire d’évidence, de simplicité et d’harmonie. Toutes deux esthéticiennes diplômées — et Virginie également professeure de yoga diplômée —, nous avons créé <em>Complices d’ailleurs</em> avec un souhait profond : <strong>offrir aux femmes un cocon vrai, chaleureux et sans jugement, où chacune peut venir déposer son quotidien, livrer ses soucis et repartir le cœur plus léger</strong>.</p>
             <ul className="ticks">
-              <li><Heart size={14} /> Voyages &amp; parenthèses au cœur du féminin</li>
-              <li><Heart size={14} /> Sororité, cercles de parole &amp; bienveillance</li>
-              <li><Heart size={14} /> Yoga &amp; méditation avec une professeure diplômée</li>
+              <li><Heart size={14} /> Simplicité, écoute sincère &amp; harmonie à deux</li>
+              <li><Heart size={14} /> Déposer ses soucis pour repartir plus légère</li>
+              <li><Heart size={14} /> Yoga, respiration &amp; cercles de parole entre femmes</li>
               <li><Heart size={14} /> Soins haute technologie &amp; massages experts inclus</li>
             </ul>
             <Link to="/notre-histoire" className="btn btn-terra">Découvrir notre histoire <ArrowRight size={16} /></Link>
@@ -140,7 +140,7 @@ export default function Home() {
             <div>
               <p className="eyebrow">Notre expérience signature · Voyage au cœur du féminin</p>
               <h2>Bassin d’Arcachon<br />Entre femmes</h2>
-              <p className="small-caps">Un week-end pour revenir à soi, se relier entre femmes et se laisser choyer</p>
+              <p className="small-caps">Déposer ce qui pèse, se laisser choyer et repartir plus légère</p>
               <p>{arca.intro}</p>
               <div className="cta-row">
                 <Link to="/reserver/arcachon-entre-femmes" className="btn btn-blue">Pré-réserver — {arca?.depositPerPlace || 95} €</Link>
@@ -153,8 +153,8 @@ export default function Home() {
             <div className="premium-banner">
               <div className="premium-banner-head">
                 <span className="premium-tag"><Gem size={15} /> Plus de 300 € de soins &amp; rituels inclus sur place</span>
-                <h3>Parce que les femmes méritent l’excellence : la valeur d’une véritable cure en Spa &amp; Institut incluse dans votre parenthèse</h3>
-                <p>Pour que vous puissiez lâcher prise sans jamais compter, nous avons réuni la puissance de la sororité et l’excellence de nos soins d’institut directement sur notre lieu de séjour au Bassin d’Arcachon :</p>
+                <h3>La simplicité d’un accueil du cœur, alliée à la valeur d’une véritable cure en Spa &amp; Institut</h3>
+                <p>Avec nous, pas de chichis : juste de la douceur, une écoute vraie pour vous alléger l’esprit, et toute l’excellence de nos soins d’institut transportés directement sur notre lieu de séjour au Bassin d’Arcachon :</p>
               </div>
               <div className="premium-grid">
                 {premiumValues.map((item) => (
@@ -216,7 +216,7 @@ export default function Home() {
         <div className="wrap three">
           <Reveal><Waves size={26} strokeWidth={1.2} /><h3>Le yoga pour se reconnecter à soi</h3><p>Yin Yoga et Hatha Yoga, enseignés par Virginie, professeure diplômée. Respiration et méditation, pour ralentir et retrouver l’écoute de soi.</p></Reveal>
           <Reveal delay={100}><Sun size={26} strokeWidth={1.2} /><h3>L’esprit du Bassin d’Arcachon</h3><p>Un lieu d’exception sélectionné autour du Bassin d’Arcachon, balade méditative au bord de l’eau, cuisine végétarienne saine et gourmande.</p></Reveal>
-          <Reveal delay={200}><Sparkles size={26} strokeWidth={1.2} /><h3>Se retrouver, se révéler, rayonner</h3><p>Rencontres, cercles de parole, cours d’auto-massage sous LED, partage, intentions et vœux symboliques — dans le respect du choix de chacune.</p></Reveal>
+          <Reveal delay={200}><Sparkles size={26} strokeWidth={1.2} /><h3>Déposer ses soucis, repartir plus légère</h3><p>Dans la simplicité et la bienveillance de nos cercles de parole, chacune peut livrer ce qu’elle a sur le cœur, poser ses bagages et repartir apaisée, alignée et plus légère.</p></Reveal>
         </div>
       </section>
 
