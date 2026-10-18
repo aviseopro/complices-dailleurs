@@ -5,28 +5,28 @@ import { Reveal } from './ui.jsx';
 export const VILLA_PHOTOS = [
   {
     src: '/img/villa-salon-cathedrale.png',
-    title: 'Grand salon cathédrale & filet suspendu',
-    caption: 'Poutres apparentes, filet cocooning en mezzanine, fauteuil suspendu en macramé et volumes baignés de lumière.',
+    title: 'Loft atypique rénové & filet suspendu',
+    caption: 'Grand volume cathédrale, poutres apparentes, filet cocooning en mezzanine et fauteuil suspendu en macramé.',
   },
   {
     src: '/img/villa-jacuzzi.jpg',
-    title: 'Espace Jacuzzi intérieur privatisé',
-    caption: 'Spa privatif sur lit de galets blancs et mur de pierre, pour se détendre en toute intimité entre les soins.',
+    title: 'Pièce détente : Spa 7 places & Sauna 4 places',
+    caption: 'Un véritable espace bien-être intérieur privatisé avec Spa 7 places sur lit de galets blancs et Sauna 4 places.',
   },
   {
     src: '/img/villa-terrasse-piscine.jpg',
-    title: 'Terrasse bois, pergola & piscine',
-    caption: 'Grande tablée conviviale à l’ombre de la pergola, cuisine d’été, piscine entourée de bois et espace détente au soleil.',
+    title: 'Piscine chauffée, terrasse bois & cuisine d’été',
+    caption: 'Patio extérieur sans vis-à-vis avec piscine chauffée, salon de détente, cuisine d’été et grande tablée sous la pergola.',
   },
   {
     src: '/img/villa-suite-baignoire.jpg',
-    title: 'Chambre de charme & baignoire d’angle',
-    caption: 'Mur en pierres de taille apparentes, baignoire privative, matériaux naturels et atmosphère apaisante.',
+    title: 'La Chambre « Nature » & sa baignoire privative',
+    caption: 'Mur en pierres de taille apparentes, baignoire d’angle privative, bois naturel et atmosphère apaisante.',
   },
   {
     src: '/img/villa-piscine-nuit.png',
-    title: 'Douceur des soirées au bord de l’eau',
-    caption: 'Piscine illuminée à la tombée de la nuit, bardage bois esprit cabane du Bassin et guirlandes chaleureuses.',
+    title: 'Piscine chauffée illuminée à la nuit tombée',
+    caption: 'Bardage bois esprit cabane du Bassin, guirlandes chaleureuses et baignade sous les étoiles.',
   },
   {
     src: '/img/villa-coin-lecture.png',
@@ -35,13 +35,13 @@ export const VILLA_PHOTOS = [
   },
   {
     src: '/img/villa-chambre-bois.jpg',
-    title: 'Chambre esprit cabane du Bassin',
-    caption: 'Tête de lit en bois patiné, lumière douce sous combles et détails marins authentiques.',
+    title: 'Chambre « Cabane Perchée » & Chambre « Charme »',
+    caption: 'Tête de lit en bois patiné, salle de bain attenante, lumière douce et détails marins authentiques.',
   },
   {
     src: '/img/villa-verriere-terrasse.jpg',
-    title: 'Grande verrière ouverte sur l’extérieur',
-    caption: 'Une circulation fluide dedans-dehors avec bois flotté, matières naturelles et lumière douce du Bassin d’Arcachon.',
+    title: 'Grande verrière ouverte sur le patio',
+    caption: 'Circulation fluide dedans-dehors entre le salon, la terrasse en bois et la piscine chauffée.',
   },
   {
     src: '/img/villa-salle-a-manger.png',
@@ -50,8 +50,8 @@ export const VILLA_PHOTOS = [
   },
   {
     src: '/img/villa-chambre-cabane.jpg',
-    title: 'Couchages esprit cabane colorée',
-    caption: 'Lits cocons en bois et métal aux couleurs des cabanes du Bassin d’Arcachon.',
+    title: 'Espace couchages esprit cabane colorée',
+    caption: 'Lits cocons 80×200 aux couleurs des cabanes ostréicoles du Bassin d’Arcachon.',
   },
   {
     src: '/img/villa-filet-mezzanine.png',
@@ -60,7 +60,7 @@ export const VILLA_PHOTOS = [
   },
   {
     src: '/img/villa-table-exterieure.jpg',
-    title: 'Déjeuners & brunchs sous la pergola',
+    title: 'Déjeuners & brunchs sur la grande terrasse bois',
     caption: 'Table conviviale dressée à l’ombre pour partager une cuisine végétarienne saine, locale et gourmande.',
   },
   {
@@ -90,11 +90,11 @@ export default function VillaShowcase() {
       <div className="wrap">
         <Reveal>
           <div className="villa-head">
-            <p className="eyebrow">Votre refuge exclusif · Bassin d’Arcachon</p>
-            <h2>Un lieu d’exception niché sur le Bassin d’Arcachon</h2>
-            <p className="script-sub">L’esprit cabane chic du Bassin, entre matières naturelles, piscine et jacuzzi privatif</p>
+            <p className="eyebrow">Votre refuge exclusif · À 10 min à pied du Bassin d’Arcachon</p>
+            <h2>Un loft d’exception, atypique et plein de surprises</h2>
+            <p className="script-sub">Piscine chauffée, Spa 7 places, Sauna 4 places et sentier du littoral à deux pas</p>
             <p>
-              Pour que votre parenthèse entre femmes soit inoubliable, nous avons choisi une <strong>villa de charme entièrement privatisée sur le Bassin d’Arcachon</strong>. Alliage rare de pierre, de bardage bois inspiré des cabanes ostréicoles et de grands volumes lumineux, chaque espace a été pensé pour vous offrir confort, intimité et lâcher-prise :
+              Pour votre parenthèse entre femmes, nous avons privatisé un <strong>loft entièrement rénové, indépendant et plein de charme, niché à seulement 10 minutes à pied du Bassin d’Arcachon</strong> et à deux pas des sentiers naturels du littoral. Alliage unique de pierre, de bois et de grands volumes lumineux, tout y est réuni pour un lâcher-prise absolu :
             </p>
           </div>
         </Reveal>
@@ -104,29 +104,29 @@ export default function VillaShowcase() {
             <div className="villa-pillar">
               <Waves size={22} />
               <div>
-                <strong>Jacuzzi intérieur &amp; piscine extérieure</strong>
-                <span>Un espace spa sur lit de galets blancs et un bassin entouré d’une terrasse en bois.</span>
-              </div>
-            </div>
-            <div className="villa-pillar">
-              <HomeIcon size={22} />
-              <div>
-                <strong>Salon cathédrale &amp; coins cocooning</strong>
-                <span>Poutres apparentes, filet suspendu en hauteur, fauteuil macramé et grande verrière atelier.</span>
+                <strong>Spa 7 places &amp; Sauna 4 places</strong>
+                <span>Une pièce de détente intérieure entièrement dédiée à votre bien-être, avec grand jacuzzi et sauna privatif.</span>
               </div>
             </div>
             <div className="villa-pillar">
               <Sun size={22} />
               <div>
-                <strong>Pergola ombragée &amp; vie dedans-dehors</strong>
-                <span>Grande tablée sous les ombres, cuisine d’été, jardin intimiste et soirées sous les guirlandes.</span>
+                <strong>Piscine chauffée &amp; patio d’été</strong>
+                <span>Grande terrasse en bois, piscine chauffée, salon de détente extérieur, pergola ombragée et cuisine d’été.</span>
+              </div>
+            </div>
+            <div className="villa-pillar">
+              <HomeIcon size={22} />
+              <div>
+                <strong>Chambres de caractère &amp; surprises</strong>
+                <span>Chambre Nature avec baignoire privative, Chambre Charme avec salle d’eau, Chambre Cabane Perchée, dortoir cabane et filet suspendu.</span>
               </div>
             </div>
             <div className="villa-pillar">
               <Sparkles size={22} />
               <div>
-                <strong>Chambres de charme &amp; esprit cabane</strong>
-                <span>Mur en pierre de taille, baignoire d’angle, bois patiné et couchages douillets.</span>
+                <strong>Bassin &amp; sentier du littoral à 10 min</strong>
+                <span>À 10 minutes à pied du Bassin d’Arcachon et des sentiers côtiers pour nos balades ressourçantes à l’ombre des pins.</span>
               </div>
             </div>
           </div>

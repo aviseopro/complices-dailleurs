@@ -20,15 +20,15 @@ const strip = [
 const signature = [
   ['Yoga intérieur & plein air', 'Yin & Hatha Yoga avec Virginie', '/img/arcachon-yoga-net.jpg'],
   ['Soin visage & LED', 'Machines dernier cri : Jeunesse ou Glow', '/img/arcachon-soin-visage-net.jpg'],
-  ['Jacuzzi de notre villa', 'Détente & bulles entre femmes', '/img/villa-jacuzzi.jpg'],
-  ['À l’ombre des pins', 'Balades au bord de l’eau sur le Bassin', '/img/arcachon-balade-net.jpg'],
+  ['Spa 7 places & Sauna', 'Pièce détente & piscine chauffée au loft', '/img/villa-jacuzzi.jpg'],
+  ['Sentier du littoral', 'À 10 min à pied du Bassin, sous les pins', '/img/arcachon-balade-net.jpg'],
   ['Cercle & méditation', 'Guidés par Émilie pour repartir légère', '/img/arcachon-cercle-net.jpg'],
 ];
 
 const soins = [
   ['Soin visage Haute Technologie', 'Inclus — Machines dernier cri (Jeunesse ou Glow)', '/img/arcachon-soin-visage-net.jpg'],
   ['Massage relaxant sur-mesure', 'Inclus — Par nos esthéticiennes diplômées', '/img/spa-massage-net.jpg'],
-  ['Jacuzzi de notre villa', 'Inclus — Espace détente privatisé sur place', '/img/villa-jacuzzi.jpg'],
+  ['Spa 7 places & Sauna 4 places', 'Inclus — Pièce de détente privative au loft', '/img/villa-jacuzzi.jpg'],
   ['Cours d’auto-massage & LED', 'Inclus — Atelier liftant & luminothérapie pro', '/img/spa-led-net.jpg'],
   ['Technologies esthétiques', 'Sur place — Équipements professionnels de pointe', '/img/spa-cosmetique-net.jpg'],
 ];
@@ -97,7 +97,7 @@ export default function Home() {
           <h1>Bien plus qu’un week-end <span className="script">bien-être…</span></h1>
           <p className="sig light" style={{ marginBottom: '.6rem' }}>Voyage au cœur du féminin sur le Bassin d’Arcachon</p>
           <p className="lead light" style={{ maxWidth: '52ch', fontSize: '1.12rem', lineHeight: 1.55 }}>
-            Portées par notre complicité, notre harmonie et notre simplicité, nous vous accueillons autour du Bassin d’Arcachon pour une expérience résolument premium : lieu de charme privatisé, yoga en intérieur ou en plein air, balades apaisantes à l’ombre des pins, soins haute technologie sur place, et un cocon bienveillant où déposer vos soucis pour repartir plus légère.
+            Portées par notre complicité, notre harmonie et notre simplicité, nous vous accueillons à 10 minutes à pied du Bassin d’Arcachon dans un loft d’exception (piscine chauffée, Spa 7 places, Sauna 4 places) : yoga en intérieur ou en plein air, balades sur le sentier du littoral à l’ombre des pins, soins haute technologie sur place, et un cocon bienveillant où déposer vos soucis pour repartir plus légère.
           </p>
           <div className="cta-row">
             <Link to="/reserver/arcachon-entre-femmes" className="btn btn-blue">Pré-réserver ma place — {arca?.depositPerPlace || 95} €</Link>
