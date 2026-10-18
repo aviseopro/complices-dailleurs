@@ -9,46 +9,46 @@ import { useData } from '../data/store.js';
 
 const strip = [
   [Flower2, 'Yoga & méditation', 'professeure diplômée'],
-  [Leaf, 'Soin visage 90 €', 'machines dernier cri'],
-  [Sparkles, 'Massage 70 €', 'sur-mesure inclus'],
+  [Leaf, 'Soin visage expert', 'machines dernier cri'],
+  [Sparkles, 'Massage relaxant', 'sur-mesure inclus'],
   [Sun, 'Auto-massage & LED', 'cours & luminothérapie'],
   [Shell, 'Bassin d’Arcachon', 'lieu d’exception'],
-  [Gem, 'Expérience tout inclus', 'signée Complices d’ailleurs'],
+  [Gem, '+ de 300 € de soins', 'inclus sur place'],
 ];
 
 const signature = [
   ['Yoga & méditation', 'Yin Yoga et Hatha Yoga inclus', '/img/arcachon-yoga-net.jpg'],
-  ['Soin visage (valeur 90 €)', 'Machines dernier cri : Jeunesse ou Glow', '/img/arcachon-soin-visage-net.jpg'],
-  ['Massage (valeur 70 €)', 'Massage relaxant expert inclus', '/img/spa-massage-net.jpg'],
+  ['Soin visage Haute Techno', 'Machines dernier cri : Jeunesse ou Glow', '/img/arcachon-soin-visage-net.jpg'],
+  ['Massage relaxant', 'Modelage expert sur-mesure inclus', '/img/spa-massage-net.jpg'],
   ['Bassin d’Arcachon', 'Lieu de charme & balade méditative', '/img/arcachon-balade-net.jpg'],
   ['Auto-massage & LED', 'Atelier visage & luminothérapie pro', '/img/spa-led-net.jpg'],
 ];
 
 const soins = [
-  ['Soin visage Haute Technologie', 'Valeur 90 € — Inclus (machines dernier cri)', '/img/arcachon-soin-visage-net.jpg'],
-  ['Massage relaxant sur-mesure', 'Valeur 70 € — Inclus', '/img/spa-massage-net.jpg'],
-  ['Cours d’auto-massage & LED', 'Atelier liftant + luminothérapie LED inclus', '/img/spa-led-net.jpg'],
-  ['Machines esthétiques dernier cri', 'Technologie professionnelle sur place', '/img/spa-cosmetique-net.jpg'],
+  ['Soin visage Haute Technologie', 'Inclus — Machines dernier cri (Jeunesse ou Glow)', '/img/arcachon-soin-visage-net.jpg'],
+  ['Massage relaxant sur-mesure', 'Inclus — Par nos esthéticiennes diplômées', '/img/spa-massage-net.jpg'],
+  ['Cours d’auto-massage & LED', 'Inclus — Atelier liftant & luminothérapie pro', '/img/spa-led-net.jpg'],
+  ['Technologies esthétiques', 'Sur place — Équipements professionnels de pointe', '/img/spa-cosmetique-net.jpg'],
 ];
 
 const premiumValues = [
   {
-    badge: 'Valeur 90 € · Inclus',
+    badge: 'Soin Signature · Inclus',
     title: 'Soin visage Haute Technologie',
     desc: 'Réalisé avec nos machines esthétiques dernier cri transportées sur place : Rituel Jeunesse ou Soin Glow sur-mesure.',
   },
   {
-    badge: 'Valeur 70 € · Inclus',
-    title: 'Massage relaxant expert',
+    badge: 'Modelage Expert · Inclus',
+    title: 'Massage relaxant sur-mesure',
     desc: 'Un massage complet et profond pratiqué par Émilie et Virginie, esthéticiennes diplômées, pour dénouer toutes les tensions.',
   },
   {
     badge: 'Atelier & Techno · Inclus',
     title: 'Cours d’auto-massage & LED',
-    desc: 'Apprenez les gestes experts d’auto-massage facial combinés à une séance de luminothérapie LED professionnelle.',
+    desc: 'Apprenez les gestes liftants d’auto-massage facial combinés à une séance de photomodulation LED professionnelle.',
   },
   {
-    badge: 'Pratique guidée · Inclus',
+    badge: 'Pratique Guidée · Inclus',
     title: 'Yoga, respiration & méditation',
     desc: 'Séances de Yin Yoga et Hatha Yoga accessibles à toutes, guidées par Virginie, professeure de yoga diplômée.',
   },
@@ -152,9 +152,9 @@ export default function Home() {
           <Reveal>
             <div className="premium-banner">
               <div className="premium-banner-head">
-                <span className="premium-tag"><Gem size={15} /> Pourquoi ce séjour vaut vraiment le coup</span>
-                <h3>La valeur réelle d’une cure Haute Beauté &amp; Yoga, incluse dans votre séjour</h3>
-                <p>Contrairement aux retraites classiques où les soins sont en supplément, nous avons intégré nos prestations d’institut les plus pointues directement dans votre expérience sur le Bassin d’Arcachon :</p>
+                <span className="premium-tag"><Gem size={15} /> Plus de 300 € de soins &amp; pratiques inclus sur place</span>
+                <h3>La valeur d’une véritable cure en Spa &amp; Institut, directement incluse dans votre séjour</h3>
+                <p>Contrairement aux retraites classiques où les soins sont en supplément, nous déplaçons notre institut haute technologie sur notre lieu de séjour au Bassin d’Arcachon :</p>
               </div>
               <div className="premium-grid">
                 {premiumValues.map((item) => (
@@ -166,7 +166,7 @@ export default function Home() {
                 ))}
               </div>
               <p className="premium-summary">
-                ✨ <strong>Rien qu’en soins individuels (massage à 70 € + soin visage haute technologie à 90 €), vous bénéficiez déjà de 160 € de prestations d’institut</strong>, auxquels s’ajoutent le cours d’auto-massage sous LED professionnelles, toutes les séances de yoga, l’hébergement de charme sur le Bassin d’Arcachon et la pension complète gourmande.
+                ✨ <strong>Une valeur réelle de plus de 300 € de soins et rituels sur place :</strong> en institut et spa sur le Bassin d’Arcachon, l’ensemble de ce protocole (soin du visage haute technologie avec machines dernier cri, massage relaxant expert, séance de luminothérapie LED professionnelle, cours d’auto-massage facial et séances de yoga) représente à lui seul plus de 300 € de prestations — ici entièrement inclus dans votre week-end avec l’hébergement de charme et la pension complète gourmande.
               </p>
             </div>
           </Reveal>
@@ -190,10 +190,10 @@ export default function Home() {
             <h2>Nos machines dernier cri, privatisées pour vous</h2>
             <p>Deux esthéticiennes diplômées, des gestes experts et nos <strong>machines esthétiques dernier cri</strong> transportées directement sur notre lieu de séjour au Bassin d’Arcachon :</p>
             <ul className="ticks">
-              <li><Check size={15} /> <strong>Soin visage Haute Technologie (valeur 90 €)</strong> : Rituel Jeunesse ou Soin Glow</li>
-              <li><Check size={15} /> <strong>Massage relaxant sur-mesure (valeur 70 €)</strong></li>
-              <li><Check size={15} /> <strong>Cours d’auto-massage du visage &amp; Luminothérapie LED</strong></li>
-              <li><Check size={15} /> <strong>Séances de Yoga (Yin &amp; Hatha)</strong> &amp; méditation</li>
+              <li><Check size={15} /> <strong>Soin visage Haute Technologie</strong> : Rituel Jeunesse ou Soin Glow</li>
+              <li><Check size={15} /> <strong>Massage relaxant sur-mesure</strong> par nos esthéticiennes diplômées</li>
+              <li><Check size={15} /> <strong>Cours d’auto-massage du visage &amp; Luminothérapie LED professionnelle</strong></li>
+              <li><Check size={15} /> <strong>Séances de Yoga (Yin &amp; Hatha)</strong>, respiration &amp; méditation</li>
             </ul>
             <p className="small">Soins de bien-être et de beauté : aucune promesse médicale.</p>
             <Link to="/experiences/arcachon-entre-femmes#soins" className="btn btn-terra">Voir le détail des soins</Link>

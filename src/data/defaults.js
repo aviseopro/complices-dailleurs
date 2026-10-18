@@ -44,8 +44,8 @@ export const defaultData = {
         capacite: null,
       },
       included: [
-        'Soin du visage haute technologie avec nos machines dernier cri — rituel Jeunesse ou soin Glow (valeur 90 €)',
-        'Massage relaxant sur-mesure par nos esthéticiennes diplômées (valeur 70 €)',
+        'Soin du visage haute technologie avec nos machines dernier cri : rituel Jeunesse ou soin Glow',
+        'Massage relaxant sur-mesure par nos esthéticiennes diplômées',
         'Cours d’auto-massage du visage & séance de luminothérapie LED professionnelle',
         'Séances de yoga (Yin Yoga & Hatha Yoga), respiration et méditation avec Virginie, professeure diplômée',
         'Balade méditative au bord de l’eau sur le Bassin d’Arcachon',
@@ -55,16 +55,16 @@ export const defaultData = {
       excluded: ['Transport jusqu’au Bassin d’Arcachon', 'Dépenses personnelles', 'Jacuzzi : selon le lieu sélectionné sur le Bassin d’Arcachon'],
       program: [
         { day: 'Jour 1', title: 'Arrivée & ouverture', items: ['Accueil dans notre lieu d’exception sur le Bassin d’Arcachon', 'Séance de Yin Yoga & lâcher-prise', 'Dîner végétarien raffiné', 'Cercle de parole & sororité'] },
-        { day: 'Jour 2', title: 'Haute beauté, rituels & Bassin', items: ['Hatha Yoga & respiration', 'Soins individuels : Massage relaxant (valeur 70 €) & Soin visage machines dernier cri (valeur 90 €)', 'Cours d’auto-massage du visage & séance LED professionnelle', 'Balade méditative sur le Bassin d’Arcachon', 'Atelier créatif, intentions & vœux'] },
+        { day: 'Jour 2', title: 'Haute beauté, rituels & Bassin', items: ['Hatha Yoga & respiration', 'Soins individuels : Massage relaxant sur-mesure & Soin visage machines dernier cri', 'Cours d’auto-massage du visage & séance LED professionnelle', 'Balade méditative sur le Bassin d’Arcachon', 'Atelier créatif, intentions & vœux'] },
         { day: 'Jour 3', title: 'Départ en douceur', items: ['Réveil corporel & temps libre', 'Brunch gourmand', 'Clôture du séjour'] },
       ],
       gallery: [
         { label: 'Yoga & méditation', src: '/img/arcachon-yoga-net.jpg' },
-        { label: 'Soin visage 90 € inclus', src: '/img/arcachon-soin-visage-net.jpg' },
+        { label: 'Soin visage haute technologie', src: '/img/arcachon-soin-visage-net.jpg' },
         { label: 'Jacuzzi & détente', src: '/img/arcachon-jacuzzi-net.jpg' },
         { label: 'Bassin d’Arcachon', src: '/img/arcachon-balade-net.jpg' },
         { label: 'Cercle de parole', src: '/img/arcachon-cercle-net.jpg' },
-        { label: 'Massage 70 € inclus', src: '/img/spa-massage-net.jpg' },
+        { label: 'Massage relaxant inclus', src: '/img/spa-massage-net.jpg' },
       ],
     },
     {
@@ -140,7 +140,7 @@ export const defaultData = {
     { slug: 'pyrenees', theme: 'neutral', title: 'Pyrénées', short: 'Prochainement', status: 'soon', kind: 'future', included: [], excluded: [], program: [], gallery: [], dates: [] },
   ],
   faq: [
-    { q: 'Pourquoi ce séjour au Bassin d’Arcachon est-il si avantageux ?', a: 'Parce que toutes les prestations haut de gamme sont incluses : un soin du visage haute technologie avec nos machines dernier cri (valeur 90 €), un massage relaxant sur-mesure (valeur 70 €), un cours d’auto-massage du visage combiné à une séance de luminothérapie LED professionnelle, ainsi que toutes les séances de yoga, les ateliers, l’hébergement et la cuisine végétarienne gourmande.' },
+    { q: 'Pourquoi ce séjour au Bassin d’Arcachon est-il si avantageux ?', a: 'Parce que vous bénéficiez sur place de plus de 300 € de prestations Haute Beauté et Bien-être déjà incluses dans votre séjour : soin du visage haute technologie avec nos machines dernier cri, massage relaxant sur-mesure, cours d’auto-massage du visage, séance de luminothérapie LED professionnelle, ainsi que toutes les séances de yoga, les ateliers, l’hébergement de charme et la pension complète gourmande.' },
     { q: 'Où se déroule exactement le séjour ?', a: 'Le séjour se déroule autour du Bassin d’Arcachon. Nous sélectionnons un lieu de charme d’exception adapté à notre groupe pour offrir un cocon intime et privilégié.' },
     { q: 'Les soins sont-ils réalisés par des professionnelles ?', a: 'Oui : Émilie et Virginie sont toutes deux esthéticiennes diplômées et déplacent leurs machines esthétiques dernier cri directement sur le lieu du séjour. Les soins sont des soins de bien-être et de beauté, sans promesse médicale.' },
     { q: 'Qui enseigne le yoga ?', a: 'Virginie, professeure de yoga diplômée : Yin Yoga et Hatha Yoga, respiration et méditation.' },
