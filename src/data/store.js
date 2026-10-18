@@ -29,7 +29,7 @@ function load() {
       const exps = defaultData.experiences.map((def) => {
         const cur = have.get(def.slug);
         if (!cur) return def;
-        const isLegacyArca = def.slug === 'arcachon-entre-femmes' && (!cur.included?.[4]?.includes('guidés par Émilie') || cur.included?.[0]?.includes('90 €'));
+        const isLegacyArca = def.slug === 'arcachon-entre-femmes' && (!cur.intro?.includes('ombre des pins') || cur.included?.[0]?.includes('90 €'));
         const isLegacyArcaMe = def.slug === 'arcachon-mere-enfant' && cur.title === 'Arcachon — Mère & enfant';
         return {
           ...def,

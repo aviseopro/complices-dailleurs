@@ -139,6 +139,19 @@ h1{font-size:clamp(2.4rem,6vw,4.6rem)} h2{font-size:clamp(1.9rem,4vw,3rem)} h3{f
 .incl{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin:1.5rem 0}
 @media(max-width:700px){.incl{grid-template-columns:1fr}}
 
+/* Programme Jour par Jour & Détail en Page 1 */
+.prog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin:2rem 0 2.5rem}
+@media(max-width:920px){.prog-grid{grid-template-columns:1fr}}
+.prog-card{background:rgba(255,255,255,.92);border:1px solid rgba(79,126,163,.2);border-radius:var(--r);padding:1.6rem;box-shadow:0 10px 30px rgba(29,53,80,.05);height:100%}
+.prog-day{display:inline-block;background:var(--ocean);color:#fff;font-size:.73rem;font-weight:600;text-transform:uppercase;letter-spacing:.12em;padding:.22rem .75rem;border-radius:999px;margin-bottom:.65rem}
+.prog-card h3{font-size:1.35rem;margin:0 0 .8rem;color:var(--navy)}
+.prog-card .ticks{margin:0}
+.prog-card .ticks li{align-items:flex-start;font-size:.93rem;padding:.35rem 0}
+.prog-card .ticks svg{margin-top:.32rem}
+.home-detail-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:2.5rem;align-items:start;margin-top:2rem}
+@media(max-width:900px){.home-detail-grid{grid-template-columns:1fr}}
+.incl-box{background:rgba(255,255,255,.85);border-radius:var(--r);padding:1.8rem 2rem;border:1px solid rgba(79,126,163,.16)}
+
 .mk-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:1.5rem}
 @media(max-width:800px){.mk-grid{grid-template-columns:1fr}}
 .mk{min-height:480px;color:#fff;display:flex;align-items:flex-end;position:relative;overflow:hidden;border-radius:var(--r)}

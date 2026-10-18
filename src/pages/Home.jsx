@@ -9,25 +9,26 @@ import { useData } from '../data/store.js';
 
 const strip = [
   [Users, 'Entre femmes', 'sororité & partage'],
-  [Flower2, 'Yoga & méditation', 'reconnexion au féminin'],
-  [Leaf, 'Haute beauté', 'machines dernier cri'],
-  [Sparkles, 'Massage & LED', 'soins experts inclus'],
-  [Shell, 'Bassin d’Arcachon', 'lieu d’exception'],
+  [Flower2, 'Yoga plein air & salle', 'avec Virginie'],
+  [Sparkles, 'Méditation & cercle', 'guidés par Émilie'],
+  [Leaf, 'Haute beauté & LED', 'machines dernier cri'],
+  [Shell, 'Bassin d’Arcachon', 'balades à l’ombre des pins'],
   [Gem, '+ de 300 € de soins', 'inclus sur place'],
 ];
 
 const signature = [
-  ['Yoga & méditation', 'Yin Yoga et Hatha Yoga au féminin', '/img/arcachon-yoga-net.jpg'],
+  ['Yoga intérieur & plein air', 'Yin & Hatha Yoga avec Virginie', '/img/arcachon-yoga-net.jpg'],
   ['Soin visage & LED', 'Machines dernier cri : Jeunesse ou Glow', '/img/arcachon-soin-visage-net.jpg'],
   ['Massage relaxant', 'Modelage expert sur-mesure inclus', '/img/spa-massage-net.jpg'],
-  ['Bassin d’Arcachon', 'Lieu de charme & balade méditative', '/img/arcachon-balade-net.jpg'],
-  ['Cercle de femmes', 'Sororité, écoute & renaissance à soi', '/img/arcachon-cercle-net.jpg'],
+  ['À l’ombre des pins', 'Balades au bord de l’eau sur le Bassin', '/img/arcachon-balade-net.jpg'],
+  ['Cercle & méditation', 'Guidés par Émilie pour repartir légère', '/img/arcachon-cercle-net.jpg'],
 ];
 
 const soins = [
   ['Soin visage Haute Technologie', 'Inclus — Machines dernier cri (Jeunesse ou Glow)', '/img/arcachon-soin-visage-net.jpg'],
   ['Massage relaxant sur-mesure', 'Inclus — Par nos esthéticiennes diplômées', '/img/spa-massage-net.jpg'],
   ['Cours d’auto-massage & LED', 'Inclus — Atelier liftant & luminothérapie pro', '/img/spa-led-net.jpg'],
+  ['Détente & lieu de charme', 'Sur le Bassin d’Arcachon (jacuzzi selon villa)', '/img/arcachon-jacuzzi-net.jpg'],
   ['Technologies esthétiques', 'Sur place — Équipements professionnels de pointe', '/img/spa-cosmetique-net.jpg'],
 ];
 
@@ -50,7 +51,7 @@ const premiumValues = [
   {
     badge: 'Reconnexion · Inclus',
     title: 'Yoga, méditation & cercle de femmes',
-    desc: 'Yin Yoga et Hatha Yoga enseignés par Virginie, professeure diplômée ; méditation, cercles de parole et ateliers guidés par Émilie.',
+    desc: 'Yin & Hatha Yoga (en salle ou en extérieur) enseignés par Virginie, professeure diplômée ; méditation, cercles de parole et ateliers guidés par Émilie.',
   },
 ];
 
@@ -91,13 +92,15 @@ export default function Home() {
         </div>
         <div className="hero-shade" />
         <div className="wrap hero-in">
-          <p className="eyebrow light">Bassin d’Arcachon · Parenthèse entre femmes</p>
+          <p className="eyebrow light">Expérience Phare · Bassin d’Arcachon — Entre femmes</p>
           <h1>Bien plus qu’un week-end <span className="script">bien-être…</span></h1>
-          <p className="lead light">Une expérience rare et précieuse, imaginée par des femmes, pour des femmes : déposer sa charge mentale, rayonner et se retrouver.</p>
-          <p className="sig light">Voyage au cœur du féminin</p>
+          <p className="sig light" style={{ marginBottom: '.6rem' }}>Voyage au cœur du féminin sur le Bassin d’Arcachon</p>
+          <p className="lead light" style={{ maxWidth: '52ch', fontSize: '1.12rem', lineHeight: 1.55 }}>
+            Portées par notre complicité, notre harmonie et notre simplicité, nous vous accueillons autour du Bassin d’Arcachon pour une expérience résolument premium : lieu de charme privatisé, yoga en intérieur ou en plein air, balades apaisantes à l’ombre des pins, soins haute technologie sur place, et un cocon bienveillant où déposer vos soucis pour repartir plus légère.
+          </p>
           <div className="cta-row">
-            <Link to="/experiences/arcachon-entre-femmes" className="btn btn-light">Découvrir l’expérience Bassin d’Arcachon <ArrowRight size={16} /></Link>
-            <Link to="/reserver/arcachon-entre-femmes" className="btn btn-blue">Pré-réserver — {arca?.depositPerPlace || 95} €</Link>
+            <Link to="/reserver/arcachon-entre-femmes" className="btn btn-blue">Pré-réserver ma place — {arca?.depositPerPlace || 95} €</Link>
+            <a href="#arcachon" className="btn btn-light">Découvrir tout le séjour <ArrowRight size={16} /></a>
           </div>
         </div>
         <div className="hero-words" aria-hidden="true"><span>Se reconnecter</span><span>Partager</span><span>Se transformer</span></div>
@@ -122,12 +125,12 @@ export default function Home() {
             <p className="eyebrow">Les visages derrière Complices d’ailleurs</p>
             <h2>Nous, Émilie &amp; Virginie</h2>
             <p className="script-sub">Deux femmes simples et complices, unies par une belle harmonie</p>
-            <p>Entre nous, tout est affaire d’évidence, de simplicité et d’harmonie. Toutes deux esthéticiennes diplômées — et Virginie également professeure de yoga diplômée —, nous avons créé <em>Complices d’ailleurs</em> avec un souhait profond : <strong>offrir aux femmes un cocon vrai, chaleureux et sans jugement, où chacune peut venir déposer son quotidien, livrer ses soucis et repartir le cœur plus léger</strong>.</p>
+            <p>Entre nous, tout est affaire d’évidence, de simplicité et d’harmonie. Toutes deux esthéticiennes diplômées, nous nous complétons naturellement : <strong>Virginie, professeure de yoga diplômée, enseigne le Yin Yoga et le Hatha Yoga</strong>, tandis qu’<strong>Émilie guide la méditation, les cercles de femmes et les ateliers</strong> pour vous permettre de livrer vos soucis en toute confiance et repartir le cœur plus léger.</p>
             <ul className="ticks">
               <li><Heart size={14} /> Simplicité, écoute sincère &amp; harmonie à deux</li>
               <li><Heart size={14} /> Déposer ses soucis pour repartir plus légère</li>
-              <li><Heart size={14} /> Yoga, respiration &amp; cercles de parole entre femmes</li>
-              <li><Heart size={14} /> Soins haute technologie &amp; massages experts inclus</li>
+              <li><Heart size={14} /> Yoga avec Virginie &amp; Méditation / Cercles de parole avec Émilie</li>
+              <li><Heart size={14} /> Soins haute technologie &amp; massages experts par vos deux esthéticiennes</li>
             </ul>
             <Link to="/notre-histoire" className="btn btn-terra">Découvrir notre histoire <ArrowRight size={16} /></Link>
           </Reveal>
@@ -136,16 +139,15 @@ export default function Home() {
 
       <section className="section arca-bg" id="arcachon">
         <div className="wrap">
-          <Reveal className="sig-head">
+          <Reveal className="sig-head" style={{ maxWidth: '760px' }}>
             <div>
-              <p className="eyebrow">Notre expérience signature · Voyage au cœur du féminin</p>
-              <h2>Bassin d’Arcachon<br />Entre femmes</h2>
-              <p className="small-caps">Déposer ce qui pèse, se laisser choyer et repartir plus légère</p>
+              <p className="eyebrow">Notre expérience phare · Tout le détail du séjour</p>
+              <h2>Bassin d’Arcachon — Entre femmes</h2>
+              <p className="small-caps">Une expérience ultra-premium au cœur des pins : déposer ce qui pèse, se laisser choyer et repartir plus légère</p>
               <p>{arca.intro}</p>
-              <div className="cta-row">
-                <Link to="/reserver/arcachon-entre-femmes" className="btn btn-blue">Pré-réserver — {arca?.depositPerPlace || 95} €</Link>
-                <Link to="/experiences/arcachon-entre-femmes" className="btn btn-ghost">Découvrir le séjour</Link>
-              </div>
+              <p>
+                Selon la météo et l’énergie du groupe, <strong>les séances de yoga peuvent se pratiquer en extérieur</strong> pour respirer l’air du Bassin, et nous partons ensemble pour de <strong>douces balades à l’ombre des pins et au bord de l’eau</strong>.
+              </p>
             </div>
           </Reveal>
 
@@ -166,7 +168,7 @@ export default function Home() {
                 ))}
               </div>
               <p className="premium-summary">
-                ✨ <strong>Une valeur réelle de plus de 300 € de soins et rituels sur place :</strong> en institut et spa sur le Bassin d’Arcachon, l’ensemble de ce protocole (soin du visage haute technologie avec machines dernier cri, massage relaxant expert, séance de luminothérapie LED professionnelle, cours d’auto-massage facial et séances de yoga) représente à lui seul plus de 300 € de prestations — ici entièrement inclus dans votre week-end entre femmes avec l’hébergement de charme et la pension complète gourmande.
+                ✨ <strong>Une valeur réelle de plus de 300 € de soins et rituels sur place :</strong> en institut et spa sur le Bassin d’Arcachon, l’ensemble de ce protocole (soin du visage haute technologie avec machines dernier cri, massage relaxant expert, séance de luminothérapie LED professionnelle, cours d’auto-massage facial, yoga et méditation) représente à lui seul plus de 300 € de prestations — ici entièrement inclus dans votre week-end entre femmes avec l’hébergement de charme et la pension complète gourmande.
               </p>
             </div>
           </Reveal>
@@ -193,10 +195,10 @@ export default function Home() {
               <li><Check size={15} /> <strong>Soin visage Haute Technologie</strong> : Rituel Jeunesse ou Soin Glow</li>
               <li><Check size={15} /> <strong>Massage relaxant sur-mesure</strong> par nos esthéticiennes diplômées</li>
               <li><Check size={15} /> <strong>Cours d’auto-massage du visage &amp; Luminothérapie LED professionnelle</strong></li>
-              <li><Check size={15} /> <strong>Séances de Yoga (Yin &amp; Hatha)</strong>, cercles de femmes &amp; méditation</li>
+              <li><Check size={15} /> <strong>Yoga (Yin &amp; Hatha) avec Virginie</strong> &amp; <strong>Méditation / Cercle de femmes avec Émilie</strong></li>
             </ul>
             <p className="small">Soins de bien-être et de beauté : aucune promesse médicale.</p>
-            <Link to="/experiences/arcachon-entre-femmes#soins" className="btn btn-terra">Voir le détail des soins</Link>
+            <Link to="/reserver/arcachon-entre-femmes" className="btn btn-terra">Pré-réserver mon séjour — {arca?.depositPerPlace || 95} €</Link>
           </Reveal>
           <div className="carousel" aria-roledescription="carrousel">
             <div className="car-track" style={{ transform: `translateX(calc(${-slide} * (var(--cw) + 12px)))` }}>
@@ -214,28 +216,63 @@ export default function Home() {
 
       <section className="section">
         <div className="wrap three">
-          <Reveal><Waves size={26} strokeWidth={1.2} /><h3>Le yoga avec Virginie</h3><p>Yin Yoga et Hatha Yoga enseignés par Virginie, professeure de yoga diplômée, pour délier le corps en douceur et retrouver son souffle.</p></Reveal>
-          <Reveal delay={100}><Sun size={26} strokeWidth={1.2} /><h3>L’esprit du Bassin d’Arcachon</h3><p>Un lieu d’exception sélectionné autour du Bassin d’Arcachon, balade méditative au bord de l’eau, cuisine végétarienne saine et gourmande.</p></Reveal>
+          <Reveal><Waves size={26} strokeWidth={1.2} /><h3>Le yoga avec Virginie, dedans ou dehors</h3><p>Yin Yoga et Hatha Yoga enseignés par Virginie, professeure de yoga diplômée — pratiqués en salle cocooning ou en plein air sous la douceur du Bassin d’Arcachon.</p></Reveal>
+          <Reveal delay={100}><Sun size={26} strokeWidth={1.2} /><h3>Balades à l’ombre des pins &amp; Bassin</h3><p>Un lieu d’exception sélectionné autour du Bassin d’Arcachon, des balades ressourçantes à l’ombre des pins et au bord de l’eau, et une cuisine végétarienne saine et gourmande.</p></Reveal>
           <Reveal delay={200}><Sparkles size={26} strokeWidth={1.2} /><h3>Méditation &amp; cercle de femmes avec Émilie</h3><p>Guidées par Émilie dans la simplicité et la bienveillance de la méditation et des cercles de parole, chacune peut livrer ses soucis, poser ses bagages et repartir plus légère.</p></Reveal>
         </div>
       </section>
 
-      <section className="section" id="experiences">
+      <section className="section arca-bg" id="experiences">
         <div className="wrap">
           <Reveal>
-            <p className="eyebrow">L’expérience Bassin d’Arcachon</p>
-            <h2>Un programme ultra-complet, pensé pour vous</h2>
+            <p className="eyebrow">Le déroulé complet · Bassin d’Arcachon</p>
+            <h2>Votre programme jour par jour &amp; tout ce qui est inclus</h2>
+            <p style={{ maxWidth: '68ch' }}>Un rythme doux et modulable, pensé pour vous laisser le temps de respirer, de profiter des soins haute technologie, de marcher sous les pins et de savourer chaque instant entre femmes.</p>
           </Reveal>
-          <div className="incl">
-            <Reveal>
-              <h3>Tout ce qui est inclus</h3>
-              <ul className="ticks">{arca.included.map((x) => <li key={x}><Check size={14} /> {x}</li>)}</ul>
+
+          <div className="prog-grid">
+            {arca.program.map((d, i) => (
+              <Reveal key={d.day} delay={i * 90}>
+                <div className="prog-card">
+                  <span className="prog-day">{d.day}</span>
+                  <h3>{d.title}</h3>
+                  <ul className="ticks">
+                    {d.items.map((it) => (
+                      <li key={it}><Check size={14} /> <span>{it}</span></li>
+                    ))}
+                  </ul>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+
+          <div className="home-detail-grid">
+            <Reveal className="incl-box">
+              <div>
+                <h3>Tout ce qui est inclus dans votre séjour</h3>
+                <ul className="ticks">{arca.included.map((x) => <li key={x}><Check size={14} /> <span>{x}</span></li>)}</ul>
+                <h3 style={{ marginTop: '1.8rem' }}>Non inclus</h3>
+                <ul className="plain">{arca.excluded.map((x) => <li key={x}>• {x}</li>)}</ul>
+              </div>
             </Reveal>
-            <Reveal delay={100}>
-              <h3>Non inclus</h3>
-              <ul className="plain">{arca.excluded.map((x) => <li key={x}>{x}</li>)}</ul>
-              <p className="small">Lieu de charme sélectionné autour du Bassin d’Arcachon selon notre groupe. Séjour maintenu dès {arca.minParticipants} participantes.</p>
-              <Link to="/reserver/arcachon-entre-femmes" className="btn btn-blue">Pré-réserver ma place — {arca?.depositPerPlace || 95} €</Link>
+
+            <Reveal delay={120}>
+              <aside className="booking-card" aria-label="Réservation Bassin d'Arcachon" style={{ position: 'static' }}>
+                <span className="pill open" style={{ marginBottom: '.6rem' }}>Pré-réservations ouvertes</span>
+                <h3 style={{ margin: '.2rem 0 .8rem' }}>Bassin d’Arcachon — Entre femmes</h3>
+                <dl>
+                  <dt>Lieu</dt><dd>{arca.location}</dd>
+                  <dt>Hébergement</dt><dd>{arca.lodging}</dd>
+                  <dt>Durée</dt><dd>{arca.duration}</dd>
+                  <dt>Soins &amp; rituels sur place</dt><dd><strong>+ de 300 € de prestations incluses</strong></dd>
+                  <dt>Maintien du séjour</dt><dd>Dès {arca.minParticipants} participantes</dd>
+                  <dt>Acompte de pré-réservation</dt><dd><strong>{arca?.depositPerPlace || 95} € / place</strong> (paiement sécurisé Stripe)</dd>
+                </dl>
+                <div style={{ marginTop: '1.4rem', display: 'grid', gap: '.6rem' }}>
+                  <Link to="/reserver/arcachon-entre-femmes" className="btn btn-blue block">Pré-réserver ma place — {arca?.depositPerPlace || 95} €</Link>
+                  <Link to="/contact" className="btn btn-ghost block">Poser une question à Émilie &amp; Virginie</Link>
+                </div>
+              </aside>
             </Reveal>
           </div>
         </div>

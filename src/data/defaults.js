@@ -35,7 +35,7 @@ export const defaultData = {
       lodging: 'Lieu de charme privatisé autour du Bassin d’Arcachon',
       location: 'Bassin d’Arcachon — lieu d’exception sélectionné pour le séjour',
       intro:
-        'Portées par notre complicité, notre harmonie et notre simplicité, nous vous accueillons autour du Bassin d’Arcachon pour une parenthèse vraie entre femmes : un lieu chaleureux où chacune peut déposer son quotidien, livrer ses soucis en toute confiance, se laisser choyer et repartir plus légère.',
+        'Portées par notre complicité, notre harmonie et notre simplicité, nous avons imaginé une expérience résolument premium autour du Bassin d’Arcachon : un lieu de charme privatisé, du yoga en intérieur ou en plein air sous la caresse de l’air marin, des balades apaisantes à l’ombre des pins, des soins haute technologie sur place, et un espace bienveillant où déposer vos soucis pour repartir plus légère.',
       conditions: {
         imputation: null,
         remboursement: null,
@@ -47,16 +47,43 @@ export const defaultData = {
         'Soin du visage haute technologie avec nos machines dernier cri : rituel Jeunesse ou soin Glow',
         'Massage relaxant sur-mesure par nos esthéticiennes diplômées',
         'Cours d’auto-massage du visage & séance de luminothérapie LED professionnelle',
-        'Séances de yoga au féminin (Yin Yoga & Hatha Yoga) avec Virginie, professeure diplômée',
+        'Séances de yoga (Yin Yoga & Hatha Yoga) avec Virginie, professeure diplômée — pratiquées aussi en extérieur selon la météo',
         'Méditation, cercle de femmes, sororité et atelier créatif guidés par Émilie',
-        'Balade méditative au bord de l’eau sur le Bassin d’Arcachon',
+        'Balades ressourçantes à l’ombre des pins et au bord de l’eau sur le Bassin d’Arcachon',
         'Cuisine végétarienne saine, gourmande et raffinée',
       ],
       excluded: ['Transport jusqu’au Bassin d’Arcachon', 'Dépenses personnelles', 'Jacuzzi : selon le lieu sélectionné sur le Bassin d’Arcachon'],
       program: [
-        { day: 'Jour 1', title: 'Arrivée & ouverture', items: ['Accueil dans notre lieu d’exception sur le Bassin d’Arcachon', 'Séance de Yin Yoga avec Virginie', 'Dîner végétarien raffiné', 'Méditation & cercle de parole guidés par Émilie'] },
-        { day: 'Jour 2', title: 'Haute beauté, rituels & Bassin', items: ['Hatha Yoga avec Virginie', 'Soins individuels : Massage relaxant sur-mesure & Soin visage machines dernier cri', 'Cours d’auto-massage du visage & séance LED professionnelle', 'Balade méditative sur le Bassin d’Arcachon', 'Atelier créatif, intentions & vœux avec Émilie'] },
-        { day: 'Jour 3', title: 'Départ en douceur', items: ['Réveil corporel & temps libre', 'Brunch gourmand', 'Clôture du séjour'] },
+        {
+          day: 'Jour 1',
+          title: 'Arrivée, douceur & ouverture du cercle',
+          items: [
+            'Accueil chaleureux dans notre lieu d’exception autour du Bassin d’Arcachon & installation',
+            'Séance de Yin Yoga avec Virginie (en extérieur au jardin ou en salle cocooning) pour délier les tensions',
+            'Dîner végétarien raffiné & gourmand',
+            'Méditation & cercle de parole entre femmes guidés par Émilie : déposer ses soucis en toute confiance',
+          ],
+        },
+        {
+          day: 'Jour 2',
+          title: 'Haute beauté, yoga & balade à l’ombre des pins',
+          items: [
+            'Hatha Yoga matinal avec Virginie, en plein air sous la lumière du Bassin lorsque le temps s’y prête',
+            'Soins individuels : Massage relaxant sur-mesure & Soin du visage haute technologie (machines dernier cri : Jeunesse ou Glow)',
+            'Atelier complice : Cours d’auto-massage liftant du visage & séance de luminothérapie LED professionnelle',
+            'Balade méditative à l’ombre des pins et au bord de l’eau sur le Bassin d’Arcachon',
+            'Atelier créatif, intentions & vœux symboliques avec Émilie pour repartir plus légère',
+          ],
+        },
+        {
+          day: 'Jour 3',
+          title: 'Rayonnement & départ en douceur',
+          items: [
+            'Réveil corporel doux, respiration & temps libre pour profiter du lieu',
+            'Grand brunch gourmand et partages entre femmes',
+            'Cercle de clôture : repartir apaisée, alignée et le cœur léger',
+          ],
+        },
       ],
       gallery: [
         { label: 'Yoga & méditation', src: '/img/arcachon-yoga-net.jpg' },
