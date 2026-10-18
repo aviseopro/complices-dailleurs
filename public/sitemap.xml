@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Remplacer https://www.exemple.fr par le vrai domaine -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://www.exemple.fr/</loc></url>
+  <url><loc>https://www.exemple.fr/notre-histoire</loc></url>
+  <url><loc>https://www.exemple.fr/experiences/arcachon-entre-femmes</loc></url>
+  <url><loc>https://www.exemple.fr/experiences/marrakech-entre-femmes</loc></url>
+  <url><loc>https://www.exemple.fr/experiences/marrakech-mere-enfant</loc></url>
+  <url><loc>https://www.exemple.fr/experiences/trek-compostelle</loc></url>
+  <url><loc>https://www.exemple.fr/cgv</loc></url>
+  <url><loc>https://www.exemple.fr/contact</loc></url>
+</urlset>
