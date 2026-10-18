@@ -6,8 +6,8 @@ import { defaultData } from '../src/data/defaults.js';
 const arca = () => ({ ...defaultData.experiences[0], capacity: 3 });
 const form = (o = {}) => ({ name: 'Anne Test', email: 'a@b.fr', places: 2, consentRules: true, consentData: true, ...o });
 
-test('montant = 35 € × places, jamais codé en dur', () => {
-  assert.equal(amountDue(arca(), 2), 70);
+test('montant = 100 € × places, jamais codé en dur', () => {
+  assert.equal(amountDue(arca(), 2), 200);
   assert.equal(amountDue({ ...arca(), depositPerPlace: 40 }, 2), 80);
   assert.equal(amountDue({ kind: 'booking', pricePerPerson: null }, 2), null);
 });

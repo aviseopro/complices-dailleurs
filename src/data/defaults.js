@@ -24,7 +24,8 @@ export const defaultData = {
       status: 'open', // open | waitlist | soon
       kind: 'preorder', // preorder | booking | future
       minParticipants: 8,
-      depositPerPlace: 35,
+      depositPerPlace: 100,
+      paymentLink: '', // Lien de paiement Stripe (ex: https://buy.stripe.com/...)
       pricePerPerson: null,
       capacity: null,
       dates: [],
@@ -140,7 +141,7 @@ export const defaultData = {
     { q: 'À qui s’adressent ces séjours ?', a: 'À toutes les femmes qui ont envie de prendre du temps pour elles, dans le respect du choix de chacune.' },
     { q: 'Les soins sont-ils réalisés par des professionnelles ?', a: 'Oui : Émilie et Virginie sont toutes deux esthéticiennes diplômées. Les soins sont des soins de bien-être et de beauté, sans promesse médicale.' },
     { q: 'Qui enseigne le yoga ?', a: 'Virginie, professeure de yoga diplômée : Yin Yoga et Hatha Yoga, respiration et méditation.' },
-    { q: 'Que garantit la pré-réservation à 35 € ?', a: 'Les conditions (imputation sur le prix final, remboursement, garantie de place) sont en cours de validation et seront affichées avant tout paiement.' },
+    { q: 'Que garantit la pré-réservation à 100 € ?', a: 'Les conditions (imputation sur le prix final, remboursement, garantie de place) sont en cours de validation et seront affichées avant tout paiement.' },
     { q: 'Puis-je payer en plusieurs fois ?', a: 'Pour Marrakech, le paiement en plusieurs fois via Alma sera proposé si vous êtes éligible, dès l’activation du service.' },
   ],
   testimonials: [], // uniquement des avis authentiques, ajoutés depuis l'admin

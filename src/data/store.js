@@ -26,6 +26,8 @@ function load() {
         return {
           ...def,
           ...cur,
+          depositPerPlace: (!cur.depositPerPlace || cur.depositPerPlace === 35) ? def.depositPerPlace : cur.depositPerPlace,
+          paymentLink: cur.paymentLink || def.paymentLink,
           image: cur.image || def.image,
           gallery: (cur.gallery && cur.gallery[0]?.src) ? cur.gallery : def.gallery,
         };
