@@ -19,7 +19,7 @@ const strip = [
 const signature = [
   ['Yoga intérieur & plein air', 'Yin & Hatha Yoga avec Virginie', '/img/arcachon-yoga-net.jpg'],
   ['Soin visage & LED', 'Machines dernier cri : Jeunesse ou Glow', '/img/arcachon-soin-visage-net.jpg'],
-  ['Massage relaxant', 'Modelage expert sur-mesure inclus', '/img/spa-massage-net.jpg'],
+  ['Jacuzzi de notre villa', 'Détente & bulles entre femmes', '/img/villa-jacuzzi.jpg'],
   ['À l’ombre des pins', 'Balades au bord de l’eau sur le Bassin', '/img/arcachon-balade-net.jpg'],
   ['Cercle & méditation', 'Guidés par Émilie pour repartir légère', '/img/arcachon-cercle-net.jpg'],
 ];
@@ -27,8 +27,8 @@ const signature = [
 const soins = [
   ['Soin visage Haute Technologie', 'Inclus — Machines dernier cri (Jeunesse ou Glow)', '/img/arcachon-soin-visage-net.jpg'],
   ['Massage relaxant sur-mesure', 'Inclus — Par nos esthéticiennes diplômées', '/img/spa-massage-net.jpg'],
+  ['Jacuzzi de notre villa', 'Inclus — Espace détente privatisé sur place', '/img/villa-jacuzzi.jpg'],
   ['Cours d’auto-massage & LED', 'Inclus — Atelier liftant & luminothérapie pro', '/img/spa-led-net.jpg'],
-  ['Détente & lieu de charme', 'Sur le Bassin d’Arcachon (jacuzzi selon villa)', '/img/arcachon-jacuzzi-net.jpg'],
   ['Technologies esthétiques', 'Sur place — Équipements professionnels de pointe', '/img/spa-cosmetique-net.jpg'],
 ];
 

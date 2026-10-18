@@ -47,18 +47,19 @@ export const defaultData = {
         'Soin du visage haute technologie avec nos machines dernier cri : rituel Jeunesse ou soin Glow',
         'Massage relaxant sur-mesure par nos esthéticiennes diplômées',
         'Cours d’auto-massage du visage & séance de luminothérapie LED professionnelle',
+        'Accès au jacuzzi privatisé de notre villa',
         'Séances de yoga (Yin Yoga & Hatha Yoga) avec Virginie, professeure diplômée — pratiquées aussi en extérieur selon la météo',
         'Méditation, cercle de femmes, sororité et atelier créatif guidés par Émilie',
         'Balades ressourçantes à l’ombre des pins et au bord de l’eau sur le Bassin d’Arcachon',
         'Cuisine végétarienne saine, gourmande et raffinée',
       ],
-      excluded: ['Transport jusqu’au Bassin d’Arcachon', 'Dépenses personnelles', 'Jacuzzi : selon le lieu sélectionné sur le Bassin d’Arcachon'],
+      excluded: ['Transport jusqu’au Bassin d’Arcachon', 'Dépenses personnelles'],
       program: [
         {
           day: 'Jour 1',
           title: 'Arrivée, douceur & ouverture du cercle',
           items: [
-            'Accueil chaleureux dans notre lieu d’exception autour du Bassin d’Arcachon & installation',
+            'Accueil chaleureux dans notre villa autour du Bassin d’Arcachon, installation & détente au jacuzzi',
             'Séance de Yin Yoga avec Virginie (en extérieur au jardin ou en salle cocooning) pour délier les tensions',
             'Dîner végétarien raffiné & gourmand',
             'Méditation & cercle de parole entre femmes guidés par Émilie : déposer ses soucis en toute confiance',
@@ -69,7 +70,7 @@ export const defaultData = {
           title: 'Haute beauté, yoga & balade à l’ombre des pins',
           items: [
             'Hatha Yoga matinal avec Virginie, en plein air sous la lumière du Bassin lorsque le temps s’y prête',
-            'Soins individuels : Massage relaxant sur-mesure & Soin du visage haute technologie (machines dernier cri : Jeunesse ou Glow)',
+            'Soins individuels & jacuzzi : Massage relaxant sur-mesure & Soin du visage haute technologie (machines dernier cri : Jeunesse ou Glow)',
             'Atelier complice : Cours d’auto-massage liftant du visage & séance de luminothérapie LED professionnelle',
             'Balade méditative à l’ombre des pins et au bord de l’eau sur le Bassin d’Arcachon',
             'Atelier créatif, intentions & vœux symboliques avec Émilie pour repartir plus légère',
@@ -79,7 +80,7 @@ export const defaultData = {
           day: 'Jour 3',
           title: 'Rayonnement & départ en douceur',
           items: [
-            'Réveil corporel doux, respiration & temps libre pour profiter du lieu',
+            'Réveil corporel doux, respiration & temps libre pour profiter de la villa et du jacuzzi',
             'Grand brunch gourmand et partages entre femmes',
             'Cercle de clôture : repartir apaisée, alignée et le cœur léger',
           ],
@@ -88,7 +89,7 @@ export const defaultData = {
       gallery: [
         { label: 'Yoga & méditation', src: '/img/arcachon-yoga-net.jpg' },
         { label: 'Soin visage haute technologie', src: '/img/arcachon-soin-visage-net.jpg' },
-        { label: 'Jacuzzi & détente', src: '/img/arcachon-jacuzzi-net.jpg' },
+        { label: 'Jacuzzi de notre villa', src: '/img/villa-jacuzzi.jpg' },
         { label: 'Bassin d’Arcachon', src: '/img/arcachon-balade-net.jpg' },
         { label: 'Cercle de parole', src: '/img/arcachon-cercle-net.jpg' },
         { label: 'Massage relaxant inclus', src: '/img/spa-massage-net.jpg' },
