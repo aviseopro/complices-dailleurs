@@ -57,18 +57,39 @@ export default function Experience() {
 
               {arca && (
                 <Reveal>
-                  <h2 id="soins">Les soins en détail</h2>
-                  <p>Deux esthéticiennes diplômées vous accompagnent avec des technologies esthétiques haut de gamme, transportées sur place.</p>
-                  <ul className="ticks">
-                    <li><Check size={14} /> Massage relaxant — inclus</li>
-                    <li><Check size={14} /> Soin du visage au choix : rituel jeunesse ou soin Glow</li>
-                    <li><Check size={14} /> Luminothérapie LED</li>
-                    <li><Check size={14} /> Soins ciblés</li>
-                    <li><Check size={14} /> Jacuzzi — selon le lieu confirmé</li>
-                  </ul>
-                  <p className="small">Il s’agit de soins de bien-être et de beauté ; aucune promesse médicale n’est faite.</p>
-                  <h2>Yoga &amp; reconnexion</h2>
-                  <p>Yin Yoga et Hatha Yoga avec une professeure diplômée, respiration et méditation.</p>
+                  <div className="premium-banner" style={{ margin: '2rem 0' }}>
+                    <div className="premium-banner-head">
+                      <span className="premium-tag">✨ Expérience Haute Beauté &amp; Bien-être tout inclus</span>
+                      <h2 id="soins" style={{ marginTop: '.4rem' }}>Des prestations d’institut haut de gamme incluses dans votre séjour</h2>
+                      <p>Émilie et Virginie, toutes deux esthéticiennes diplômées, déplacent leurs <strong>machines esthétiques dernier cri</strong> directement sur notre lieu d’exception autour du Bassin d’Arcachon :</p>
+                    </div>
+                    <div className="premium-grid">
+                      <div className="premium-card">
+                        <span className="premium-badge">Valeur 90 € · Inclus</span>
+                        <h4>Soin du visage Haute Technologie</h4>
+                        <p>Rituel Jeunesse ou Soin Glow sur-mesure réalisé avec nos machines esthétiques dernier cri.</p>
+                      </div>
+                      <div className="premium-card">
+                        <span className="premium-badge">Valeur 70 € · Inclus</span>
+                        <h4>Massage relaxant sur-mesure</h4>
+                        <p>Massage complet par nos esthéticiennes diplômées pour un relâchement profond du corps et de l’esprit.</p>
+                      </div>
+                      <div className="premium-card">
+                        <span className="premium-badge">Atelier &amp; LED · Inclus</span>
+                        <h4>Cours d’auto-massage &amp; LED</h4>
+                        <p>Apprentissage des gestes liftants d’auto-massage du visage combiné à une séance de luminothérapie LED professionnelle.</p>
+                      </div>
+                      <div className="premium-card">
+                        <span className="premium-badge">Pratique guidée · Inclus</span>
+                        <h4>Yoga, respiration &amp; méditation</h4>
+                        <p>Séances de Yin Yoga et Hatha Yoga enseignées par Virginie, professeure de yoga diplômée.</p>
+                      </div>
+                    </div>
+                    <p className="premium-summary">
+                      💎 <strong>Plus de 160 € de soins individuels déjà inclus</strong> (soin visage 90 € + massage 70 €), sans compter l’atelier d’auto-massage sous LED, toutes les séances de yoga, l’hébergement de charme autour du Bassin d’Arcachon et la pension complète végétarienne.
+                    </p>
+                    <p className="small" style={{ marginTop: '.6rem', marginBottom: 0 }}>Il s’agit de soins de bien-être et de beauté ; aucune promesse médicale n’est faite.</p>
+                  </div>
                 </Reveal>
               )}
 

@@ -14,7 +14,7 @@ export default function Footer() {
         </div>
         <div>
           <h3>Explorer</h3>
-          <Link to="/experiences/arcachon-entre-femmes">Arcachon — Entre femmes</Link>
+          <Link to="/experiences/arcachon-entre-femmes">Bassin d’Arcachon — Entre femmes</Link>
           <Link to="/experiences/marrakech-entre-femmes">Marrakech — Entre femmes</Link>
           <Link to="/experiences/marrakech-mere-enfant">Marrakech — Mère &amp; enfant</Link>
           <Link to="/experiences/trek-compostelle">Trek au féminin — Compostelle</Link>

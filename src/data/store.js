@@ -29,16 +29,27 @@ function load() {
       const exps = defaultData.experiences.map((def) => {
         const cur = have.get(def.slug);
         if (!cur) return def;
+        const isLegacyArca = def.slug === 'arcachon-entre-femmes' && (cur.title === 'Arcachon — Entre femmes' || !cur.included?.[0]?.includes('90 €'));
+        const isLegacyArcaMe = def.slug === 'arcachon-mere-enfant' && cur.title === 'Arcachon — Mère & enfant';
         return {
           ...def,
           ...cur,
+          title: (isLegacyArca || isLegacyArcaMe) ? def.title : cur.title,
+          short: isLegacyArca ? def.short : cur.short,
+          location: isLegacyArca ? def.location : cur.location,
+          lodging: isLegacyArca ? def.lodging : cur.lodging,
+          intro: isLegacyArca ? def.intro : cur.intro,
+          included: isLegacyArca ? def.included : cur.included,
+          excluded: isLegacyArca ? def.excluded : cur.excluded,
+          program: isLegacyArca ? def.program : cur.program,
+          gallery: isLegacyArca ? def.gallery : ((cur.gallery && cur.gallery[0]?.src) ? cur.gallery : def.gallery),
           depositPerPlace: (!cur.depositPerPlace || cur.depositPerPlace === 35 || cur.depositPerPlace === 100) ? def.depositPerPlace : cur.depositPerPlace,
           paymentLink: (cur.paymentLink && cur.paymentLink.length > 5) ? cur.paymentLink : def.paymentLink,
           image: cur.image || def.image,
-          gallery: (cur.gallery && cur.gallery[0]?.src) ? cur.gallery : def.gallery,
         };
       });
-      return { ...defaultData, ...saved, experiences: exps };
+      const faq = (!saved.faq || !saved.faq[0]?.q?.includes('Bassin d’Arcachon')) ? defaultData.faq : saved.faq;
+      return { ...defaultData, ...saved, experiences: exps, faq };
     }
   } catch {
     /* ignore */

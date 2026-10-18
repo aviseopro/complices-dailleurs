@@ -8,27 +8,50 @@ import Newsletter from '../components/Newsletter.jsx';
 import { useData } from '../data/store.js';
 
 const strip = [
-  [Flower2, 'Yoga &', 'méditation'],
-  [Leaf, 'Soins esthétiques', 'haut de gamme'],
-  [Sun, 'Lieu d’exception', 'face à l’océan'],
-  [Users, 'Sisterhood', '& partage'],
-  [Shell, 'Nature &', 'évasion'],
-  [Gem, 'Expériences exclusives', 'signées Complices d’ailleurs'],
+  [Flower2, 'Yoga & méditation', 'professeure diplômée'],
+  [Leaf, 'Soin visage 90 €', 'machines dernier cri'],
+  [Sparkles, 'Massage 70 €', 'sur-mesure inclus'],
+  [Sun, 'Auto-massage & LED', 'cours & luminothérapie'],
+  [Shell, 'Bassin d’Arcachon', 'lieu d’exception'],
+  [Gem, 'Expérience tout inclus', 'signée Complices d’ailleurs'],
 ];
 
 const signature = [
-  ['Yoga & méditation', 'Yin Yoga et Hatha Yoga', '/img/arcachon-yoga-net.jpg'],
-  ['Soins visage', 'Rituel jeunesse ou Glow', '/img/arcachon-soin-visage-net.jpg'],
-  ['Jacuzzi & détente', 'selon le lieu confirmé', '/img/arcachon-jacuzzi-net.jpg'],
-  ['Balade méditative', 'au bord de l’océan', '/img/arcachon-balade-net.jpg'],
-  ['Cercle de parole', '& développement personnel', '/img/arcachon-cercle-net.jpg'],
+  ['Yoga & méditation', 'Yin Yoga et Hatha Yoga inclus', '/img/arcachon-yoga-net.jpg'],
+  ['Soin visage (valeur 90 €)', 'Machines dernier cri : Jeunesse ou Glow', '/img/arcachon-soin-visage-net.jpg'],
+  ['Massage (valeur 70 €)', 'Massage relaxant expert inclus', '/img/spa-massage-net.jpg'],
+  ['Bassin d’Arcachon', 'Lieu de charme & balade méditative', '/img/arcachon-balade-net.jpg'],
+  ['Auto-massage & LED', 'Atelier visage & luminothérapie pro', '/img/spa-led-net.jpg'],
 ];
 
 const soins = [
-  ['Massage relaxant', 'inclus', '/img/spa-massage-net.jpg'],
-  ['Luminothérapie LED', 'et soins ciblés', '/img/spa-led-net.jpg'],
-  ['Soin du visage', 'Jeunesse ou Glow', '/img/arcachon-soin-visage-net.jpg'],
-  ['Technologies esthétiques', 'haut de gamme, sur place', '/img/spa-cosmetique-net.jpg'],
+  ['Soin visage Haute Technologie', 'Valeur 90 € — Inclus (machines dernier cri)', '/img/arcachon-soin-visage-net.jpg'],
+  ['Massage relaxant sur-mesure', 'Valeur 70 € — Inclus', '/img/spa-massage-net.jpg'],
+  ['Cours d’auto-massage & LED', 'Atelier liftant + luminothérapie LED inclus', '/img/spa-led-net.jpg'],
+  ['Machines esthétiques dernier cri', 'Technologie professionnelle sur place', '/img/spa-cosmetique-net.jpg'],
+];
+
+const premiumValues = [
+  {
+    badge: 'Valeur 90 € · Inclus',
+    title: 'Soin visage Haute Technologie',
+    desc: 'Réalisé avec nos machines esthétiques dernier cri transportées sur place : Rituel Jeunesse ou Soin Glow sur-mesure.',
+  },
+  {
+    badge: 'Valeur 70 € · Inclus',
+    title: 'Massage relaxant expert',
+    desc: 'Un massage complet et profond pratiqué par Émilie et Virginie, esthéticiennes diplômées, pour dénouer toutes les tensions.',
+  },
+  {
+    badge: 'Atelier & Techno · Inclus',
+    title: 'Cours d’auto-massage & LED',
+    desc: 'Apprenez les gestes experts d’auto-massage facial combinés à une séance de luminothérapie LED professionnelle.',
+  },
+  {
+    badge: 'Pratique guidée · Inclus',
+    title: 'Yoga, respiration & méditation',
+    desc: 'Séances de Yin Yoga et Hatha Yoga accessibles à toutes, guidées par Virginie, professeure de yoga diplômée.',
+  },
 ];
 
 function useParallax() {
@@ -68,12 +91,12 @@ export default function Home() {
         </div>
         <div className="hero-shade" />
         <div className="wrap hero-in">
-          <p className="eyebrow light">Bassin d’Arcachon</p>
+          <p className="eyebrow light">Bassin d’Arcachon · Séjour Haute Beauté &amp; Yoga</p>
           <h1>Bien plus qu’un week-end <span className="script">bien-être…</span></h1>
-          <p className="lead light">Une expérience rare, imaginée par des femmes, pour des femmes.</p>
+          <p className="lead light">Un institut haute technologie privatisé pour vous, du yoga et des soins d’exception inclus autour du Bassin d’Arcachon.</p>
           <p className="sig light">Voyage au cœur du féminin</p>
           <div className="cta-row">
-            <Link to="/experiences/arcachon-entre-femmes" className="btn btn-light">Découvrir l’expérience Arcachon <ArrowRight size={16} /></Link>
+            <Link to="/experiences/arcachon-entre-femmes" className="btn btn-light">Découvrir l’expérience Bassin d’Arcachon <ArrowRight size={16} /></Link>
             <Link to="/reserver/arcachon-entre-femmes" className="btn btn-blue">Pré-réserver — {arca?.depositPerPlace || 95} €</Link>
           </div>
         </div>
@@ -99,12 +122,12 @@ export default function Home() {
             <p className="eyebrow">Les visages derrière Complices d’ailleurs</p>
             <h2>Nous, Émilie &amp; Virginie</h2>
             <p className="script-sub">Deux esthéticiennes, une passion commune : le bien-être des femmes</p>
-            <p>Toutes deux esthéticiennes diplômées, nous imaginons des expériences pour vous permettre de vous reconnecter et de prendre soin de vous. Virginie est également professeure de yoga diplômée.</p>
+            <p>Toutes deux esthéticiennes diplômées, nous avons imaginé une expérience unique : <strong>déplacer notre savoir-faire et nos machines esthétiques dernier cri directement dans un lieu d’exception autour du Bassin d’Arcachon</strong>. Virginie est également professeure de yoga diplômée.</p>
             <ul className="ticks">
-              <li><Heart size={14} /> Esthétique &amp; soins experts</li>
-              <li><Heart size={14} /> Yoga avec une professeure diplômée</li>
-              <li><Heart size={14} /> Voyages et expériences au féminin</li>
-              <li><Heart size={14} /> Sororité &amp; partage</li>
+              <li><Heart size={14} /> Soins haute technologie &amp; massages experts inclus</li>
+              <li><Heart size={14} /> Yoga &amp; méditation avec une professeure diplômée</li>
+              <li><Heart size={14} /> Lieu de charme sélectionné autour du Bassin d’Arcachon</li>
+              <li><Heart size={14} /> Sororité, bienveillance &amp; lâcher-prise total</li>
             </ul>
             <Link to="/notre-histoire" className="btn btn-terra">Découvrir notre histoire <ArrowRight size={16} /></Link>
           </Reveal>
@@ -115,9 +138,9 @@ export default function Home() {
         <div className="wrap">
           <Reveal className="sig-head">
             <div>
-              <p className="eyebrow">Notre expérience signature</p>
-              <h2>Arcachon<br />Entre femmes</h2>
-              <p className="small-caps">Un week-end pour revenir à soi</p>
+              <p className="eyebrow">Notre expérience signature · Édition Prestige</p>
+              <h2>Bassin d’Arcachon<br />Entre femmes</h2>
+              <p className="small-caps">Un séjour ultra-complet où tout est inclus pour prendre soin de vous</p>
               <p>{arca.intro}</p>
               <div className="cta-row">
                 <Link to="/reserver/arcachon-entre-femmes" className="btn btn-blue">Pré-réserver — {arca?.depositPerPlace || 95} €</Link>
@@ -125,6 +148,29 @@ export default function Home() {
               </div>
             </div>
           </Reveal>
+
+          <Reveal>
+            <div className="premium-banner">
+              <div className="premium-banner-head">
+                <span className="premium-tag"><Gem size={15} /> Pourquoi ce séjour vaut vraiment le coup</span>
+                <h3>La valeur réelle d’une cure Haute Beauté &amp; Yoga, incluse dans votre séjour</h3>
+                <p>Contrairement aux retraites classiques où les soins sont en supplément, nous avons intégré nos prestations d’institut les plus pointues directement dans votre expérience sur le Bassin d’Arcachon :</p>
+              </div>
+              <div className="premium-grid">
+                {premiumValues.map((item) => (
+                  <div key={item.title} className="premium-card">
+                    <span className="premium-badge">{item.badge}</span>
+                    <h4>{item.title}</h4>
+                    <p>{item.desc}</p>
+                  </div>
+                ))}
+              </div>
+              <p className="premium-summary">
+                ✨ <strong>Rien qu’en soins individuels (massage à 70 € + soin visage haute technologie à 90 €), vous bénéficiez déjà de 160 € de prestations d’institut</strong>, auxquels s’ajoutent le cours d’auto-massage sous LED professionnelles, toutes les séances de yoga, l’hébergement de charme sur le Bassin d’Arcachon et la pension complète gourmande.
+              </p>
+            </div>
+          </Reveal>
+
           <div className="cards5">
             {signature.map(([t, s, img], i) => (
               <Reveal key={t} delay={i * 80}>
@@ -140,11 +186,17 @@ export default function Home() {
       <section className="section sand" id="soins">
         <div className="wrap exclu">
           <Reveal>
-            <p className="eyebrow">Notre différence</p>
-            <h2>La beauté, comme un véritable rituel</h2>
-            <p>Deux esthéticiennes diplômées, des gestes experts et des technologies esthétiques haut de gamme transportées sur place, pour un véritable cocon dédié à votre bien-être. Massage inclus, soin du visage au choix : rituel jeunesse ou soin Glow, luminothérapie LED, soins ciblés.</p>
+            <p className="eyebrow">Haute beauté &amp; technologies de pointe</p>
+            <h2>Nos machines dernier cri, privatisées pour vous</h2>
+            <p>Deux esthéticiennes diplômées, des gestes experts et nos <strong>machines esthétiques dernier cri</strong> transportées directement sur notre lieu de séjour au Bassin d’Arcachon :</p>
+            <ul className="ticks">
+              <li><Check size={15} /> <strong>Soin visage Haute Technologie (valeur 90 €)</strong> : Rituel Jeunesse ou Soin Glow</li>
+              <li><Check size={15} /> <strong>Massage relaxant sur-mesure (valeur 70 €)</strong></li>
+              <li><Check size={15} /> <strong>Cours d’auto-massage du visage &amp; Luminothérapie LED</strong></li>
+              <li><Check size={15} /> <strong>Séances de Yoga (Yin &amp; Hatha)</strong> &amp; méditation</li>
+            </ul>
             <p className="small">Soins de bien-être et de beauté : aucune promesse médicale.</p>
-            <Link to="/experiences/arcachon-entre-femmes#soins" className="btn btn-terra">En savoir plus</Link>
+            <Link to="/experiences/arcachon-entre-femmes#soins" className="btn btn-terra">Voir le détail des soins</Link>
           </Reveal>
           <div className="carousel" aria-roledescription="carrousel">
             <div className="car-track" style={{ transform: `translateX(calc(${-slide} * (var(--cw) + 12px)))` }}>
@@ -162,28 +214,28 @@ export default function Home() {
 
       <section className="section">
         <div className="wrap three">
-          <Reveal><Waves size={26} strokeWidth={1.2} /><h3>Le yoga pour se reconnecter à soi</h3><p>Yin Yoga et Hatha Yoga, enseignés par une professeure diplômée. Respiration et méditation, pour ralentir et retrouver l’écoute de soi.</p></Reveal>
-          <Reveal delay={100}><Sun size={26} strokeWidth={1.2} /><h3>L’art de prendre le temps</h3><p>Balade méditative au bord de l’océan, cuisine végétarienne saine et gourmande, temps libre et détente.</p></Reveal>
-          <Reveal delay={200}><Sparkles size={26} strokeWidth={1.2} /><h3>Se retrouver, se révéler, rayonner</h3><p>Rencontres, cercles de parole, développement personnel, partage, intentions et vœux symboliques — dans le respect du choix de chacune.</p></Reveal>
+          <Reveal><Waves size={26} strokeWidth={1.2} /><h3>Le yoga pour se reconnecter à soi</h3><p>Yin Yoga et Hatha Yoga, enseignés par Virginie, professeure diplômée. Respiration et méditation, pour ralentir et retrouver l’écoute de soi.</p></Reveal>
+          <Reveal delay={100}><Sun size={26} strokeWidth={1.2} /><h3>L’esprit du Bassin d’Arcachon</h3><p>Un lieu d’exception sélectionné autour du Bassin d’Arcachon, balade méditative au bord de l’eau, cuisine végétarienne saine et gourmande.</p></Reveal>
+          <Reveal delay={200}><Sparkles size={26} strokeWidth={1.2} /><h3>Se retrouver, se révéler, rayonner</h3><p>Rencontres, cercles de parole, cours d’auto-massage sous LED, partage, intentions et vœux symboliques — dans le respect du choix de chacune.</p></Reveal>
         </div>
       </section>
 
       <section className="section" id="experiences">
         <div className="wrap">
           <Reveal>
-            <p className="eyebrow">L’expérience Arcachon</p>
-            <h2>Un programme modulable, pensé pour vous</h2>
+            <p className="eyebrow">L’expérience Bassin d’Arcachon</p>
+            <h2>Un programme ultra-complet, pensé pour vous</h2>
           </Reveal>
           <div className="incl">
             <Reveal>
-              <h3>Inclus</h3>
+              <h3>Tout ce qui est inclus</h3>
               <ul className="ticks">{arca.included.map((x) => <li key={x}><Check size={14} /> {x}</li>)}</ul>
             </Reveal>
             <Reveal delay={100}>
               <h3>Non inclus</h3>
               <ul className="plain">{arca.excluded.map((x) => <li key={x}>{x}</li>)}</ul>
-              <p className="small">Séjour maintenu dès {arca.minParticipants} participantes. Nombre de places, dates et conditions : communiqués dès confirmation.</p>
-              <Link to="/reserver/arcachon-entre-femmes" className="btn btn-blue">Pré-réserver — {arca?.depositPerPlace || 95} €</Link>
+              <p className="small">Lieu de charme sélectionné autour du Bassin d’Arcachon selon notre groupe. Séjour maintenu dès {arca.minParticipants} participantes.</p>
+              <Link to="/reserver/arcachon-entre-femmes" className="btn btn-blue">Pré-réserver ma place — {arca?.depositPerPlace || 95} €</Link>
             </Reveal>
           </div>
         </div>

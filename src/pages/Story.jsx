@@ -12,12 +12,12 @@ export default function Story() {
         <Reveal>
           <p>Complices d’ailleurs est né de l’envie de créer des voyages au féminin : des parenthèses pour se reconnecter à soi, à sa féminité, dans la douceur, le mouvement et la sororité.</p>
           <ul className="plain">
-            <li><strong>Émilie</strong> — esthéticienne diplômée.</li>
-            <li><strong>Virginie</strong> — esthéticienne diplômée et professeure de yoga diplômée.</li>
+            <li><strong>Émilie</strong> — esthéticienne diplômée, experte en soins haute technologie et massages sur-mesure.</li>
+            <li><strong>Virginie</strong> — esthéticienne diplômée et professeure de yoga diplômée (Yin Yoga &amp; Hatha Yoga).</li>
           </ul>
           <blockquote>Parce que prendre soin de sa féminité, c’est aussi se donner la permission d’être pleinement soi.</blockquote>
           <p className="small">Biographies détaillées à fournir par Émilie et Virginie (modifiable dans le code ou à venir dans l’admin).</p>
-          <Link to="/experiences/arcachon-entre-femmes" className="btn btn-blue">Découvrir l’expérience Arcachon</Link>
+          <Link to="/experiences/arcachon-entre-femmes" className="btn btn-blue">Découvrir l’expérience Bassin d’Arcachon</Link>
         </Reveal>
       </div>
     </section>

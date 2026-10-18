@@ -23,7 +23,7 @@ export default function Cgv() {
         <p>Les prix sont indiqués en euros, par personne, toutes taxes comprises, et précisés sur la page du séjour avant toute réservation. Ils comprennent uniquement les prestations listées comme « incluses ». Sont exclus, sauf mention contraire : transport jusqu’au lieu du séjour, assurances facultatives, dépenses personnelles, options.</p>
 
         <h2>Article 4 — Pré-réservation et réservation</h2>
-        <p><strong>Pré-réservation (Arcachon).</strong> La pré-réservation est un acompte de 95 € par place. Ses conditions d’imputation sur le prix final, de remboursement et de garantie de place sont précisées avant tout paiement. Tant que ces conditions ne le prévoient pas expressément, la pré-réservation ne vaut pas garantie de place.</p>
+        <p><strong>Pré-réservation (Bassin d’Arcachon).</strong> La pré-réservation est un acompte de 95 € par place. Ses conditions d’imputation sur le prix final, de remboursement et de garantie de place sont précisées avant tout paiement. Tant que ces conditions ne le prévoient pas expressément, la pré-réservation ne vaut pas garantie de place.</p>
         <p><strong>Réservation.</strong> La réservation est définitive après validation du formulaire, acceptation des présentes CGV, paiement de la somme exigible et confirmation écrite par email comportant une référence unique. Les places sont attribuées dans l’ordre d’arrivée des paiements, dans la limite de la capacité du séjour ; en cas de séjour complet, une liste d’attente peut être proposée.</p>
 
         <h2>Article 5 — Paiement</h2>

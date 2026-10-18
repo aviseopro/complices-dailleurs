@@ -27,7 +27,7 @@ export default function Contact() {
           <strong style={{ fontSize: '1.1rem', color: '#1a5932' }}>Discuter directement sur WhatsApp</strong>
         </div>
         <p style={{ margin: 0, color: '#33523f', fontSize: '0.95rem', lineHeight: 1.5 }}>
-          Une question sur le séjour à Arcachon, les soins ou l'organisation ? Émilie et Virginie vous répondent directement au <strong>06 29 84 96 53</strong>.
+          Une question sur le séjour au Bassin d’Arcachon, les soins ou l’organisation ? Émilie et Virginie vous répondent directement au <strong>06 29 84 96 53</strong>.
         </p>
         <div>
           <a
