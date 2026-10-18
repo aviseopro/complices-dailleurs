@@ -29,7 +29,7 @@ function load() {
       const exps = defaultData.experiences.map((def) => {
         const cur = have.get(def.slug);
         if (!cur) return def;
-        const isLegacyArca = def.slug === 'arcachon-entre-femmes' && (!cur.intro?.includes('plus légère') || cur.included?.[0]?.includes('90 €'));
+        const isLegacyArca = def.slug === 'arcachon-entre-femmes' && (!cur.included?.[4]?.includes('guidés par Émilie') || cur.included?.[0]?.includes('90 €'));
         const isLegacyArcaMe = def.slug === 'arcachon-mere-enfant' && cur.title === 'Arcachon — Mère & enfant';
         return {
           ...def,
@@ -48,7 +48,7 @@ function load() {
           image: cur.image || def.image,
         };
       });
-      const faq = (!saved.faq || !saved.faq[0]?.a?.includes('300 €')) ? defaultData.faq : saved.faq;
+      const faq = (!saved.faq || !saved.faq[3]?.a?.includes('Émilie guide')) ? defaultData.faq : saved.faq;
       return { ...defaultData, ...saved, experiences: exps, faq };
     }
   } catch {

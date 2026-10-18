@@ -49,8 +49,8 @@ const premiumValues = [
   },
   {
     badge: 'Reconnexion · Inclus',
-    title: 'Yoga, cercle de femmes & méditation',
-    desc: 'Yin Yoga, Hatha Yoga et cercles de parole guidés avec douceur par Virginie, pour se retrouver et célébrer sa féminité.',
+    title: 'Yoga, méditation & cercle de femmes',
+    desc: 'Yin Yoga et Hatha Yoga enseignés par Virginie, professeure diplômée ; méditation, cercles de parole et ateliers guidés par Émilie.',
   },
 ];
 
@@ -214,9 +214,9 @@ export default function Home() {
 
       <section className="section">
         <div className="wrap three">
-          <Reveal><Waves size={26} strokeWidth={1.2} /><h3>Le yoga pour se reconnecter à soi</h3><p>Yin Yoga et Hatha Yoga, enseignés par Virginie, professeure diplômée. Respiration et méditation, pour ralentir et retrouver l’écoute de soi.</p></Reveal>
+          <Reveal><Waves size={26} strokeWidth={1.2} /><h3>Le yoga avec Virginie</h3><p>Yin Yoga et Hatha Yoga enseignés par Virginie, professeure de yoga diplômée, pour délier le corps en douceur et retrouver son souffle.</p></Reveal>
           <Reveal delay={100}><Sun size={26} strokeWidth={1.2} /><h3>L’esprit du Bassin d’Arcachon</h3><p>Un lieu d’exception sélectionné autour du Bassin d’Arcachon, balade méditative au bord de l’eau, cuisine végétarienne saine et gourmande.</p></Reveal>
-          <Reveal delay={200}><Sparkles size={26} strokeWidth={1.2} /><h3>Déposer ses soucis, repartir plus légère</h3><p>Dans la simplicité et la bienveillance de nos cercles de parole, chacune peut livrer ce qu’elle a sur le cœur, poser ses bagages et repartir apaisée, alignée et plus légère.</p></Reveal>
+          <Reveal delay={200}><Sparkles size={26} strokeWidth={1.2} /><h3>Méditation &amp; cercle de femmes avec Émilie</h3><p>Guidées par Émilie dans la simplicité et la bienveillance de la méditation et des cercles de parole, chacune peut livrer ses soucis, poser ses bagages et repartir plus légère.</p></Reveal>
         </div>
       </section>
 

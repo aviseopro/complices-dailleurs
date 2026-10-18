@@ -81,8 +81,8 @@ export default function Experience() {
                       </div>
                       <div className="premium-card">
                         <span className="premium-badge">Reconnexion · Inclus</span>
-                        <h4>Yoga, cercle de femmes &amp; méditation</h4>
-                        <p>Yin Yoga, Hatha Yoga et cercles de parole guidés par Virginie, professeure diplômée, dans la douceur de la sororité.</p>
+                        <h4>Yoga, méditation &amp; cercle de femmes</h4>
+                        <p>Yin Yoga et Hatha Yoga enseignés par Virginie, professeure diplômée ; méditation, cercles de parole et ateliers guidés par Émilie.</p>
                       </div>
                     </div>
                     <p className="premium-summary">
