@@ -74,7 +74,7 @@ export default function Home() {
           <p className="sig light">Voyage au cœur du féminin</p>
           <div className="cta-row">
             <Link to="/experiences/arcachon-entre-femmes" className="btn btn-light">Découvrir l’expérience Arcachon <ArrowRight size={16} /></Link>
-            <Link to="/reserver/arcachon-entre-femmes" className="btn btn-blue">Pré-réserver — {arca?.depositPerPlace || 100} €</Link>
+            <Link to="/reserver/arcachon-entre-femmes" className="btn btn-blue">Pré-réserver — {arca?.depositPerPlace || 95} €</Link>
           </div>
         </div>
         <div className="hero-words" aria-hidden="true"><span>Se reconnecter</span><span>Partager</span><span>Se transformer</span></div>
@@ -120,7 +120,7 @@ export default function Home() {
               <p className="small-caps">Un week-end pour revenir à soi</p>
               <p>{arca.intro}</p>
               <div className="cta-row">
-                <Link to="/reserver/arcachon-entre-femmes" className="btn btn-blue">Pré-réserver — {arca?.depositPerPlace || 100} €</Link>
+                <Link to="/reserver/arcachon-entre-femmes" className="btn btn-blue">Pré-réserver — {arca?.depositPerPlace || 95} €</Link>
                 <Link to="/experiences/arcachon-entre-femmes" className="btn btn-ghost">Découvrir le séjour</Link>
               </div>
             </div>
@@ -183,7 +183,7 @@ export default function Home() {
               <h3>Non inclus</h3>
               <ul className="plain">{arca.excluded.map((x) => <li key={x}>{x}</li>)}</ul>
               <p className="small">Séjour maintenu dès {arca.minParticipants} participantes. Nombre de places, dates et conditions : communiqués dès confirmation.</p>
-              <Link to="/reserver/arcachon-entre-femmes" className="btn btn-blue">Pré-réserver — {arca?.depositPerPlace || 100} €</Link>
+              <Link to="/reserver/arcachon-entre-femmes" className="btn btn-blue">Pré-réserver — {arca?.depositPerPlace || 95} €</Link>
             </Reveal>
           </div>
         </div>

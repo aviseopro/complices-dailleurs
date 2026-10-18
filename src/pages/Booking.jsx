@@ -102,7 +102,7 @@ export default function Booking() {
           <label className="check"><input type="checkbox" checked={f.consentData} onChange={set('consentData')} /> J’accepte le traitement de mes données pour gérer ma réservation (RGPD). *{errors.consentData && <em> {errors.consentData}</em>}</label>
           <p className="small">Paiement 100 % sécurisé par carte bancaire ou Apple Pay via Stripe. Aucune donnée bancaire n’est stockée sur ce site.</p>
           {err && <p className="error" role="alert">{err}</p>}
-          <button className="btn btn-blue" type="submit" disabled={total == null}>{preorder ? `Procéder au paiement — ${total ? euro(total) : '100 €'}` : `Procéder au paiement — ${total ? euro(total) : ''}`}</button>
+          <button className="btn btn-blue" type="submit" disabled={total == null}>{preorder ? `Procéder au paiement — ${total ? euro(total) : '95 €'}` : `Procéder au paiement — ${total ? euro(total) : ''}`}</button>
         </form>
       )}
     </div></section>

@@ -29,7 +29,7 @@ function load() {
         return {
           ...def,
           ...cur,
-          depositPerPlace: (!cur.depositPerPlace || cur.depositPerPlace === 35) ? def.depositPerPlace : cur.depositPerPlace,
+          depositPerPlace: (!cur.depositPerPlace || cur.depositPerPlace === 35 || cur.depositPerPlace === 100) ? def.depositPerPlace : cur.depositPerPlace,
           paymentLink: (cur.paymentLink && cur.paymentLink.length > 5) ? cur.paymentLink : def.paymentLink,
           image: cur.image || def.image,
           gallery: (cur.gallery && cur.gallery[0]?.src) ? cur.gallery : def.gallery,
