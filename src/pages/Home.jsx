@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, Flower2, Leaf, Sun, Users, Shell, Gem, Heart, Sparkles, Waves, Check } from 'lucide-react';
 import { Photo, Reveal } from '../components/ui.jsx';
 import HeroCinemagraph from '../components/HeroCinemagraph.jsx';
+import VillaShowcase from '../components/VillaShowcase.jsx';
 import Faq from '../components/Faq.jsx';
 import Newsletter from '../components/Newsletter.jsx';
 import { useData } from '../data/store.js';
@@ -184,6 +185,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <VillaShowcase />
 
       <section className="section sand" id="soins">
         <div className="wrap exclu">
