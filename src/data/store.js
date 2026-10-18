@@ -48,7 +48,7 @@ function load() {
           image: cur.image || def.image,
         };
       });
-      const faq = (!saved.faq || !saved.faq[3]?.a?.includes('Émilie guide')) ? defaultData.faq : saved.faq;
+      const faq = (!saved.faq || !saved.faq[4]?.q?.includes('acompte')) ? defaultData.faq : saved.faq;
       return { ...defaultData, ...saved, experiences: exps, faq };
     }
   } catch {

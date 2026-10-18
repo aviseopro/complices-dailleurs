@@ -132,11 +132,11 @@ export default function Experience() {
               <dt>Dates</dt><dd>{e.dates.length ? e.dates.map((d) => d.label).join(' · ') : 'À confirmer'}</dd>
               <dt>Tarif / personne</dt><dd><Price value={e.pricePerPerson} /></dd>
               {e.minParticipants && <><dt>Maintien du séjour</dt><dd>Dès {e.minParticipants} participantes</dd></>}
-              {e.kind === 'preorder' && <><dt>Pré-réservation</dt><dd>{euro(e.depositPerPlace)} / place</dd></>}
+              {e.kind === 'preorder' && <><dt>Pré-réservation</dt><dd>{euro(e.depositPerPlace)} d’acompte</dd></>}
               <dt>Places</dt><dd>{left == null ? 'Nombre à confirmer' : `${left} restantes`}</dd>
             </dl>
             {sellable ? (
-              <Link to={`/reserver/${e.slug}`} className="btn btn-blue block">{e.kind === 'preorder' ? `Pré-réserver — ${e.depositPerPlace} €` : 'Réserver'}</Link>
+              <Link to={`/reserver/${e.slug}`} className="btn btn-blue block">{e.kind === 'preorder' ? `Pré-réserver — ${e.depositPerPlace} € d’acompte` : 'Réserver'}</Link>
             ) : (
               <Link to="/contact" className="btn btn-ghost block">Être prévenue de l’ouverture</Link>
             )}

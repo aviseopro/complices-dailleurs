@@ -100,7 +100,7 @@ export default function Home() {
             Portées par notre complicité, notre harmonie et notre simplicité, nous vous accueillons à 10 minutes à pied du Bassin d’Arcachon dans un loft d’exception (piscine chauffée, Spa 7 places, Sauna 4 places) : yoga en intérieur ou en plein air, balades sur le sentier du littoral à l’ombre des pins, soins haute technologie sur place, et un cocon bienveillant où déposer vos soucis pour repartir plus légère.
           </p>
           <div className="cta-row">
-            <Link to="/reserver/arcachon-entre-femmes" className="btn btn-blue">Pré-réserver ma place — {arca?.depositPerPlace || 95} €</Link>
+            <Link to="/reserver/arcachon-entre-femmes" className="btn btn-blue">Pré-réserver ma place — {arca?.depositPerPlace || 95} € d’acompte</Link>
             <a href="#arcachon" className="btn btn-light">Découvrir tout le séjour <ArrowRight size={16} /></a>
           </div>
         </div>
@@ -201,7 +201,7 @@ export default function Home() {
               <li><Check size={15} /> <strong>Yoga (Yin &amp; Hatha) avec Virginie</strong> &amp; <strong>Méditation / Cercle de femmes avec Émilie</strong></li>
             </ul>
             <p className="small">Soins de bien-être et de beauté : aucune promesse médicale.</p>
-            <Link to="/reserver/arcachon-entre-femmes" className="btn btn-terra">Pré-réserver mon séjour — {arca?.depositPerPlace || 95} €</Link>
+            <Link to="/reserver/arcachon-entre-femmes" className="btn btn-terra">Pré-réserver mon séjour — {arca?.depositPerPlace || 95} € d’acompte</Link>
           </Reveal>
           <div className="carousel" aria-roledescription="carrousel">
             <div className="car-track" style={{ transform: `translateX(calc(${-slide} * (var(--cw) + 12px)))` }}>
@@ -269,10 +269,10 @@ export default function Home() {
                   <dt>Durée</dt><dd>{arca.duration}</dd>
                   <dt>Soins &amp; rituels sur place</dt><dd><strong>+ de 300 € de prestations incluses</strong></dd>
                   <dt>Maintien du séjour</dt><dd>Dès {arca.minParticipants} participantes</dd>
-                  <dt>Acompte de pré-réservation</dt><dd><strong>{arca?.depositPerPlace || 95} € / place</strong> (paiement sécurisé Stripe)</dd>
+                  <dt>Pré-réservation</dt><dd><strong>{arca?.depositPerPlace || 95} € d’acompte</strong> (paiement sécurisé Stripe)</dd>
                 </dl>
                 <div style={{ marginTop: '1.4rem', display: 'grid', gap: '.6rem' }}>
-                  <Link to="/reserver/arcachon-entre-femmes" className="btn btn-blue block">Pré-réserver ma place — {arca?.depositPerPlace || 95} €</Link>
+                  <Link to="/reserver/arcachon-entre-femmes" className="btn btn-blue block">Pré-réserver ma place — {arca?.depositPerPlace || 95} € d’acompte</Link>
                   <Link to="/contact" className="btn btn-ghost block">Poser une question à Émilie &amp; Virginie</Link>
                 </div>
               </aside>

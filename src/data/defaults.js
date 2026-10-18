@@ -177,7 +177,7 @@ export const defaultData = {
     { q: 'Où se déroule exactement le séjour ?', a: 'Le séjour se déroule autour du Bassin d’Arcachon. Nous sélectionnons un lieu de charme d’exception adapté à notre groupe pour offrir un cocon intime et privilégié.' },
     { q: 'Les soins sont-ils réalisés par des professionnelles ?', a: 'Oui : Émilie et Virginie sont toutes deux esthéticiennes diplômées et déplacent leurs machines esthétiques dernier cri directement sur le lieu du séjour. Les soins sont des soins de bien-être et de beauté, sans promesse médicale.' },
     { q: 'Qui anime le yoga, la méditation et les cercles de femmes ?', a: 'Virginie, professeure de yoga diplômée, enseigne les séances de Yin Yoga et Hatha Yoga. Émilie guide les séances de méditation, les cercles de femmes et les ateliers pour vous permettre de déposer vos soucis et repartir plus légère.' },
-    { q: 'Que garantit la pré-réservation à 95 € ?', a: 'La pré-réservation à 95 € vous permet de réserver votre place en priorité sur le séjour Bassin d’Arcachon. Les conditions détaillées (imputation sur le prix final, remboursement) sont précisées avant validation.' },
+    { q: 'Que garantit l’acompte de pré-réservation de 95 € ?', a: 'Les 95 € d’acompte vous permettent de pré-réserver votre place en priorité sur le séjour Bassin d’Arcachon. Les conditions détaillées (imputation de l’acompte sur le tarif final du séjour, remboursement) sont précisées avant validation.' },
     { q: 'Puis-je payer en plusieurs fois ?', a: 'Pour Marrakech, le paiement en plusieurs fois via Alma sera proposé si vous êtes éligible, dès l’activation du service.' },
   ],
   testimonials: [], // uniquement des avis authentiques, ajoutés depuis l'admin
