@@ -7,42 +7,59 @@ export const VILLA_PHOTOS = [
     src: '/img/villa-salon-cathedrale.png',
     title: 'Grand salon cathédrale & filet suspendu',
     caption: 'Poutres apparentes, filet cocooning en mezzanine, fauteuil suspendu en macramé et volumes baignés de lumière.',
-    featured: true,
   },
   {
     src: '/img/villa-jacuzzi.jpg',
     title: 'Espace Jacuzzi intérieur privatisé',
     caption: 'Spa privatif sur lit de galets blancs et mur de pierre, pour se détendre en toute intimité entre les soins.',
-    featured: true,
   },
   {
     src: '/img/villa-terrasse-piscine.jpg',
     title: 'Terrasse bois, pergola & piscine',
     caption: 'Grande tablée conviviale à l’ombre de la pergola, cuisine d’été, piscine entourée de bois et espace détente au soleil.',
-    featured: true,
+  },
+  {
+    src: '/img/villa-suite-baignoire.jpg',
+    title: 'Chambre de charme & baignoire d’angle',
+    caption: 'Mur en pierres de taille apparentes, baignoire privative, matériaux naturels et atmosphère apaisante.',
   },
   {
     src: '/img/villa-piscine-nuit.png',
     title: 'Douceur des soirées au bord de l’eau',
     caption: 'Piscine illuminée à la tombée de la nuit, bardage bois esprit cabane du Bassin et guirlandes chaleureuses.',
-    featured: true,
+  },
+  {
+    src: '/img/villa-coin-lecture.png',
+    title: 'Coin lecture & fauteuil suspendu',
+    caption: 'Un cocon de douceur sous les poutres anciennes pour bouquiner, rêver ou grimper sur le filet en mezzanine.',
+  },
+  {
+    src: '/img/villa-chambre-bois.jpg',
+    title: 'Chambre esprit cabane du Bassin',
+    caption: 'Tête de lit en bois patiné, lumière douce sous combles et détails marins authentiques.',
   },
   {
     src: '/img/villa-verriere-terrasse.jpg',
     title: 'Grande verrière ouverte sur l’extérieur',
     caption: 'Une circulation fluide dedans-dehors avec bois flotté, matières naturelles et lumière douce du Bassin d’Arcachon.',
-    featured: true,
   },
   {
     src: '/img/villa-salle-a-manger.png',
     title: 'Salle à manger en pierre & verrière atelier',
     caption: 'Mur en pierres de taille, verrière d’atelier et grande table conviviale pour nos repas végétariens gourmands.',
-    featured: true,
+  },
+  {
+    src: '/img/villa-chambre-cabane.jpg',
+    title: 'Couchages esprit cabane colorée',
+    caption: 'Lits cocons en bois et métal aux couleurs des cabanes du Bassin d’Arcachon.',
   },
 ];
 
 export default function VillaShowcase() {
   const [lightboxIdx, setLightboxIdx] = useState(null);
+  const [showAll, setShowAll] = useState(false);
+
+  const visiblePhotos = showAll ? VILLA_PHOTOS : VILLA_PHOTOS.slice(0, 6);
 
   const prev = (e) => {
     e.stopPropagation();
@@ -93,19 +110,19 @@ export default function VillaShowcase() {
             <div className="villa-pillar">
               <Sparkles size={22} />
               <div>
-                <strong>Cocon privatisé entre femmes</strong>
-                <span>Un cadre haut de gamme, chaleureux et sans vis-à-vis pour se sentir immédiatement chez soi.</span>
+                <strong>Chambres de charme &amp; esprit cabane</strong>
+                <span>Mur en pierre de taille, baignoire d’angle, bois patiné et couchages douillets.</span>
               </div>
             </div>
           </div>
         </Reveal>
 
         <div className="villa-mosaic">
-          {VILLA_PHOTOS.map((photo, idx) => (
+          {visiblePhotos.map((photo, idx) => (
             <Reveal key={photo.src} delay={(idx % 3) * 70}>
               <button
                 type="button"
-                className={`villa-photo-card ${idx === 0 || idx === 3 ? 'wide' : ''}`}
+                className="villa-photo-card"
                 onClick={() => setLightboxIdx(idx)}
                 aria-label={`Agrandir la photo : ${photo.title}`}
               >
@@ -118,6 +135,18 @@ export default function VillaShowcase() {
             </Reveal>
           ))}
         </div>
+
+        {VILLA_PHOTOS.length > 6 && (
+          <div className="center" style={{ marginTop: '1.6rem' }}>
+            <button
+              type="button"
+              className="btn btn-ghost"
+              onClick={() => setShowAll(!showAll)}
+            >
+              {showAll ? 'Réduire la galerie' : `Voir les ${VILLA_PHOTOS.length} photos de la villa`}
+            </button>
+          </div>
+        )}
 
         {lightboxIdx !== null && (
           <div
