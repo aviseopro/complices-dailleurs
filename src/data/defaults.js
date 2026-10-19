@@ -217,8 +217,8 @@ export const defaultData = {
     {
       slug: 'arcachon-mere-enfant',
       theme: 'arcachon',
-      title: 'Journées Privilège & Ateliers Mère-Enfant — Bassin d’Arcachon',
-      short: 'Une journée confidentielle en villa privée : ateliers complices mère-enfant & vrai temps de Spa pour les mamans',
+      title: 'Ateliers & Yoga Mère-Enfant — Journées Privilège au Bassin d’Arcachon',
+      short: 'Yoga mère-enfant, massage réciproque maman ↔ enfant & vrai temps de Spa pour les mamans',
       image: '/img/atelier-mere-enfant-massage.jpg',
       status: 'open',
       kind: 'booking',

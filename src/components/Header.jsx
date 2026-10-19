@@ -29,12 +29,12 @@ export default function Header() {
           <NavLink to="/" end onClick={close}>Accueil</NavLink>
           <NavLink to="/notre-histoire" onClick={close}>Notre histoire</NavLink>
           <NavLink to="/experiences/arcachon-entre-femmes" onClick={close} className="nav-arcachon">Bassin d’Arcachon</NavLink>
-          <NavLink to="/experiences/arcachon-mere-enfant" onClick={close} className="nav-mere-enfant">Ateliers Mère-Enfant</NavLink>
+          <NavLink to="/experiences/arcachon-mere-enfant" onClick={close} className="nav-mere-enfant">Ateliers &amp; Yoga Mère-Enfant</NavLink>
+          <NavLink to="/experiences/trek-compostelle" onClick={close} className="nav-trek">Trek Compostelle</NavLink>
           <Link to="/#marrakech" onClick={close}>Marrakech</Link>
-          <NavLink to="/experiences/trek-compostelle" onClick={close} className="nav-trek">Trek au féminin · Compostelle</NavLink>
           <Link to="/#faq" onClick={close}>FAQ</Link>
           <NavLink to="/contact" onClick={close}>Contact</NavLink>
-          <a href={settings.instagram} target="_blank" rel="noreferrer" aria-label="Instagram" className="ig"><Instagram size={18} /></a>
+          <a href={settings.instagram} target="_blank" rel="noreferrer" aria-label="Instagram" className="ig"><Instagram size={17} /></a>
         </nav>
         <Link to="/reserver/arcachon-entre-femmes" className="btn btn-blue btn-sm head-cta">Pré-réserver — 95 € d’acompte</Link>
         <button className="burger" aria-label={open ? 'Fermer le menu' : 'Ouvrir le menu'} aria-expanded={open} onClick={() => setOpen(!open)}>

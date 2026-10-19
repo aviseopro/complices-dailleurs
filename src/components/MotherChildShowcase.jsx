@@ -28,9 +28,9 @@ export const MOTHER_CHILD_PHOTOS = [
   {
     src: '/img/atelier-enfants-creatif.jpg',
     fallback: '/img/villa-table-exterieure.jpg',
-    badge: 'Éveil & Douceur · Enfants & Duo',
-    title: 'Ateliers Créatifs des Enfants & Goûter Chic sur la Terrasse',
-    caption: 'Créations poétiques autour des trésors du Bassin, yoga ludique avec Virginie, cercle des émotions avec Émilie et grand goûter maison sain et gourmand sur la terrasse en bois.',
+    badge: 'Yoga, Éveil & Douceur · Enfants & Duo',
+    title: 'Yoga Mère-Enfant, Ateliers Créatifs & Goûter Chic',
+    caption: 'Séance de yoga ludique et respiration en duo avec Virginie (professeure diplômée), ateliers créatifs, cercle des émotions avec Émilie et grand goûter maison sur la terrasse en bois.',
   },
 ];
 
@@ -50,11 +50,11 @@ export default function MotherChildShowcase({ embedded = false }) {
     <>
       <Reveal>
         <div className="mc-header">
-          <span className="mc-badge"><Sparkles size={14} /> Parenthèse d’Exception à la Journée · Villa privée sur le Bassin d’Arcachon</span>
-          <h2>Journées Privilège &amp; Ateliers Mère-Enfant</h2>
-          <p className="script-sub">L’art de nourrir un lien complice avec son enfant, tout en s’offrant un vrai temps de repos entre mamans</p>
+          <span className="mc-badge"><Sparkles size={14} /> Parenthèse d’Exception à la Journée · Villa avec Spa sur le Bassin d’Arcachon</span>
+          <h2>Ateliers &amp; Yoga Mère-Enfant — Journées Privilège</h2>
+          <p className="script-sub">Yoga complice, massage réciproque maman ↔ enfant &amp; vrai temps de Spa pour les mamans</p>
           <p className="mc-lead">
-            Dans l’écrin intimiste de notre <strong>villa-loft avec piscine chauffée, Spa 7 places et Sauna 4 places à 10 minutes à pied du Bassin d’Arcachon</strong>, nous avons imaginé des journées confidentielles en tout petit comité. Une expérience raffinée, douce et sécurisante qui réunit ce dont chaque maman rêve secrètement : <strong>des ateliers complices inoubliables avec son enfant</strong>, et <strong>le luxe d’un vrai moment de tranquillité au Spa pendant que nous prenons soin des enfants</strong>.
+            Dans l’écrin intimiste de notre <strong>villa-loft avec piscine chauffée, Spa 7 places et Sauna 4 places à 10 minutes à pied du Bassin d’Arcachon</strong>, nous avons imaginé des journées confidentielles en tout petit comité. Une expérience raffinée, douce et sécurisante qui réunit ce dont chaque maman rêve secrètement : <strong>du Yoga Mère-Enfant et des ateliers complices inoubliables avec son enfant</strong>, et <strong>le luxe d’un vrai moment de tranquillité au Spa pendant que nous prenons soin des enfants</strong>.
           </p>
         </div>
       </Reveal>
@@ -63,15 +63,15 @@ export default function MotherChildShowcase({ embedded = false }) {
         <div className="mc-dual-promise">
           <div className="mc-promise-card">
             <div className="mc-promise-icon"><Heart size={22} /></div>
-            <span className="mc-promise-tag">1 · La Connexion Mère-Enfant</span>
-            <h3>Des rituels précieux pour créer des souvenirs à deux</h3>
+            <span className="mc-promise-tag">1 · Yoga &amp; Connexion Mère-Enfant</span>
+            <h3>Yoga en duo, massage complice &amp; souvenirs précieux</h3>
             <p>
               Loin du rythme effréné de la semaine et des écrans, vous partagez avec votre enfant des instants de pure présence guidés avec délicatesse :
             </p>
             <ul className="ticks">
+              <li><Check size={15} /> <strong>Yoga Mère-Enfant &amp; Respiration avec Virginie</strong> : postures douces à deux, yoga ludique et apaisement guidés par notre professeure de yoga diplômée.</li>
               <li><Check size={15} /> <strong>Atelier Massage Réciproque (Maman ↔ Enfant)</strong> : apprendre à l’enfant à masser sa maman avec douceur, et masser son enfant pour l’apaiser.</li>
-              <li><Check size={15} /> <strong>Moment Lecture &amp; Confidences</strong> perchés dans le grand filet suspendu en mezzanine ou au coin bibliothèque.</li>
-              <li><Check size={15} /> <strong>Yoga ludique en duo avec Virginie</strong> &amp; météo des émotions guidée par Émilie.</li>
+              <li><Check size={15} /> <strong>Moment Lecture &amp; Confidences</strong> perchés dans le grand filet suspendu en mezzanine + météo des émotions avec Émilie.</li>
             </ul>
           </div>
 
