@@ -31,7 +31,7 @@ export default function Header() {
           <NavLink to="/experiences/arcachon-entre-femmes" onClick={close} className="nav-arcachon">Bassin d’Arcachon</NavLink>
           <NavLink to="/experiences/arcachon-mere-enfant" onClick={close} className="nav-mere-enfant">Ateliers &amp; Yoga Mère-Enfant</NavLink>
           <NavLink to="/experiences/trek-compostelle" onClick={close} className="nav-trek">Trek Compostelle</NavLink>
-          <Link to="/#marrakech" onClick={close}>Marrakech</Link>
+          <Link to="/#marrakech" onClick={close} className="nav-marrakech">Marrakech</Link>
           <Link to="/#faq" onClick={close}>FAQ</Link>
           <NavLink to="/contact" onClick={close}>Contact</NavLink>
           <a href={settings.instagram} target="_blank" rel="noreferrer" aria-label="Instagram" className="ig"><Instagram size={17} /></a>

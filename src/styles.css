@@ -60,6 +60,8 @@ h1{font-size:clamp(2.4rem,6vw,4.6rem)} h2{font-size:clamp(1.9rem,4vw,3rem)} h3{f
 .nav a.nav-mere-enfant:hover,.nav a.nav-mere-enfant.active{background:#8b4129;color:#fff;border-color:#8b4129}
 .nav a.nav-trek{color:#355634;font-weight:500;background:rgba(93,122,92,.16);padding:.36rem .78rem;border-radius:999px;border:1px solid rgba(93,122,92,.34)}
 .nav a.nav-trek:hover,.nav a.nav-trek.active{background:#3f5a3e;color:#fff;border-color:#3f5a3e}
+.nav a.nav-marrakech{color:#8a6214;font-weight:500;background:rgba(235,192,88,.24);padding:.36rem .78rem;border-radius:999px;border:1px solid rgba(204,154,48,.42)}
+.nav a.nav-marrakech:hover,.nav a.nav-marrakech.active{background:#b5801c;color:#fff;border-color:#b5801c}
 .head-cta{white-space:nowrap;flex-shrink:0}
 .burger{display:none;background:none;border:0;color:var(--navy);margin-left:auto}
 @media(max-width:1180px){
