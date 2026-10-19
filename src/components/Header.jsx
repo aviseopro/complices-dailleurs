@@ -29,8 +29,9 @@ export default function Header() {
           <NavLink to="/" end onClick={close}>Accueil</NavLink>
           <NavLink to="/notre-histoire" onClick={close}>Notre histoire</NavLink>
           <NavLink to="/experiences/arcachon-entre-femmes" onClick={close}>Bassin d’Arcachon</NavLink>
+          <NavLink to="/experiences/arcachon-mere-enfant" onClick={close}>Ateliers Mère-Enfant</NavLink>
           <Link to="/#marrakech" onClick={close}>Marrakech</Link>
-          <Link to="/#experiences" onClick={close}>Expériences</Link>
+          <NavLink to="/experiences/trek-compostelle" onClick={close} className="nav-trek">Trek au féminin · Compostelle</NavLink>
           <Link to="/#faq" onClick={close}>FAQ</Link>
           <NavLink to="/contact" onClick={close}>Contact</NavLink>
           <a href={settings.instagram} target="_blank" rel="noreferrer" aria-label="Instagram" className="ig"><Instagram size={18} /></a>

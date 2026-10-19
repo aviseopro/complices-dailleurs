@@ -4,6 +4,7 @@ import { ArrowRight, Flower2, Leaf, Sun, Users, Shell, Gem, Heart, Sparkles, Wav
 import { Photo, Reveal } from '../components/ui.jsx';
 import HeroCinemagraph from '../components/HeroCinemagraph.jsx';
 import VillaShowcase from '../components/VillaShowcase.jsx';
+import MotherChildShowcase from '../components/MotherChildShowcase.jsx';
 import Faq from '../components/Faq.jsx';
 import Newsletter from '../components/Newsletter.jsx';
 import { useData } from '../data/store.js';
@@ -287,6 +288,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <MotherChildShowcase />
 
       <section className="section sand" id="marrakech">
         <div className="wrap">

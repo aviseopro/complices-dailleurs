@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { Check, X } from 'lucide-react';
 import { Photo, Reveal, STATUS, Price } from '../components/ui.jsx';
 import VillaShowcase from '../components/VillaShowcase.jsx';
+import MotherChildShowcase from '../components/MotherChildShowcase.jsx';
 import { useData, euro } from '../data/store.js';
 import { seatsLeft } from '../lib/booking.js';
 
@@ -21,15 +22,16 @@ export default function Experience() {
   const { experiences, bookings, settings } = useData();
   const e = experiences.find((x) => x.slug === slug);
   if (!e) return <section className="section"><div className="wrap"><h1>Séjour introuvable</h1><Link to="/">Retour</Link></div></section>;
-  const arca = e.theme === 'arcachon';
+  const arca = e.slug === 'arcachon-entre-femmes';
+  const arcaMereEnfant = e.slug === 'arcachon-mere-enfant';
   const left = seatsLeft(e, bookings);
-  const sellable = e.kind !== 'future' && e.status !== 'soon';
+  const sellable = e.kind !== 'future' && e.status !== 'soon' && (e.pricePerPerson != null || e.depositPerPlace != null);
   document.title = `${e.title} — Complices d’ailleurs`;
 
   return (
     <article className={`page theme-${e.theme}`}>
       <header className="page-hero">
-        <Photo label={e.title} theme={e.theme} src={e.image || (arca ? settings.heroImage : undefined)} className="ph-hero" />
+        <Photo label={e.title} theme={e.theme} src={e.image || (e.theme === 'arcachon' ? settings.heroImage : undefined)} className="ph-hero" />
         <div className="wrap page-hero-in">
           <span className={`pill ${e.status}`}>{STATUS[e.status]}</span>
           <h1>{e.title}</h1>
@@ -47,6 +49,11 @@ export default function Experience() {
             <>
               {arca ? (
                 <VillaShowcase embedded />
+              ) : arcaMereEnfant ? (
+                <>
+                  <MotherChildShowcase embedded />
+                  <VillaShowcase embedded />
+                </>
               ) : (
                 <Reveal>
                   <h2>Galerie</h2>
@@ -142,6 +149,8 @@ export default function Experience() {
             </dl>
             {sellable ? (
               <Link to={`/reserver/${e.slug}`} className="btn btn-blue block">{e.kind === 'preorder' ? `Pré-réserver — ${e.depositPerPlace} € d’acompte` : 'Réserver'}</Link>
+            ) : arcaMereEnfant ? (
+              <Link to="/contact" className="btn btn-terra block">Réserver ou privatiser une journée</Link>
             ) : (
               <Link to="/contact" className="btn btn-ghost block">Être prévenue de l’ouverture</Link>
             )}

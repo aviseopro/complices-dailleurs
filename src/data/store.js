@@ -30,22 +30,28 @@ function load() {
         const cur = have.get(def.slug);
         if (!cur) return def;
         const isLegacyArca = def.slug === 'arcachon-entre-femmes' && (!cur.lodging?.includes('Sauna') || cur.included?.[0]?.includes('90 €'));
-        const isLegacyArcaMe = def.slug === 'arcachon-mere-enfant' && cur.title === 'Arcachon — Mère & enfant';
+        const isLegacyArcaMe = def.slug === 'arcachon-mere-enfant' && (cur.kind === 'future' || !cur.program?.length);
+        const isLegacyTrek = def.slug === 'trek-compostelle' && (cur.kind === 'future' || !cur.program?.length);
+        const refresh = isLegacyArca || isLegacyArcaMe || isLegacyTrek;
         return {
           ...def,
           ...cur,
-          title: (isLegacyArca || isLegacyArcaMe) ? def.title : cur.title,
-          short: isLegacyArca ? def.short : cur.short,
-          location: isLegacyArca ? def.location : cur.location,
-          lodging: isLegacyArca ? def.lodging : cur.lodging,
-          intro: isLegacyArca ? def.intro : cur.intro,
-          included: isLegacyArca ? def.included : cur.included,
-          excluded: isLegacyArca ? def.excluded : cur.excluded,
-          program: isLegacyArca ? def.program : cur.program,
-          gallery: isLegacyArca ? def.gallery : ((cur.gallery && cur.gallery[0]?.src) ? cur.gallery : def.gallery),
+          kind: refresh ? def.kind : cur.kind,
+          status: refresh ? def.status : cur.status,
+          title: refresh ? def.title : cur.title,
+          short: refresh ? def.short : cur.short,
+          duration: refresh ? def.duration : cur.duration,
+          location: refresh ? def.location : cur.location,
+          lodging: refresh ? def.lodging : cur.lodging,
+          intro: refresh ? def.intro : cur.intro,
+          conditions: refresh ? def.conditions : cur.conditions,
+          included: refresh ? def.included : cur.included,
+          excluded: refresh ? def.excluded : cur.excluded,
+          program: refresh ? def.program : cur.program,
+          gallery: refresh ? def.gallery : ((cur.gallery && cur.gallery[0]?.src) ? cur.gallery : def.gallery),
           depositPerPlace: (!cur.depositPerPlace || cur.depositPerPlace === 35 || cur.depositPerPlace === 100) ? def.depositPerPlace : cur.depositPerPlace,
           paymentLink: (cur.paymentLink && cur.paymentLink.length > 5) ? cur.paymentLink : def.paymentLink,
-          image: cur.image || def.image,
+          image: refresh ? def.image : (cur.image || def.image),
         };
       });
       const faq = (!saved.faq || !saved.faq[4]?.q?.includes('acompte')) ? defaultData.faq : saved.faq;
