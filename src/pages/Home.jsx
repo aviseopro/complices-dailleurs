@@ -204,10 +204,10 @@ export default function Home() {
             <h2>La beauté, comme un véritable rituel entre femmes</h2>
             <p>Deux esthéticiennes diplômées, une écoute bienveillante et nos <strong>machines esthétiques dernier cri</strong> transportées directement sur notre lieu de séjour au Bassin d’Arcachon, pour créer un cocon intime dédié à votre féminité :</p>
             <ul className="ticks">
-              <li><Check size={15} /> <strong>Soin visage Haute Technologie</strong> : Rituel Jeunesse ou Soin Glow</li>
-              <li><Check size={15} /> <strong>Massage relaxant sur-mesure</strong> par nos esthéticiennes diplômées</li>
-              <li><Check size={15} /> <strong>Cours d’auto-massage du visage &amp; Luminothérapie LED professionnelle</strong></li>
-              <li><Check size={15} /> <strong>Yoga (Yin &amp; Hatha) avec Virginie</strong> &amp; <strong>Méditation / Cercle de femmes avec Émilie</strong></li>
+              <li><Check size={15} /> <span><strong>Soin visage Haute Technologie</strong> : Rituel Jeunesse ou Soin Glow</span></li>
+              <li><Check size={15} /> <span><strong>Massage relaxant sur-mesure</strong> par nos esthéticiennes diplômées</span></li>
+              <li><Check size={15} /> <span><strong>Cours d’auto-massage du visage &amp; Luminothérapie LED professionnelle</strong></span></li>
+              <li><Check size={15} /> <span><strong>Yoga (Yin &amp; Hatha) avec Virginie</strong> &amp; <strong>Méditation / Cercle de femmes avec Émilie</strong></span></li>
             </ul>
             <p className="small">Soins de bien-être et de beauté : aucune promesse médicale.</p>
             <Link to="/reserver/arcachon-entre-femmes" className="btn btn-terra">Pré-réserver mon séjour — {arca?.depositPerPlace || 95} € d’acompte</Link>
@@ -342,9 +342,9 @@ export default function Home() {
               Parfois nous avançons <strong>à 5 ou 6 en même temps</strong> dans la joie des échanges ; parfois le rythme s’étire et <strong>chacune marche seule avec elle-même</strong>, dans cette présence à soi où l’esprit s’allège ; puis les pas s’accordent <strong>deux par deux</strong>, côte à côte, là où la parole se libère avec une sincérité rare.
             </p>
             <ul className="ticks trek-ticks">
-              <li><Check size={15} /> <strong>Yoga du matin (Éveil articulaire &amp; Pranayama)</strong> avec Virginie : déverrouiller chevilles, hanches et dos, et caler sa respiration consciente avant de partir marcher.</li>
-              <li><Check size={15} /> <strong>Yin Yoga de récupération le soir (avant le repas)</strong> : étirement profond des muscles sollicités (psoas, mollets, ischio-jambiers, lombaires) pour repartir sans courbatures le lendemain.</li>
-              <li><Check size={15} /> <strong>Bivouac en montagne, cuisine au feu de camp &amp; listes fournies</strong> : veillées avec Émilie et listes complètes (courses &amp; matériel) remises avant le départ.</li>
+              <li><Check size={15} /> <span><strong>Yoga du matin (Éveil articulaire &amp; Pranayama)</strong> avec Virginie : déverrouiller chevilles, hanches et dos, et caler sa respiration consciente avant de partir marcher.</span></li>
+              <li><Check size={15} /> <span><strong>Yin Yoga de récupération le soir (avant le repas)</strong> : étirement profond des muscles sollicités (psoas, mollets, ischio-jambiers, lombaires) pour repartir sans courbatures le lendemain.</span></li>
+              <li><Check size={15} /> <span><strong>Bivouac en montagne, cuisine au feu de camp &amp; listes fournies</strong> : veillées avec Émilie et listes complètes (courses &amp; matériel) remises avant le départ.</span></li>
             </ul>
             <Link to="/experiences/trek-compostelle" className="btn btn-light">Découvrir toute l’expérience Trek (2–3 jours) <ArrowRight size={16} /></Link>
           </Reveal>

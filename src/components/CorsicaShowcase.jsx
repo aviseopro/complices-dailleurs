@@ -58,28 +58,84 @@ export default function CorsicaShowcase({ embedded = false }) {
       </Reveal>
 
       <Reveal delay={80}>
-        <div className="corse-highlight-box">
-          <div className="corse-hl-left">
-            <span className="corse-hl-tag">✨ L’Aventure Phare du Séjour · Inclus</span>
-            <h3>L’Odyssée en Canoë : de la Grotte d’Amour au lagon de l’Île de Piana</h3>
-            <p>
-              C’est le moment fort que vous n’oublierez jamais : par deux (en binôme par canoë), nous quittons la plage en pagayant sur une eau d’une pureté irréelle :
-            </p>
-            <ul className="ticks corse-ticks">
-              <li><Check size={15} /> <strong>Escale secrète à la Grotte d’Amour</strong> : nous accostons et descendons des canoës pour plonger en <strong>snorkeling</strong> au cœur des eaux turquoise translucides.</li>
-              <li><Check size={15} /> <strong>Traversée en canoë jusqu’à l’Île de Piana</strong> : découverte d’un décor sauvage de roches sculptées et deuxième temps de <strong>snorkeling</strong> dans les eaux claires.</li>
-              <li><Check size={15} /> <strong>Pique-nique, Yoga &amp; Cercle de parole sur l’Île de Piana</strong> : déjeuner pique-nique les pieds dans le sable, suivi d’un cours de <strong>yoga en plein air avec Virginie</strong> et d’un <strong>cercle de parole avec Émilie</strong> face au lagon.</li>
+        <div className="corse-dual-grid">
+          <div className="corse-card">
+            <div className="corse-card-head">
+              <span className="corse-hl-tag">✨ L’Aventure Phare du Séjour · Inclus</span>
+              <h3>L’Odyssée en Canoë : Grotte d’Amour &amp; Île de Piana</h3>
+              <p>
+                Le moment fort du séjour : par deux (en binôme par canoë), nous quittons la plage en pagayant sur une eau turquoise d’une pureté irréelle.
+              </p>
+            </div>
+            <ul className="corse-list">
+              <li>
+                <span className="corse-check"><Check size={15} /></span>
+                <div>
+                  <strong>1. Escale secrète à la Grotte d’Amour &amp; Snorkeling</strong>
+                  <span>Nous accostons et descendons des canoës (en les gardant auprès de nous) pour explorer les eaux cristallines en snorkeling.</span>
+                </div>
+              </li>
+              <li>
+                <span className="corse-check"><Check size={15} /></span>
+                <div>
+                  <strong>2. Traversée en canoë jusqu’aux roches de l’Île de Piana</strong>
+                  <span>Nous reprenons les canoës pour ramer jusqu’à l’Île de Piana : décor sauvage de roches granitiques et deuxième session de snorkeling.</span>
+                </div>
+              </li>
+              <li>
+                <span className="corse-check"><Check size={15} /></span>
+                <div>
+                  <strong>3. Pique-nique les pieds dans l’eau sur la plage de Piana</strong>
+                  <span>Pause déjeuner conviviale sur le banc de sable blanc face au lagon translucide.</span>
+                </div>
+              </li>
+              <li>
+                <span className="corse-check"><Check size={15} /></span>
+                <div>
+                  <strong>4. Yoga en plein air &amp; Cercle de parole</strong>
+                  <span>Séance de yoga face à la mer avec Virginie et cercle de parole entre femmes avec Émilie.</span>
+                </div>
+              </li>
             </ul>
           </div>
 
-          <div className="corse-hl-right">
-            <span className="corse-hl-tag">🌊 Découvertes, Bien-Être &amp; Modalités</span>
-            <h3>Bonifacio, Porto-Vecchio, Sartène &amp; Bain Sonore</h3>
-            <ul className="ticks corse-ticks">
-              <li><Check size={15} /> <strong>Bonifacio par la mer &amp; les falaises</strong> : tour en bateau au pied des falaises calcaires et des grottes marines, visite de la Vieille Ville et <strong>restaurant panoramique surplombant la mer</strong> <em>(restaurants non inclus)</em>.</li>
-              <li><Check size={15} /> <strong>Sartène &amp; Détente Bain Sonore</strong> : découverte du charmant village de Sartène et séance de <strong>relaxation par Bain Sonore</strong> guidée par notre amie sur place.</li>
-              <li><Check size={15} /> <strong>Porto-Vecchio, plages &amp; montagnes</strong> : immersion entre criques paradisiaques et reliefs corses (<strong>plongée sous-marine en option</strong>).</li>
-              <li><Check size={15} /> <strong>Non inclus : transport &amp; restaurants</strong> — le transport est à votre charge mais <strong>nous vous conseillons et réservons les billets ensemble pour bénéficier de remises</strong>, puis nous vous récupérons à l’aéroport d’<strong>Ajaccio ou de Figari</strong>.</li>
+          <div className="corse-card corse-card-alt">
+            <div className="corse-card-head">
+              <span className="corse-hl-tag">🌊 Découvertes, Bien-Être &amp; Modalités</span>
+              <h3>Bonifacio, Porto-Vecchio, Sartène &amp; Bain Sonore</h3>
+              <p>
+                Entre falaises mythiques, villages corses de caractère, vibrations sonores et plages secrètes entre mer et montagne.
+              </p>
+            </div>
+            <ul className="corse-list">
+              <li>
+                <span className="corse-check"><Check size={15} /></span>
+                <div>
+                  <strong>Bonifacio : Tour en bateau, Vieille Ville &amp; Vue mer</strong>
+                  <span>Croisière au pied des falaises blanches, flânerie dans la haute ville et restaurant surplombant la mer <em>(restaurants non inclus)</em>.</span>
+                </div>
+              </li>
+              <li>
+                <span className="corse-check"><Check size={15} /></span>
+                <div>
+                  <strong>Village de Sartène &amp; Détente Bain Sonore</strong>
+                  <span>Découverte du charmant village de granit de Sartène et séance de relaxation par Bain Sonore animée par notre amie sur place.</span>
+                </div>
+              </li>
+              <li>
+                <span className="corse-check"><Check size={15} /></span>
+                <div>
+                  <strong>Porto-Vecchio, plages, montagnes &amp; Plongée</strong>
+                  <span>Immersion entre criques paradisiaques et reliefs corses, avec possibilité de <strong>plongée sous-marine en option</strong>.</span>
+                </div>
+              </li>
+              <li>
+                <span className="corse-check"><Check size={15} /></span>
+                <div>
+                  <strong>Vols réservés ensemble (avec remises) &amp; Accueil aéroport</strong>
+                  <span>Transport et restaurants à votre charge : nous vous conseillons et réservons les billets ensemble pour bénéficier de remises, puis vous récupérons à Ajaccio ou Figari.</span>
+                </div>
+              </li>
             </ul>
           </div>
         </div>

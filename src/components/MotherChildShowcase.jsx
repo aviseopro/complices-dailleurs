@@ -69,9 +69,9 @@ export default function MotherChildShowcase({ embedded = false }) {
               Loin du rythme effréné de la semaine et des écrans, vous partagez avec votre enfant des instants de pure présence guidés avec délicatesse :
             </p>
             <ul className="ticks">
-              <li><Check size={15} /> <strong>Yoga Mère-Enfant &amp; Respiration avec Virginie</strong> : postures douces à deux, yoga ludique et apaisement guidés par notre professeure de yoga diplômée.</li>
-              <li><Check size={15} /> <strong>Atelier Massage Réciproque (Maman ↔ Enfant)</strong> : apprendre à l’enfant à masser sa maman avec douceur, et masser son enfant pour l’apaiser.</li>
-              <li><Check size={15} /> <strong>Moment Lecture &amp; Confidences</strong> perchés dans le grand filet suspendu en mezzanine + météo des émotions avec Émilie.</li>
+              <li><Check size={15} /> <span><strong>Yoga Mère-Enfant &amp; Respiration avec Virginie</strong> : postures douces à deux, yoga ludique et apaisement guidés par notre professeure de yoga diplômée.</span></li>
+              <li><Check size={15} /> <span><strong>Atelier Massage Réciproque (Maman ↔ Enfant)</strong> : apprendre à l’enfant à masser sa maman avec douceur, et masser son enfant pour l’apaiser.</span></li>
+              <li><Check size={15} /> <span><strong>Moment Lecture &amp; Confidences</strong> perchés dans le grand filet suspendu en mezzanine + météo des émotions avec Émilie.</span></li>
             </ul>
           </div>
 
@@ -83,9 +83,9 @@ export default function MotherChildShowcase({ embedded = false }) {
               Parce qu’une maman ressourcée est le plus beau des cadeaux : pendant que nous animons les ateliers créatifs et sensoriels réservés aux enfants dans la villa, <strong>vous profitez d’un temps rien que pour vous</strong> :
             </p>
             <ul className="ticks">
-              <li><Check size={15} /> <strong>Accès libre au Spa Jacuzzi 7 places &amp; Sauna 4 places</strong> entre mamans, dans le calme absolu.</li>
-              <li><Check size={15} /> <strong>Piscine chauffée, salon cathédrale &amp; terrasse en bois</strong> avec tisanes bio et collations saines.</li>
-              <li><Check size={15} /> <strong>Enfants choyés en petit groupe</strong> par Émilie &amp; Virginie dans un cadre bienveillant et stimulant.</li>
+              <li><Check size={15} /> <span><strong>Accès libre au Spa Jacuzzi 7 places &amp; Sauna 4 places</strong> entre mamans, dans le calme absolu.</span></li>
+              <li><Check size={15} /> <span><strong>Piscine chauffée, salon cathédrale &amp; terrasse en bois</strong> avec tisanes bio et collations saines.</span></li>
+              <li><Check size={15} /> <span><strong>Enfants choyés en petit groupe</strong> par Émilie &amp; Virginie dans un cadre bienveillant et stimulant.</span></li>
             </ul>
           </div>
         </div>
