@@ -52,7 +52,7 @@ export default function CorsicaShowcase({ embedded = false }) {
             De Sartène à Porto-Vecchio et Bonifacio : canoë vers la Grotte d’Amour, Île de Piana, yoga &amp; bain sonore
           </p>
           <p className="mc-lead">
-            Nous vous donnons rendez-vous directement en Corse pour une échappée lumineuse de <strong>3 à 4 jours (du jeudi ou vendredi au dimanche ou lundi)</strong> en petit groupe complice de <strong>8 femmes</strong>. Dès votre atterrissage à <strong>l’aéroport de Figari ou d’Ajaccio</strong>, nous vous récupérons pour rejoindre notre villa de charme située du côté de <strong>Sartène ou de Porto-Vecchio</strong>. Au programme : la beauté sauvage de l’Île de Beauté entre plages secrètes, montagnes, balades en mer, yoga et lâcher-prise.
+            Nous vous donnons rendez-vous directement en Corse pour une échappée lumineuse de <strong>3 à 4 jours (du jeudi ou vendredi au dimanche ou lundi)</strong> en petit groupe complice de <strong>8 femmes</strong>. Le transport jusqu’en Corse est à votre charge, mais <strong>nous vous aidons et vous conseillons : nous faisons la réservation des billets ensemble pour vous faire bénéficier de remises</strong>. Dès votre atterrissage à <strong>l’aéroport de Figari ou d’Ajaccio</strong>, nous vous récupérons pour rejoindre notre villa de charme située du côté de <strong>Sartène ou de Porto-Vecchio</strong>.
           </p>
         </div>
       </Reveal>
@@ -73,14 +73,13 @@ export default function CorsicaShowcase({ embedded = false }) {
           </div>
 
           <div className="corse-hl-right">
-            <span className="corse-hl-tag">🌊 Découvertes, Bien-Être &amp; Options</span>
+            <span className="corse-hl-tag">🌊 Découvertes, Bien-Être &amp; Accompagnement Vol</span>
             <h3>Bonifacio, Porto-Vecchio, Sartène &amp; Bain Sonore</h3>
             <ul className="ticks corse-ticks">
               <li><Check size={15} /> <strong>Bonifacio par la mer &amp; les falaises</strong> : tour en bateau au pied des falaises calcaires et des grottes marines, visite de la Vieille Ville et <strong>restaurant panoramique surplombant la mer</strong>.</li>
               <li><Check size={15} /> <strong>Sartène &amp; Détente Bain Sonore</strong> : découverte du charmant village de Sartène et séance de <strong>relaxation par Bain Sonore</strong> guidée par notre amie sur place.</li>
-              <li><Check size={15} /> <strong>Porto-Vecchio, plages &amp; montagnes</strong> : immersion entre criques paradisiaques et reliefs corses.</li>
-              <li><Check size={15} /> <strong>En option : Plongée sous-marine</strong> pour explorer la richesse des fonds marins de Corse du Sud.</li>
-              <li><Check size={15} /> <strong>Accueil aéroport inclus</strong> : nous vous récupérons à votre arrivée à <strong>Ajaccio ou Figari</strong>.</li>
+              <li><Check size={15} /> <strong>Porto-Vecchio, plages &amp; montagnes</strong> : immersion entre criques paradisiaques et reliefs corses (<strong>plongée sous-marine en option</strong>).</li>
+              <li><Check size={15} /> <strong>Transport à votre charge, réservé ensemble avec remises</strong> : nous vous aidons et vous conseillons pour réserver vos billets ensemble afin de <strong>bénéficier de remises</strong>, puis nous vous récupérons à l’aéroport d’<strong>Ajaccio ou de Figari</strong>.</li>
             </ul>
           </div>
         </div>

@@ -296,11 +296,17 @@ export default function Home() {
 
       <section className="section sand" id="marrakech">
         <div className="wrap">
-          <Reveal><p className="eyebrow">Nos autres expériences</p><h2>Marrakech, entre femmes ou en duo mère-enfant</h2></Reveal>
+          <Reveal>
+            <p className="eyebrow">Nos autres expériences</p>
+            <h2>Marrakech, entre femmes ou en duo mère-enfant</h2>
+            <p style={{ maxWidth: '72ch', marginBottom: '1.6rem', color: 'var(--muted)' }}>
+              Pour nos séjours à Marrakech (comme pour la Corse), <strong>le transport aérien est à votre charge</strong>, mais vous n’êtes jamais seules : <strong>nous vous aidons et vous conseillons personnellement, et nous faisons la réservation des billets ensemble afin de vous faire bénéficier de remises</strong>.
+            </p>
+          </Reveal>
           <div className="mk-grid">
             {[
-              ['marrakech-entre-femmes', 'Marrakech', 'Entre femmes', 'Yoga rooftop, riad, hammam, souks, moments de partage — et désert d’Agafay en option si confirmé.', '/img/marrakech-femmes-net.jpg'],
-              ['marrakech-mere-enfant', 'Marrakech', 'Mère & enfant', 'Ateliers créatifs, activités partagées, temps pour les mamans, découverte. Agafay selon formule. Vacances d’avril envisagées.', '/img/marrakech-mere-enfant-net.jpg'],
+              ['marrakech-entre-femmes', 'Marrakech', 'Entre femmes', 'Yoga rooftop, riad, hammam, souks, moments de partage — et désert d’Agafay en option si confirmé. Transport à votre charge (réservation accompagnée ensemble avec remises).', '/img/marrakech-femmes-net.jpg'],
+              ['marrakech-mere-enfant', 'Marrakech', 'Mère & enfant', 'Ateliers créatifs, activités partagées, temps pour les mamans, découverte. Agafay selon formule. Transport à votre charge (réservation accompagnée ensemble avec remises).', '/img/marrakech-mere-enfant-net.jpg'],
             ].map(([slug, a, b, d, img], i) => (
               <Reveal key={slug} delay={i * 120}>
                 <Photo src={img} label={`${a} ${b}`} theme="marrakech" className="mk zoom">

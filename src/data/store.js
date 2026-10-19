@@ -32,8 +32,9 @@ function load() {
         const isLegacyArca = def.slug === 'arcachon-entre-femmes' && (!cur.lodging?.includes('Sauna') || cur.included?.[0]?.includes('90 €'));
         const isLegacyArcaMe = def.slug === 'arcachon-mere-enfant' && (cur.kind === 'future' || !cur.program?.length || !cur.title?.includes('Yoga'));
         const isLegacyTrek = def.slug === 'trek-compostelle' && (cur.kind === 'future' || !cur.included?.[1]?.includes('Pranayama'));
-        const isLegacyCorse = def.slug === 'corse' && (cur.kind === 'future' || !cur.program?.length);
-        const refresh = isLegacyArca || isLegacyArcaMe || isLegacyTrek || isLegacyCorse;
+        const isLegacyCorse = def.slug === 'corse' && (cur.kind === 'future' || !cur.program?.length || !cur.intro?.includes('remises'));
+        const isLegacyMk = (def.slug === 'marrakech-entre-femmes' || def.slug === 'marrakech-mere-enfant') && !cur.intro?.includes('remises');
+        const refresh = isLegacyArca || isLegacyArcaMe || isLegacyTrek || isLegacyCorse || isLegacyMk;
         return {
           ...def,
           ...cur,
@@ -55,7 +56,7 @@ function load() {
           image: refresh ? def.image : (cur.image || def.image),
         };
       });
-      const faq = (!saved.faq || !saved.faq[4]?.q?.includes('acompte')) ? defaultData.faq : saved.faq;
+      const faq = (!saved.faq || !saved.faq.some((f) => f.q?.includes('Corse et Marrakech'))) ? defaultData.faq : saved.faq;
       return { ...defaultData, ...saved, experiences: exps, faq };
     }
   } catch {

@@ -116,10 +116,20 @@ export const defaultData = {
       duration: 'À confirmer',
       lodging: 'Riad — à confirmer',
       location: 'Marrakech',
-      intro: 'Yoga sur les toits, riad d’exception, hammam, souks et moments de partage. Désert d’Agafay en option si confirmé.',
-      conditions: {},
-      included: ['Yoga rooftop', 'Hammam', 'Découverte des souks'],
-      excluded: ['Vols', 'Agafay (option, si confirmé)'],
+      intro: 'Yoga sur les toits, riad d’exception, hammam, souks et moments de partage (désert d’Agafay en option si confirmé). Le transport est à votre charge, mais nous vous aidons et vous conseillons : nous faisons la réservation des billets ensemble afin de vous faire bénéficier de remises.',
+      conditions: {
+        transport: 'Transport à votre charge — accompagnement, conseils & réservation faite ensemble pour bénéficier de remises',
+      },
+      included: [
+        'Yoga rooftop',
+        'Hammam',
+        'Découverte des souks',
+        'Accompagnement personnalisé et conseils pour vos vols : nous réservons ensemble pour vous faire bénéficier de remises',
+      ],
+      excluded: [
+        'Transport / Vols aller-retour (à votre charge, mais nous faisons la réservation ensemble avec nos conseils pour bénéficier de remises)',
+        'Agafay (option, si confirmé)',
+      ],
       program: [{ day: 'Jour 1', title: 'Programme à venir', items: ['À compléter dans l’administration'] }],
       gallery: [
         { label: 'Rooftop & Riad', src: '/img/marrakech-femmes-net.jpg' },
@@ -141,10 +151,21 @@ export const defaultData = {
       duration: 'Vacances d’avril envisagées — dates à confirmer',
       lodging: 'À confirmer',
       location: 'Marrakech',
-      intro: 'Ateliers créatifs, activités partagées, temps pour les mamans et découverte. Agafay selon formule.',
-      conditions: { trancheAge: null, encadrement: null },
-      included: ['Ateliers créatifs', 'Activités partagées', 'Temps pour les mamans'],
-      excluded: ['Vols', 'Agafay selon formule'],
+      intro: 'Ateliers créatifs, activités partagées, temps pour les mamans et découverte (Agafay selon formule). Le transport est à votre charge, mais nous vous aidons et vous conseillons : nous faisons la réservation des billets ensemble afin de vous faire bénéficier de remises.',
+      conditions: {
+        trancheAge: null,
+        encadrement: 'Accompagnement, conseils & réservation des billets faite ensemble pour bénéficier de remises',
+      },
+      included: [
+        'Ateliers créatifs',
+        'Activités partagées',
+        'Temps pour les mamans',
+        'Accompagnement personnalisé et conseils pour vos vols : nous réservons ensemble pour vous faire bénéficier de remises',
+      ],
+      excluded: [
+        'Transport / Vols aller-retour (à votre charge, mais nous faisons la réservation ensemble avec nos conseils pour bénéficier de remises)',
+        'Agafay selon formule',
+      ],
       program: [{ day: 'Jour 1', title: 'Programme à venir', items: ['À compléter dans l’administration'] }],
       gallery: [
         { label: 'Ateliers & Riad', src: '/img/marrakech-mere-enfant-net.jpg' },
@@ -312,13 +333,14 @@ export const defaultData = {
       lodging: 'Villa de charme en Corse du Sud (secteur Sartène ou Porto-Vecchio)',
       location: 'Corse du Sud (Sartène · Porto-Vecchio · Bonifacio · Île de Piana)',
       intro:
-        'Rendez-vous directement en Corse pour une échappée inoubliable de 3 à 4 jours entre 8 femmes. Dès votre arrivée à l’aéroport d’Ajaccio ou de Figari, nous vous récupérons pour rejoindre notre villa nichée entre Sartène et Porto-Vecchio. Un voyage pensé comme une ode à la beauté sauvage de l’Île de Beauté : plages secrètes, montagnes, sortie en canoë par deux jusqu’à la Grotte d’Amour et l’Île de Piana avec snorkeling et pique-nique sur le banc de sable, découverte de Bonifacio en bateau et restaurant vue mer, charme authentique de Sartène avec séance de bain sonore, yoga en plein air avec Virginie et cercles de parole avec Émilie.',
+        'Rendez-vous directement en Corse pour une échappée inoubliable de 3 à 4 jours entre 8 femmes. Le transport jusqu’en Corse est à votre charge, mais nous vous aidons et vous conseillons : nous faisons la réservation des billets ensemble afin de vous faire bénéficier de remises. Dès votre arrivée à l’aéroport d’Ajaccio ou de Figari, nous vous récupérons pour rejoindre notre villa nichée entre Sartène et Porto-Vecchio. Un voyage pensé comme une ode à la beauté sauvage de l’Île de Beauté : plages secrètes, montagnes, sortie en canoë par deux jusqu’à la Grotte d’Amour et l’Île de Piana avec snorkeling et pique-nique sur le banc de sable, découverte de Bonifacio en bateau et restaurant vue mer, charme authentique de Sartène avec séance de bain sonore, yoga en plein air avec Virginie et cercles de parole avec Émilie.',
       conditions: {
         capacite: 'Groupe intimiste de 8 femmes',
-        encadrement: 'Accueil & transfert depuis l’aéroport d’Ajaccio ou de Figari inclus sur place',
+        encadrement: 'Accompagnement & conseils pour réserver vos vols ensemble (avec remises) + accueil à l’aéroport d’Ajaccio ou de Figari inclus',
         dates: 'Format 3 à 4 jours (du jeudi/vendredi au dimanche/lundi)',
       },
       included: [
+        'Accompagnement et conseils personnalisés pour vos billets d’avion : nous faisons la réservation ensemble pour vous faire bénéficier de remises',
         'Accueil et prise en charge dès votre arrivée à l’aéroport de Figari ou d’Ajaccio',
         'Hébergement de charme en villa (3 à 4 jours) du côté de Sartène ou de Porto-Vecchio',
         'Sortie Signature en Canoë (2 personnes par canoë) depuis la plage jusqu’à la Grotte d’Amour et l’Île de Piana',
@@ -328,7 +350,7 @@ export const defaultData = {
         'Découverte de Porto-Vecchio, du village authentique de Sartène & séance de détente par Bain Sonore animée par notre amie sur place',
       ],
       excluded: [
-        'Billets d’avion aller-retour jusqu’à Figari ou Ajaccio',
+        'Transport / billets d’avion aller-retour jusqu’à Figari ou Ajaccio (à votre charge, mais nous vous aidons et réservons ensemble pour bénéficier de remises)',
         'Option Plongée sous-marine (baptême ou exploration)',
       ],
       program: [
@@ -336,6 +358,7 @@ export const defaultData = {
           day: 'Jour 1 (Jeudi ou Vendredi)',
           title: 'Arrivée en Corse, installation à la villa & douceur du Sud',
           items: [
+            'En amont du départ : accompagnement et conseils pour réserver vos billets d’avion ensemble et bénéficier de remises',
             'Accueil à votre descente d’avion à l’aéroport de Figari ou d’Ajaccio et route vers notre villa (secteur Sartène ou Porto-Vecchio)',
             'Installation, découverte des lieux entre mer et montagne, et premier temps de détente',
             'Séance de yoga doux avec Virginie et cercle d’ouverture du séjour avec Émilie',
@@ -384,7 +407,8 @@ export const defaultData = {
   ],
   faq: [
     { q: 'Pourquoi ce séjour au Bassin d’Arcachon est-il si avantageux ?', a: 'Parce que vous bénéficiez sur place de plus de 300 € de prestations Haute Beauté et Bien-être déjà incluses dans votre séjour : soin du visage haute technologie avec nos machines dernier cri, massage relaxant sur-mesure, cours d’auto-massage du visage, séance de luminothérapie LED professionnelle, ainsi que toutes les séances de yoga, les ateliers, l’hébergement de charme et la pension complète gourmande.' },
-    { q: 'Où se déroule exactement le séjour ?', a: 'Le séjour se déroule autour du Bassin d’Arcachon. Nous sélectionnons un lieu de charme d’exception adapté à notre groupe pour offrir un cocon intime et privilégié.' },
+    { q: 'Comment s’organise le transport pour la Corse et Marrakech ?', a: 'Pour la Corse comme pour Marrakech, le transport aérien est à votre charge, mais nous vous aidons et vous conseillons de A à Z : nous faisons la réservation des billets ensemble afin de coordonner les arrivées et de vous faire bénéficier de remises avantageuses. En Corse, nous vous récupérons directement à votre arrivée à l’aéroport d’Ajaccio ou de Figari.' },
+    { q: 'Où se déroule exactement le séjour au Bassin d’Arcachon ?', a: 'Le séjour se déroule autour du Bassin d’Arcachon. Nous sélectionnons un lieu de charme d’exception adapté à notre groupe pour offrir un cocon intime et privilégié.' },
     { q: 'Les soins sont-ils réalisés par des professionnelles ?', a: 'Oui : Émilie et Virginie sont toutes deux esthéticiennes diplômées et déplacent leurs machines esthétiques dernier cri directement sur le lieu du séjour. Les soins sont des soins de bien-être et de beauté, sans promesse médicale.' },
     { q: 'Qui anime le yoga, la méditation et les cercles de femmes ?', a: 'Virginie, professeure de yoga diplômée, enseigne les séances de Yin Yoga et Hatha Yoga. Émilie guide les séances de méditation, les cercles de femmes et les ateliers pour vous permettre de déposer vos soucis et repartir plus légère.' },
     { q: 'Que garantit l’acompte de pré-réservation de 95 € ?', a: 'Les 95 € d’acompte vous permettent de pré-réserver votre place en priorité sur le séjour Bassin d’Arcachon. Les conditions détaillées (imputation de l’acompte sur le tarif final du séjour, remboursement) sont précisées avant validation.' },
