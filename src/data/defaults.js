@@ -128,6 +128,7 @@ export const defaultData = {
       ],
       excluded: [
         'Transport / Vols aller-retour (à votre charge, mais nous faisons la réservation ensemble avec nos conseils pour bénéficier de remises)',
+        'Les restaurants',
         'Agafay (option, si confirmé)',
       ],
       program: [{ day: 'Jour 1', title: 'Programme à venir', items: ['À compléter dans l’administration'] }],
@@ -164,6 +165,7 @@ export const defaultData = {
       ],
       excluded: [
         'Transport / Vols aller-retour (à votre charge, mais nous faisons la réservation ensemble avec nos conseils pour bénéficier de remises)',
+        'Les restaurants',
         'Agafay selon formule',
       ],
       program: [{ day: 'Jour 1', title: 'Programme à venir', items: ['À compléter dans l’administration'] }],
@@ -346,11 +348,12 @@ export const defaultData = {
         'Sortie Signature en Canoë (2 personnes par canoë) depuis la plage jusqu’à la Grotte d’Amour et l’Île de Piana',
         'Sessions de snorkeling dans les eaux cristallines de la Grotte d’Amour et dans les roches de l’Île de Piana',
         'Pique-nique gourmand sur la plage de l’Île de Piana, cours de Yoga avec Virginie & cercle de parole avec Émilie',
-        'Découverte de Bonifacio : tour en bateau au pied des falaises, visite de la Vieille Ville & restaurant surplombant la mer',
+        'Découverte de Bonifacio : tour en bateau au pied des falaises & visite de la Vieille Ville',
         'Découverte de Porto-Vecchio, du village authentique de Sartène & séance de détente par Bain Sonore animée par notre amie sur place',
       ],
       excluded: [
         'Transport / billets d’avion aller-retour jusqu’à Figari ou Ajaccio (à votre charge, mais nous vous aidons et réservons ensemble pour bénéficier de remises)',
+        'Les restaurants (dont le restaurant avec vue mer surplombant les falaises à Bonifacio)',
         'Option Plongée sous-marine (baptême ou exploration)',
       ],
       program: [
@@ -382,7 +385,7 @@ export const defaultData = {
             'Escapade vers Porto-Vecchio et ses plages mythiques entre pinède et eaux claires (possibilité de plongée sous-marine en option)',
             'Découverte de Bonifacio : promenade en bateau au pied des falaises de calcaire blanc et des grottes marines',
             'Flânerie dans les ruelles historiques de la Vieille Ville de Bonifacio',
-            'Repas d’exception dans un restaurant de Bonifacio avec vue panoramique surplombant la mer',
+            'Moment privilégié dans un restaurant de Bonifacio avec vue panoramique surplombant la mer (restaurants non inclus)',
           ],
         },
         {

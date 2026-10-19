@@ -32,8 +32,8 @@ function load() {
         const isLegacyArca = def.slug === 'arcachon-entre-femmes' && (!cur.lodging?.includes('Sauna') || cur.included?.[0]?.includes('90 €'));
         const isLegacyArcaMe = def.slug === 'arcachon-mere-enfant' && (cur.kind === 'future' || !cur.program?.length || !cur.title?.includes('Yoga'));
         const isLegacyTrek = def.slug === 'trek-compostelle' && (cur.kind === 'future' || !cur.included?.[1]?.includes('Pranayama'));
-        const isLegacyCorse = def.slug === 'corse' && (cur.kind === 'future' || !cur.program?.length || !cur.intro?.includes('remises'));
-        const isLegacyMk = (def.slug === 'marrakech-entre-femmes' || def.slug === 'marrakech-mere-enfant') && !cur.intro?.includes('remises');
+        const isLegacyCorse = def.slug === 'corse' && (cur.kind === 'future' || !cur.program?.length || !cur.excluded?.some((x) => x.includes('restaurants')));
+        const isLegacyMk = (def.slug === 'marrakech-entre-femmes' || def.slug === 'marrakech-mere-enfant') && !cur.excluded?.some((x) => x.includes('restaurants'));
         const refresh = isLegacyArca || isLegacyArcaMe || isLegacyTrek || isLegacyCorse || isLegacyMk;
         return {
           ...def,
