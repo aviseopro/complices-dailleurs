@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Check, X } from 'lucide-react';
 import { Photo, Reveal, STATUS, Price } from '../components/ui.jsx';
+import VillaShowcase from '../components/VillaShowcase.jsx';
 import { useData, euro } from '../data/store.js';
 import { seatsLeft } from '../lib/booking.js';
 
@@ -143,6 +144,8 @@ export default function Experience() {
           </aside>
         )}
       </div>
+
+      {arca && e.kind !== 'future' && <VillaShowcase />}
     </article>
   );
 }

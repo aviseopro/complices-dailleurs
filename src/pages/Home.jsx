@@ -92,25 +92,30 @@ export default function Home() {
           />
         </div>
         <div className="hero-shade" />
-        <div className="wrap hero-in">
-          <p className="eyebrow light">Expérience Phare · Bassin d’Arcachon — Entre femmes</p>
-          <h1>Bien plus qu’un week-end <span className="script">bien-être…</span></h1>
-          <div className="hero-sub-halo">
-            <p className="sig light" style={{ marginBottom: '.45rem' }}>Voyage au cœur du féminin sur le Bassin d’Arcachon</p>
-            <p className="lead light" style={{ maxWidth: '52ch', fontSize: '1.12rem', lineHeight: 1.55, margin: 0 }}>
+        <div className="wrap hero-in hero-split">
+          <div className="hero-left">
+            <span className="hero-badge"><span className="hero-dot" /> Expérience Phare · Bassin d’Arcachon — Entre femmes</span>
+            <h1>Bien plus qu’un week-end <span className="script">bien-être…</span></h1>
+            <p className="sig light">Voyage au cœur du féminin sur le Bassin d’Arcachon</p>
+            <div className="cta-row">
+              <Link to="/reserver/arcachon-entre-femmes" className="btn btn-blue">Pré-réserver ma place — {arca?.depositPerPlace || 95} € d’acompte</Link>
+              <a href="#arcachon" className="btn btn-light">Découvrir tout le séjour <ArrowRight size={16} /></a>
+            </div>
+          </div>
+
+          <div className="hero-card-glass">
+            <p className="lead light">
               Portées par notre complicité, notre harmonie et notre simplicité, nous vous accueillons à 10 minutes à pied du Bassin d’Arcachon dans un loft d’exception (piscine chauffée, Spa 7 places, Sauna 4 places) : yoga en intérieur ou en plein air, balades sur le sentier du littoral à l’ombre des pins, soins haute technologie sur place, et un cocon bienveillant où déposer vos soucis pour repartir plus légère.
             </p>
-          </div>
-          <div className="cta-row">
-            <Link to="/reserver/arcachon-entre-femmes" className="btn btn-blue">Pré-réserver ma place — {arca?.depositPerPlace || 95} € d’acompte</Link>
-            <a href="#arcachon" className="btn btn-light">Découvrir tout le séjour <ArrowRight size={16} /></a>
+            <a href="#histoire" className="hero-duo-inline">
+              <img src="/img/emilie-virginie-marrakech.jpg" alt="Émilie et Virginie, les fondatrices" />
+              <div>
+                <strong>Émilie &amp; Virginie</strong>
+                <small>Vos hôtes · Esthéticiennes &amp; Professeure de yoga</small>
+              </div>
+            </a>
           </div>
         </div>
-        <div className="hero-words" aria-hidden="true"><span>Se reconnecter</span><span>Partager</span><span>Se transformer</span></div>
-        <a href="#histoire" className="hero-duo">
-          <img src="/img/emilie-virginie-marrakech.jpg" alt="Émilie et Virginie, les fondatrices" />
-          <span>Émilie &amp; Virginie<small>Vos hôtes</small></span>
-        </a>
       </section>
 
       <div className="strip wrap" aria-label="Points forts">
