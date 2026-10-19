@@ -32,7 +32,8 @@ function load() {
         const isLegacyArca = def.slug === 'arcachon-entre-femmes' && (!cur.lodging?.includes('Sauna') || cur.included?.[0]?.includes('90 €'));
         const isLegacyArcaMe = def.slug === 'arcachon-mere-enfant' && (cur.kind === 'future' || !cur.program?.length || !cur.title?.includes('Yoga'));
         const isLegacyTrek = def.slug === 'trek-compostelle' && (cur.kind === 'future' || !cur.included?.[1]?.includes('Pranayama'));
-        const refresh = isLegacyArca || isLegacyArcaMe || isLegacyTrek;
+        const isLegacyCorse = def.slug === 'corse' && (cur.kind === 'future' || !cur.program?.length);
+        const refresh = isLegacyArca || isLegacyArcaMe || isLegacyTrek || isLegacyCorse;
         return {
           ...def,
           ...cur,

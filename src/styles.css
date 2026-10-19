@@ -62,12 +62,34 @@ h1{font-size:clamp(2.4rem,6vw,4.6rem)} h2{font-size:clamp(1.9rem,4vw,3rem)} h3{f
 .nav a.nav-trek:hover,.nav a.nav-trek.active{background:#3f5a3e;color:#fff;border-color:#3f5a3e}
 .nav a.nav-marrakech{color:#8a6214;font-weight:500;background:rgba(235,192,88,.24);padding:.36rem .78rem;border-radius:999px;border:1px solid rgba(204,154,48,.42)}
 .nav a.nav-marrakech:hover,.nav a.nav-marrakech.active{background:#b5801c;color:#fff;border-color:#b5801c}
+
+/* Menu déroulant Destinations France */
+.nav-dropdown{position:relative;display:inline-flex;align-items:center}
+.nav-drop-btn{display:inline-flex;align-items:center;gap:.35rem;font-family:var(--sans);font-size:.71rem;text-transform:uppercase;letter-spacing:.07em;font-weight:500;color:#2c5573;background:rgba(120,172,210,.22);padding:.38rem .82rem;border-radius:999px;border:1px solid rgba(79,126,163,.36);cursor:pointer;white-space:nowrap;transition:background .25s ease,color .25s ease,border-color .25s ease}
+.nav-drop-btn:hover,.nav-dropdown.open .nav-drop-btn{background:#284f6b;color:#fff;border-color:#284f6b}
+.nav-caret{display:inline-block;font-size:.65rem;transition:transform .25s ease}
+.nav-dropdown.open .nav-caret{transform:rotate(180deg)}
+.nav-drop-menu{position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%) translateY(6px);min-width:255px;background:rgba(251,247,240,.98);backdrop-filter:blur(14px);border:1px solid var(--sand2);border-radius:16px;padding:.55rem;box-shadow:0 18px 42px rgba(29,53,80,.14);display:flex;flex-direction:column;gap:.4rem;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .22s ease,transform .22s ease,visibility .22s;z-index:200}
+.nav-dropdown.open .nav-drop-menu{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(-50%) translateY(0)}
+.nav-drop-menu a.drop-item{display:flex;flex-direction:column;align-items:flex-start;text-align:left;padding:.55rem .85rem;border-radius:11px;border:1px solid transparent;text-transform:none;letter-spacing:.02em;width:100%}
+.drop-title{font-weight:600;font-size:.82rem;line-height:1.2}
+.drop-sub{font-size:.68rem;opacity:.82;margin-top:.12rem;letter-spacing:.03em}
+.nav-drop-menu a.drop-arcachon{background:rgba(120,172,210,.18);color:#2c5573;border-color:rgba(79,126,163,.28)}
+.nav-drop-menu a.drop-arcachon:hover,.nav-drop-menu a.drop-arcachon.active{background:#284f6b;color:#fff;border-color:#284f6b}
+.nav-drop-menu a.drop-corse{background:rgba(64,164,156,.18);color:#1d5e59;border-color:rgba(64,164,156,.32)}
+.nav-drop-menu a.drop-corse:hover,.nav-drop-menu a.drop-corse.active{background:#1b6b63;color:#fff;border-color:#1b6b63}
+.nav-drop-menu a.drop-trek{background:rgba(93,122,92,.16);color:#355634;border-color:rgba(93,122,92,.32)}
+.nav-drop-menu a.drop-trek:hover,.nav-drop-menu a.drop-trek.active{background:#3f5a3e;color:#fff;border-color:#3f5a3e}
+
 .head-cta{white-space:nowrap;flex-shrink:0}
 .burger{display:none;background:none;border:0;color:var(--navy);margin-left:auto}
 @media(max-width:1180px){
   .burger{display:block}.head-cta{display:none}
   .nav{position:fixed;inset:72px 0 auto 0;flex-direction:column;background:var(--cream);padding:1.5rem;gap:.85rem;transform:translateY(-120%);transition:transform .35s;box-shadow:0 20px 30px rgba(0,0,0,.1);margin:0}
   .nav.open{transform:none}
+  .nav-dropdown{flex-direction:column;width:100%}
+  .nav-drop-menu{position:static;transform:none;box-shadow:none;width:100%;max-width:320px;margin-top:.4rem;display:none;opacity:1;visibility:visible;pointer-events:auto}
+  .nav-dropdown.open .nav-drop-menu{display:flex;transform:none}
 }
 
 /* hero */
@@ -344,6 +366,23 @@ blockquote{font:italic 1.6rem var(--serif);color:var(--navy);border-left:3px sol
 .mc-time{display:inline-flex;align-items:center;gap:.35rem;font-size:.73rem;text-transform:uppercase;letter-spacing:.12em;color:var(--terra);font-weight:600;margin-bottom:.2rem}
 .mc-step strong{display:block;font-family:var(--serif);font-size:1.18rem;color:var(--navy);margin-bottom:.25rem}
 .mc-step p{margin:0;font-size:.88rem;line-height:1.5;color:var(--muted)}
+
+/* Intercalaire Corse du Sud (CorsicaShowcase) */
+.corse-section{background:linear-gradient(180deg,#f0f7f6 0%,#fbf7f0 55%,#f2ede2 100%);border-top:1px solid rgba(64,164,156,.22);border-bottom:1px solid rgba(64,164,156,.22);position:relative}
+.corse-embedded{margin-top:2.2rem;padding-top:2rem;border-top:1px solid var(--sand2)}
+.corse-header{text-align:center;max-width:860px;margin:0 auto 2.2rem}
+.corse-badge{display:inline-flex;align-items:center;gap:.45rem;background:rgba(29,94,89,.1);color:#1d5e59;border:1px solid rgba(29,94,89,.25);padding:.35rem .95rem;border-radius:999px;font-size:.73rem;text-transform:uppercase;letter-spacing:.14em;margin-bottom:.8rem;font-weight:500}
+.corse-highlight-box{background:#fff;border:1px solid rgba(29,94,89,.18);border-radius:var(--r);padding:2rem 2.2rem;margin-bottom:2.2rem;display:grid;grid-template-columns:1.35fr 1fr;gap:2.2rem;align-items:center;box-shadow:0 14px 38px rgba(29,53,80,.06)}
+.corse-embedded .corse-highlight-box{grid-template-columns:1fr;padding:1.6rem}
+@media(max-width:920px){.corse-highlight-box{grid-template-columns:1fr;padding:1.5rem}}
+.corse-hl-left h3{font-family:var(--serif);font-size:1.65rem;color:var(--navy);margin:.3rem 0 .6rem;line-height:1.2}
+.corse-hl-left p{margin:0;color:var(--muted);line-height:1.65;font-size:.95rem}
+.corse-ticks{list-style:none;padding:0;margin:0;display:grid;gap:.6rem;font-size:.9rem;color:var(--navy)}
+.corse-ticks li{display:flex;align-items:center;gap:.55rem;padding:.55rem .85rem;background:#f4faf9;border-radius:10px;border:1px solid rgba(29,94,89,.14)}
+.corse-ticks li svg{color:#1b6b63;flex-shrink:0}
+.corse-photo-badge{background:rgba(27,107,99,.84)!important}
+.btn-corse{background:#1b6b63!important;color:#fff!important}
+.btn-corse:hover{background:#14524c!important}
 
 /* Bouton WhatsApp flottant */
 .wa-float-wrap{position:fixed;right:1.5rem;bottom:1.5rem;z-index:900}

@@ -4,6 +4,7 @@ import { Check, X } from 'lucide-react';
 import { Photo, Reveal, STATUS, Price } from '../components/ui.jsx';
 import VillaShowcase from '../components/VillaShowcase.jsx';
 import MotherChildShowcase from '../components/MotherChildShowcase.jsx';
+import CorsicaShowcase from '../components/CorsicaShowcase.jsx';
 import { useData, euro } from '../data/store.js';
 import { seatsLeft } from '../lib/booking.js';
 
@@ -24,6 +25,7 @@ export default function Experience() {
   if (!e) return <section className="section"><div className="wrap"><h1>Séjour introuvable</h1><Link to="/">Retour</Link></div></section>;
   const arca = e.slug === 'arcachon-entre-femmes';
   const arcaMereEnfant = e.slug === 'arcachon-mere-enfant';
+  const isCorse = e.slug === 'corse';
   const left = seatsLeft(e, bookings);
   const sellable = e.kind !== 'future' && e.status !== 'soon' && (e.pricePerPerson != null || e.depositPerPlace != null);
   document.title = `${e.title} — Complices d’ailleurs`;
@@ -54,6 +56,8 @@ export default function Experience() {
                   <MotherChildShowcase embedded />
                   <VillaShowcase embedded />
                 </>
+              ) : isCorse ? (
+                <CorsicaShowcase embedded />
               ) : (
                 <Reveal>
                   <h2>Galerie</h2>
