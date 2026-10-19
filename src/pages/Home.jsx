@@ -95,10 +95,12 @@ export default function Home() {
         <div className="wrap hero-in">
           <p className="eyebrow light">Expérience Phare · Bassin d’Arcachon — Entre femmes</p>
           <h1>Bien plus qu’un week-end <span className="script">bien-être…</span></h1>
-          <p className="sig light" style={{ marginBottom: '.6rem' }}>Voyage au cœur du féminin sur le Bassin d’Arcachon</p>
-          <p className="lead light" style={{ maxWidth: '52ch', fontSize: '1.12rem', lineHeight: 1.55 }}>
-            Portées par notre complicité, notre harmonie et notre simplicité, nous vous accueillons à 10 minutes à pied du Bassin d’Arcachon dans un loft d’exception (piscine chauffée, Spa 7 places, Sauna 4 places) : yoga en intérieur ou en plein air, balades sur le sentier du littoral à l’ombre des pins, soins haute technologie sur place, et un cocon bienveillant où déposer vos soucis pour repartir plus légère.
-          </p>
+          <div className="hero-sub-halo">
+            <p className="sig light" style={{ marginBottom: '.45rem' }}>Voyage au cœur du féminin sur le Bassin d’Arcachon</p>
+            <p className="lead light" style={{ maxWidth: '52ch', fontSize: '1.12rem', lineHeight: 1.55, margin: 0 }}>
+              Portées par notre complicité, notre harmonie et notre simplicité, nous vous accueillons à 10 minutes à pied du Bassin d’Arcachon dans un loft d’exception (piscine chauffée, Spa 7 places, Sauna 4 places) : yoga en intérieur ou en plein air, balades sur le sentier du littoral à l’ombre des pins, soins haute technologie sur place, et un cocon bienveillant où déposer vos soucis pour repartir plus légère.
+            </p>
+          </div>
           <div className="cta-row">
             <Link to="/reserver/arcachon-entre-femmes" className="btn btn-blue">Pré-réserver ma place — {arca?.depositPerPlace || 95} € d’acompte</Link>
             <a href="#arcachon" className="btn btn-light">Découvrir tout le séjour <ArrowRight size={16} /></a>
