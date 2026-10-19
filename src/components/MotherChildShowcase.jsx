@@ -158,6 +158,9 @@ export default function MotherChildShowcase({ embedded = false }) {
             </div>
           </div>
         </div>
+        <p className="small muted" style={{ marginTop: '.85rem', fontSize: '.78rem', textAlign: 'right' }}>
+          * Photographies d’illustration non contractuelles : selon les dates, la journée peut être organisée dans une autre villa de charme avec jacuzzi/spa sur le Bassin d’Arcachon de confort équivalent.
+        </p>
       </Reveal>
 
       {lightboxIdx !== null && (

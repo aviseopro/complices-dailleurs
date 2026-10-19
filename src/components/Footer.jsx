@@ -15,6 +15,7 @@ export default function Footer() {
         <div>
           <h3>Explorer</h3>
           <Link to="/experiences/arcachon-entre-femmes">Bassin d’Arcachon — Entre femmes</Link>
+          <Link to="/experiences/arcachon-mere-enfant">Bassin d’Arcachon — Ateliers Mère-Enfant</Link>
           <Link to="/experiences/marrakech-entre-femmes">Marrakech — Entre femmes</Link>
           <Link to="/experiences/marrakech-mere-enfant">Marrakech — Mère &amp; enfant</Link>
           <Link to="/experiences/trek-compostelle">Trek au féminin — Compostelle</Link>
@@ -30,7 +31,13 @@ export default function Footer() {
           <Link to="/admin" className="muted">Espace organisatrices</Link>
         </div>
       </div>
-      <p className="small center">© {new Date().getFullYear()} Complices d’ailleurs. Mentions légales à compléter par les organisatrices.</p>
+      <p className="small center">
+        © {new Date().getFullYear()} Complices d’ailleurs. Mentions légales à compléter par les organisatrices.
+        <br />
+        <span className="muted" style={{ fontSize: '.76rem' }}>
+          Photographies et visuels d’ambiance non contractuels — selon les dates et les formules (notamment pour les journées Mère-Enfant), le lieu d’accueil avec spa/jacuzzi peut varier tout en garantissant un standing et des prestations équivalents.
+        </span>
+      </p>
     </footer>
   );
 }
