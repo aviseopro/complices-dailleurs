@@ -70,7 +70,7 @@ export const VILLA_PHOTOS = [
   },
 ];
 
-export default function VillaShowcase() {
+export default function VillaShowcase({ embedded = false }) {
   const [lightboxIdx, setLightboxIdx] = useState(null);
   const [showAll, setShowAll] = useState(false);
 
@@ -85,19 +85,18 @@ export default function VillaShowcase() {
     setLightboxIdx((i) => (i + 1) % VILLA_PHOTOS.length);
   };
 
-  return (
-    <section className="section villa-sec" id="lieu">
-      <div className="wrap">
-        <Reveal>
-          <div className="villa-head">
-            <p className="eyebrow">Votre refuge exclusif · À 10 min à pied du Bassin d’Arcachon</p>
-            <h2>Un loft d’exception, atypique et plein de surprises</h2>
-            <p className="script-sub">Piscine chauffée, Spa 7 places, Sauna 4 places et sentier du littoral à deux pas</p>
-            <p>
-              Pour votre parenthèse entre femmes, nous avons privatisé un <strong>loft entièrement rénové, indépendant et plein de charme, niché à seulement 10 minutes à pied du Bassin d’Arcachon</strong> et à deux pas des sentiers naturels du littoral. Alliage unique de pierre, de bois et de grands volumes lumineux, tout y est réuni pour un lâcher-prise absolu :
-            </p>
-          </div>
-        </Reveal>
+  const inner = (
+    <>
+      <Reveal>
+        <div className="villa-head">
+          <p className="eyebrow">Votre refuge exclusif · À 10 min à pied du Bassin d’Arcachon</p>
+          <h2>Un loft d’exception, atypique et plein de surprises</h2>
+          <p className="script-sub">Piscine chauffée, Spa 7 places, Sauna 4 places et sentier du littoral à deux pas</p>
+          <p>
+            Pour votre parenthèse entre femmes, nous avons privatisé un <strong>loft entièrement rénové, indépendant et plein de charme, niché à seulement 10 minutes à pied du Bassin d’Arcachon</strong> et à deux pas des sentiers naturels du littoral. Alliage unique de pierre, de bois et de grands volumes lumineux, tout y est réuni pour un lâcher-prise absolu :
+          </p>
+        </div>
+      </Reveal>
 
         <Reveal delay={80}>
           <div className="villa-pillars">
@@ -195,7 +194,16 @@ export default function VillaShowcase() {
             </button>
           </div>
         )}
-      </div>
+    </>
+  );
+
+  if (embedded) {
+    return <div className="villa-embedded" id="lieu">{inner}</div>;
+  }
+
+  return (
+    <section className="section villa-sec" id="lieu">
+      <div className="wrap">{inner}</div>
     </section>
   );
 }

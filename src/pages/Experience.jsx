@@ -45,16 +45,20 @@ export default function Experience() {
             <p>Cette destination est en préparation. Elle n’est pas encore réservable.</p>
           ) : (
             <>
-              <Reveal>
-                <h2>Galerie</h2>
-                <div className="gallery">
-                  {e.gallery.map((g, idx) => {
-                    const src = typeof g === 'object' ? g.src : null;
-                    const label = typeof g === 'object' ? g.label : g;
-                    return <Photo key={idx} src={src} label={label} theme={e.theme} className="zoom sq" />;
-                  })}
-                </div>
-              </Reveal>
+              {arca ? (
+                <VillaShowcase embedded />
+              ) : (
+                <Reveal>
+                  <h2>Galerie</h2>
+                  <div className="gallery">
+                    {e.gallery.map((g, idx) => {
+                      const src = typeof g === 'object' ? g.src : null;
+                      const label = typeof g === 'object' ? g.label : g;
+                      return <Photo key={idx} src={src} label={label} theme={e.theme} className="zoom sq" />;
+                    })}
+                  </div>
+                </Reveal>
+              )}
 
               {arca && (
                 <Reveal>
@@ -144,8 +148,6 @@ export default function Experience() {
           </aside>
         )}
       </div>
-
-      {arca && e.kind !== 'future' && <VillaShowcase />}
     </article>
   );
 }
