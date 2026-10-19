@@ -28,7 +28,7 @@ export default function Header() {
         <nav className={`nav ${open ? 'open' : ''}`} aria-label="Navigation principale">
           <NavLink to="/" end onClick={close}>Accueil</NavLink>
           <NavLink to="/notre-histoire" onClick={close}>Notre histoire</NavLink>
-          <NavLink to="/experiences/arcachon-entre-femmes" onClick={close}>Bassin d’Arcachon</NavLink>
+          <NavLink to="/experiences/arcachon-entre-femmes" onClick={close} className="nav-arcachon">Bassin d’Arcachon</NavLink>
           <NavLink to="/experiences/arcachon-mere-enfant" onClick={close} className="nav-mere-enfant">Ateliers Mère-Enfant</NavLink>
           <Link to="/#marrakech" onClick={close}>Marrakech</Link>
           <NavLink to="/experiences/trek-compostelle" onClick={close} className="nav-trek">Trek au féminin · Compostelle</NavLink>

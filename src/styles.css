@@ -51,12 +51,14 @@ h1{font-size:clamp(2.4rem,6vw,4.6rem)} h2{font-size:clamp(1.9rem,4vw,3rem)} h3{f
 .logo-symbol{width:48px;height:28px;flex-shrink:0;transition:transform .3s ease}
 .logo-brand:hover .logo-symbol{transform:scale(1.08) rotate(-2deg)}
 
-.nav{display:flex;gap:1.15rem;align-items:center;margin-left:auto;font-size:.75rem;text-transform:uppercase;letter-spacing:.09em}
-.nav a{text-decoration:none;padding:.3rem 0;border-bottom:1px solid transparent;transition:border-color .25s,color .25s}
+.nav{display:flex;gap:1.1rem;align-items:center;margin-left:auto;font-size:.75rem;text-transform:uppercase;letter-spacing:.09em}
+.nav a{text-decoration:none;padding:.3rem 0;border-bottom:1px solid transparent;transition:background .25s ease,border-color .25s ease,color .25s ease}
 .nav a:hover,.nav a.active{border-color:var(--terra)}
-.nav a.nav-mere-enfant{color:#a8553a;font-weight:500;background:rgba(197,138,74,.16);padding:.28rem .72rem;border-radius:999px;border:1px solid rgba(168,85,58,.36)}
-.nav a.nav-mere-enfant:hover,.nav a.nav-mere-enfant.active{background:var(--terra);color:#fff;border-color:var(--terra)}
-.nav a.nav-trek{color:#355634;font-weight:500;background:rgba(93,122,92,.13);padding:.28rem .72rem;border-radius:999px;border:1px solid rgba(93,122,92,.32)}
+.nav a.nav-arcachon{color:#2c5573;font-weight:500;background:rgba(120,172,210,.18);padding:.28rem .75rem;border-radius:999px;border:1px solid rgba(79,126,163,.32)}
+.nav a.nav-arcachon:hover,.nav a.nav-arcachon.active{background:#284f6b;color:#fff;border-color:#284f6b}
+.nav a.nav-mere-enfant{color:#9e472a;font-weight:500;background:rgba(226,138,96,.18);padding:.28rem .75rem;border-radius:999px;border:1px solid rgba(168,85,58,.34)}
+.nav a.nav-mere-enfant:hover,.nav a.nav-mere-enfant.active{background:#8b4129;color:#fff;border-color:#8b4129}
+.nav a.nav-trek{color:#355634;font-weight:500;background:rgba(93,122,92,.15);padding:.28rem .75rem;border-radius:999px;border:1px solid rgba(93,122,92,.32)}
 .nav a.nav-trek:hover,.nav a.nav-trek.active{background:#3f5a3e;color:#fff;border-color:#3f5a3e}
 .burger{display:none;background:none;border:0;color:var(--navy);margin-left:auto}
 @media(max-width:1120px){
