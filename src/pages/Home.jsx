@@ -333,9 +333,9 @@ export default function Home() {
               Parfois nous avançons <strong>à 5 ou 6 en même temps</strong> dans la joie des échanges ; parfois le rythme s’étire et <strong>chacune marche seule avec elle-même</strong>, dans cette présence à soi où l’esprit s’allège ; puis les pas s’accordent <strong>deux par deux</strong>, côte à côte, là où la parole se libère avec une sincérité rare.
             </p>
             <ul className="ticks trek-ticks">
-              <li><Check size={15} /> <strong>Bivouac en montagne &amp; veillée autour du feu</strong> : cuisiner ensemble et refaire le monde sous les étoiles.</li>
-              <li><Check size={15} /> <strong>Préparation clé en main</strong> : listes complètes (liste de courses &amp; matériel) remises à chacune avant le départ.</li>
-              <li><Check size={15} /> <strong>Connexion profonde à la nature</strong> : étirements yoga avec Virginie &amp; cercles de parole avec Émilie.</li>
+              <li><Check size={15} /> <strong>Yoga du matin (Éveil articulaire &amp; Pranayama)</strong> avec Virginie : déverrouiller chevilles, hanches et dos, et caler sa respiration consciente avant de partir marcher.</li>
+              <li><Check size={15} /> <strong>Yin Yoga de récupération le soir (avant le repas)</strong> : étirement profond des muscles sollicités (psoas, mollets, ischio-jambiers, lombaires) pour repartir sans courbatures le lendemain.</li>
+              <li><Check size={15} /> <strong>Bivouac en montagne, cuisine au feu de camp &amp; listes fournies</strong> : veillées avec Émilie et listes complètes (courses &amp; matériel) remises avant le départ.</li>
             </ul>
             <Link to="/experiences/trek-compostelle" className="btn btn-light">Découvrir toute l’expérience Trek (2–3 jours) <ArrowRight size={16} /></Link>
           </Reveal>

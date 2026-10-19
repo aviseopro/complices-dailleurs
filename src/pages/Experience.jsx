@@ -138,6 +138,13 @@ export default function Experience() {
                       </div>
                     </div>
                     <p className="premium-summary" style={{ borderLeftColor: '#3f5a3e', background: 'linear-gradient(90deg,rgba(231,237,220,.8),rgba(241,236,220,.85))' }}>
+                      🧘‍♀️ <strong>Le duo Yoga &amp; Marche avec Virginie (professeure diplômée) :</strong>
+                      <br />
+                      • <strong>Le matin avant de partir : Éveil articulaire, Hatha doux &amp; Pranayama</strong> — lubrifier les articulations (chevilles, genoux, bassin), activer la sangle posturale et installer la respiration consciente (<em>Pranayama</em>) pour marcher avec souffle et fluidité.
+                      <br />
+                      • <strong>En fin d’étape, avant le dîner au bivouac : Yin Yoga de récupération &amp; relâchement myofascial</strong> — pratiqué à l’arrivée au campement (l’estomac léger avant de cuisiner ensemble), ce rituel décompresse les lombaires et les épaules du poids du sac, étire en profondeur le psoas, les mollets et les ischio-jambiers, et draine les jambes pour repartir fraîche et en pleine forme le lendemain matin.
+                    </p>
+                    <p className="premium-summary" style={{ marginTop: '.75rem', borderLeftColor: '#3f5a3e', background: 'linear-gradient(90deg,rgba(231,237,220,.8),rgba(241,236,220,.85))' }}>
                       🎒 <strong>Une organisation rassurante de A à Z :</strong> avant le départ, nous vous transmettons <strong>la liste complète de courses</strong> (pour que chacune amène exactement ce qu’il faut pour préparer sa nourriture et cuisiner ensemble au bivouac) ainsi que <strong>la liste détaillée du matériel</strong> pour profiter pleinement de ces 2 à 3 jours de connexion profonde avec la nature.
                     </p>
                   </div>

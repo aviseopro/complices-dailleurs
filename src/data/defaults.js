@@ -173,10 +173,10 @@ export const defaultData = {
       },
       included: [
         'Accompagnement bienveillant sur 2 à 3 jours par Émilie & Virginie',
+        'Yoga du matin avec Virginie : éveil articulaire et musculaire (chevilles, hanches, colonne) & Pranayama (respiration consciente pour synchroniser le souffle à la marche)',
+        'Yin Yoga de récupération le soir (en fin d’étape, avant le dîner) : relâchement myofascial du psoas, des mollets, des ischio-jambiers et décompression du dos pour être en pleine forme le lendemain',
         'Remise en amont de toutes les listes détaillées : liste de courses précise (pour que chacune amène de quoi préparer sa nourriture) & liste complète du matériel',
-        'Expérience de bivouac en montagne et apprentissage de la cuisine ensemble en pleine nature',
-        'Veillées chaleureuses et cercles de parole autour du feu guidés par Émilie',
-        'Étirements, respiration & séances de Yoga doux en plein air avec Virginie',
+        'Expérience de bivouac en montagne, apprentissage de la cuisine ensemble en pleine nature & veillées autour du feu avec Émilie',
       ],
       excluded: [
         'Transport jusqu’au point de départ du trek',
@@ -185,31 +185,32 @@ export const defaultData = {
       program: [
         {
           day: 'Jour 1',
-          title: 'Oser le premier pas, l’élan du groupe & la cuisine au coin du feu',
+          title: 'Oser le premier pas, l’élan du groupe & la récupération au bivouac',
           items: [
             'Rencontre entre femmes qui ne se connaissent pas encore : accueil bienveillant, vérification des sacs et cercle d’ouverture',
+            'Séance d’ancrage et de Pranayama (respiration consciente) avec Virginie pour ouvrir la cage thoracique et préparer ses appuis avant de partir',
             'Départ sur le sentier : l’effervescence joyeuse des premiers kilomètres à 5 ou 6, où les rires brisent la glace instantanément',
-            'Installation du bivouac en montagne : apprendre à monter le camp et à cuisiner ensemble en pleine nature grâce aux ingrédients apportés selon notre liste',
-            'Grande veillée autour du feu : discussions à cœur ouvert, tisanes chaudes et nuit magique sous les étoiles',
+            'Arrivée au bivouac en montagne (avant le repas) : séance de Yin Yoga réparateur & étirements profonds (psoas, mollets, ischio-jambiers, décompression lombaire après le port du sac)',
+            'Préparation du repas toutes ensemble grâce aux ingrédients apportés selon notre liste, suivie de la grande veillée autour du feu avec Émilie',
           ],
         },
         {
           day: 'Jour 2',
-          title: 'L’état de grâce du marcheur : silence habité, duos complices & reconnexion',
+          title: 'Éveil articulaire au lever du jour, mouvance de la marche & feu de camp',
           items: [
-            'Réveil face aux sommets, boisson chaude au campement et éveil corporel / Yoga doux avec Virginie',
-            'La mouvance de la marche : temps de marche seule avec soi-même pour laisser décanter ses pensées (l’allègement intérieur), suivi de ces instants précieux où l’on marche à deux, côte à côte, pour se confier en toute simplicité',
-            'Atelier cuisine sauvage & repas partagé en pleine nature',
-            'Deuxième soirée au bivouac (selon format 2 ou 3 jours) : cercle de femmes autour des flammes avec Émilie pour déposer ses soucis',
+            'Au réveil : Hatha Yoga doux d’éveil articulaire & musculaire (mobilisation de la colonne, ouverture des hanches, chevilles) et respiration énergétique pour partir marcher le corps délié',
+            'La mouvance de la marche : temps de marche seule avec soi-même dans un silence habité qui apaise le mental, puis marche à deux, côte à côte, là où les confidences se tissent naturellement',
+            'Fin d’étape avant de dîner : Yin Yoga de récupération myofasciale & drainage des jambes pour effacer la fatigue musculaire et se réveiller légère le lendemain',
+            'Cuisine conviviale en pleine nature et cercle de femmes autour des flammes avec Émilie pour déposer ses soucis sous les étoiles',
           ],
         },
         {
           day: 'Jour 3 (ou fin du Jour 2)',
-          title: 'La fierté d’avoir osé & le retour plus légère',
+          title: 'Souffle matinal, fierté d’avoir osé & retour plus légère',
           items: [
+            'Réveil corporel doux et respiration consciente face aux sommets',
             'Dernière étape de marche contemplative au rythme du souffle',
-            'Étirements profonds, méditation de gratitude face à la nature et cercle de clôture',
-            'Retour avec la douce fierté d’avoir accompli ce trek entre femmes et des liens humains inoubliables',
+            'Étirements de clôture, méditation de gratitude et retour avec la douce fierté d’avoir accompli ce trek entre femmes',
           ],
         },
       ],
