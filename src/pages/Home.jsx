@@ -321,11 +321,23 @@ export default function Home() {
       <section className="section trek" id="trek">
         <div className="wrap trek-in">
           <Reveal>
-            <p className="eyebrow">Nouveau · bientôt</p>
-            <h2>Trek au féminin<br />Chemin de Compostelle</h2>
-            <p>Marcher entre femmes, à son rythme : le souffle, les paysages, les échanges au fil des étapes et la douce fierté d’avancer ensemble.</p>
-            <p className="small">Parcours, dates, niveau et tarif communiqués prochainement.</p>
-            <Link to="/experiences/trek-compostelle" className="btn btn-light">Découvrir le projet <ArrowRight size={16} /></Link>
+            <p className="eyebrow">Parenthèse Exclusive · 2 à 3 jours en pleine nature</p>
+            <h2>Trek au féminin<br />Chemin de Compostelle &amp; Bivouac</h2>
+            <p className="script-sub" style={{ color: '#3f5a3e', marginBottom: '.8rem' }}>
+              La philosophie de la marche : du rire partagé au silence habité, jusqu’aux confidences autour du feu
+            </p>
+            <p>
+              Beaucoup de femmes rêvent secrètement de randonnée mais pensent que <em>« le trekking n’est pas fait pour elles »</em>, que c’est trop difficile, ou n’osent pas se lancer faute de trouver quelqu’un avec qui partir. Sur <strong>2 à 3 jours accessibles et bienveillants</strong>, nous réunissons des femmes qui ne se connaissent pas au départ pour vivre la magie organique de la marche :
+            </p>
+            <p>
+              Parfois nous avançons <strong>à 5 ou 6 en même temps</strong> dans la joie des échanges ; parfois le rythme s’étire et <strong>chacune marche seule avec elle-même</strong>, dans cette présence à soi où l’esprit s’allège ; puis les pas s’accordent <strong>deux par deux</strong>, côte à côte, là où la parole se libère avec une sincérité rare.
+            </p>
+            <ul className="ticks trek-ticks">
+              <li><Check size={15} /> <strong>Bivouac en montagne &amp; veillée autour du feu</strong> : cuisiner ensemble et refaire le monde sous les étoiles.</li>
+              <li><Check size={15} /> <strong>Préparation clé en main</strong> : listes complètes (liste de courses &amp; matériel) remises à chacune avant le départ.</li>
+              <li><Check size={15} /> <strong>Connexion profonde à la nature</strong> : étirements yoga avec Virginie &amp; cercles de parole avec Émilie.</li>
+            </ul>
+            <Link to="/experiences/trek-compostelle" className="btn btn-light">Découvrir toute l’expérience Trek (2–3 jours) <ArrowRight size={16} /></Link>
           </Reveal>
           <Reveal delay={120}><Photo src="/img/trek-compostelle-net.jpg" label="Chemin de Compostelle" theme="pine" className="sq zoom" /></Reveal>
         </div>

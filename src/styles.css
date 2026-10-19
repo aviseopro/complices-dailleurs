@@ -292,6 +292,7 @@ blockquote{font:italic 1.6rem var(--serif);color:var(--navy);border-left:3px sol
 .trek-in{display:grid;grid-template-columns:1.2fr 1fr;gap:3rem;align-items:center}
 @media(max-width:800px){.trek-in{grid-template-columns:1fr}}
 .trek .btn-light{background:#3f5a3e;color:#fff}
+.trek-ticks svg{color:#3f5a3e}
 .theme-pine .eyebrow{color:#3f5a3e}
 .legal h2{font-size:1.5rem;margin-top:1.8rem}
 

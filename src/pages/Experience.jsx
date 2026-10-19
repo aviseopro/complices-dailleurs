@@ -105,6 +105,45 @@ export default function Experience() {
                 </Reveal>
               )}
 
+              {e.slug === 'trek-compostelle' && (
+                <Reveal>
+                  <div className="premium-banner" style={{ margin: '2rem 0', borderColor: 'rgba(63,90,62,.3)' }}>
+                    <div className="premium-banner-head">
+                      <span className="premium-tag" style={{ background: 'linear-gradient(135deg,#5d7a5c,#3f5a3e)' }}>🌿 Parenthèse Exclusive de 2 à 3 jours · Oser enfin partir entre femmes</span>
+                      <h2 style={{ marginTop: '.5rem', color: '#3f5a3e' }}>La philosophie de la marche : du rire partagé au silence habité, jusqu’au feu de bivouac</h2>
+                      <p>
+                        Combien de femmes se disent que le trekking <em>« n’est pas fait pour elles »</em>, que c’est trop exigeant, ou renoncent faute de trouver quelqu’un avec qui partir ? Ici, vous partez avec d’autres femmes qui ne se connaissent pas au départ, dans une bienveillance totale, pour découvrir ce que les plus beaux livres sur la marche appellent <strong>la mouvance du chemin</strong> :
+                      </p>
+                    </div>
+                    <div className="premium-grid" style={{ gridTemplateColumns: 'repeat(2,1fr)' }}>
+                      <div className="premium-card">
+                        <span className="premium-badge" style={{ background: '#e7eddc', color: '#3f5a3e', borderColor: 'rgba(63,90,62,.3)' }}>1 · L’Élan du Groupe (à 5 ou 6)</span>
+                        <h4>Rire, vibrer &amp; briser la glace</h4>
+                        <p>Parfois, le groupe marche d’un même pas : on est 5 ou 6 à parler et rire en même temps, portées par l’énergie collective et la joie simple d’être dehors ensemble.</p>
+                      </div>
+                      <div className="premium-card">
+                        <span className="premium-badge" style={{ background: '#e7eddc', color: '#3f5a3e', borderColor: 'rgba(63,90,62,.3)' }}>2 · La Présence à Soi (Seule)</span>
+                        <h4>Le silence habité &amp; le dépouillement</h4>
+                        <p>Parfois, le pas s’étire naturellement : on marche seule avec soi-même. Dans cette lenteur retrouvée, le tumulte intérieur s’apaise, le souffle s’ouvre et l’esprit se déleste.</p>
+                      </div>
+                      <div className="premium-card">
+                        <span className="premium-badge" style={{ background: '#e7eddc', color: '#3f5a3e', borderColor: 'rgba(63,90,62,.3)' }}>3 · La Résonance à Deux (Côte à côte)</span>
+                        <h4>La parole libérée pas à pas</h4>
+                        <p>Puis, sans même y penser, deux rythmes s’accordent : marcher à deux, épaule contre épaule, affranchit de la pudeur du face-à-face et fait naître des confidences d’une rare profondeur.</p>
+                      </div>
+                      <div className="premium-card">
+                        <span className="premium-badge" style={{ background: '#e7eddc', color: '#3f5a3e', borderColor: 'rgba(63,90,62,.3)' }}>4 · Bivouac, Feu de Camp &amp; Cuisine</span>
+                        <h4>Veillée en montagne &amp; listes fournies</h4>
+                        <p>Le soir, nous bivouaquons en montagne, apprenons à cuisiner ensemble et discutons toutes réunies autour du feu. Toutes les listes (courses alimentaires précises &amp; matériel) vous sont remises à l’avance.</p>
+                      </div>
+                    </div>
+                    <p className="premium-summary" style={{ borderLeftColor: '#3f5a3e', background: 'linear-gradient(90deg,rgba(231,237,220,.8),rgba(241,236,220,.85))' }}>
+                      🎒 <strong>Une organisation rassurante de A à Z :</strong> avant le départ, nous vous transmettons <strong>la liste complète de courses</strong> (pour que chacune amène exactement ce qu’il faut pour préparer sa nourriture et cuisiner ensemble au bivouac) ainsi que <strong>la liste détaillée du matériel</strong> pour profiter pleinement de ces 2 à 3 jours de connexion profonde avec la nature.
+                    </p>
+                  </div>
+                </Reveal>
+              )}
+
               <Reveal>
                 <h2>Programme</h2>
                 <ol className="program">
