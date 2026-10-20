@@ -1,7 +1,38 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Heart, Sparkles, BookOpen, Waves, Sun, Check, ArrowRight, X, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Heart, Sparkles, BookOpen, Waves, Sun, Check, ArrowRight, X, ChevronLeft, ChevronRight, Gift, Compass, Feather } from 'lucide-react';
 import { Reveal } from './ui.jsx';
+
+export const SIGNATURE_CREATIVE_WORKSHOPS = [
+  {
+    tag: 'Confiance en soi & Estime',
+    title: 'Le Coffret des Émotions & des Mots Doux',
+    goal: 'Apprendre à nommer sa météo intérieure, reconnaître ses forces (« Ce dont je suis fier/fière ») et nourrir son réservoir affectif.',
+    craft: 'Personnalisation d’un coffret en bois naturel (peintures minérales douces, lin, fleurs séchées et coquillages du Bassin) et création de cartes-mantras illustrées.',
+    takeaway: 'Son Coffret aux Trésors d’Émotions à poser sur sa table de chevet pour tirer une carte de confiance ou y glisser un mot doux chaque soir.',
+  },
+  {
+    tag: 'Gestion des émotions & Calme',
+    title: 'Le Flacon de Retour au Calme & Galet d’Ancrage',
+    goal: 'Apprivoiser les tempêtes émotionnelles (stress, colère, agitation) grâce à la respiration ludique avec Virginie et à l’ancrage sensoriel.',
+    craft: 'Création d’une bouteille sensorielle d’apaisement aux nacres tourbillonnantes et façonnage d’un galet en argile naturelle parfumé à la fleur d’oranger.',
+    takeaway: 'Son Flacon d’Apaisement & son Galet Respiratoire : dès qu’une grosse émotion monte à la maison, l’enfant respire le temps que les paillettes se déposent.',
+  },
+  {
+    tag: 'Identité, Racines & Créativité',
+    title: 'L’Arbre de Vie & des Rêves en Bois Flotté',
+    goal: 'Prendre conscience de ses racines (sa sécurité, sa famille) et oser déployer ses branches (ses talents, ses rêves, son imaginaire) avec Émilie.',
+    craft: 'Assemblage artistique autour de bois flotté du Bassin d’Arcachon, fils de coton bio, perles de bois et médaillons d’argile gravés de ses qualités.',
+    takeaway: 'Son Arbre de Vie mural (ou Capteur de Confiance) à suspendre dans sa chambre comme rappel quotidien de sa valeur unique.',
+  },
+  {
+    tag: 'Lien Mère-Enfant & Tendresse',
+    title: 'Le Carnet Complice & Flacon d’Huile Douce',
+    goal: 'Ouvrir un espace de confidence sans jugement entre maman et enfant et ancrer le toucher bienveillant appris lors de l’atelier massage.',
+    craft: 'Création d’un carnet secret en papier coton décoré d’un herbier de fleurs pressées + étiquetage personnalisé d’un flacon d’huile de massage bio.',
+    takeaway: 'Le Carnet de Liaison Maman ↔ Enfant (à glisser sous l’oreiller à la maison) et son Flacon d’Huile pour prolonger le rituel massage de 5 min au coucher.',
+  },
+];
 
 export const MOTHER_CHILD_PHOTOS = [
   {
@@ -50,11 +81,11 @@ export default function MotherChildShowcase({ embedded = false }) {
     <>
       <Reveal>
         <div className="mc-header">
-          <span className="mc-badge"><Sparkles size={14} /> Parenthèse d’Exception à la Journée · Villa avec Spa sur le Bassin d’Arcachon</span>
-          <h2>Ateliers &amp; Yoga Mère-Enfant — Journées Privilège</h2>
-          <p className="script-sub">Yoga complice, massage réciproque maman ↔ enfant &amp; vrai temps de Spa pour les mamans</p>
+          <span className="mc-badge"><Sparkles size={14} /> Pôle Éveil, Créativité &amp; Lien · Villa avec Spa sur le Bassin d’Arcachon</span>
+          <h2>Ateliers Enfants &amp; Journées Privilège Mère-Enfant</h2>
+          <p className="script-sub">Développement personnel, créativité, yoga complice &amp; objet-trésor rapporté à la maison</p>
           <p className="mc-lead">
-            Dans l’écrin intimiste de notre <strong>villa-loft avec piscine chauffée, Spa 7 places et Sauna 4 places à 10 minutes à pied du Bassin d’Arcachon</strong>, nous avons imaginé des journées confidentielles en tout petit comité. Une expérience raffinée, douce et sécurisante qui réunit ce dont chaque maman rêve secrètement : <strong>du Yoga Mère-Enfant et des ateliers complices inoubliables avec son enfant</strong>, et <strong>le luxe d’un vrai moment de tranquillité au Spa pendant que nous prenons soin des enfants</strong>.
+            En plus de nos séjours, nous avons conçu dans notre <strong>villa-loft avec piscine chauffée, Spa 7 places et Sauna 4 places sur le Bassin d’Arcachon</strong> un véritable pôle d’<strong>Ateliers Enfants et Duo Mère-Enfant</strong>. Notre approche professionnelle unit le <strong>développement personnel de l’enfant</strong> (confiance en soi, météo des émotions, retour au calme), l’<strong>expression créative</strong> et une signature forte : <strong>à chaque atelier, l’enfant façonne et repart chez lui avec son propre « Objet-Ancrage »</strong> pour prolonger les bienfaits dans son quotidien à la maison.
           </p>
         </div>
       </Reveal>
@@ -120,6 +151,60 @@ export default function MotherChildShowcase({ embedded = false }) {
           </Reveal>
         ))}
       </div>
+
+      <Reveal delay={100}>
+        <div className="mc-craft-showcase">
+          <div className="mc-craft-head">
+            <span className="mc-craft-pill"><Gift size={14} /> La Signature Pédagogique Complices d’Ailleurs · Atelier Enfant ou Duo Mère-Enfant</span>
+            <h3>Développement Personnel &amp; Créativité : repartir chez soi avec son « Objet-Ancrage »</h3>
+            <p>
+              En pédagogie positive, un enfant intègre durablement une émotion ou une force intérieure lorsqu’il la matérialise de ses propres mains. Chacun de nos ateliers suit une méthode structurée en <strong>3 temps</strong> (<em>1. Éveil &amp; Météo des émotions · 2. Création manuelle en matières naturelles · 3. Rituel d’ancrage à ramener à la maison</em>) :
+            </p>
+          </div>
+
+          <div className="mc-craft-grid">
+            {SIGNATURE_CREATIVE_WORKSHOPS.map((w) => (
+              <div className="mc-craft-card" key={w.title}>
+                <div className="mc-craft-card-top">
+                  <span className="mc-craft-tag">{w.tag}</span>
+                  <h4>{w.title}</h4>
+                </div>
+                <ul className="mc-craft-steps">
+                  <li>
+                    <span className="mc-craft-step-ico"><Compass size={14} /></span>
+                    <div>
+                      <strong>Développement personnel</strong>
+                      <span>{w.goal}</span>
+                    </div>
+                  </li>
+                  <li>
+                    <span className="mc-craft-step-ico"><Feather size={14} /></span>
+                    <div>
+                      <strong>Créativité &amp; Matières nobles</strong>
+                      <span>{w.craft}</span>
+                    </div>
+                  </li>
+                  <li className="mc-craft-takeaway">
+                    <span className="mc-craft-step-ico"><Gift size={14} /></span>
+                    <div>
+                      <strong>L’Objet-Trésor rapporté à la maison</strong>
+                      <span>{w.takeaway}</span>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            ))}
+          </div>
+
+          <div className="mc-formats-bar">
+            <div>
+              <strong>2 formats au choix selon vos envies :</strong>
+              <span><strong>Formule « Atelier Enfant » (Demi-journée)</strong> dédiée au développement personnel et à la création de son objet · ou <strong>Formule « Journée Privilège Mère-Enfant »</strong> incluant Yoga en duo, Massage réciproque et Temps Spa 7 places &amp; Sauna pour les mamans.</span>
+            </div>
+            <Link to="/contact" className="btn btn-terra btn-sm">Demander le programme des prochains ateliers <ArrowRight size={15} /></Link>
+          </div>
+        </div>
+      </Reveal>
 
       <Reveal delay={120}>
         <div className="mc-schedule-box">

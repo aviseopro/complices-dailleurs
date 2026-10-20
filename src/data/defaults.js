@@ -245,8 +245,8 @@ export const defaultData = {
     {
       slug: 'arcachon-mere-enfant',
       theme: 'arcachon',
-      title: 'Ateliers & Yoga Mère-Enfant — Journées Privilège au Bassin d’Arcachon',
-      short: 'Yoga mère-enfant, massage réciproque maman ↔ enfant & vrai temps de Spa pour les mamans',
+      title: 'Ateliers Enfants & Journées Privilège Mère-Enfant — Bassin d’Arcachon',
+      short: 'Développement personnel, créativité, yoga complice, massage réciproque & Objet-Ancrage rapporté à la maison',
       image: '/img/atelier-mere-enfant-massage.jpg',
       status: 'open',
       kind: 'booking',
@@ -254,24 +254,23 @@ export const defaultData = {
       depositPerPlace: null,
       pricePerPerson: null,
       capacity: 12,
-      duration: 'Journée Privilège (10h00 – 17h30) · Mercredis, samedis ou vacances scolaires',
-      lodging: 'Villa-Loft d’exception privatisée à la journée (Piscine chauffée, Spa 7 places, Sauna 4 places, Filet suspendu)',
+      duration: 'Formule Atelier Enfant (Demi-journée) ou Journée Privilège Mère-Enfant (10h00 – 17h30)',
+      lodging: 'Villa-Loft d’exception privatisée (Piscine chauffée, Spa 7 places, Sauna 4 places, Filet suspendu)',
       location: 'À 10 min à pied du Bassin d’Arcachon',
       intro:
-        'Dans l’écrin intimiste de notre villa-loft sur le Bassin d’Arcachon, offrez-vous une journée rare qui allie le meilleur des deux mondes : des ateliers complices d’exception avec votre enfant (initiation au massage réciproque où l’enfant apprend à masser sa maman et la maman masse son enfant, yoga ludique, lecture perchée dans le filet suspendu), et un véritable temps de calme absolu au Spa 7 places et au Sauna pour les mamans pendant qu’Émilie et Virginie s’occupent des enfants.',
+        'Dans l’écrin intimiste de notre villa-loft sur le Bassin d’Arcachon, nous proposons des Ateliers Enfants et des Journées Privilège Mère-Enfant centrés sur le développement personnel (confiance en soi, météo des émotions, retour au calme), la créativité et le bien-être. Notre signature pédagogique : chaque enfant façonne de ses mains et repart chez lui avec son propre « Objet-Ancrage » (Coffret des émotions, Flacon de retour au calme, Arbre de vie en bois flotté ou Carnet complice) pour prolonger les bienfaits de l’atelier à la maison. En formule Journée Mère-Enfant, les mamans profitent en plus d’un vrai temps de calme au Spa 7 places et au Sauna pendant que nous prenons soin des enfants.',
       conditions: {
         trancheAge: 'Enfants dès 5 ans (groupes harmonisés par tranche d’âge)',
-        encadrement: 'Ateliers enfants encadrés par Émilie & Virginie pendant le temps Spa des mamans',
-        capacite: 'Petit comité exclusif (6 à 8 duos mère-enfant maximum)',
+        encadrement: '2 formules : Atelier Enfant (demi-journée) ou Journée Privilège Mère-Enfant avec Spa mamans',
+        capacite: 'Petit comité exclusif (6 à 8 enfants ou duos maximum)',
       },
       included: [
-        'Privatisation de la villa-loft à la journée (piscine chauffée, jardin, salon cathédrale, terrasse en bois)',
-        'Atelier Massage Complice Mère ↔ Enfant guidé par nos esthéticiennes (apprendre à se masser mutuellement)',
-        'Séance de Yoga doux & ludique en duo avec Virginie',
-        'Temps libre Spa 7 places, Sauna 4 places & Piscine chauffée réservé aux mamans en toute tranquillité',
-        'Ateliers créatifs, sensoriels & cercle des émotions pour les enfants avec Émilie & Virginie',
-        'Temps calme de lecture & confidences dans le filet suspendu en mezzanine',
-        'Déjeuner sain & raffiné + Goûter chic maison (fruits frais, pâtisseries maison, jus & tisanes)',
+        'Matériel créatif en matières nobles & naturelles : chaque enfant repart chez lui avec son « Objet-Ancrage » personnalisé',
+        'Ateliers de développement personnel (confiance en soi, accueil des émotions, respiration) avec Émilie & Virginie',
+        'Séance de Yoga doux & ludique (respiration, postures d’apaisement) avec Virginie, professeure diplômée',
+        'En formule Duo Mère-Enfant : Atelier Massage Complice Mère ↔ Enfant guidé par nos esthéticiennes',
+        'En formule Duo Mère-Enfant : Temps libre Spa 7 places, Sauna 4 places & Piscine chauffée réservé aux mamans pendant l’atelier des enfants',
+        'Temps calme de lecture & confidences dans le filet suspendu en mezzanine + Goûter chic maison',
       ],
       excluded: [
         'Transport jusqu’à la villa',
@@ -279,10 +278,10 @@ export const defaultData = {
       program: [
         {
           day: '10h00 – 12h30',
-          title: 'Accueil gourmand & Rituels de Connexion Mère-Enfant',
+          title: 'Accueil gourmand, Yoga ludique & Rituels de Connexion Mère-Enfant',
           items: [
             'Accueil tout en douceur sur la terrasse en bois (boissons fraîches, tisanes, gourmandises)',
-            'Yoga complice & respiration ludique en duo maman-enfant avec Virginie',
+            'Yoga complice, ancrage & respiration ludique avec Virginie pour apprivoiser ses émotions',
             'Atelier Signature Massage Réciproque : l’enfant apprend des gestes doux pour masser sa maman (mains, épaules, visage), puis la maman masse son enfant dans une bulle de tendresse',
           ],
         },
@@ -296,18 +295,18 @@ export const defaultData = {
         },
         {
           day: '14h00 – 16h00',
-          title: 'Le Temps des Mamans au Spa · L’Atelier Créatif des Enfants',
+          title: 'Création de l’Objet-Ancrage des Enfants · Temps Spa des Mamans',
           items: [
-            'Pour les mamans : tranquillité absolue au Spa Jacuzzi 7 places, Sauna 4 places, piscine chauffée et salon de détente',
-            'Pendant ce temps pour les enfants : Émilie & Virginie prennent le relais avec des ateliers créatifs, sensoriels et ludiques en toute sécurité',
+            'Pour les enfants (ou en Atelier Enfant demi-journée) : cercle de développement personnel et création manuelle de leur Objet-Trésor (Coffret des Émotions, Flacon de Retour au Calme ou Arbre de Vie en bois flotté)',
+            'Pendant ce temps pour les mamans : tranquillité absolue au Spa Jacuzzi 7 places, Sauna 4 places, piscine chauffée et salon de détente',
           ],
         },
         {
           day: '16h00 – 17h30',
-          title: 'Lecture Perchée dans le Filet Suspendu & Goûter Chic',
+          title: 'Lecture Perchée dans le Filet Suspendu, Goûter Chic & Remise de l’Objet',
           items: [
             'Retrouvailles mère-enfant lovés dans le grand filet suspendu en mezzanine autour de beaux livres et d’histoires',
-            'Petit cercle de gratitude avec Émilie & grand goûter maison sur la terrasse en bois',
+            'Présentation fière par chaque enfant de sa création, rituel d’utilisation pour la maison et grand goûter maison sur la terrasse',
           ],
         },
       ],

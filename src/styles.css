@@ -358,6 +358,31 @@ blockquote{font:italic 1.6rem var(--serif);color:var(--navy);border-left:3px sol
 .mc-photo-body h4{font-family:var(--serif);font-size:1.32rem;margin:0 0 .4rem;color:var(--navy)}
 .mc-photo-body p{margin:0;font-size:.9rem;line-height:1.55;color:var(--muted)}
 
+/* Bloc Signature : Développement Personnel, Créativité & Objet-Ancrage */
+.mc-craft-showcase{background:linear-gradient(165deg,#ffffff 0%,#fdf8f2 100%);border:1px solid rgba(168,85,58,.22);border-radius:var(--r);padding:2.2rem;margin-bottom:2.4rem;box-shadow:0 14px 40px rgba(29,53,80,.06)}
+.mc-craft-head{text-align:center;max-width:800px;margin:0 auto 2rem}
+.mc-craft-pill{display:inline-flex;align-items:center;gap:.45rem;background:rgba(168,85,58,.1);color:var(--terra);border:1px solid rgba(168,85,58,.25);padding:.32rem .9rem;border-radius:999px;font-size:.72rem;text-transform:uppercase;letter-spacing:.13em;font-weight:600;margin-bottom:.7rem}
+.mc-craft-head h3{font-family:var(--serif);font-size:clamp(1.55rem,2.6vw,2.1rem);color:var(--navy);margin:0 0 .6rem}
+.mc-craft-head p{margin:0 auto;color:var(--muted);font-size:.96rem;line-height:1.62}
+.mc-craft-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.35rem;margin-bottom:1.6rem;align-items:stretch}
+.mc-embedded .mc-craft-grid{grid-template-columns:1fr}
+@media(max-width:900px){.mc-craft-grid{grid-template-columns:1fr}.mc-craft-showcase{padding:1.5rem}}
+.mc-craft-card{background:#fff;border:1px solid var(--sand2);border-radius:16px;padding:1.6rem 1.7rem;display:flex;flex-direction:column;box-shadow:0 8px 24px rgba(29,53,80,.04)}
+.mc-craft-card-top{text-align:center;padding-bottom:.95rem;margin-bottom:1rem;border-bottom:1px solid rgba(232,216,195,.75)}
+.mc-craft-tag{display:inline-block;font-size:.69rem;text-transform:uppercase;letter-spacing:.14em;color:var(--terra);background:rgba(168,85,58,.09);padding:.22rem .72rem;border-radius:999px;font-weight:600;margin-bottom:.4rem}
+.mc-craft-card-top h4{font-family:var(--serif);font-size:1.38rem;color:var(--navy);margin:0;line-height:1.22}
+.mc-craft-steps{list-style:none;padding:0;margin:0;display:grid;gap:.65rem;flex:1}
+.mc-craft-steps li{display:grid;grid-template-columns:26px 1fr;gap:.65rem;align-items:start;padding:.65rem .85rem;background:var(--cream);border-radius:11px;border:1px solid rgba(232,216,195,.6);text-align:left}
+.mc-craft-steps li.mc-craft-takeaway{background:linear-gradient(90deg,rgba(241,231,216,.75),rgba(250,246,239,.95));border-color:rgba(168,85,58,.3)}
+.mc-craft-step-ico{width:24px;height:24px;border-radius:50%;background:rgba(168,85,58,.12);color:var(--terra);display:inline-flex;align-items:center;justify-content:center;margin-top:.1rem;flex-shrink:0}
+.mc-craft-steps li div{display:flex;flex-direction:column;gap:.12rem}
+.mc-craft-steps li strong{font-family:var(--serif);font-size:1.05rem;font-weight:600;color:var(--navy);line-height:1.2}
+.mc-craft-steps li span{font-size:.86rem;line-height:1.48;color:var(--muted)}
+.mc-formats-bar{display:flex;align-items:center;justify-content:space-between;gap:1.2rem;flex-wrap:wrap;padding:1.15rem 1.4rem;background:var(--cream);border:1px solid var(--sand2);border-radius:14px}
+.mc-formats-bar div{display:flex;flex-direction:column;gap:.18rem;flex:1 1 320px}
+.mc-formats-bar strong{font-family:var(--serif);font-size:1.16rem;color:var(--navy)}
+.mc-formats-bar span{font-size:.88rem;color:var(--muted);line-height:1.48}
+
 .mc-schedule-box{background:#fff;border:1px solid var(--sand2);border-radius:var(--r);padding:2.2rem;display:grid;grid-template-columns:1fr 1.25fr;gap:2.4rem;align-items:start;box-shadow:0 14px 40px rgba(29,53,80,.06)}
 .mc-embedded .mc-schedule-box{grid-template-columns:1fr;padding:1.6rem}
 @media(max-width:920px){.mc-schedule-box{grid-template-columns:1fr;padding:1.5rem}}
