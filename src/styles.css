@@ -58,6 +58,9 @@ h1{font-size:clamp(2.4rem,6vw,4.6rem)} h2{font-size:clamp(1.9rem,4vw,3rem)} h3{f
 .nav a.nav-arcachon:hover,.nav a.nav-arcachon.active{background:#284f6b;color:#fff;border-color:#284f6b}
 .nav a.nav-mere-enfant{color:#9e472a;font-weight:500;background:rgba(226,138,96,.2);padding:.36rem .78rem;border-radius:999px;border:1px solid rgba(168,85,58,.36)}
 .nav a.nav-mere-enfant:hover,.nav a.nav-mere-enfant.active{background:#8b4129;color:#fff;border-color:#8b4129}
+.nav a.nav-atelier-enfant{color:#8c3450;font-weight:600;background:rgba(218,124,152,.22);padding:.36rem .82rem;border-radius:999px;border:1px solid rgba(184,82,114,.48);box-shadow:0 0 14px rgba(214,108,142,.48),0 0 4px rgba(214,108,142,.3);animation:haloKids 3s ease-in-out infinite}
+.nav a.nav-atelier-enfant:hover,.nav a.nav-atelier-enfant.active{background:#8c3450;color:#fff;border-color:#8c3450;box-shadow:0 0 18px rgba(140,52,80,.65)}
+@keyframes haloKids{0%,100%{box-shadow:0 0 12px rgba(214,108,142,.42),0 0 4px rgba(214,108,142,.26)}50%{box-shadow:0 0 20px rgba(214,108,142,.68),0 0 8px rgba(214,108,142,.42)}}
 .nav a.nav-trek{color:#355634;font-weight:500;background:rgba(93,122,92,.16);padding:.36rem .78rem;border-radius:999px;border:1px solid rgba(93,122,92,.34)}
 .nav a.nav-trek:hover,.nav a.nav-trek.active{background:#3f5a3e;color:#fff;border-color:#3f5a3e}
 .nav a.nav-marrakech{color:#8a6214;font-weight:500;background:rgba(235,192,88,.24);padding:.36rem .78rem;border-radius:999px;border:1px solid rgba(204,154,48,.42)}
@@ -392,6 +395,27 @@ blockquote{font:italic 1.6rem var(--serif);color:var(--navy);border-left:3px sol
 .mc-time{display:inline-flex;align-items:center;gap:.35rem;font-size:.73rem;text-transform:uppercase;letter-spacing:.12em;color:var(--terra);font-weight:600;margin-bottom:.2rem}
 .mc-step strong{display:block;font-family:var(--serif);font-size:1.18rem;color:var(--navy);margin-bottom:.25rem}
 .mc-step p{margin:0;font-size:.88rem;line-height:1.5;color:var(--muted)}
+
+/* Intercalaire Atelier Enfant (KidsWorkshopShowcase) */
+.kids-section{background:linear-gradient(180deg,#fdf6f8 0%,#fbf7f0 55%,#f6ecee 100%);border-top:1px solid rgba(184,82,114,.22);border-bottom:1px solid rgba(184,82,114,.22);position:relative}
+.kids-embedded{margin-top:2.2rem;padding-top:2rem;border-top:1px solid var(--sand2)}
+.kids-header{text-align:center;max-width:860px;margin:0 auto 2.4rem}
+.kids-badge{display:inline-flex;align-items:center;gap:.45rem;background:rgba(140,52,80,.1);color:#8c3450;border:1px solid rgba(140,52,80,.28);padding:.35rem .95rem;border-radius:999px;font-size:.73rem;text-transform:uppercase;letter-spacing:.14em;margin-bottom:.8rem;font-weight:500;box-shadow:0 0 14px rgba(214,108,142,.25)}
+.kids-craft-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem;margin-bottom:2.4rem;align-items:stretch}
+.kids-embedded .kids-craft-grid{grid-template-columns:1fr}
+@media(max-width:900px){.kids-craft-grid{grid-template-columns:1fr}}
+.kids-craft-card{background:#fff;border:1px solid rgba(184,82,114,.2);border-radius:var(--r);padding:1.85rem 2rem;box-shadow:0 12px 34px rgba(29,53,80,.05);display:flex;flex-direction:column;justify-content:space-between;text-align:left}
+.kids-craft-top{text-align:center;padding-bottom:.95rem;margin-bottom:1rem;border-bottom:1px solid rgba(184,82,114,.14)}
+.kids-craft-tag{display:inline-block;font-size:.7rem;text-transform:uppercase;letter-spacing:.14em;color:#8c3450;background:rgba(218,124,152,.16);padding:.24rem .75rem;border-radius:999px;font-weight:600;margin-bottom:.45rem}
+.kids-craft-top h3{font-family:var(--serif);font-size:1.48rem;color:var(--navy);margin:0;line-height:1.22}
+.kids-craft-desc{margin:0 0 1.1rem;font-size:.93rem;line-height:1.6;color:var(--muted)}
+.kids-takeaway-box{display:grid;grid-template-columns:28px 1fr;gap:.65rem;align-items:start;padding:.75rem .95rem;background:linear-gradient(90deg,rgba(253,240,244,.9),rgba(250,246,239,.95));border:1px solid rgba(184,82,114,.26);border-radius:12px}
+.kids-takeaway-ico{width:26px;height:26px;border-radius:50%;background:rgba(140,52,80,.12);color:#8c3450;display:inline-flex;align-items:center;justify-content:center;margin-top:.1rem}
+.kids-takeaway-box div{display:flex;flex-direction:column;gap:.12rem}
+.kids-takeaway-box strong{font-family:var(--serif);font-size:1.08rem;font-weight:600;color:var(--navy);line-height:1.2}
+.kids-takeaway-box span{font-size:.87rem;line-height:1.48;color:var(--muted)}
+.btn-kids{background:#8c3450!important;color:#fff!important;box-shadow:0 6px 20px rgba(140,52,80,.28)}
+.btn-kids:hover{background:#6e263d!important}
 
 /* Intercalaire Corse du Sud (CorsicaShowcase) */
 .corse-section{background:linear-gradient(180deg,#f0f7f6 0%,#fbf7f0 55%,#f2ede2 100%);border-top:1px solid rgba(64,164,156,.22);border-bottom:1px solid rgba(64,164,156,.22);position:relative}

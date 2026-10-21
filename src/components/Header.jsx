@@ -85,6 +85,7 @@ export default function Header() {
           </div>
 
           <NavLink to="/experiences/arcachon-mere-enfant" onClick={close} className="nav-mere-enfant">Ateliers &amp; Yoga Mère-Enfant</NavLink>
+          <NavLink to="/experiences/atelier-enfant" onClick={close} className="nav-atelier-enfant">Atelier Enfant</NavLink>
           <Link to="/#marrakech" onClick={close} className="nav-marrakech">Marrakech</Link>
           <Link to="/#faq" onClick={close}>FAQ</Link>
           <NavLink to="/contact" onClick={close}>Contact</NavLink>

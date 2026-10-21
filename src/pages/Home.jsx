@@ -5,6 +5,7 @@ import { Photo, Reveal } from '../components/ui.jsx';
 import HeroCinemagraph from '../components/HeroCinemagraph.jsx';
 import VillaShowcase from '../components/VillaShowcase.jsx';
 import MotherChildShowcase from '../components/MotherChildShowcase.jsx';
+import KidsWorkshopShowcase from '../components/KidsWorkshopShowcase.jsx';
 import CorsicaShowcase from '../components/CorsicaShowcase.jsx';
 import Faq from '../components/Faq.jsx';
 import Newsletter from '../components/Newsletter.jsx';
@@ -291,6 +292,8 @@ export default function Home() {
       </section>
 
       <MotherChildShowcase />
+
+      <KidsWorkshopShowcase />
 
       <CorsicaShowcase />
 

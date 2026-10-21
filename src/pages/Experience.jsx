@@ -4,6 +4,7 @@ import { Check, X } from 'lucide-react';
 import { Photo, Reveal, STATUS, Price } from '../components/ui.jsx';
 import VillaShowcase from '../components/VillaShowcase.jsx';
 import MotherChildShowcase from '../components/MotherChildShowcase.jsx';
+import KidsWorkshopShowcase from '../components/KidsWorkshopShowcase.jsx';
 import CorsicaShowcase from '../components/CorsicaShowcase.jsx';
 import { useData, euro } from '../data/store.js';
 import { seatsLeft } from '../lib/booking.js';
@@ -25,6 +26,7 @@ export default function Experience() {
   if (!e) return <section className="section"><div className="wrap"><h1>Séjour introuvable</h1><Link to="/">Retour</Link></div></section>;
   const arca = e.slug === 'arcachon-entre-femmes';
   const arcaMereEnfant = e.slug === 'arcachon-mere-enfant';
+  const isAtelierEnfant = e.slug === 'atelier-enfant';
   const isCorse = e.slug === 'corse';
   const left = seatsLeft(e, bookings);
   const sellable = e.kind !== 'future' && e.status !== 'soon' && (e.pricePerPerson != null || e.depositPerPlace != null);
@@ -56,6 +58,8 @@ export default function Experience() {
                   <MotherChildShowcase embedded />
                   <VillaShowcase embedded />
                 </>
+              ) : isAtelierEnfant ? (
+                <KidsWorkshopShowcase embedded />
               ) : isCorse ? (
                 <CorsicaShowcase embedded />
               ) : (
@@ -199,8 +203,8 @@ export default function Experience() {
             </dl>
             {sellable ? (
               <Link to={`/reserver/${e.slug}`} className="btn btn-blue block">{e.kind === 'preorder' ? `Pré-réserver — ${e.depositPerPlace} € d’acompte` : 'Réserver'}</Link>
-            ) : arcaMereEnfant ? (
-              <Link to="/contact" className="btn btn-terra block">Réserver ou privatiser une journée</Link>
+            ) : arcaMereEnfant || isAtelierEnfant ? (
+              <Link to="/contact" className="btn btn-terra block">{isAtelierEnfant ? 'Inscrire mon enfant à un atelier' : 'Réserver ou privatiser une journée'}</Link>
             ) : (
               <Link to="/contact" className="btn btn-ghost block">Être prévenue de l’ouverture</Link>
             )}

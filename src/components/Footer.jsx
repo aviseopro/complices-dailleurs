@@ -18,6 +18,7 @@ export default function Footer() {
           <Link to="/experiences/corse">Corse du Sud — Entre femmes</Link>
           <Link to="/experiences/trek-compostelle">Trek au féminin — Compostelle</Link>
           <Link to="/experiences/arcachon-mere-enfant">Bassin d’Arcachon — Ateliers Mère-Enfant</Link>
+          <Link to="/experiences/atelier-enfant">Bassin d’Arcachon — Atelier Enfant</Link>
           <Link to="/experiences/marrakech-entre-femmes">Marrakech — Entre femmes</Link>
           <Link to="/experiences/marrakech-mere-enfant">Marrakech — Mère &amp; enfant</Link>
           <Link to="/notre-histoire">Notre histoire</Link>
