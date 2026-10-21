@@ -50,8 +50,7 @@ export default function Header() {
       <div className="header-in">
         <Logo />
         <nav className={`nav ${open ? 'open' : ''}`} aria-label="Navigation principale">
-          <NavLink to="/" end onClick={close}>Accueil</NavLink>
-          <NavLink to="/notre-histoire" onClick={close}>Notre histoire</NavLink>
+          <NavLink to="/" end onClick={close} className="nav-accueil">Accueil</NavLink>
 
           <div
             className={`nav-dropdown ${franceOpen ? 'is-open' : ''}`}
