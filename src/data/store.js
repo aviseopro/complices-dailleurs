@@ -52,6 +52,7 @@ function load() {
           program: refresh ? def.program : cur.program,
           gallery: refresh ? def.gallery : ((cur.gallery && cur.gallery[0]?.src) ? cur.gallery : def.gallery),
           depositPerPlace: (!cur.depositPerPlace || cur.depositPerPlace === 35 || cur.depositPerPlace === 100) ? def.depositPerPlace : cur.depositPerPlace,
+          pricePerPerson: (cur.pricePerPerson == null && def.pricePerPerson != null) ? def.pricePerPerson : cur.pricePerPerson,
           paymentLink: (cur.paymentLink && cur.paymentLink.length > 5) ? cur.paymentLink : def.paymentLink,
           image: refresh ? def.image : (cur.image || def.image),
         };

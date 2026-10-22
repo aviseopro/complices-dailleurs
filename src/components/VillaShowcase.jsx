@@ -143,7 +143,6 @@ export default function VillaShowcase({ embedded = false }) {
                 <img src={photo.src} alt={photo.title} loading="lazy" />
                 <div className="villa-photo-cap">
                   <strong>{photo.title}</strong>
-                  <span>{photo.caption}</span>
                 </div>
               </button>
             </Reveal>

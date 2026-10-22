@@ -277,6 +277,7 @@ export default function Home() {
                   <dt>Lieu</dt><dd>{arca.location}</dd>
                   <dt>Hébergement</dt><dd>{arca.lodging}</dd>
                   <dt>Durée</dt><dd>{arca.duration}</dd>
+                  <dt>Tarif / personne</dt><dd><strong>{arca?.pricePerPerson || 450} €</strong></dd>
                   <dt>Soins &amp; rituels sur place</dt><dd><strong>+ de 300 € de prestations incluses</strong></dd>
                   <dt>Maintien du séjour</dt><dd>Dès {arca.minParticipants} participantes</dd>
                   <dt>Pré-réservation</dt><dd><strong>{arca?.depositPerPlace || 95} € d’acompte</strong> (paiement sécurisé Stripe)</dd>
