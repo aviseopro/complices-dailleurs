@@ -53,6 +53,9 @@ h1{font-size:clamp(2.4rem,6vw,4.6rem)} h2{font-size:clamp(1.9rem,4vw,3rem)} h3{f
 
 .nav{display:flex;gap:.55rem;align-items:center;justify-content:center;margin:0 auto;font-size:.71rem;text-transform:uppercase;letter-spacing:.07em;flex-wrap:nowrap}
 .nav a{display:inline-flex;align-items:center;justify-content:center;white-space:nowrap;text-align:center;text-decoration:none;padding:.3rem .35rem;border-bottom:1px solid transparent;line-height:1.15;transition:background .25s ease,border-color .25s ease,color .25s ease}
+.nav .ig{display:inline-flex;align-items:center;justify-content:center;padding:.3rem .35rem;color:var(--ink)}
+.ig-disabled{opacity:.45;cursor:default;pointer-events:none;user-select:none}
+.foot-grid span.ig-disabled{display:block;padding:.15rem 0}
 .nav a:hover,.nav a.active{border-color:var(--terra)}
 .nav a.nav-accueil{color:#5e4934;font-weight:500;background:rgba(214,188,150,.26);padding:.36rem .82rem;border-radius:999px;border:1px solid rgba(182,148,104,.46);box-shadow:0 0 13px rgba(198,162,114,.44),0 0 4px rgba(198,162,114,.28);animation:haloAccueil 3.2s ease-in-out infinite}
 .nav a.nav-accueil:hover,.nav a.nav-accueil.active{background:#5e4934;color:#fff;border-color:#5e4934;box-shadow:0 0 16px rgba(94,73,52,.55)}

@@ -25,6 +25,9 @@ function load() {
       if (!saved.settings?.whatsapp) {
         saved.settings = { ...saved.settings, whatsapp: defaultData.settings.whatsapp };
       }
+      if (!saved.settings?.instagram || saved.settings?.instagram === 'https://www.instagram.com/') {
+        saved.settings = { ...saved.settings, instagram: defaultData.settings.instagram };
+      }
       const have = new Map((saved.experiences || []).map((e) => [e.slug, e]));
       const exps = defaultData.experiences.map((def) => {
         const cur = have.get(def.slug);

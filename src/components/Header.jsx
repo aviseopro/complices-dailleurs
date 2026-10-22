@@ -88,7 +88,7 @@ export default function Header() {
           <Link to="/#marrakech" onClick={close} className="nav-marrakech">Marrakech</Link>
           <Link to="/#faq" onClick={close}>FAQ</Link>
           <NavLink to="/contact" onClick={close}>Contact</NavLink>
-          <a href={settings.instagram} target="_blank" rel="noreferrer" aria-label="Instagram" className="ig"><Instagram size={17} /></a>
+          <span aria-label="Instagram (bientôt disponible)" className="ig ig-disabled" title="Instagram (bientôt disponible)"><Instagram size={17} /></span>
         </nav>
         <Link to="/reserver/arcachon-entre-femmes" className="btn btn-blue btn-sm head-cta">Pré-réserver — 95 € d’acompte</Link>
         <button className="burger" aria-label={open ? 'Fermer le menu' : 'Ouvrir le menu'} aria-expanded={open} onClick={() => setOpen(!open)}>

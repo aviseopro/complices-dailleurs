@@ -11,7 +11,7 @@ export const defaultData = {
     stripePaymentUrl: 'https://buy.stripe.com/5kQaEZb38efo3Nh8x6afS00',
     whatsapp: '0629849653',
     contactEmail: 'contact@exemple.fr',
-    instagram: 'https://www.instagram.com/',
+    instagram: 'https://www.instagram.com/complicesdailleurs',
     adminPassword: 'demo',
     cancellationPolicy:
       'Politique d’annulation à rédiger et faire valider par les organisatrices avant mise en production.',

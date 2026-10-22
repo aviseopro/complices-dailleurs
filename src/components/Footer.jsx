@@ -29,7 +29,7 @@ export default function Footer() {
           <Link to="/mentions-legales">Mentions légales</Link>
           <Link to="/mentions-legales#confidentialite">Confidentialité &amp; cookies</Link>
           <Link to="/contact">Contact</Link>
-          <a href={settings.instagram} target="_blank" rel="noreferrer">Instagram</a>
+          <span className="muted ig-disabled" title="Instagram (bientôt disponible)">Instagram</span>
           <Link to="/admin" className="muted">Espace organisatrices</Link>
         </div>
       </div>
