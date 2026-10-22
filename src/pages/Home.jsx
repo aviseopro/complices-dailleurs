@@ -101,16 +101,24 @@ export default function Home() {
             <h1>Bien plus qu’un week-end <span className="script">bien-être…</span></h1>
             <p className="sig light">Voyage au cœur du féminin sur le Bassin d’Arcachon</p>
 
-            <div className="hero-offer-banner">
-              <span className="hero-offer-tag">✨ Offre de départ exclusive · Tarif de lancement</span>
-              <div className="hero-offer-price">
-                <strong>{arca?.pricePerPerson || 450} €</strong>
-                <span className="hero-offer-old">{arca?.originalPrice || 550} €</span>
-                <span className="hero-offer-unit">tout inclus / pers.</span>
+            <div className="hero-privilege-plaque" aria-label="Offre privilège de lancement">
+              <div className="hpp-col">
+                <span className="hpp-eyebrow">Offre de départ exclusive</span>
+                <strong className="hpp-title">Tarif Privilège Première Édition</strong>
               </div>
-              <span className="hero-offer-alma">
-                ✦ Paiement en plusieurs fois possible avec <strong>Alma</strong> · Acompte de {arca?.depositPerPlace || 95} €
-              </span>
+              <div className="hpp-divider" aria-hidden="true" />
+              <div className="hpp-col hpp-price-col">
+                <div className="hpp-price-row">
+                  <span className="hpp-old">{arca?.originalPrice || 550} €</span>
+                  <strong className="hpp-new">{arca?.pricePerPerson || 450} €</strong>
+                </div>
+                <span className="hpp-sub">par personne · soins &amp; pension inclus</span>
+              </div>
+              <div className="hpp-divider" aria-hidden="true" />
+              <div className="hpp-col">
+                <span className="hpp-eyebrow">Règlement échelonné</span>
+                <span className="hpp-alma">Paiement en plusieurs fois <em className="alma-pill">Alma</em></span>
+              </div>
             </div>
 
             <div className="cta-row">
@@ -291,12 +299,15 @@ export default function Home() {
                   <dt>Hébergement</dt><dd>{arca.lodging}</dd>
                   <dt>Durée</dt><dd>{arca.duration}</dd>
                   <dt>Offre de départ exclusive</dt>
-                  <dd>
-                    <strong style={{ fontSize: '1.25rem', color: 'var(--terra)' }}>{arca?.pricePerPerson || 450} €</strong>{' '}
-                    <s style={{ color: 'var(--muted)', fontSize: '.95rem' }}>{arca?.originalPrice || 550} €</s>{' '}
-                    <span className="small">/ personne</span>
+                  <dd className="bk-privilege-row">
+                    <span className="bk-old-price">{arca?.originalPrice || 550} €</span>
+                    <strong className="bk-new-price">{arca?.pricePerPerson || 450} €</strong>
+                    <span className="bk-per-pers">/ personne</span>
                   </dd>
-                  <dt>Facilités de paiement</dt><dd><strong>Paiement en plusieurs fois possible avec Alma</strong></dd>
+                  <dt>Facilités de paiement</dt>
+                  <dd className="bk-alma-row">
+                    Paiement en plusieurs fois avec <span className="alma-badge-inline">Alma</span>
+                  </dd>
                   <dt>Soins &amp; rituels sur place</dt><dd><strong>+ de 300 € de prestations incluses</strong></dd>
                   <dt>Maintien du séjour</dt><dd>Dès {arca.minParticipants} participantes</dd>
                   <dt>Pré-réservation</dt><dd><strong>{arca?.depositPerPlace || 95} € d’acompte</strong> (paiement sécurisé Stripe)</dd>

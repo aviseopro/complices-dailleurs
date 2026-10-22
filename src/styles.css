@@ -118,14 +118,30 @@ h1{font-size:clamp(2.4rem,6vw,4.6rem)} h2{font-size:clamp(1.9rem,4vw,3rem)} h3{f
 .hero h1{color:#fff;max-width:12.5ch;margin-bottom:.35rem;text-shadow:0 2px 20px rgba(0,0,0,.32)}
 .hero .sig.light{position:relative;display:inline-block;color:#fff;font-size:clamp(1.65rem,2.6vw,2.15rem);margin:.1rem 0 .85rem;opacity:1;text-shadow:0 2px 12px rgba(0,0,0,.7);z-index:1}
 .hero .sig.light::before{content:"";position:absolute;inset:-.25rem -.9rem;background:radial-gradient(ellipse at center,rgba(8,18,30,.52) 0%,rgba(8,18,30,.25) 60%,transparent 100%);filter:blur(10px);z-index:-1;pointer-events:none;border-radius:99px}
-.hero-offer-banner{display:inline-flex;flex-direction:column;gap:.35rem;background:linear-gradient(145deg,rgba(12,26,42,.74) 0%,rgba(22,42,64,.62) 100%);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(230,169,114,.55);border-radius:18px;padding:.95rem 1.35rem;margin-bottom:.6rem;box-shadow:0 12px 32px rgba(0,0,0,.28),0 0 18px rgba(230,169,114,.22)}
-.hero-offer-tag{display:inline-block;align-self:flex-start;font-size:.69rem;text-transform:uppercase;letter-spacing:.16em;color:#f7d9b0;background:rgba(197,138,74,.26);border:1px solid rgba(230,169,114,.45);padding:.2rem .7rem;border-radius:999px;font-weight:600}
-.hero-offer-price{display:flex;align-items:baseline;gap:.65rem;flex-wrap:wrap;margin-top:.1rem}
-.hero-offer-price strong{font-family:var(--serif);font-size:clamp(2rem,3.4vw,2.65rem);font-weight:600;color:#fff;line-height:1;text-shadow:0 2px 12px rgba(0,0,0,.4)}
-.hero-offer-old{font-family:var(--serif);font-size:1.35rem;color:rgba(255,255,255,.62);text-decoration:line-through;text-decoration-color:#e6a972;text-decoration-thickness:1.5px}
-.hero-offer-unit{font-size:.86rem;color:rgba(255,255,255,.88);letter-spacing:.03em}
-.hero-offer-alma{font-size:.82rem;color:#f5dec0;letter-spacing:.02em;padding-top:.3rem;border-top:1px solid rgba(255,255,255,.15)}
-.hero-offer-alma strong{color:#fff;font-weight:600}
+/* Plaque Privilège Haute Couture dans le Hero */
+.hero-privilege-plaque{display:inline-grid;grid-template-columns:auto 1px auto 1px auto;align-items:center;gap:1.25rem;background:linear-gradient(135deg,rgba(14,27,42,.68) 0%,rgba(22,40,60,.52) 100%);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(235,213,179,.38);box-shadow:0 18px 42px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.18);border-radius:16px;padding:.85rem 1.4rem;margin:.1rem 0 .65rem;color:#fff}
+.hpp-col{display:flex;flex-direction:column;gap:.16rem}
+.hpp-divider{width:1px;height:36px;background:linear-gradient(180deg,transparent,rgba(235,213,179,.42),transparent)}
+.hpp-eyebrow{font-family:var(--sans);font-size:.63rem;text-transform:uppercase;letter-spacing:.22em;color:#e8cfa8;font-weight:500}
+.hpp-title{font-family:var(--serif);font-size:1.22rem;font-weight:500;letter-spacing:.02em;color:#fff;line-height:1.15}
+.hpp-price-row{display:flex;align-items:baseline;gap:.55rem;line-height:1}
+.hpp-old{font-family:var(--serif);font-style:italic;font-size:1.22rem;color:rgba(255,255,255,.58);text-decoration:line-through;text-decoration-color:rgba(232,207,168,.85);text-decoration-thickness:1px}
+.hpp-new{font-family:var(--serif);font-size:2.05rem;font-weight:600;color:#fff;letter-spacing:-0.01em;text-shadow:0 2px 14px rgba(0,0,0,.35)}
+.hpp-sub{font-size:.68rem;letter-spacing:.06em;color:rgba(255,255,255,.8);text-transform:uppercase}
+.hpp-alma{display:inline-flex;align-items:center;gap:.45rem;font-family:var(--serif);font-size:1.15rem;color:#fff;line-height:1.15}
+.alma-pill{font-family:var(--sans);font-style:normal;font-size:.65rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;padding:.18rem .58rem;border-radius:999px;background:rgba(232,207,168,.22);border:1px solid rgba(232,207,168,.55);color:#f7e4c6}
+@media(max-width:760px){
+  .hero-privilege-plaque{grid-template-columns:1fr;gap:.65rem;padding:.95rem 1.15rem;width:100%}
+  .hpp-divider{width:100%;height:1px;background:linear-gradient(90deg,transparent,rgba(235,213,179,.32),transparent)}
+}
+
+/* Tarif privilège & Alma dans les cartes de réservation */
+.bk-privilege-row{display:flex;align-items:baseline;gap:.5rem;margin-top:.15rem}
+.bk-old-price{font-family:var(--serif);font-style:italic;font-size:1.15rem;color:var(--muted);text-decoration:line-through;text-decoration-color:var(--terra)}
+.bk-new-price{font-family:var(--serif);font-size:1.65rem;font-weight:600;color:var(--navy);line-height:1}
+.bk-per-pers{font-size:.78rem;color:var(--muted);letter-spacing:.04em}
+.bk-alma-row{display:inline-flex;align-items:center;gap:.4rem;font-weight:400;color:var(--navy);margin-top:.1rem}
+.alma-badge-inline{font-family:var(--sans);font-size:.68rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;padding:.16rem .55rem;border-radius:999px;background:rgba(29,53,80,.08);border:1px solid rgba(29,53,80,.22);color:var(--navy)}
 .hero-card-glass{background:linear-gradient(155deg,rgba(12,26,42,.64) 0%,rgba(15,32,50,.48) 100%);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.22);border-radius:22px;padding:1.65rem 1.85rem;box-shadow:0 24px 50px rgba(0,0,0,.28);transition:transform .35s ease,border-color .35s ease}
 .hero-card-glass:hover{transform:translateY(-3px);border-color:rgba(255,255,255,.36)}
 .hero-card-glass .lead.light{color:#fcfaf7;font-weight:300;font-size:1.02rem;line-height:1.62;max-width:none;margin:0 0 1.25rem;text-shadow:0 1px 6px rgba(0,0,0,.4)}

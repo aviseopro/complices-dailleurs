@@ -197,17 +197,25 @@ export default function Experience() {
               {e.lodging && <><dt>Hébergement</dt><dd>{e.lodging}</dd></>}
               <dt>Dates</dt><dd>{e.dates.length ? e.dates.map((d) => d.label).join(' · ') : 'À confirmer'}</dd>
               <dt>{e.originalPrice ? 'Offre de départ exclusive' : 'Tarif / personne'}</dt>
-              <dd>
+              <dd className={e.originalPrice ? 'bk-privilege-row' : ''}>
                 {e.originalPrice && e.pricePerPerson ? (
                   <>
-                    <strong style={{ fontSize: '1.22rem', color: 'var(--terra)' }}>{euro(e.pricePerPerson)}</strong>{' '}
-                    <s style={{ color: 'var(--muted)', fontSize: '.92rem' }}>{euro(e.originalPrice)}</s>
+                    <span className="bk-old-price">{euro(e.originalPrice)}</span>
+                    <strong className="bk-new-price">{euro(e.pricePerPerson)}</strong>
+                    <span className="bk-per-pers">/ personne</span>
                   </>
                 ) : (
                   <Price value={e.pricePerPerson} />
                 )}
               </dd>
-              {arca && <><dt>Facilités de paiement</dt><dd><strong>Paiement en plusieurs fois possible avec Alma</strong></dd></>}
+              {arca && (
+                <>
+                  <dt>Facilités de paiement</dt>
+                  <dd className="bk-alma-row">
+                    Paiement en plusieurs fois avec <span className="alma-badge-inline">Alma</span>
+                  </dd>
+                </>
+              )}
               {e.minParticipants && <><dt>Maintien du séjour</dt><dd>Dès {e.minParticipants} participantes</dd></>}
               {e.kind === 'preorder' && <><dt>Pré-réservation</dt><dd>{euro(e.depositPerPlace)} d’acompte</dd></>}
               <dt>Places</dt><dd>{left == null ? 'Nombre à confirmer' : `${left} restantes`}</dd>
