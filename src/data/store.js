@@ -53,6 +53,7 @@ function load() {
           gallery: refresh ? def.gallery : ((cur.gallery && cur.gallery[0]?.src) ? cur.gallery : def.gallery),
           depositPerPlace: (!cur.depositPerPlace || cur.depositPerPlace === 35 || cur.depositPerPlace === 100) ? def.depositPerPlace : cur.depositPerPlace,
           pricePerPerson: (cur.pricePerPerson == null && def.pricePerPerson != null) ? def.pricePerPerson : cur.pricePerPerson,
+          originalPrice: cur.originalPrice || def.originalPrice,
           paymentLink: (cur.paymentLink && cur.paymentLink.length > 5) ? cur.paymentLink : def.paymentLink,
           image: refresh ? def.image : (cur.image || def.image),
         };

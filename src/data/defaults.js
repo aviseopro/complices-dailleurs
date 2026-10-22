@@ -29,6 +29,7 @@ export const defaultData = {
       depositPerPlace: 95,
       paymentLink: 'https://buy.stripe.com/5kQaEZb38efo3Nh8x6afS00',
       pricePerPerson: 450,
+      originalPrice: 550,
       capacity: null,
       dates: [],
       duration: 'Un week-end entre femmes (durée exacte à confirmer)',

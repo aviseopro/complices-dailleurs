@@ -100,6 +100,19 @@ export default function Home() {
             <span className="hero-badge"><span className="hero-dot" /> Expérience Phare · Bassin d’Arcachon — Entre femmes</span>
             <h1>Bien plus qu’un week-end <span className="script">bien-être…</span></h1>
             <p className="sig light">Voyage au cœur du féminin sur le Bassin d’Arcachon</p>
+
+            <div className="hero-offer-banner">
+              <span className="hero-offer-tag">✨ Offre de départ exclusive · Tarif de lancement</span>
+              <div className="hero-offer-price">
+                <strong>{arca?.pricePerPerson || 450} €</strong>
+                <span className="hero-offer-old">{arca?.originalPrice || 550} €</span>
+                <span className="hero-offer-unit">tout inclus / pers.</span>
+              </div>
+              <span className="hero-offer-alma">
+                ✦ Paiement en plusieurs fois possible avec <strong>Alma</strong> · Acompte de {arca?.depositPerPlace || 95} €
+              </span>
+            </div>
+
             <div className="cta-row">
               <Link to="/reserver/arcachon-entre-femmes" className="btn btn-blue">Pré-réserver ma place — {arca?.depositPerPlace || 95} € d’acompte</Link>
               <a href="#arcachon" className="btn btn-light">Découvrir tout le séjour <ArrowRight size={16} /></a>
@@ -277,7 +290,13 @@ export default function Home() {
                   <dt>Lieu</dt><dd>{arca.location}</dd>
                   <dt>Hébergement</dt><dd>{arca.lodging}</dd>
                   <dt>Durée</dt><dd>{arca.duration}</dd>
-                  <dt>Tarif / personne</dt><dd><strong>{arca?.pricePerPerson || 450} €</strong></dd>
+                  <dt>Offre de départ exclusive</dt>
+                  <dd>
+                    <strong style={{ fontSize: '1.25rem', color: 'var(--terra)' }}>{arca?.pricePerPerson || 450} €</strong>{' '}
+                    <s style={{ color: 'var(--muted)', fontSize: '.95rem' }}>{arca?.originalPrice || 550} €</s>{' '}
+                    <span className="small">/ personne</span>
+                  </dd>
+                  <dt>Facilités de paiement</dt><dd><strong>Paiement en plusieurs fois possible avec Alma</strong></dd>
                   <dt>Soins &amp; rituels sur place</dt><dd><strong>+ de 300 € de prestations incluses</strong></dd>
                   <dt>Maintien du séjour</dt><dd>Dès {arca.minParticipants} participantes</dd>
                   <dt>Pré-réservation</dt><dd><strong>{arca?.depositPerPlace || 95} € d’acompte</strong> (paiement sécurisé Stripe)</dd>

@@ -196,7 +196,18 @@ export default function Experience() {
               <dt>Lieu</dt><dd>{e.location}</dd>
               {e.lodging && <><dt>Hébergement</dt><dd>{e.lodging}</dd></>}
               <dt>Dates</dt><dd>{e.dates.length ? e.dates.map((d) => d.label).join(' · ') : 'À confirmer'}</dd>
-              <dt>Tarif / personne</dt><dd><Price value={e.pricePerPerson} /></dd>
+              <dt>{e.originalPrice ? 'Offre de départ exclusive' : 'Tarif / personne'}</dt>
+              <dd>
+                {e.originalPrice && e.pricePerPerson ? (
+                  <>
+                    <strong style={{ fontSize: '1.22rem', color: 'var(--terra)' }}>{euro(e.pricePerPerson)}</strong>{' '}
+                    <s style={{ color: 'var(--muted)', fontSize: '.92rem' }}>{euro(e.originalPrice)}</s>
+                  </>
+                ) : (
+                  <Price value={e.pricePerPerson} />
+                )}
+              </dd>
+              {arca && <><dt>Facilités de paiement</dt><dd><strong>Paiement en plusieurs fois possible avec Alma</strong></dd></>}
               {e.minParticipants && <><dt>Maintien du séjour</dt><dd>Dès {e.minParticipants} participantes</dd></>}
               {e.kind === 'preorder' && <><dt>Pré-réservation</dt><dd>{euro(e.depositPerPlace)} d’acompte</dd></>}
               <dt>Places</dt><dd>{left == null ? 'Nombre à confirmer' : `${left} restantes`}</dd>
