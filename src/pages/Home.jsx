@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Flower2, Leaf, Sun, Users, Shell, Gem, Heart, Sparkles, Waves, Check } from 'lucide-react';
+import { ArrowRight, Flower2, Leaf, Sun, Users, Shell, Gem, Heart, Sparkles, Waves, Check, ShieldCheck, Clock } from 'lucide-react';
 import { Photo, Reveal, AlmaLogo } from '../components/ui.jsx';
 import ArcachonCommercialPlaque from '../components/ArcachonCommercialPlaque.jsx';
 import HeroCinemagraph from '../components/HeroCinemagraph.jsx';
@@ -100,45 +100,85 @@ export default function Home() {
           <div className="hero-left">
             <span className="hero-badge"><span className="hero-dot" /> Expérience Phare · Bassin d’Arcachon — Entre femmes</span>
             <h1>Bien plus qu’un week-end <span className="script">bien-être…</span></h1>
-            <p className="sig light">Voyage au cœur du féminin sur le Bassin d’Arcachon</p>
+            <p className="sig light">Déposer ce qui pèse, se faire choyer et repartir le cœur léger</p>
 
-            <div className="hero-privilege-plaque" aria-label="Offre privilège de lancement">
-              <div className="hpp-col">
-                <span className="hpp-eyebrow">Offre de départ exclusive</span>
-                <strong className="hpp-title">Réservez votre place pour {arca?.depositPerPlace || 95} €</strong>
-              </div>
-              <div className="hpp-divider" aria-hidden="true" />
-              <div className="hpp-col hpp-price-col">
-                <div className="hpp-price-row">
-                  <span className="hpp-old">{arca?.originalPrice || 550} €</span>
-                  <strong className="hpp-new">{arca?.pricePerPerson || 450} €</strong>
-                </div>
-                <span className="hpp-sub">Séjour tout compris · soins inclus</span>
-              </div>
-              <div className="hpp-divider" aria-hidden="true" />
-              <div className="hpp-col">
-                <span className="hpp-eyebrow">Règlement échelonné</span>
-                <span className="hpp-alma">Paiement en plusieurs fois avec <AlmaLogo height={14} /></span>
-              </div>
+            <p className="hero-lead-text">
+              Une parenthèse rare entre femmes au cœur des pins du Bassin d’Arcachon. 3 jours hors du temps dans un loft avec spa et sauna privatisés, alliant écoute bienveillante, yoga, et l’excellence de soins d’institut haute technologie sur place.
+            </p>
+
+            <div className="hero-highlights-pills">
+              <span>💎 + de 300 € de soins offerts</span>
+              <span>🏡 Spa 7 places &amp; Sauna</span>
+              <span>🧘‍♀️ Yin &amp; Hatha Yoga</span>
+              <span>🤍 8 femmes max</span>
             </div>
 
-            <div className="cta-row">
-              <Link to="/reserver/arcachon-entre-femmes" className="btn btn-blue acc-hero-cta">
-                Je m’inscris — {arca?.depositPerPlace || 95} € d’acompte
-              </Link>
-              <a href="#arcachon" className="btn btn-light">Découvrir tout le séjour <ArrowRight size={16} /></a>
+            <div className="cta-row" style={{ marginTop: '1rem' }}>
+              <a href="#arcachon" className="btn btn-light">
+                Découvrir la villa &amp; tout le programme <ArrowRight size={16} />
+              </a>
             </div>
           </div>
 
-          <div className="hero-card-glass">
-            <p className="lead light">
-              Portées par notre complicité, notre harmonie et notre simplicité, nous vous accueillons à 10 minutes à pied du Bassin d’Arcachon dans un loft d’exception (piscine chauffée, Spa 7 places, Sauna 4 places) : yoga en intérieur ou en plein air, balades sur le sentier du littoral à l’ombre des pins, soins haute technologie sur place, et un cocon bienveillant où déposer vos soucis pour repartir plus légère.
-            </p>
-            <a href="#histoire" className="hero-duo-inline">
-              <img src="/img/emilie-virginie-marrakech.jpg" alt="Émilie et Virginie, les fondatrices" />
-              <div>
-                <strong>Émilie &amp; Virginie</strong>
-                <small>Vos hôtes · Esthéticiennes &amp; Professeure de yoga</small>
+          <div className="hero-sales-box" aria-label="Offre privilège de départ Bassin d'Arcachon">
+            <div className="hsb-top">
+              <span className="hsb-urgent-pill">
+                <Sparkles size={13} className="hsb-spark" /> Offre de lancement · 8 places seulement
+              </span>
+              <span className="hsb-alma-tag">
+                <span>Facilité Alma</span>
+                <AlmaLogo height={14} />
+              </span>
+            </div>
+
+            <div className="hsb-main">
+              <div className="hsb-hook-lead">
+                Réservez votre place pour <strong className="hsb-deposit-highlight">{arca?.depositPerPlace || 95} €</strong> seulement
+              </div>
+
+              <div className="hsb-pricing-row">
+                <div className="hsb-price-tag">
+                  <span className="hsb-old-price">{arca?.originalPrice || 550} €</span>
+                  <strong className="hsb-new-price">{arca?.pricePerPerson || 450} €</strong>
+                  <span className="hsb-per-person">tout compris / pers.</span>
+                </div>
+                <span className="hsb-save-badge">Économisez 100 €</span>
+              </div>
+
+              <ul className="hsb-value-stack">
+                <li>
+                  <Check size={15} className="hsb-check" />
+                  <span><strong>+ de 300 € de soins de beauté inclus</strong> : Soin visage Haute Technologie, massage expert, luminothérapie LED &amp; auto-massage</span>
+                </li>
+                <li>
+                  <Check size={15} className="hsb-check" />
+                  <span><strong>Loft d’exception privatisé</strong> à 10 min du Bassin (Spa 7 places, Sauna 4 places, piscine chauffée)</span>
+                </li>
+                <li>
+                  <Check size={15} className="hsb-check" />
+                  <span><strong>Yoga avec Virginie &amp; Méditation avec Émilie</strong> + pension complète végétarienne saine &amp; gourmande</span>
+                </li>
+              </ul>
+            </div>
+
+            <div className="hsb-action">
+              <Link to="/reserver/arcachon-entre-femmes" className="hsb-btn-cta">
+                <span className="hsb-btn-title">JE RÉSERVE MA PLACE — {arca?.depositPerPlace || 95} € D’ACOMPTE</span>
+                <span className="hsb-btn-sub">Bloquez votre chambre dès aujourd’hui · Solde plus tard</span>
+                <ArrowRight size={19} className="hsb-btn-arrow" />
+              </Link>
+              <div className="hsb-reassurance">
+                <span><ShieldCheck size={13} /> Paiement 100% sécurisé Stripe</span>
+                <span><Clock size={13} /> Annulation sereine</span>
+                <span><Users size={13} /> 8 participantes max</span>
+              </div>
+            </div>
+
+            <a href="#histoire" className="hsb-founders-footer">
+              <img src="/img/emilie-virginie-marrakech.jpg" alt="Émilie et Virginie" className="hsb-founders-avatar" />
+              <div className="hsb-founders-quote">
+                <em>« Nous vous accueillons personnellement comme des amies pour un week-end inoubliable. »</em>
+                <small>Émilie &amp; Virginie · Vos hôtes esthéticiennes &amp; prof de yoga</small>
               </div>
             </a>
           </div>
@@ -236,7 +276,7 @@ export default function Home() {
               <li><Check size={15} /> <span><strong>Yoga (Yin &amp; Hatha) avec Virginie</strong> &amp; <strong>Méditation / Cercle de femmes avec Émilie</strong></span></li>
             </ul>
             <p className="small">Soins de bien-être et de beauté : aucune promesse médicale.</p>
-            <Link to="/reserver/arcachon-entre-femmes" className="btn btn-terra">Pré-réserver mon séjour — {arca?.depositPerPlace || 95} € d’acompte</Link>
+            <Link to="/reserver/arcachon-entre-femmes" className="btn btn-terra btn-commercial-glow">Je réserve mon séjour — {arca?.depositPerPlace || 95} € d’acompte (Tarif privilège 450 €)</Link>
           </Reveal>
           <div className="carousel" aria-roledescription="carrousel">
             <div className="car-track" style={{ transform: `translateX(calc(${-slide} * (var(--cw) + 12px)))` }}>
