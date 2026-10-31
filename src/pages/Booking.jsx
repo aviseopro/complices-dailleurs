@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useData, update, euro } from '../data/store.js';
-import { Price } from '../components/ui.jsx';
+import { Price, AlmaLogo } from '../components/ui.jsx';
 import { createBooking, seatsLeft, amountDue } from '../lib/booking.js';
 
 export default function Booking() {
@@ -66,10 +66,23 @@ export default function Booking() {
       </div></section>
     );
 
+  const isArca = e.slug === 'arcachon-entre-femmes';
+
   return (
     <section className={`section theme-${e.theme}`}><div className="wrap narrow">
-      <p className="eyebrow">{preorder ? 'Pré-réservation' : 'Réservation officielle'}</p>
+      <p className="eyebrow">{isArca ? 'Inscription & Réservation de place' : (preorder ? 'Pré-réservation' : 'Réservation officielle')}</p>
       <h1>{e.title}</h1>
+      {isArca && (
+        <div className="bk-arca-highlight" style={{ margin: '1rem 0 1.5rem' }}>
+          <div className="bk-arca-dep">
+            Réservez votre place pour <strong>{e.depositPerPlace || 95} € d’acompte</strong> seulement
+          </div>
+          <div className="bk-arca-total" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '.5rem', marginTop: '.4rem' }}>
+            <span>Séjour tout compris : <span className="bk-old-price">{euro(e.originalPrice || 550)}</span> <strong className="bk-new-price" style={{ fontSize: '1.2rem' }}>{euro(e.pricePerPerson || 450)}</strong> (solde plus tard)</span>
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '.35rem', fontSize: '.8rem', color: 'var(--navy)' }}>Paiement en plusieurs fois avec <AlmaLogo height={14} /></span>
+          </div>
+        </div>
+      )}
       {blocked ? (
         <p>Ce séjour n’est pas encore ouvert à la réservation. <Link to="/contact">Contactez-nous</Link> pour être prévenue.</p>
       ) : (
@@ -102,7 +115,11 @@ export default function Booking() {
           <label className="check"><input type="checkbox" checked={f.consentData} onChange={set('consentData')} /> J’accepte le traitement de mes données pour gérer ma réservation (RGPD). *{errors.consentData && <em> {errors.consentData}</em>}</label>
           <p className="small">Paiement 100 % sécurisé par carte bancaire ou Apple Pay via Stripe. Aucune donnée bancaire n’est stockée sur ce site.</p>
           {err && <p className="error" role="alert">{err}</p>}
-          <button className="btn btn-blue" type="submit" disabled={total == null}>{preorder ? `Régler l’acompte — ${total ? euro(total) : '95 €'}` : `Procéder au paiement — ${total ? euro(total) : ''}`}</button>
+          <button className="btn btn-blue btn-commercial-glow" type="submit" disabled={total == null}>
+            {isArca
+              ? `Confirmer mon inscription — ${total ? euro(total) : '95 € d’acompte'}`
+              : (preorder ? `Régler l’acompte — ${total ? euro(total) : '95 €'}` : `Procéder au paiement — ${total ? euro(total) : ''}`)}
+          </button>
         </form>
       )}
     </div></section>

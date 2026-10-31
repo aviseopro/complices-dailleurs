@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Flower2, Leaf, Sun, Users, Shell, Gem, Heart, Sparkles, Waves, Check } from 'lucide-react';
-import { Photo, Reveal } from '../components/ui.jsx';
+import { Photo, Reveal, AlmaLogo } from '../components/ui.jsx';
+import ArcachonCommercialPlaque from '../components/ArcachonCommercialPlaque.jsx';
 import HeroCinemagraph from '../components/HeroCinemagraph.jsx';
 import VillaShowcase from '../components/VillaShowcase.jsx';
 import MotherChildShowcase from '../components/MotherChildShowcase.jsx';
@@ -104,7 +105,7 @@ export default function Home() {
             <div className="hero-privilege-plaque" aria-label="Offre privilège de lancement">
               <div className="hpp-col">
                 <span className="hpp-eyebrow">Offre de départ exclusive</span>
-                <strong className="hpp-title">Tarif Privilège Première Édition</strong>
+                <strong className="hpp-title">Réservez votre place pour {arca?.depositPerPlace || 95} €</strong>
               </div>
               <div className="hpp-divider" aria-hidden="true" />
               <div className="hpp-col hpp-price-col">
@@ -112,17 +113,19 @@ export default function Home() {
                   <span className="hpp-old">{arca?.originalPrice || 550} €</span>
                   <strong className="hpp-new">{arca?.pricePerPerson || 450} €</strong>
                 </div>
-                <span className="hpp-sub">par personne · soins &amp; pension inclus</span>
+                <span className="hpp-sub">Séjour tout compris · soins inclus</span>
               </div>
               <div className="hpp-divider" aria-hidden="true" />
               <div className="hpp-col">
                 <span className="hpp-eyebrow">Règlement échelonné</span>
-                <span className="hpp-alma">Paiement en plusieurs fois <em className="alma-pill">Alma</em></span>
+                <span className="hpp-alma">Paiement en plusieurs fois avec <AlmaLogo height={14} /></span>
               </div>
             </div>
 
             <div className="cta-row">
-              <Link to="/reserver/arcachon-entre-femmes" className="btn btn-blue">Pré-réserver ma place — {arca?.depositPerPlace || 95} € d’acompte</Link>
+              <Link to="/reserver/arcachon-entre-femmes" className="btn btn-blue acc-hero-cta">
+                Je m’inscris — {arca?.depositPerPlace || 95} € d’acompte
+              </Link>
               <a href="#arcachon" className="btn btn-light">Découvrir tout le séjour <ArrowRight size={16} /></a>
             </div>
           </div>
@@ -203,6 +206,7 @@ export default function Home() {
                 ✨ <strong>Une valeur réelle de plus de 300 € de soins et rituels sur place :</strong> en institut et spa sur le Bassin d’Arcachon, l’ensemble de ce protocole (soin du visage haute technologie avec machines dernier cri, massage relaxant expert, séance de luminothérapie LED professionnelle, cours d’auto-massage facial, yoga et méditation) représente à lui seul plus de 300 € de prestations — ici entièrement inclus dans votre week-end entre femmes avec l’hébergement de charme et la pension complète gourmande.
               </p>
             </div>
+            <ArcachonCommercialPlaque e={arca} variant="section" className="arca-inpage-banner" />
           </Reveal>
 
           <div className="cards5">
@@ -306,14 +310,14 @@ export default function Home() {
                   </dd>
                   <dt>Facilités de paiement</dt>
                   <dd className="bk-alma-row">
-                    Paiement en plusieurs fois avec <span className="alma-badge-inline">Alma</span>
+                    Paiement en plusieurs fois avec <AlmaLogo height={15} />
                   </dd>
                   <dt>Soins &amp; rituels sur place</dt><dd><strong>+ de 300 € de prestations incluses</strong></dd>
                   <dt>Maintien du séjour</dt><dd>Dès {arca.minParticipants} participantes</dd>
-                  <dt>Pré-réservation</dt><dd><strong>{arca?.depositPerPlace || 95} € d’acompte</strong> (paiement sécurisé Stripe)</dd>
+                  <dt>Réservation de la place</dt><dd><strong>{arca?.depositPerPlace || 95} € d’acompte</strong> (paiement sécurisé Stripe)</dd>
                 </dl>
                 <div style={{ marginTop: '1.4rem', display: 'grid', gap: '.6rem' }}>
-                  <Link to="/reserver/arcachon-entre-femmes" className="btn btn-blue block">Pré-réserver ma place — {arca?.depositPerPlace || 95} € d’acompte</Link>
+                  <Link to="/reserver/arcachon-entre-femmes" className="btn btn-blue block btn-commercial-glow">Je m’inscris — {arca?.depositPerPlace || 95} € d’acompte</Link>
                   <Link to="/contact" className="btn btn-ghost block">Poser une question à Émilie &amp; Virginie</Link>
                 </div>
               </aside>

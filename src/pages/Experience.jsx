@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { Check, X } from 'lucide-react';
-import { Photo, Reveal, STATUS, Price } from '../components/ui.jsx';
+import { Check, X, Sparkles } from 'lucide-react';
+import { Photo, Reveal, STATUS, Price, AlmaLogo } from '../components/ui.jsx';
+import ArcachonCommercialPlaque from '../components/ArcachonCommercialPlaque.jsx';
 import VillaShowcase from '../components/VillaShowcase.jsx';
 import MotherChildShowcase from '../components/MotherChildShowcase.jsx';
 import KidsWorkshopShowcase from '../components/KidsWorkshopShowcase.jsx';
@@ -40,6 +41,7 @@ export default function Experience() {
           <span className={`pill ${e.status}`}>{STATUS[e.status]}</span>
           <h1>{e.title}</h1>
           <p className="lead">{e.short}</p>
+          {arca && <ArcachonCommercialPlaque e={e} variant="hero" />}
         </div>
       </header>
 
@@ -110,6 +112,7 @@ export default function Experience() {
                     </p>
                     <p className="small" style={{ marginTop: '.6rem', marginBottom: 0 }}>Il s’agit de soins de bien-être et de beauté ; aucune promesse médicale n’est faite.</p>
                   </div>
+                  <ArcachonCommercialPlaque e={e} variant="section" className="arca-inpage-banner" />
                 </Reveal>
               )}
 
@@ -191,37 +194,55 @@ export default function Experience() {
         {e.kind !== 'future' && (
           <aside className="booking-card" aria-label="Réservation">
             <h2>{e.kind === 'preorder' ? 'Pré-réservation' : 'Réservation'}</h2>
+            {arca && (
+              <div className="bk-arca-highlight">
+                <span className="bk-arca-tag"><Sparkles size={13} /> Offre exclusive de départ</span>
+                <div className="bk-arca-dep">
+                  Réservez votre place pour <strong>{e.depositPerPlace || 95} €</strong> seulement
+                </div>
+                <div className="bk-arca-total">
+                  Séjour complet tout compris : <span className="bk-old-price">{euro(e.originalPrice || 550)}</span> <strong className="bk-new-price">{euro(e.pricePerPerson || 450)}</strong>
+                </div>
+              </div>
+            )}
             <dl>
               <dt>Durée</dt><dd>{e.duration}</dd>
               <dt>Lieu</dt><dd>{e.location}</dd>
               {e.lodging && <><dt>Hébergement</dt><dd>{e.lodging}</dd></>}
               <dt>Dates</dt><dd>{e.dates.length ? e.dates.map((d) => d.label).join(' · ') : 'À confirmer'}</dd>
-              <dt>{e.originalPrice ? 'Offre de départ exclusive' : 'Tarif / personne'}</dt>
-              <dd className={e.originalPrice ? 'bk-privilege-row' : ''}>
-                {e.originalPrice && e.pricePerPerson ? (
-                  <>
-                    <span className="bk-old-price">{euro(e.originalPrice)}</span>
-                    <strong className="bk-new-price">{euro(e.pricePerPerson)}</strong>
-                    <span className="bk-per-pers">/ personne</span>
-                  </>
-                ) : (
-                  <Price value={e.pricePerPerson} />
-                )}
-              </dd>
+              {!arca && (
+                <>
+                  <dt>{e.originalPrice ? 'Offre de départ exclusive' : 'Tarif / personne'}</dt>
+                  <dd className={e.originalPrice ? 'bk-privilege-row' : ''}>
+                    {e.originalPrice && e.pricePerPerson ? (
+                      <>
+                        <span className="bk-old-price">{euro(e.originalPrice)}</span>
+                        <strong className="bk-new-price">{euro(e.pricePerPerson)}</strong>
+                        <span className="bk-per-pers">/ personne</span>
+                      </>
+                    ) : (
+                      <Price value={e.pricePerPerson} />
+                    )}
+                  </dd>
+                </>
+              )}
               {arca && (
                 <>
                   <dt>Facilités de paiement</dt>
                   <dd className="bk-alma-row">
-                    Paiement en plusieurs fois avec <span className="alma-badge-inline">Alma</span>
+                    Paiement en plusieurs fois avec <AlmaLogo height={15} />
                   </dd>
                 </>
               )}
               {e.minParticipants && <><dt>Maintien du séjour</dt><dd>Dès {e.minParticipants} participantes</dd></>}
-              {e.kind === 'preorder' && <><dt>Pré-réservation</dt><dd>{euro(e.depositPerPlace)} d’acompte</dd></>}
-              <dt>Places</dt><dd>{left == null ? 'Nombre à confirmer' : `${left} restantes`}</dd>
+              <dt>{arca ? 'Acompte d’inscription' : 'Pré-réservation'}</dt>
+              <dd><strong>{euro(e.depositPerPlace)}</strong> pour bloquer votre place</dd>
+              <dt>Places</dt><dd>{left == null ? 'Nombre à confirmer' : `${left} restantes (8 max)`}</dd>
             </dl>
             {sellable ? (
-              <Link to={`/reserver/${e.slug}`} className="btn btn-blue block">{e.kind === 'preorder' ? `Pré-réserver — ${e.depositPerPlace} € d’acompte` : 'Réserver'}</Link>
+              <Link to={`/reserver/${e.slug}`} className={`btn btn-blue block ${arca ? 'btn-commercial-glow' : ''}`}>
+                {arca ? `Je m’inscris — ${e.depositPerPlace || 95} € d’acompte` : (e.kind === 'preorder' ? `Pré-réserver — ${e.depositPerPlace} € d’acompte` : 'Réserver')}
+              </Link>
             ) : arcaMereEnfant || isAtelierEnfant ? (
               <Link to="/contact" className="btn btn-terra block">{isAtelierEnfant ? 'Inscrire mon enfant à un atelier' : 'Réserver ou privatiser une journée'}</Link>
             ) : (

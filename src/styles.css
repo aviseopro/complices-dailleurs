@@ -133,6 +133,64 @@ h1{font-size:clamp(2.4rem,6vw,4.6rem)} h2{font-size:clamp(1.9rem,4vw,3rem)} h3{f
 .hpp-sub{font-size:.68rem;letter-spacing:.06em;color:rgba(255,255,255,.8);text-transform:uppercase}
 .hpp-alma{display:inline-flex;align-items:center;gap:.45rem;font-family:var(--serif);font-size:1.15rem;color:#fff;line-height:1.15}
 .alma-pill{font-family:var(--sans);font-style:normal;font-size:.65rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;padding:.18rem .58rem;border-radius:999px;background:rgba(232,207,168,.22);border:1px solid rgba(232,207,168,.55);color:#f7e4c6}
+
+/* Badge & Logo Alma officiel */
+.alma-badge-tag{display:inline-flex;align-items:center;justify-content:center;background:#fff;border-radius:6px;padding:2px 7px;box-shadow:0 1px 3px rgba(0,0,0,.15);vertical-align:middle;margin:0 .25rem;line-height:1;transition:transform .2s ease}
+.alma-badge-tag:hover{transform:scale(1.04)}
+.alma-svg{display:inline-block;height:15px;width:auto;vertical-align:middle}
+
+/* Bouton commercial avec halo lumineux */
+.btn-commercial-glow{box-shadow:0 0 16px rgba(44,85,115,.45),0 4px 14px rgba(0,0,0,.15)!important;font-weight:600!important}
+
+/* Carte commerciale de haute conversion Bassin d'Arcachon */
+.arca-commercial-card{display:grid;grid-template-columns:1fr auto;gap:1.6rem;align-items:center;border-radius:20px;padding:1.35rem 1.8rem;margin:1.4rem 0 1rem;position:relative;overflow:hidden;transition:transform .3s ease,box-shadow .3s ease;text-shadow:none}
+.arca-card-hero{background:linear-gradient(135deg,rgba(12,26,42,.88) 0%,rgba(20,40,62,.78) 100%);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1.5px solid rgba(235,213,179,.48);box-shadow:0 18px 46px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.2);color:#fff}
+.arca-card-section{background:linear-gradient(135deg,#ffffff 0%,#fbf7f1 100%);border:1.5px solid rgba(168,85,58,.32);box-shadow:0 16px 42px rgba(29,53,80,.08),0 0 0 1px rgba(168,85,58,.1);color:var(--ink)}
+.arca-commercial-card::before{content:"";position:absolute;top:0;left:0;width:5px;height:100%;background:linear-gradient(180deg,#e8cfa8,#c87042)}
+
+.acc-badge-row{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;margin-bottom:.55rem}
+.acc-badge{display:inline-flex;align-items:center;gap:.35rem;font-family:var(--sans);font-size:.68rem;font-weight:600;text-transform:uppercase;letter-spacing:.12em;padding:.22rem .65rem;border-radius:999px;background:rgba(235,213,179,.22);border:1px solid rgba(235,213,179,.48);color:#fbe8d0}
+.arca-card-section .acc-badge{background:rgba(168,85,58,.1);border-color:rgba(168,85,58,.3);color:var(--terra)}
+.acc-spark{color:#f5c27f}
+.acc-alma-pill{display:inline-flex;align-items:center;gap:.35rem;font-family:var(--sans);font-size:.73rem;font-weight:400;color:rgba(255,255,255,.9)}
+.arca-card-section .acc-alma-pill{color:var(--navy)}
+
+.acc-hook-title{font-family:var(--serif);font-size:clamp(1.22rem,2.2vw,1.6rem);font-weight:500;letter-spacing:-0.01em;line-height:1.2;margin:0 0 .35rem}
+.acc-deposit-val{font-weight:700;color:#fce4be;font-size:1.15em;text-shadow:0 0 12px rgba(252,228,190,.35)}
+.arca-card-section .acc-deposit-val{color:var(--terra);text-shadow:none}
+.acc-price-block{display:flex;align-items:baseline;flex-wrap:wrap;gap:.45rem;font-size:.82rem;line-height:1.35;color:rgba(255,255,255,.85)}
+.arca-card-section .acc-price-block{color:var(--muted)}
+.acc-sub-label{font-weight:400}
+.acc-old-price{font-family:var(--serif);font-style:italic;font-size:1.02rem;color:rgba(255,255,255,.58);text-decoration:line-through;text-decoration-color:rgba(232,207,168,.85)}
+.arca-card-section .acc-old-price{color:var(--muted);text-decoration-color:var(--terra)}
+.acc-current-price{font-family:var(--serif);font-size:1.32rem;font-weight:700;color:#fff;letter-spacing:-0.01em}
+.arca-card-section .acc-current-price{color:var(--navy)}
+.acc-per-person{font-size:.76rem;text-transform:uppercase;letter-spacing:.05em}
+.acc-included-note{display:block;width:100%;font-size:.74rem;color:rgba(255,255,255,.72);margin-top:.15rem;font-style:italic}
+.arca-card-section .acc-included-note{color:var(--muted)}
+
+.acc-right{display:flex;flex-direction:column;align-items:center;gap:.55rem;min-width:245px}
+.acc-cta-btn{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;position:relative;width:100%;padding:.88rem 1.6rem;border-radius:999px;background:linear-gradient(135deg,#e6a972 0%,#c87042 100%);color:#fff!important;text-decoration:none;text-align:center;box-shadow:0 8px 24px rgba(200,112,66,.42),0 0 16px rgba(230,169,114,.32);border:1px solid rgba(255,255,255,.3);cursor:pointer;transition:transform .25s ease,box-shadow .25s ease,filter .25s ease}
+.acc-cta-btn:hover{transform:translateY(-2px) scale(1.02);box-shadow:0 12px 32px rgba(200,112,66,.58),0 0 22px rgba(230,169,114,.5);filter:brightness(1.05)}
+.acc-cta-main{font-family:var(--sans);font-size:1.02rem;font-weight:600;letter-spacing:.02em}
+.acc-cta-sub{font-size:.68rem;opacity:.9;letter-spacing:.04em;text-transform:uppercase;margin-top:2px}
+.acc-cta-arrow{position:absolute;right:1.1rem;transition:transform .25s ease}
+.acc-cta-btn:hover .acc-cta-arrow{transform:translateX(4px)}
+.acc-reassurance-list{display:flex;gap:.75rem;font-size:.68rem;letter-spacing:.03em;color:rgba(255,255,255,.75)}
+.arca-card-section .acc-reassurance-list{color:var(--muted)}
+.acc-reassurance-list span{display:inline-flex;align-items:center;gap:.25rem}
+
+@media(max-width:880px){
+  .arca-commercial-card{grid-template-columns:1fr;gap:1.1rem;padding:1.15rem 1.3rem}
+  .acc-right{width:100%;align-items:stretch}
+}
+
+/* Mise en avant dans le récapitulatif de réservation */
+.bk-arca-highlight{background:linear-gradient(135deg,rgba(168,85,58,.08) 0%,rgba(214,188,150,.18) 100%);border:1px solid rgba(168,85,58,.22);border-radius:12px;padding:.85rem 1rem;margin-bottom:1rem}
+.bk-arca-tag{display:inline-flex;align-items:center;gap:.3rem;font-size:.67rem;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:var(--terra);margin-bottom:.3rem}
+.bk-arca-dep{font-family:var(--serif);font-size:1.15rem;color:var(--navy);line-height:1.25}
+.bk-arca-dep strong{color:var(--terra);font-size:1.32rem}
+.bk-arca-total{font-size:.8rem;color:var(--muted);margin-top:.25rem}
 @media(max-width:760px){
   .hero-privilege-plaque{grid-template-columns:1fr;gap:.65rem;padding:.95rem 1.15rem;width:100%}
   .hpp-divider{width:100%;height:1px;background:linear-gradient(90deg,transparent,rgba(235,213,179,.32),transparent)}
