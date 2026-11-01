@@ -36,7 +36,7 @@ function load() {
         const isLegacyArcaMe = def.slug === 'arcachon-mere-enfant' && (cur.kind === 'future' || !cur.program?.length || !cur.intro?.includes('pâte Fimo'));
         const isLegacyTrek = def.slug === 'trek-compostelle' && (cur.kind === 'future' || !cur.included?.[1]?.includes('Pranayama'));
         const isLegacyCorse = def.slug === 'corse' && (cur.kind === 'future' || !cur.program?.length || !cur.excluded?.some((x) => x.includes('restaurants')));
-        const isLegacyMk = (def.slug === 'marrakech-entre-femmes' || def.slug === 'marrakech-mere-enfant') && (!cur.conditions?.hammam || cur.capacity !== 8 || !cur.excluded?.some((x) => x.includes('EasyJet')));
+        const isLegacyMk = (def.slug === 'marrakech-entre-femmes' || def.slug === 'marrakech-mere-enfant') && (!cur.included?.some((x) => x.includes('mosaïque')) || cur.duration !== '4 jours / 3 nuits' || !cur.conditions?.options);
         const refresh = isLegacyArca || isLegacyArcaMe || isLegacyTrek || isLegacyCorse || isLegacyMk;
         return {
           ...def,

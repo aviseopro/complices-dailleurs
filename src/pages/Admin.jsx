@@ -20,11 +20,21 @@ function Bookings() {
       <p><button className="btn btn-sm btn-terra" onClick={csv}>Exporter en CSV</button></p>
       {bookings.length === 0 && <p>Aucune inscription pour le moment.</p>}
       <div className="table-wrap"><table>
-        <thead><tr><th>Réf.</th><th>Séjour</th><th>Nom / email</th><th>Places</th><th>Montant</th><th>Statut</th><th>Actions</th></tr></thead>
+        <thead><tr><th>Réf.</th><th>Séjour</th><th>Nom / email</th><th>Places</th><th>Montant</th><th>Envies / Options</th><th>Statut</th><th>Actions</th></tr></thead>
         <tbody>{bookings.map((b) => (
           <tr key={b.reference}>
             <td>{b.reference}</td><td>{experiences.find((e) => e.slug === b.exp)?.title}</td>
-            <td>{b.name}<br /><small>{b.email}</small></td><td>{b.places}</td><td>{b.amount ?? '—'}</td>
+            <td>{b.name}<br /><small>{b.email}</small></td><td>{b.places}</td><td>{b.amount != null ? `${b.amount} €` : '—'}</td>
+            <td>
+              {b.options ? (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '.25rem' }}>
+                  {b.options.hammam && <span className="pill soon" style={{ fontSize: '.7rem', padding: '.12rem .45rem' }}>🌿 Hammam (~45€)</span>}
+                  {b.options.soireeFestive && <span className="pill open" style={{ fontSize: '.7rem', padding: '.12rem .45rem' }}>✨ Soirée festive</span>}
+                  {b.options.agafay && <span className="pill waitlist" style={{ fontSize: '.7rem', padding: '.12rem .45rem' }}>🐪 Agafay</span>}
+                  {!b.options.hammam && !b.options.soireeFestive && !b.options.agafay && <small style={{ color: 'var(--muted)' }}>Standard (inclusions seules)</small>}
+                </div>
+              ) : '—'}
+            </td>
             <td>{b.status}<details><summary>journal</summary>{b.log.map((l, i) => <div key={i}><small>{l.at.slice(0, 16)} · {l.status} {l.note}</small></div>)}</details></td>
             <td>
               <button onClick={() => act(b.reference, 'paid', 'Marqué payé')}>Payé</button>{' '}

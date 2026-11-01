@@ -19,7 +19,11 @@ import {
   ChevronLeft,
   ChevronRight,
   X,
-  ExternalLink,
+  Palette,
+  Clock,
+  Car,
+  GlassWater,
+  Moon,
 } from 'lucide-react';
 import { Reveal, Photo } from './ui.jsx';
 import MarrakechFlightModule from './MarrakechFlightModule.jsx';
@@ -41,7 +45,13 @@ export const MARRAKECH_GALLERY = [
     src: '/img/arcachon-yoga-net.jpg',
     badge: 'Yoga Doux & Reconnexion',
     title: 'Séances de yoga quotidiennes avec Virginie',
-    caption: 'Yin Yoga régénérant et Hatha doux adaptés à toutes les participantes pour ouvrir le souffle et délier le corps.',
+    caption: 'Yin Yoga régénérant, Hatha doux et réveils corporels adaptés à toutes les participantes pour ouvrir le souffle et délier le corps.',
+  },
+  {
+    src: '/img/atelier-enfant-mosaique.jpg',
+    badge: 'Atelier Mosaïque & Artisanat',
+    title: 'Création d’un souvenir personnel en mosaïque',
+    caption: 'Un moment créatif immersif où chacune assemble ses tesselles d’émaux et façonne de ses mains son souvenir tangible de Marrakech.',
   },
   {
     src: '/img/arcachon-cercle-net.jpg',
@@ -54,6 +64,17 @@ export const MARRAKECH_GALLERY = [
 export default function MarrakechExperienceShowcase() {
   const [lightboxIdx, setLightboxIdx] = useState(null);
 
+  // Rubrique « Personnalisez votre expérience » — Décochées par défaut
+  const [options, setOptions] = useState({
+    hammam: false,
+    soireeFestive: false,
+    agafay: false,
+  });
+
+  const toggleOption = (key) => {
+    setOptions((prev) => ({ ...prev, [key]: !prev[key] }));
+  };
+
   const prev = (e) => {
     e.stopPropagation();
     setLightboxIdx((i) => (i - 1 + MARRAKECH_GALLERY.length) % MARRAKECH_GALLERY.length);
@@ -63,20 +84,23 @@ export default function MarrakechExperienceShowcase() {
     setLightboxIdx((i) => (i + 1) % MARRAKECH_GALLERY.length);
   };
 
+  const bookingUrl = `/reserver/marrakech-entre-femmes?hammam=${options.hammam ? 1 : 0}&soiree=${options.soireeFestive ? 1 : 0}&agafay=${options.agafay ? 1 : 0}`;
+  const hasSelectedOptions = options.hammam || options.soireeFestive || options.agafay;
+
   return (
     <div className="mk-showcase">
       {/* 1. Header & Accroche */}
       <Reveal>
         <div className="mk-hero-intro">
           <span className="mk-pill-badge">
-            <Users size={14} /> Expérience à taille humaine · 8 participantes maximum · Départ dès 6
+            <Users size={14} /> 4 jours / 3 nuits · 6 à 8 participantes maximum · Accompagné par Émilie &amp; Virginie
           </span>
-          <h2>Marrakech entre femmes : souffler, se reconnecter et vivre la ville ocre autrement</h2>
+          <h2>Marrakech entre femmes : souffler, se reconnecter et vivre la ville ocre à taille humaine</h2>
           <p className="script-sub" style={{ color: '#a8553a' }}>
-            Yoga doux, riad de charme, massage bien-être inclus et complicité féminine
+            Yoga doux, riad de charme, massage bien-être, atelier mosaïque &amp; complicité
           </p>
           <p className="mk-lead-narrative">
-            Prendre le temps de respirer, ralentir le rythme et vivre Marrakech loin de l’agitation et des voyages de groupe impersonnels. Nous vous invitons à une parenthèse chaleureuse et sincère, pensée par des femmes pour des femmes : <strong>un groupe intime de 8 voyageuses au maximum</strong>, un hébergement de charme, <strong>des séances de yoga quotidiennes avec Virginie</strong>, <strong>un massage bien-être inclus pour chacune</strong>, et notre présence attentive à vos côtés pour partager les plus beaux moments tout en préservant votre entière liberté.
+            Prendre le temps de respirer, ralentir le rythme et vivre Marrakech loin de l’agitation et des groupes impersonnels. Nous vous invitons à une parenthèse chaleureuse et sincère, pensée par des femmes pour des femmes : <strong>exactement 4 jours et 3 nuits</strong>, <strong>un groupe intime de 6 à 8 participantes maximum</strong>, un hébergement de charme en Riad, <strong>des séances de yoga avec Virginie</strong>, <strong>un massage bien-être inclus</strong>, <strong>un atelier mosaïque pour créer votre propre souvenir personnel</strong>, et notre présence attentive à vos côtés pour partager les plus beaux moments tout en préservant votre entière liberté.
           </p>
         </div>
       </Reveal>
@@ -101,15 +125,23 @@ export default function MarrakechExperienceShowcase() {
               <div className="mk-scene-icon"><Coffee size={22} /></div>
               <h4>Le petit-déjeuner partagé</h4>
               <p>
-                Autour de la grande table du Riad, les parfums de fleur d’oranger et de café chaud vous accueillent : crêpes marocaines dorées, miel parfumé, fruits frais découpés, jus d’oranges pressées et thé à la menthe. Un moment simple et joyeux où les conversations s’installent naturellement.
+                Autour de la grande table du Riad, les parfums de fleur d’oranger et de café chaud vous accueillent : crêpes marocaines dorées (beghrir, msemen), miel parfumé, fruits frais découpés, jus d’oranges pressées et thé à la menthe. Un moment simple et joyeux où les conversations s’installent naturellement.
               </p>
             </div>
 
             <div className="mk-scene-card">
               <div className="mk-scene-icon"><Compass size={22} /></div>
-              <h4>Flâneries complices dans la médina</h4>
+              <h4>Couleurs des souks &amp; conversations en terrasse</h4>
               <p>
-                Ensemble, nous arpentons les ruelles secrètes et les souks animés. Nous partageons nos adresses coup de cœur : les senteurs des épices, les ateliers d’artisans, les patios discrets. Puis nous nous arrêtons sur une terrasse ombragée pour un thé à la menthe avec vue sur les toits.
+                Ensemble, nous arpentons les ruelles secrètes et les souks animés. Nous partageons nos adresses coup de cœur : les senteurs des épices, les échoppes artisanales, les patios discrets. Puis nous nous arrêtons sur une terrasse ombragée pour un thé à la menthe avec vue sur les toits.
+              </p>
+            </div>
+
+            <div className="mk-scene-card">
+              <div className="mk-scene-icon"><Palette size={22} /></div>
+              <h4>Création d’un souvenir en mosaïque</h4>
+              <p>
+                Un atelier immersif au cœur de l’artisanat : matériel et tesselles d’émaux compris, chacune assemble ses motifs et <strong>compose de ses propres mains une création personnelle</strong>. Un souvenir tangible, authentique et précieux de cette parenthèse à ramener chez soi.
               </p>
             </div>
 
@@ -118,14 +150,6 @@ export default function MarrakechExperienceShowcase() {
               <h4>Votre massage bien-être inclus</h4>
               <p>
                 Prendre soin de son corps est au cœur de notre séjour : <strong>un massage bien-être individuel est déjà compris pour chaque participante</strong>. Une parenthèse cocooning pour dénouer les tensions musculaires accumulées, lâcher prise et savourer une détente profonde.
-              </p>
-            </div>
-
-            <div className="mk-scene-card">
-              <div className="mk-scene-icon"><Heart size={22} /></div>
-              <h4>Méditation &amp; cercles de parole avec Émilie</h4>
-              <p>
-                En fin de journée, Émilie anime un cercle de femmes bienveillant et une méditation guidée. Un espace doux et confidentiel pour déposer ce qui pèse, poser ses bagages émotionnels et se sentir entourée d’une écoute vraie, sans aucun jugement.
               </p>
             </div>
 
@@ -155,10 +179,10 @@ export default function MarrakechExperienceShowcase() {
             </p>
             <ul className="mk-founders-list">
               <li>
-                <strong>Virginie, professeure de yoga certifiée :</strong> elle adapte chaque séance (Yin doux, Hatha relaxant, réveil énergétique) selon le niveau et les besoins de chacune, avec une infinie délicatesse.
+                <strong>Virginie, professeure de yoga diplômée :</strong> elle adapte chaque séance (Yin doux, Hatha relaxant, réveil énergétique) selon le niveau et les besoins de chacune, avec une infinie délicatesse.
               </li>
               <li>
-                <strong>Émilie, esthéticienne diplômée :</strong> attentive au bien-être physique et émotionnel, elle guide les cercles de parole, les moments de recentrage et veille à ce que chacune se sente choyée et écoutée.
+                <strong>Émilie, esthéticienne diplômée :</strong> attentive au bien-être physique et émotionnel, elle anime les ateliers créatifs, guide les cercles de parole et veille à ce que chacune se sente choyée et écoutée.
               </li>
             </ul>
             <div className="mk-founders-note">
@@ -179,9 +203,9 @@ export default function MarrakechExperienceShowcase() {
         <div className="mk-value-box">
           <div className="mk-value-head">
             <span className="mk-pill-tag">Notre parti pris</span>
-            <h3>Pourquoi 8 participantes maximum ?</h3>
+            <h3>Pourquoi 6 à 8 participantes maximum ?</h3>
             <p>
-              Sur le marché des voyages entre femmes, de nombreux séjours accueillent jusqu’à 25 ou 30 participantes, où tout devient vite anonyme et où les prestations de bien-être sont souvent proposées en suppléments coûteux.
+              Sur le marché des voyages entre femmes, de nombreux séjours accueillent jusqu’à 25 ou 30 participantes, où tout devient vite impersonnel et où les activités de bien-être sont souvent proposées en suppléments onéreux.
             </p>
           </div>
           <div className="mk-value-grid">
@@ -195,15 +219,15 @@ export default function MarrakechExperienceShowcase() {
             <div className="mk-val-col">
               <div className="mk-val-check"><Check size={16} /></div>
               <div>
-                <strong>Deux organisatrices dévouées</strong>
-                <p>Un ratio rare d’une accompagnatrice pour 4 participantes, garantissant une présence attentive et rassurante de la préparation jusqu’au retour.</p>
+                <strong>Deux accompagnatrices dédiées</strong>
+                <p>Un ratio rare d’une accompagnatrice pour 3 à 4 participantes, garantissant une présence attentive et rassurante de la préparation jusqu’au retour.</p>
               </div>
             </div>
             <div className="mk-val-col">
               <div className="mk-val-check"><Check size={16} /></div>
               <div>
-                <strong>Yoga &amp; Massage déjà inclus</strong>
-                <p>Toutes les séances de yoga avec Virginie et 1 massage bien-être individuel sont intégrés directement dans notre formule.</p>
+                <strong>Yoga, Massage &amp; Mosaïque inclus</strong>
+                <p>Les séances de yoga avec Virginie, 1 massage bien-être par participante et l’atelier création de mosaïque sont déjà compris dans le tarif.</p>
               </div>
             </div>
           </div>
@@ -269,20 +293,20 @@ export default function MarrakechExperienceShowcase() {
               <h4>Ce qui est inclus</h4>
             </div>
             <ul className="mk-list-ticks">
-              <li><Check size={16} /> <span><strong>Toutes les séances de yoga</strong> avec Virginie (Yin Yoga régénérant, Hatha doux adaptés aux niveaux)</span></li>
+              <li><Check size={16} /> <span><strong>Toutes les séances de yoga</strong> avec Virginie, professeure diplômée (Yin Yoga régénérant, Hatha doux adaptés aux niveaux)</span></li>
               <li><Check size={16} /> <span><strong>1 massage bien-être inclus</strong> par participante</span></li>
-              <li><Check size={16} /> <span><strong>Séances de méditation &amp; cercles de parole</strong> animés par Émilie</span></li>
-              <li><Check size={16} /> <span><strong>Accompagnement et flâneries partagées</strong> dans les ruelles et souks de la médina</span></li>
-              <li><Check size={16} /> <span><strong>Hébergement de charme en Riad</strong> avec petits-déjeuners inclus <em>(sélection en cours selon devis)</em></span></li>
-              <li><Check size={16} /> <span><strong>Accueil &amp; coordination de votre transfert</strong> à l’aéroport de Marrakech (RAK)</span></li>
-              <li><Check size={16} /> <span><strong>Petit groupe privilégié :</strong> 8 femmes maximum pour préserver l’intimité</span></li>
+              <li><Check size={16} /> <span><strong>L’atelier mosaïque, matériel compris</strong>, avec création de votre souvenir personnel</span></li>
+              <li><Check size={16} /> <span><strong>Notre accompagnement et moments de partage</strong> prévus au programme (découvertes dans la médina, cercles de parole avec Émilie)</span></li>
+              <li><Check size={16} /> <span><strong>Hébergement de charme en Riad (3 nuits)</strong> avec petits-déjeuners inclus <em>(sélection en cours selon devis)</em></span></li>
+              <li><Check size={16} /> <span><strong>Accueil &amp; coordination de votre transfert</strong> à l’aéroport de Marrakech (RAK) jusqu’au Riad</span></li>
+              <li><Check size={16} /> <span><strong>Petit groupe privilégié :</strong> 6 à 8 participantes maximum (départ dès 6)</span></li>
             </ul>
           </div>
 
           <div className="mk-excl-card">
             <div className="mk-incl-head">
               <span className="mk-tag-sand">À prévoir de votre côté</span>
-              <h4>Non inclus / En option</h4>
+              <h4>Non inclus / En option sur place</h4>
             </div>
             <ul className="mk-list-plain">
               <li>
@@ -292,10 +316,13 @@ export default function MarrakechExperienceShowcase() {
                 <strong>Les déjeuners et dîners au restaurant :</strong> pour laisser à chacune la liberté de choisir ses envies culinaires selon son budget.
               </li>
               <li>
-                <strong>Le rituel au hammam traditionnel :</strong> proposé en option facultative sur place (détails ci-dessous).
+                <strong>La parenthèse au hammam traditionnel :</strong> proposée en option facultative sur place (détails ci-dessous).
               </li>
               <li>
-                <strong>L’escapade dans le désert d’Agafay :</strong> option facultative séparée (détails ci-dessous).
+                <strong>La soirée festive avec le groupe :</strong> proposée en option facultative sur place (détails ci-dessous).
+              </li>
+              <li>
+                <strong>L’échappée dans le désert d’Agafay :</strong> option facultative séparée (détails ci-dessous).
               </li>
               <li>
                 <strong>Dépenses et achats personnels</strong> dans les souks.
@@ -305,73 +332,213 @@ export default function MarrakechExperienceShowcase() {
         </div>
       </Reveal>
 
-      {/* 7. Rubrique dédiée Hammam : séparée du prix principal */}
+      {/* 7. RUBRIQUE « PERSONNALISEZ VOTRE EXPÉRIENCE » (3 encarts distincts) */}
       <Reveal delay={120}>
-        <div className="mk-hammam-box" id="hammam">
-          <div className="mk-hammam-badge">
-            <Sparkles size={14} /> Option bien-être sur place · Règlement direct au spa
-          </div>
-          <h3>Pour prolonger la douceur : une parenthèse au hammam</h3>
-          <p className="mk-hammam-quote">
-            « Pour celles qui le souhaitent, nous vous accompagnons jusqu’au hammam pour une parenthèse de douceur au cœur de Marrakech. Le temps de ralentir et de découvrir un rituel marocain, avant de poursuivre notre journée ensemble. »
-          </p>
-
-          <div className="mk-hammam-details">
-            <div className="mk-hammam-item">
-              <strong>Adresse de travail envisagée :</strong>
-              <span><em>Mythic Oriental Spa</em> (à confirmer avant publication).</span>
-            </div>
-            <div className="mk-hammam-item">
-              <strong>Budget indicatif :</strong>
-              <span>Environ <strong>450 DH par personne (soit ~45 €)</strong> pour le hammam traditionnel seul (tarif et prestation à confirmer auprès du spa).</span>
-            </div>
-            <div className="mk-hammam-item">
-              <strong>Accompagnement inclus :</strong>
-              <span>Nous vous accompagnons à pied jusqu’au lieu en toute simplicité (aucun taxi ou transport payant n'est facturé).</span>
+        <div className="mk-custom-section" id="personnalisation">
+          <div className="mk-custom-header">
+            <span className="mk-pill-tag">Sur-mesure &amp; Liberté</span>
+            <h3>Personnalisez votre expérience</h3>
+            <p className="mk-custom-explain">
+              Indiquez vos envies pour nous permettre d’organiser les créneaux et les déplacements. Nous confirmerons ensemble les disponibilités et les tarifs avant toute réservation auprès des prestataires.
+            </p>
+            <div className="mk-custom-notice">
+              <Info size={16} />
+              <span>
+                <strong>Précision essentielle :</strong> Ces choix expriment un intérêt. Ils ne déclenchent ni paiement ni réservation automatique. Les créneaux sont spécialement pensés pour être compatibles avec les activités incluses et préserver un vrai temps libre pour celles qui ne choisissent pas les options.
+              </span>
             </div>
           </div>
 
-          <div className="mk-hammam-disclaimer">
-            <Info size={16} />
-            <span>
-              <strong>Précision importante :</strong> En option, à régler directement sur place auprès de l’établissement. Tarif indiqué uniquement pour vous aider à prévoir votre budget. Ce hammam facultatif est bien distinct du <strong>massage individuel déjà inclus</strong> dans notre forfait séjour.
-            </span>
+          <div className="mk-custom-cards">
+            {/* ENCART 1 : HAMMAM */}
+            <div className={`mk-option-card ${options.hammam ? 'is-active' : ''}`} id="hammam">
+              <div className="mk-option-top">
+                <span className="mk-option-badge">Option 1 · Douceur &amp; Rituel</span>
+                <h4>1. Une parenthèse au hammam</h4>
+              </div>
+              <p className="mk-option-mood">
+                « Envie de prolonger la douceur ? Nous vous accompagnons jusqu’au hammam pour découvrir un rituel marocain et vous offrir une pause rien qu’à vous. »
+              </p>
+              <div className="mk-option-grid">
+                <div className="mk-option-item">
+                  <strong>Adresse envisagée :</strong>
+                  <span><em>Mythic Oriental Spa</em> (à confirmer avant publication).</span>
+                </div>
+                <div className="mk-option-item">
+                  <strong>Prestation de référence :</strong>
+                  <span>Hammam beldi traditionnel, gommage au savon noir et hydratation (durée du soin : 40 minutes).</span>
+                </div>
+                <div className="mk-option-item">
+                  <strong>Budget indicatif :</strong>
+                  <span><strong>450 DH par personne (environ 45 €)</strong>, tarif à confirmer auprès du spa.</span>
+                </div>
+                <div className="mk-option-item">
+                  <strong>Temps à prévoir :</strong>
+                  <span>Créneau provisoire de <strong>1 h 30 à 2 h</strong> avec accueil, change et déplacement à pied (ajusté selon le nombre de participantes ; au-delà de 6 personnes, organisation en plusieurs passages).</span>
+                </div>
+              </div>
+
+              <div className="mk-option-disclaimer">
+                <Info size={15} />
+                <span>
+                  <strong>Mention :</strong> Facultatif — à régler directement au spa sur place. Le massage inclus dans votre séjour reste une prestation distincte. Nous vous accompagnons à pied jusqu’au lieu (aucun transport payant ou taxi n’est facturé sans validation).
+                </span>
+              </div>
+
+              <label className="mk-option-check-wrap">
+                <input
+                  type="checkbox"
+                  checked={options.hammam}
+                  onChange={() => toggleOption('hammam')}
+                  className="mk-option-checkbox"
+                />
+                <span className="mk-option-check-label">
+                  <strong>Je souhaite profiter du hammam avec votre accompagnement.</strong>
+                  <small>Option sans engagement immédiat — payable sur place au spa (~45 € / 450 DH)</small>
+                </span>
+              </label>
+            </div>
+
+            {/* ENCART 2 : SOIRÉE FESTIVE */}
+            <div className={`mk-option-card ${options.soireeFestive ? 'is-active' : ''}`} id="soiree-festive">
+              <div className="mk-option-top">
+                <span className="mk-option-badge">Option 2 · Nuit &amp; Convivialité</span>
+                <h4>2. Une soirée festive à Marrakech</h4>
+              </div>
+              <p className="mk-option-mood">
+                « Et si l’on découvrait aussi Marrakech à la nuit tombée ? Pour celles qui en ont envie, partageons une soirée festive et le plaisir de sortir ensemble. »
+              </p>
+              <div className="mk-option-grid">
+                <div className="mk-option-item">
+                  <strong>Lieu &amp; Ambiance :</strong>
+                  <span>Sélection d’une belle adresse conviviale marrakchie pour dîner, écouter de la musique et vibrer ensemble.</span>
+                </div>
+                <div className="mk-option-item">
+                  <strong>Budget &amp; Formule :</strong>
+                  <span>Proposition et budget communiqués avant confirmation. Dépenses de soirée à régler sur place selon la formule choisie.</span>
+                </div>
+                <div className="mk-option-item">
+                  <strong>Transparence :</strong>
+                  <span>Le détail distinguera clairement le repas, les boissons, l’éventuelle entrée et le transport (aucun montant inventé ni promis d’avance).</span>
+                </div>
+                <div className="mk-option-item">
+                  <strong>Temps à prévoir :</strong>
+                  <span>Une soirée festive (créneau aménagé pour préserver le rythme reposant du séjour).</span>
+                </div>
+              </div>
+
+              <div className="mk-option-disclaimer">
+                <Info size={15} />
+                <span>
+                  <strong>Mention :</strong> Facultatif — à régler sur place. Proposition et budget détaillés communiqués à l’avance pour validation collective.
+                </span>
+              </div>
+
+              <label className="mk-option-check-wrap">
+                <input
+                  type="checkbox"
+                  checked={options.soireeFestive}
+                  onChange={() => toggleOption('soireeFestive')}
+                  className="mk-option-checkbox"
+                />
+                <span className="mk-option-check-label">
+                  <strong>Je suis intéressée par une soirée festive avec le groupe.</strong>
+                  <small>Option sans engagement immédiat — formule et budget transmis avant confirmation</small>
+                </span>
+              </label>
+            </div>
+
+            {/* ENCART 3 : DÉSERT D’AGAFAY */}
+            <div className={`mk-option-card ${options.agafay ? 'is-active' : ''}`} id="agafay">
+              <div className="mk-option-top">
+                <span className="mk-option-badge">Option 3 · Évasion Minérale</span>
+                <h4>3. Une échappée dans le désert d’Agafay</h4>
+              </div>
+              <p className="mk-option-mood">
+                « Face aux collines de pierre minérales et sous la voûte céleste, une parenthèse féerique pour contempler le coucher de soleil et respirer le grand calme. »
+              </p>
+              <div className="mk-option-grid">
+                <div className="mk-option-item">
+                  <strong>Lieu envisagé :</strong>
+                  <span><em>Agafay Pearl Camp</em> (ou adresse de charme équivalente face au mont Atlas, à environ 45 min de Marrakech).</span>
+                </div>
+                <div className="mk-option-item">
+                  <strong>Prestation au camp :</strong>
+                  <span>[Tarif et contenu exacts à compléter selon la formule retenue : fin de journée, coucher de soleil, dîner sous tente berbère ou nuitée].</span>
+                </div>
+                <div className="mk-option-item">
+                  <strong>Transport aller-retour :</strong>
+                  <span>Estimation de travail de <strong>200 € pour deux véhicules</strong>, sous réserve du devis définitif et de leur capacité.</span>
+                </div>
+                <div className="mk-option-item">
+                  <strong>Part de transport / pers. :</strong>
+                  <span>À recalculer selon le nombre réel de participantes à l’option et les personnes accompagnantes (non fixé d’avance à 25 €).</span>
+                </div>
+              </div>
+
+              <div className="mk-option-disclaimer">
+                <Info size={15} />
+                <span>
+                  <strong>Précision sur la formule &amp; hébergement :</strong> Expérience facultative, à régler directement sur place aux prestataires. Prix indiqués pour préparer votre budget ; tarifs et disponibilités confirmés avant engagement. Si une formule nuit à Agafay est retenue, elle doit s’intégrer aux 3 nuits du séjour (en remplacement d’une nuit au riad pour éviter toute double facturation).
+                </span>
+              </div>
+
+              <label className="mk-option-check-wrap">
+                <input
+                  type="checkbox"
+                  checked={options.agafay}
+                  onChange={() => toggleOption('agafay')}
+                  className="mk-option-checkbox"
+                />
+                <span className="mk-option-check-label">
+                  <strong>Je souhaite recevoir les détails de l’escapade à Agafay et y participer si la proposition me convient.</strong>
+                  <small>Option sans engagement immédiat — détails, formules et part de transport confirmés ensemble</small>
+                </span>
+              </label>
+            </div>
+          </div>
+
+          {/* Barre récapitulative visuelle & bouton d'action */}
+          <div className="mk-custom-recap-bar">
+            <div className="mk-recap-info">
+              <div className="mk-recap-main">
+                <span className="mk-recap-label">Séjour de base (4 jours / 3 nuits) :</span>
+                <strong>790 € / participante</strong>
+                <span className="mk-recap-sub">(hypothèse de travail hors vols · 0 € prélevé aujourd’hui)</span>
+              </div>
+              <div className="mk-recap-choices">
+                <span className="mk-recap-choices-title">Vos envies sélectionnées (payables sur place) :</span>
+                {hasSelectedOptions ? (
+                  <div className="mk-recap-tags">
+                    {options.hammam && <span className="mk-recap-pill">🌿 Hammam (~45 € / 450 DH)</span>}
+                    {options.soireeFestive && <span className="mk-recap-pill">✨ Soirée festive</span>}
+                    {options.agafay && <span className="mk-recap-pill">🐪 Escapade Agafay</span>}
+                  </div>
+                ) : (
+                  <span className="mk-recap-empty">Aucune option cochée pour l’instant (inclusions seules). Vous pourrez ajuster vos choix dans le formulaire.</span>
+                )}
+              </div>
+            </div>
+            <Link to={bookingUrl} className="btn btn-terra btn-lg">
+              Transmettre mes envies &amp; réserver ma place <ArrowRight size={17} />
+            </Link>
           </div>
         </div>
       </Reveal>
 
-      {/* 8. Rubrique Option : Le désert d’Agafay */}
+      {/* 8. Prix & Transports : Hypothèse de travail */}
       <Reveal delay={130}>
-        <div className="mk-agafay-box">
-          <div className="mk-agafay-header">
-            <span className="mk-agafay-tag">Escapade magique en option</span>
-            <h3>Le désert d’Agafay · Entre collines minérales et ciel étoilé</h3>
-          </div>
-          <p>
-            Pour celles qui rêvent de contempler l’immensité du désert de pierres face aux sommets de l’Atlas, une excursion vers le <strong>désert d’Agafay</strong> (situé à environ 45 minutes de Marrakech) pourra être proposée en option séparée : coucher de soleil féerique, dîner sous les tentes berbères et éventuelle nuitée sur place.
-          </p>
-          <div className="mk-agafay-note">
-            <Info size={15} />
-            <span>
-              Cette escapade, son transport dédié et son éventuel hébergement constituent une option distincte du prix principal. Modalités et tarifs précis communiqués lors de la validation des devis avec nos partenaires locaux.
-            </span>
-          </div>
-        </div>
-      </Reveal>
-
-      {/* 9. Prix & Transports : Hypothèse de travail */}
-      <Reveal delay={140}>
         <div className="mk-pricing-box">
           <div className="mk-pricing-head">
             <span className="mk-pricing-tag">Budget &amp; Tarification</span>
-            <h3>Un tarif clair, sans surprise cachée</h3>
+            <h3>Un tarif clair, sans frais cachés</h3>
             <div className="mk-pricing-calc">
               <span className="mk-price-label">Hypothèse de travail :</span>
               <strong className="mk-price-amount">790 €</strong>
-              <span className="mk-price-sub">/ participante (hors vols)</span>
+              <span className="mk-price-sub">/ participante (hors vol personnel)</span>
             </div>
             <p className="mk-pricing-expl">
-              Ce montant correspond à notre <strong>base indicative de travail</strong>, incluant le séjour en petit groupe (8 femmes max), l'hébergement en Riad avec petits-déjeuners, les séances de yoga quotidiennes, le massage bien-être inclus et notre accompagnement à deux. Ce montant sera validé et confirmé dès la finalisation des devis et du calendrier exact.
+              Ce montant correspond à notre <strong>base indicative de travail pour exactement 4 jours et 3 nuits</strong>, incluant le séjour en petit groupe (6 à 8 participantes maximum), l’hébergement de charme en Riad avec petits-déjeuners, les séances de yoga quotidiennes avec Virginie, le massage bien-être individuel, l’atelier mosaïque avec création personnelle et notre accompagnement à deux. Ce montant sera validé et confirmé dès la finalisation du chiffrage complet.
             </p>
           </div>
 
@@ -381,16 +548,19 @@ export default function MarrakechExperienceShowcase() {
         </div>
       </Reveal>
 
-      {/* 10. Appel chaleureux au contact & Liste d'attente prioritaire */}
-      <Reveal delay={150}>
-        <div className="mk-cta-box">
+      {/* 9. Appel chaleureux au contact & Liste d'attente prioritaire */}
+      <Reveal delay={140}>
+        <div className="mk-cta-box" id="contact-marrakech">
           <span className="mk-cta-badge">Restons en contact</span>
           <h3>Envie de faire partie de cette aventure à Marrakech ?</h3>
           <p>
-            Vous avez une question sur le rythme du séjour, le yoga ou l’hébergement ? Vous souhaitez échanger directement avec nous ou être informée en avant-première dès l’ouverture officielle des inscriptions ?
+            Vous avez une question sur le rythme du séjour, le yoga ou l’hébergement ? Vous souhaitez échanger directement avec nous avant de vous décider ?
           </p>
           <div className="mk-cta-actions">
-            <Link to="/contact" className="btn btn-terra">
+            <Link to={bookingUrl} className="btn btn-terra">
+              <Sparkles size={17} /> Transmettre ma demande de réservation
+            </Link>
+            <Link to="/contact" className="btn btn-light">
               <MessageCircle size={17} /> Poser une question à Émilie &amp; Virginie
             </Link>
             <a href="tel:0629849653" className="btn btn-light">
@@ -398,7 +568,7 @@ export default function MarrakechExperienceShowcase() {
             </a>
           </div>
           <p className="mk-cta-subtext">
-            Départ maintenu dès 6 participantes · Petit groupe limité à 8 femmes · Inscription sans engagement pour recevoir la fiche finale dès parution.
+            Exactement 4 jours et 3 nuits · Départ maintenu dès 6 participantes · Groupe limité à 8 femmes · Inscription sans engagement pour échanger avec nous.
           </p>
         </div>
       </Reveal>

@@ -76,6 +76,7 @@ export function createBooking(exp, bookings, form, { demo = true, now = new Date
       phone: form.phone || '',
       places: form.places,
       amount: amountDue(exp, form.places),
+      options: form.options || null,
       status,
       createdAt: now,
       log: [{ at: now, status, note: demo ? 'Mode démo — aucun paiement réel' : 'Création' }],
@@ -88,8 +89,16 @@ export function setStatus(bookings, reference, status, note = '', now = new Date
 }
 
 export function toCsv(bookings) {
-  const head = ['reference', 'experience', 'date', 'nom', 'email', 'telephone', 'places', 'montant', 'statut', 'cree_le'];
+  const head = ['reference', 'experience', 'date', 'nom', 'email', 'telephone', 'places', 'montant', 'statut', 'options', 'cree_le'];
   const esc = (v) => `"${String(v ?? '').replace(/"/g, '""')}"`;
-  const rows = bookings.map((b) => [b.reference, b.exp, b.slot, b.name, b.email, b.phone, b.places, b.amount, b.status, b.createdAt]);
+  const formatOptions = (opt) => {
+    if (!opt) return '';
+    const labels = [];
+    if (opt.hammam) labels.push('Hammam (~45€/450DH)');
+    if (opt.soireeFestive) labels.push('Soirée festive');
+    if (opt.agafay) labels.push('Escapade Agafay');
+    return labels.join(' + ');
+  };
+  const rows = bookings.map((b) => [b.reference, b.exp, b.slot, b.name, b.email, b.phone, b.places, b.amount, b.status, formatOptions(b.options), b.createdAt]);
   return [head, ...rows].map((r) => r.map(esc).join(';')).join('\n');
 }

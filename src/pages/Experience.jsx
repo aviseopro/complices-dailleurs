@@ -222,14 +222,14 @@ export default function Experience() {
               </div>
             )}
             {isMarrakechFemmes && (
-              <div className="bk-arca-highlight" style={{ background: 'linear-gradient(135deg, rgba(199,92,44,.12), rgba(212,143,56,.12))', borderColor: 'rgba(199,92,44,.3)' }}>
-                <span className="bk-arca-tag" style={{ background: 'linear-gradient(135deg, #c75c2c, #d48f38)' }}>
-                  <Sparkles size={13} /> Petit groupe privilégié · 8 femmes max
+              <div className="bk-arca-highlight" style={{ background: 'linear-gradient(135deg, rgba(168,85,58,.12), rgba(212,143,56,.12))', borderColor: 'rgba(168,85,58,.3)' }}>
+                <span className="bk-arca-tag" style={{ background: 'linear-gradient(135deg, #a8553a, #c75c2c)' }}>
+                  <Sparkles size={13} /> 4 jours / 3 nuits · 6 à 8 participantes max
                 </span>
-                <div className="bk-arca-dep" style={{ color: '#2c1b18' }}>
-                  Hypothèse de travail : <strong>~790 €</strong>
-                  <div style={{ fontSize: '.82rem', fontWeight: 400, color: 'var(--text-muted, #666)', marginTop: '.2rem' }}>
-                    Hors vols · En attente de validation devis
+                <div className="bk-arca-dep" style={{ color: 'var(--navy)' }}>
+                  Hypothèse de travail : <strong>790 €</strong>
+                  <div style={{ fontSize: '.82rem', fontWeight: 400, color: 'var(--muted)', marginTop: '.2rem' }}>
+                    Hors vols personnels · En attente de validation devis
                   </div>
                 </div>
               </div>
@@ -292,14 +292,14 @@ export default function Experience() {
               )}
               <dt>Places</dt><dd>{left == null ? '8 participantes maximum' : `${left} restantes (8 max)`}</dd>
             </dl>
-            {sellable ? (
+            {isMarrakechFemmes ? (
+              <Link to="/reserver/marrakech-entre-femmes" className="btn btn-terra block">
+                Personnaliser &amp; réserver ma place (6 à 8 places)
+              </Link>
+            ) : sellable ? (
               <Link to={`/reserver/${e.slug}`} className={`btn btn-blue block ${arca ? 'btn-commercial-glow' : ''}`}>
                 {arca ? `Je m’inscris — ${e.depositPerPlace || 95} € d’acompte` : (e.kind === 'preorder' ? `Pré-réserver — ${e.depositPerPlace} € d’acompte` : 'Réserver')}
               </Link>
-            ) : isMarrakechFemmes ? (
-              <a href="#contact-marrakech" className="btn btn-terra block">
-                Rejoindre la liste prioritaire (8 places)
-              </a>
             ) : arcaMereEnfant || isAtelierEnfant ? (
               <Link to="/contact" className="btn btn-terra block">{isAtelierEnfant ? 'Inscrire mon enfant à un atelier' : 'Réserver ou privatiser une journée'}</Link>
             ) : (
