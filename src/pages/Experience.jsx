@@ -80,9 +80,9 @@ export default function Experience() {
               )}
 
               {isMarrakech && (
-                <Reveal>
+                <div style={{ margin: '2.5rem 0' }}>
                   <MarrakechFlightModule />
-                </Reveal>
+                </div>
               )}
 
               {arca && (

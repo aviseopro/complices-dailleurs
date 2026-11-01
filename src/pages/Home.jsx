@@ -403,9 +403,7 @@ export default function Home() {
             ))}
           </div>
 
-          <Reveal>
-            <MarrakechFlightModule />
-          </Reveal>
+          <MarrakechFlightModule />
 
           <p className="small center soon">Bientôt : {future.filter((f) => f.slug !== 'trek-compostelle').map((f) => f.title).join(' · ')} — non réservables pour le moment.</p>
         </div>

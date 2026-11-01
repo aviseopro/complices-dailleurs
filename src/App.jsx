@@ -17,8 +17,17 @@ function ScrollTop() {
   const { pathname, hash } = useLocation();
   useEffect(() => {
     if (hash) {
-      document.getElementById(hash.slice(1))?.scrollIntoView();
-    } else window.scrollTo(0, 0);
+      const id = hash.slice(1);
+      const scroll = () => {
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      };
+      scroll();
+      const t = setTimeout(scroll, 120);
+      return () => clearTimeout(t);
+    } else {
+      window.scrollTo(0, 0);
+    }
   }, [pathname, hash]);
   return null;
 }
