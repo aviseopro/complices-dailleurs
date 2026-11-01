@@ -4,6 +4,7 @@ import { Check, X, Sparkles } from 'lucide-react';
 import { Photo, Reveal, STATUS, Price, AlmaLogo } from '../components/ui.jsx';
 import ArcachonCommercialPlaque from '../components/ArcachonCommercialPlaque.jsx';
 import MarrakechFlightModule from '../components/MarrakechFlightModule.jsx';
+import MarrakechExperienceShowcase from '../components/MarrakechExperienceShowcase.jsx';
 import VillaShowcase from '../components/VillaShowcase.jsx';
 import MotherChildShowcase from '../components/MotherChildShowcase.jsx';
 import KidsWorkshopShowcase from '../components/KidsWorkshopShowcase.jsx';
@@ -30,6 +31,7 @@ export default function Experience() {
   const arcaMereEnfant = e.slug === 'arcachon-mere-enfant';
   const isAtelierEnfant = e.slug === 'atelier-enfant';
   const isCorse = e.slug === 'corse';
+  const isMarrakechFemmes = e.slug === 'marrakech-entre-femmes';
   const isMarrakech = e.slug?.startsWith('marrakech');
   const left = seatsLeft(e, bookings);
   const sellable = e.kind !== 'future' && e.status !== 'soon' && (e.pricePerPerson != null || e.depositPerPlace != null);
@@ -66,6 +68,8 @@ export default function Experience() {
                 <KidsWorkshopShowcase embedded />
               ) : isCorse ? (
                 <CorsicaShowcase embedded />
+              ) : isMarrakechFemmes ? (
+                <MarrakechExperienceShowcase embedded />
               ) : (
                 <Reveal>
                   <h2>Galerie</h2>
@@ -79,7 +83,7 @@ export default function Experience() {
                 </Reveal>
               )}
 
-              {isMarrakech && (
+              {isMarrakech && !isMarrakechFemmes && (
                 <div style={{ margin: '2.5rem 0' }}>
                   <MarrakechFlightModule />
                 </div>
@@ -170,30 +174,34 @@ export default function Experience() {
                 </Reveal>
               )}
 
-              <Reveal>
-                <h2>Programme</h2>
-                <ol className="program">
-                  {e.program.map((d, i) => (
-                    <li key={i}><strong>{d.day} — {d.title}</strong><ul>{d.items.map((it) => <li key={it}>{it}</li>)}</ul></li>
-                  ))}
-                </ol>
-                <p className="small">Programme modulable, susceptible d’évoluer.</p>
-              </Reveal>
+              {!isMarrakechFemmes && (
+                <>
+                  <Reveal>
+                    <h2>Programme</h2>
+                    <ol className="program">
+                      {e.program.map((d, i) => (
+                        <li key={i}><strong>{d.day} — {d.title}</strong><ul>{d.items.map((it) => <li key={it}>{it}</li>)}</ul></li>
+                      ))}
+                    </ol>
+                    <p className="small">Programme modulable, susceptible d’évoluer.</p>
+                  </Reveal>
 
-              <Reveal className="incl">
-                <div><h3>Inclus</h3><ul className="ticks">{e.included.map((x) => <li key={x}><Check size={14} /> {x}</li>)}</ul></div>
-                <div><h3>Non inclus</h3><ul className="plain">{e.excluded.map((x) => <li key={x}><X size={13} /> {x}</li>)}</ul></div>
-              </Reveal>
+                  <Reveal className="incl">
+                    <div><h3>Inclus</h3><ul className="ticks">{e.included.map((x) => <li key={x}><Check size={14} /> {x}</li>)}</ul></div>
+                    <div><h3>Non inclus</h3><ul className="plain">{e.excluded.map((x) => <li key={x}><X size={13} /> {x}</li>)}</ul></div>
+                  </Reveal>
 
-              {e.conditions && Object.keys(e.conditions).length > 0 && (
-                <Reveal>
-                  <h2>Conditions</h2>
-                  <dl className="conds">
-                    {Object.entries(e.conditions).map(([k, v]) => (
-                      <React.Fragment key={k}><dt>{COND_LABELS[k] || k}</dt><dd>{v ?? 'À confirmer — conditions en cours de validation'}</dd></React.Fragment>
-                    ))}
-                  </dl>
-                </Reveal>
+                  {e.conditions && Object.keys(e.conditions).length > 0 && (
+                    <Reveal>
+                      <h2>Conditions</h2>
+                      <dl className="conds">
+                        {Object.entries(e.conditions).map(([k, v]) => (
+                          <React.Fragment key={k}><dt>{COND_LABELS[k] || k}</dt><dd>{v ?? 'À confirmer — conditions en cours de validation'}</dd></React.Fragment>
+                        ))}
+                      </dl>
+                    </Reveal>
+                  )}
+                </>
               )}
             </>
           )}
@@ -201,7 +209,7 @@ export default function Experience() {
 
         {e.kind !== 'future' && (
           <aside className="booking-card" aria-label="Réservation">
-            <h2>{e.kind === 'preorder' ? 'Pré-réservation' : 'Réservation'}</h2>
+            <h2>{e.kind === 'preorder' ? 'Pré-réservation' : isMarrakechFemmes ? 'Séjour intimiste' : 'Réservation'}</h2>
             {arca && (
               <div className="bk-arca-highlight">
                 <span className="bk-arca-tag"><Sparkles size={13} /> Offre exclusive de départ</span>
@@ -213,12 +221,25 @@ export default function Experience() {
                 </div>
               </div>
             )}
+            {isMarrakechFemmes && (
+              <div className="bk-arca-highlight" style={{ background: 'linear-gradient(135deg, rgba(199,92,44,.12), rgba(212,143,56,.12))', borderColor: 'rgba(199,92,44,.3)' }}>
+                <span className="bk-arca-tag" style={{ background: 'linear-gradient(135deg, #c75c2c, #d48f38)' }}>
+                  <Sparkles size={13} /> Petit groupe privilégié · 8 femmes max
+                </span>
+                <div className="bk-arca-dep" style={{ color: '#2c1b18' }}>
+                  Hypothèse de travail : <strong>~790 €</strong>
+                  <div style={{ fontSize: '.82rem', fontWeight: 400, color: 'var(--text-muted, #666)', marginTop: '.2rem' }}>
+                    Hors vols · En attente de validation devis
+                  </div>
+                </div>
+              </div>
+            )}
             <dl>
               <dt>Durée</dt><dd>{e.duration}</dd>
               <dt>Lieu</dt><dd>{e.location}</dd>
               {e.lodging && <><dt>Hébergement</dt><dd>{e.lodging}</dd></>}
               <dt>Dates</dt><dd>{e.dates.length ? e.dates.map((d) => d.label).join(' · ') : 'À confirmer'}</dd>
-              {!arca && (
+              {!arca && !isMarrakechFemmes && (
                 <>
                   <dt>{e.originalPrice ? 'Offre de départ exclusive' : 'Tarif / personne'}</dt>
                   <dd className={e.originalPrice ? 'bk-privilege-row' : ''}>
@@ -234,6 +255,14 @@ export default function Experience() {
                   </dd>
                 </>
               )}
+              {isMarrakechFemmes && (
+                <>
+                  <dt>Budget estimé</dt>
+                  <dd>
+                    <strong>790 €</strong> <span className="small">(hypothèse indicative hors vols)</span>
+                  </dd>
+                </>
+              )}
               {arca && (
                 <>
                   <dt>Facilités de paiement</dt>
@@ -243,14 +272,34 @@ export default function Experience() {
                 </>
               )}
               {e.minParticipants && <><dt>Maintien du séjour</dt><dd>Dès {e.minParticipants} participantes</dd></>}
-              <dt>{arca ? 'Acompte d’inscription' : 'Pré-réservation'}</dt>
-              <dd><strong>{euro(e.depositPerPlace)}</strong> pour bloquer votre place</dd>
-              <dt>Places</dt><dd>{left == null ? 'Nombre à confirmer' : `${left} restantes (8 max)`}</dd>
+              {arca ? (
+                <>
+                  <dt>Acompte d’inscription</dt>
+                  <dd><strong>{euro(e.depositPerPlace)}</strong> pour bloquer votre place</dd>
+                </>
+              ) : isMarrakechFemmes ? (
+                <>
+                  <dt>Encadrement</dt>
+                  <dd>Émilie &amp; Virginie présentes &amp; complices</dd>
+                </>
+              ) : (
+                e.depositPerPlace && (
+                  <>
+                    <dt>Pré-réservation</dt>
+                    <dd><strong>{euro(e.depositPerPlace)}</strong> pour bloquer votre place</dd>
+                  </>
+                )
+              )}
+              <dt>Places</dt><dd>{left == null ? '8 participantes maximum' : `${left} restantes (8 max)`}</dd>
             </dl>
             {sellable ? (
               <Link to={`/reserver/${e.slug}`} className={`btn btn-blue block ${arca ? 'btn-commercial-glow' : ''}`}>
                 {arca ? `Je m’inscris — ${e.depositPerPlace || 95} € d’acompte` : (e.kind === 'preorder' ? `Pré-réserver — ${e.depositPerPlace} € d’acompte` : 'Réserver')}
               </Link>
+            ) : isMarrakechFemmes ? (
+              <a href="#contact-marrakech" className="btn btn-terra block">
+                Rejoindre la liste prioritaire (8 places)
+              </a>
             ) : arcaMereEnfant || isAtelierEnfant ? (
               <Link to="/contact" className="btn btn-terra block">{isAtelierEnfant ? 'Inscrire mon enfant à un atelier' : 'Réserver ou privatiser une journée'}</Link>
             ) : (

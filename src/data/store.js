@@ -36,7 +36,7 @@ function load() {
         const isLegacyArcaMe = def.slug === 'arcachon-mere-enfant' && (cur.kind === 'future' || !cur.program?.length || !cur.intro?.includes('pâte Fimo'));
         const isLegacyTrek = def.slug === 'trek-compostelle' && (cur.kind === 'future' || !cur.included?.[1]?.includes('Pranayama'));
         const isLegacyCorse = def.slug === 'corse' && (cur.kind === 'future' || !cur.program?.length || !cur.excluded?.some((x) => x.includes('restaurants')));
-        const isLegacyMk = (def.slug === 'marrakech-entre-femmes' || def.slug === 'marrakech-mere-enfant') && (!cur.intro?.includes('EasyJet') || !cur.excluded?.some((x) => x.includes('EasyJet')));
+        const isLegacyMk = (def.slug === 'marrakech-entre-femmes' || def.slug === 'marrakech-mere-enfant') && (!cur.conditions?.hammam || cur.capacity !== 8 || !cur.excluded?.some((x) => x.includes('EasyJet')));
         const refresh = isLegacyArca || isLegacyArcaMe || isLegacyTrek || isLegacyCorse || isLegacyMk;
         return {
           ...def,
@@ -45,6 +45,8 @@ function load() {
           status: refresh ? def.status : cur.status,
           title: refresh ? def.title : cur.title,
           short: refresh ? def.short : cur.short,
+          capacity: refresh ? def.capacity : cur.capacity,
+          minParticipants: refresh ? def.minParticipants : cur.minParticipants,
           duration: refresh ? def.duration : cur.duration,
           location: refresh ? def.location : cur.location,
           lodging: refresh ? def.lodging : cur.lodging,
