@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { Check, X, Sparkles } from 'lucide-react';
 import { Photo, Reveal, STATUS, Price, AlmaLogo } from '../components/ui.jsx';
 import ArcachonCommercialPlaque from '../components/ArcachonCommercialPlaque.jsx';
+import MarrakechFlightModule from '../components/MarrakechFlightModule.jsx';
 import VillaShowcase from '../components/VillaShowcase.jsx';
 import MotherChildShowcase from '../components/MotherChildShowcase.jsx';
 import KidsWorkshopShowcase from '../components/KidsWorkshopShowcase.jsx';
@@ -29,6 +30,7 @@ export default function Experience() {
   const arcaMereEnfant = e.slug === 'arcachon-mere-enfant';
   const isAtelierEnfant = e.slug === 'atelier-enfant';
   const isCorse = e.slug === 'corse';
+  const isMarrakech = e.slug?.startsWith('marrakech');
   const left = seatsLeft(e, bookings);
   const sellable = e.kind !== 'future' && e.status !== 'soon' && (e.pricePerPerson != null || e.depositPerPlace != null);
   document.title = `${e.title} — Complices d’ailleurs`;
@@ -74,6 +76,12 @@ export default function Experience() {
                       return <Photo key={idx} src={src} label={label} theme={e.theme} className="zoom sq" />;
                     })}
                   </div>
+                </Reveal>
+              )}
+
+              {isMarrakech && (
+                <Reveal>
+                  <MarrakechFlightModule />
                 </Reveal>
               )}
 

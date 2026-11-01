@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, Flower2, Leaf, Sun, Users, Shell, Gem, Heart, Sparkles, Waves, Check, ShieldCheck, Clock } from 'lucide-react';
 import { Photo, Reveal, AlmaLogo } from '../components/ui.jsx';
 import ArcachonCommercialPlaque from '../components/ArcachonCommercialPlaque.jsx';
+import MarrakechFlightModule from '../components/MarrakechFlightModule.jsx';
 import HeroCinemagraph from '../components/HeroCinemagraph.jsx';
 import VillaShowcase from '../components/VillaShowcase.jsx';
 import MotherChildShowcase from '../components/MotherChildShowcase.jsx';
@@ -377,14 +378,14 @@ export default function Home() {
           <Reveal>
             <p className="eyebrow">Nos autres expériences</p>
             <h2>Marrakech, entre femmes ou en duo mère-enfant</h2>
-            <p style={{ maxWidth: '72ch', marginBottom: '1.6rem', color: 'var(--muted)' }}>
-              Pour nos séjours à Marrakech (comme pour la Corse), <strong>le transport aérien est à votre charge</strong>, mais vous n’êtes jamais seules : <strong>nous vous aidons et vous conseillons personnellement, et nous faisons la réservation des billets ensemble afin de vous faire bénéficier de remises</strong>.
+            <p style={{ maxWidth: '76ch', marginBottom: '1.6rem', color: 'var(--muted)', fontSize: '.96rem', lineHeight: 1.6 }}>
+              Pour nos séjours à Marrakech, <strong>vous réservez vos vols en direct et en toute autonomie</strong> sur le site officiel de votre choix (via <strong>EasyJet</strong> ou <strong>Royal Air Maroc</strong>) pour choisir votre ville de départ et vos options bagages au meilleur prix. Dès vos billets pris, communiquez-nous vos horaires : <strong>nous coordonnons votre transfert direct jusqu’au Riad !</strong>
             </p>
           </Reveal>
           <div className="mk-grid">
             {[
-              ['marrakech-entre-femmes', 'Marrakech', 'Entre femmes', 'Yoga rooftop, riad, hammam, souks, moments de partage — et désert d’Agafay en option si confirmé. Transport à votre charge (réservation accompagnée ensemble avec remises).', '/img/marrakech-femmes-net.jpg'],
-              ['marrakech-mere-enfant', 'Marrakech', 'Mère & enfant', 'Ateliers créatifs, activités partagées, temps pour les mamans, découverte. Agafay selon formule. Transport à votre charge (réservation accompagnée ensemble avec remises).', '/img/marrakech-mere-enfant-net.jpg'],
+              ['marrakech-entre-femmes', 'Marrakech', 'Entre femmes', 'Yoga rooftop, riad d’exception, hammam, souks, moments de partage — et désert d’Agafay en option. Vols en direct via EasyJet ou Royal Air Maroc (liens d’accès rapide ci-dessous).', '/img/marrakech-femmes-net.jpg'],
+              ['marrakech-mere-enfant', 'Marrakech', 'Mère & enfant', 'Ateliers créatifs, activités partagées, temps pour les mamans, souks et émerveillement. Vols en direct via EasyJet ou Royal Air Maroc (liens d’accès rapide ci-dessous).', '/img/marrakech-mere-enfant-net.jpg'],
             ].map(([slug, a, b, d, img], i) => (
               <Reveal key={slug} delay={i * 120}>
                 <Photo src={img} label={`${a} ${b}`} theme="marrakech" className="mk zoom">
@@ -401,6 +402,11 @@ export default function Home() {
               </Reveal>
             ))}
           </div>
+
+          <Reveal>
+            <MarrakechFlightModule />
+          </Reveal>
+
           <p className="small center soon">Bientôt : {future.filter((f) => f.slug !== 'trek-compostelle').map((f) => f.title).join(' · ')} — non réservables pour le moment.</p>
         </div>
       </section>
