@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Compass, Waves, Sun, Sparkles, Check, ArrowRight, X, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Compass, Waves, Sun, Sparkles, Check, ArrowRight, X, ChevronLeft, ChevronRight, Gem } from 'lucide-react';
 import { Reveal } from './ui.jsx';
 
 export const CORSICA_PHOTOS = [
@@ -12,9 +12,9 @@ export const CORSICA_PHOTOS = [
   },
   {
     src: '/img/corse-piana-yoga-plage.jpg',
-    badge: 'Lagon & Sororité · Inclus',
-    title: 'Île de Piana : Pique-nique sur la plage, Yoga & Cercle de parole',
-    caption: 'Arrivées sur l’Île de Piana entre rochers granitiques et lagon turquoise : deuxième session de snorkeling, pique-nique convivial sur la plage, séance de yoga en plein air avec Virginie et cercle de parole avec Émilie.',
+    badge: 'Yoga Aérien (Tissus) & Plage · Inclus',
+    title: 'Yoga Aérien dans les tissus, Île de Piana & Cercle de parole',
+    caption: 'Expérience inédite de Yoga Aérien (Fly Yoga en hamacs de tissus suspendus) et yoga sur la plage de l’Île de Piana avec Virginie, pique-nique face au lagon turquoise et cercle de parole avec Émilie.',
   },
   {
     src: '/img/corse-bonifacio-falaises.jpg',
@@ -24,9 +24,9 @@ export const CORSICA_PHOTOS = [
   },
   {
     src: '/img/corse-sartene-bain-sonore.jpg',
-    badge: 'Âme Corse & Vibrations · Inclus',
-    title: 'Le village de Sartène, Porto-Vecchio & Détente Bain Sonore',
-    caption: 'Découverte du village authentique de Sartène et de ses ruelles de granit, séance exclusive de détente par Bain Sonore animée par notre amie sur place, et escapades entre Porto-Vecchio, plages et montagnes (plongée sous-marine en option).',
+    badge: '+300 € de Soins Esthétiques & Bain Sonore · Inclus',
+    title: 'Soins Esthétiques à la Villa, Sartène & Détente Bain Sonore',
+    caption: 'Plus de 300 € de soins esthétiques et massages réalisés par Émilie et Virginie (esthéticiennes diplômées), découverte du village authentique de Sartène et séance exclusive de Bain Sonore vibratoire.',
   },
 ];
 
@@ -46,13 +46,77 @@ export default function CorsicaShowcase({ embedded = false }) {
     <>
       <Reveal>
         <div className="corse-header">
-          <span className="corse-badge"><Compass size={14} /> Évasion Méditerranéenne · 3 à 4 jours en Corse du Sud · 8 femmes</span>
-          <h2>Corse du Sud — Entre Eaux Cristallines, Falaises &amp; Villages d’Âme</h2>
+          <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: '.55rem', marginBottom: '.8rem' }}>
+            <span className="corse-badge" style={{ marginBottom: 0 }}>
+              <Compass size={14} /> Évasion Méditerranéenne · 3 à 4 jours en Corse du Sud · 8 femmes
+            </span>
+            <span className="exclu-300-pill">
+              <Gem size={14} /> EXCLUSIF &amp; INÉDIT : + de 300 € de soins esthétiques &amp; Yoga Aérien (tissus) INCLUS
+            </span>
+          </div>
+          <h2>Corse du Sud — Entre Eaux Cristallines, Yoga Aérien &amp; Soins Esthétiques Inclus</h2>
           <p className="script-sub" style={{ color: '#1f6f78' }}>
-            De Sartène à Porto-Vecchio et Bonifacio : canoë vers la Grotte d’Amour, Île de Piana, yoga &amp; bain sonore
+            De Sartène à Porto-Vecchio et Bonifacio : Yoga Aérien avec tissus, +300 € de soins esthétiques, canoë vers la Grotte d’Amour, Île de Piana &amp; bain sonore
           </p>
           <p className="mc-lead">
-            Nous vous donnons rendez-vous directement en Corse pour une échappée lumineuse de <strong>3 à 4 jours (du jeudi ou vendredi au dimanche ou lundi)</strong> en petit groupe complice de <strong>8 femmes</strong>. Le transport jusqu’en Corse (ainsi que les restaurants) est à votre charge, mais <strong>nous vous aidons et vous conseillons : nous faisons la réservation des billets ensemble pour vous faire bénéficier de remises</strong>. Dès votre atterrissage à <strong>l’aéroport de Figari ou d’Ajaccio</strong>, nous vous récupérons pour rejoindre notre villa de charme située du côté de <strong>Sartène ou de Porto-Vecchio</strong>.
+            Nous vous donnons rendez-vous directement en Corse pour une échappée lumineuse de <strong>3 à 4 jours (du jeudi ou vendredi au dimanche ou lundi)</strong> en petit groupe complice de <strong>8 femmes</strong>. En exclusivité totale, votre séjour inclut <strong>plus de 300 € de soins esthétiques réalisés par Émilie &amp; Virginie (esthéticiennes diplômées) et de cours de yoga — avec en inédit en Corse du Yoga Aérien dans les tissus (hamacs suspendus) !</strong> Le transport jusqu’en Corse (ainsi que les restaurants) est à votre charge, mais <strong>nous vous aidons et vous conseillons : nous faisons la réservation des billets ensemble pour vous faire bénéficier de remises</strong>, puis vous récupérons dès votre arrivée à <strong>l’aéroport de Figari ou d’Ajaccio</strong>.
+          </p>
+        </div>
+      </Reveal>
+
+      <Reveal delay={60}>
+        <div className="premium-banner" style={{ borderColor: 'rgba(27,107,99,.3)', marginBottom: '2.4rem' }}>
+          <div className="premium-banner-head">
+            <span className="premium-tag" style={{ background: 'linear-gradient(135deg,#1b6b63,#144b52)' }}>
+              <Gem size={15} /> EXCLUSIF &amp; INÉDIT EN CORSE · + de 300 € de soins esthétiques &amp; Yoga Aérien inclus
+            </span>
+            <h3 style={{ color: '#144b52' }}>
+              La légèreté du Yoga Aérien dans les tissus, alliée à plus de 300 € de soins esthétiques &amp; rituels sur place
+            </h3>
+            <p>
+              Parce que vous méritez une parenthèse hors du commun : profitez en Corse de toute l’expertise d’Émilie et Virginie (esthéticiennes diplômées et professeure de yoga) avec un programme bien-être et beauté d’une valeur supérieure à 300 € inclus dans votre séjour :
+            </p>
+          </div>
+          <div className="premium-grid">
+            <div className="premium-card">
+              <span className="premium-badge" style={{ background: '#e6f5f3', color: '#144b52', borderColor: 'rgba(27,107,99,.3)' }}>
+                Inédit en Corse · Inclus
+              </span>
+              <h4>Yoga Aérien (Fly Yoga avec tissus)</h4>
+              <p>
+                Découvrez la sensation magique de flotter en apesanteur dans les hamacs en tissus suspendus avec Virginie : décompresser la colonne, ouvrir le corps en douceur et lâcher prise entre ciel et mer.
+              </p>
+            </div>
+            <div className="premium-card">
+              <span className="premium-badge" style={{ background: '#e6f5f3', color: '#144b52', borderColor: 'rgba(27,107,99,.3)' }}>
+                Haute Beauté · Inclus
+              </span>
+              <h4>Soins Esthétiques &amp; Rituels Visage</h4>
+              <p>
+                Soins esthétiques personnalisés et rituels d’éclat réalisés directement à la villa par Émilie et Virginie, toutes deux esthéticiennes diplômées, pour sublimer votre peau après le soleil et la mer.
+              </p>
+            </div>
+            <div className="premium-card">
+              <span className="premium-badge" style={{ background: '#e6f5f3', color: '#144b52', borderColor: 'rgba(27,107,99,.3)' }}>
+                Modelage Expert · Inclus
+              </span>
+              <h4>Massages Relaxants sur-mesure</h4>
+              <p>
+                Massages bien-être enveloppants pratiqués par vos esthéticiennes pour dénouer les tensions, apaiser le corps après le canoë et savourer une détente absolue.
+              </p>
+            </div>
+            <div className="premium-card">
+              <span className="premium-badge" style={{ background: '#e6f5f3', color: '#144b52', borderColor: 'rgba(27,107,99,.3)' }}>
+                Lagon &amp; Vibrations · Inclus
+              </span>
+              <h4>Yoga Plage de Piana &amp; Bain Sonore</h4>
+              <p>
+                Séances de yoga en plein air face au lagon turquoise de l’Île de Piana, cercles de parole avec Émilie et voyage vibratoire par Bain Sonore à Sartène.
+              </p>
+            </div>
+          </div>
+          <p className="premium-summary" style={{ borderLeftColor: '#1b6b63', background: 'linear-gradient(90deg,rgba(230,245,243,.85),rgba(250,246,239,.9))' }}>
+            💎 <strong>Exclusif &amp; Inédit — Plus de 300 € de soins esthétiques et de cours de yoga inclus :</strong> séances de <strong>Yoga Aérien avec tissus suspendus</strong>, cours de yoga face à la mer, soins esthétiques et massages par nos deux esthéticiennes diplômées, ainsi que le Bain Sonore sont intégralement compris dans votre séjour en Corse du Sud.
           </p>
         </div>
       </Reveal>
@@ -61,39 +125,39 @@ export default function CorsicaShowcase({ embedded = false }) {
         <div className="corse-dual-grid">
           <div className="corse-card">
             <div className="corse-card-head">
-              <span className="corse-hl-tag">✨ L’Aventure Phare du Séjour · Inclus</span>
-              <h3>L’Odyssée en Canoë : Grotte d’Amour &amp; Île de Piana</h3>
+              <span className="corse-hl-tag">✨ L’Aventure Phare &amp; Le Yoga Aérien · Inclus</span>
+              <h3>Canoë vers la Grotte d’Amour, Île de Piana &amp; Yoga Aérien (avec tissus)</h3>
               <p>
-                Le moment fort du séjour : par deux (en binôme par canoë), nous quittons la plage en pagayant sur une eau turquoise d’une pureté irréelle.
+                Entre lagon turquoise et envol dans les tissus aériens : une alliance inédite de nature sauvage et de bien-être profond.
               </p>
             </div>
             <ul className="corse-list">
               <li>
                 <span className="corse-check"><Check size={15} /></span>
                 <div>
-                  <strong>1. Escale secrète à la Grotte d’Amour &amp; Snorkeling</strong>
-                  <span>Nous accostons et descendons des canoës (en les gardant auprès de nous) pour explorer les eaux cristallines en snorkeling.</span>
+                  <strong>1. Inédit : Séances de Yoga Aérien dans les tissus &amp; Yoga Plage</strong>
+                  <span>Avec Virginie (professeure diplômée), expérimentez le <strong>Yoga Aérien en hamac de tissu suspendu</strong> pour flotter en apesanteur, ainsi que le yoga face au lagon de Piana.</span>
                 </div>
               </li>
               <li>
                 <span className="corse-check"><Check size={15} /></span>
                 <div>
-                  <strong>2. Traversée en canoë jusqu’aux roches de l’Île de Piana</strong>
-                  <span>Nous reprenons les canoës pour ramer jusqu’à l’Île de Piana : décor sauvage de roches granitiques et deuxième session de snorkeling.</span>
+                  <strong>2. Escale secrète à la Grotte d’Amour &amp; Snorkeling</strong>
+                  <span>En binôme par canoë, nous accostons et descendons des canoës pour explorer les eaux cristallines de la Grotte d’Amour en snorkeling.</span>
                 </div>
               </li>
               <li>
                 <span className="corse-check"><Check size={15} /></span>
                 <div>
-                  <strong>3. Pique-nique les pieds dans l’eau sur la plage de Piana</strong>
-                  <span>Pause déjeuner conviviale sur le banc de sable blanc face au lagon translucide.</span>
+                  <strong>3. Traversée en canoë &amp; Pique-nique sur l’Île de Piana</strong>
+                  <span>Nous ramons jusqu’aux roches granitiques de l’Île de Piana : deuxième session de snorkeling et pique-nique convivial les pieds dans l’eau.</span>
                 </div>
               </li>
               <li>
                 <span className="corse-check"><Check size={15} /></span>
                 <div>
-                  <strong>4. Yoga en plein air &amp; Cercle de parole</strong>
-                  <span>Séance de yoga face à la mer avec Virginie et cercle de parole entre femmes avec Émilie.</span>
+                  <strong>4. Cercle de parole entre femmes avec Émilie</strong>
+                  <span>Moments de partage sincères et bienveillants face à la mer pour déposer ce qui pèse et repartir le cœur léger.</span>
                 </div>
               </li>
             </ul>
@@ -101,13 +165,20 @@ export default function CorsicaShowcase({ embedded = false }) {
 
           <div className="corse-card corse-card-alt">
             <div className="corse-card-head">
-              <span className="corse-hl-tag">🌊 Découvertes, Bien-Être &amp; Modalités</span>
-              <h3>Bonifacio, Porto-Vecchio, Sartène &amp; Bain Sonore</h3>
+              <span className="corse-hl-tag">💎 +300 € de Soins Esthétiques, Découvertes &amp; Bain Sonore</span>
+              <h3>Soins Beauté inclus, Bonifacio, Porto-Vecchio &amp; Sartène</h3>
               <p>
-                Entre falaises mythiques, villages corses de caractère, vibrations sonores et plages secrètes entre mer et montagne.
+                Toute l’excellence de nos soins esthétiques à la villa, combinée aux joyaux mythiques de la Corse du Sud.
               </p>
             </div>
             <ul className="corse-list">
+              <li>
+                <span className="corse-check"><Check size={15} /></span>
+                <div>
+                  <strong>Exclusif : + de 300 € de Soins Esthétiques &amp; Massages inclus</strong>
+                  <span>Soins visage, rituels beauté et massages relaxants réalisés sur place par Émilie et Virginie, toutes deux esthéticiennes diplômées.</span>
+                </div>
+              </li>
               <li>
                 <span className="corse-check"><Check size={15} /></span>
                 <div>
@@ -118,15 +189,8 @@ export default function CorsicaShowcase({ embedded = false }) {
               <li>
                 <span className="corse-check"><Check size={15} /></span>
                 <div>
-                  <strong>Village de Sartène &amp; Détente Bain Sonore</strong>
-                  <span>Découverte du charmant village de granit de Sartène et séance de relaxation par Bain Sonore animée par notre amie sur place.</span>
-                </div>
-              </li>
-              <li>
-                <span className="corse-check"><Check size={15} /></span>
-                <div>
-                  <strong>Porto-Vecchio, plages, montagnes &amp; Plongée</strong>
-                  <span>Immersion entre criques paradisiaques et reliefs corses, avec possibilité de <strong>plongée sous-marine en option</strong>.</span>
+                  <strong>Village de Sartène, Porto-Vecchio &amp; Détente Bain Sonore</strong>
+                  <span>Découverte de Sartène et Porto-Vecchio, séance de relaxation par Bain Sonore animée par notre amie sur place, et plongée sous-marine en option.</span>
                 </div>
               </li>
               <li>

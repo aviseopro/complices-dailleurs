@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { Check, X, Sparkles } from 'lucide-react';
+import { Check, X, Sparkles, Gem } from 'lucide-react';
 import { Photo, Reveal, STATUS, Price, AlmaLogo } from '../components/ui.jsx';
 import ArcachonCommercialPlaque from '../components/ArcachonCommercialPlaque.jsx';
 import MarrakechFlightModule from '../components/MarrakechFlightModule.jsx';
@@ -13,6 +13,7 @@ import { useData, euro } from '../data/store.js';
 import { seatsLeft } from '../lib/booking.js';
 
 const COND_LABELS = {
+  exclusivite: 'Exclusif & Inédit',
   imputation: 'Imputation de la pré-réservation sur le prix final',
   remboursement: 'Remboursement',
   garantiePlace: 'Garantie de place',
@@ -42,7 +43,15 @@ export default function Experience() {
       <header className="page-hero">
         <Photo label={e.title} theme={e.theme} src={e.image || (e.theme === 'arcachon' ? settings.heroImage : undefined)} className="ph-hero" />
         <div className="wrap page-hero-in">
-          <span className={`pill ${e.status}`}>{STATUS[e.status]}</span>
+          <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '.6rem', marginBottom: '.4rem' }}>
+            <span className={`pill ${e.status}`}>{STATUS[e.status]}</span>
+            <span className="exclu-300-hero-badge">
+              <Gem size={14} />{' '}
+              {isCorse
+                ? 'EXCLUSIF & INÉDIT : + de 300 € de soins esthétiques & cours de Yoga Aérien (avec tissus) INCLUS !'
+                : 'EXCLUSIF & INÉDIT : + de 300 € de soins esthétiques & de cours de yoga INCLUS !'}
+            </span>
+          </div>
           <h1>{e.title}</h1>
           <p className="lead">{e.short}</p>
           {arca && <ArcachonCommercialPlaque e={e} variant="hero" />}
@@ -210,6 +219,11 @@ export default function Experience() {
         {e.kind !== 'future' && (
           <aside className="booking-card" aria-label="Réservation">
             <h2>{e.kind === 'preorder' ? 'Pré-réservation' : isMarrakechFemmes ? 'Séjour intimiste' : 'Réservation'}</h2>
+            <div className="exclu-300-card-box">
+              <span className="exclu-300-card-tag"><Gem size={13} /> EXCLUSIF &amp; INÉDIT</span>
+              <strong>+ de 300 € de soins esthétiques &amp; cours de yoga INCLUS</strong>
+              {isCorse && <small>✨ Dont séances de <strong>Yoga Aérien (avec tissus)</strong> avec Virginie !</small>}
+            </div>
             {arca && (
               <div className="bk-arca-highlight">
                 <span className="bk-arca-tag"><Sparkles size={13} /> Offre exclusive de départ</span>

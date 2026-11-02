@@ -11,6 +11,10 @@ export default function Contact() {
   return (
     <section className="section"><div className="wrap narrow">
       <h1>Contact</h1>
+      <div className="exclu-300-card-box" style={{ margin: '0 0 1.6rem' }}>
+        <span className="exclu-300-card-tag">💎 EXCLUSIF &amp; INÉDIT</span>
+        <strong>+ de 300 € de soins esthétiques &amp; de cours de yoga INCLUS dans nos séjours entre femmes (dont Yoga Aérien avec tissus en Corse !)</strong>
+      </div>
 
       <div style={{
         background: '#eef9f2',

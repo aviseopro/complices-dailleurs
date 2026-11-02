@@ -14,12 +14,12 @@ import Newsletter from '../components/Newsletter.jsx';
 import { useData } from '../data/store.js';
 
 const strip = [
-  [Users, 'Entre femmes', 'sororité & partage'],
-  [Flower2, 'Yoga plein air & salle', 'avec Virginie'],
+  [Gem, 'Exclusif & Inédit', '+300 € de soins esthétiques & yoga inclus'],
+  [Flower2, 'Yoga plein air & Aérien', 'tissus (Corse) & Yin/Hatha'],
   [Sparkles, 'Méditation & cercle', 'guidés par Émilie'],
   [Leaf, 'Haute beauté & LED', 'machines dernier cri'],
-  [Shell, 'Bassin d’Arcachon', 'balades à l’ombre des pins'],
-  [Gem, '+ de 300 € de soins', 'inclus sur place'],
+  [Shell, 'Bassin d’Arcachon & Corse', 'villas de charme & mer'],
+  [Users, 'Entre femmes', '8 participantes max'],
 ];
 
 const signature = [
@@ -99,18 +99,18 @@ export default function Home() {
         <div className="hero-shade" />
         <div className="wrap hero-in hero-split">
           <div className="hero-left">
-            <span className="hero-badge"><span className="hero-dot" /> Expérience Phare · Bassin d’Arcachon — Entre femmes</span>
+            <span className="hero-badge"><span className="hero-dot" /> EXCLUSIF &amp; INÉDIT · + de 300 € de Soins Esthétiques &amp; Cours de Yoga INCLUS</span>
             <h1>Bien plus qu’un week-end <span className="script">bien-être…</span></h1>
             <p className="sig light">Déposer ce qui pèse, se faire choyer et repartir le cœur léger</p>
 
             <p className="hero-lead-text">
-              Une parenthèse rare entre femmes au cœur des pins du Bassin d’Arcachon. 3 jours hors du temps dans un loft avec spa et sauna privatisés, alliant écoute bienveillante, yoga, et l’excellence de soins d’institut haute technologie sur place.
+              Une parenthèse rare et inédite entre femmes : <strong>plus de 300 € de soins esthétiques et de cours de yoga inclus</strong> dans nos séjours (au Bassin d’Arcachon dans notre loft avec spa et sauna privatisés, en Corse avec du <strong>Yoga Aérien dans les tissus</strong>, ou à Marrakech).
             </p>
 
             <div className="hero-highlights-pills">
-              <span>💎 + de 300 € de soins offerts</span>
+              <span>💎 EXCLUSIF : + de 300 € de soins esthétiques &amp; yoga INCLUS</span>
               <span>🏡 Spa 7 places &amp; Sauna</span>
-              <span>🧘‍♀️ Yin &amp; Hatha Yoga</span>
+              <span>🧘‍♀️ Yin, Hatha &amp; Yoga Aérien (Corse)</span>
               <span>🤍 8 femmes max</span>
             </div>
 
@@ -124,7 +124,7 @@ export default function Home() {
           <div className="hero-sales-box" aria-label="Offre privilège de départ Bassin d'Arcachon">
             <div className="hsb-top">
               <span className="hsb-urgent-pill">
-                <Sparkles size={13} className="hsb-spark" /> Offre de lancement · 8 places seulement
+                <Sparkles size={13} className="hsb-spark" /> EXCLUSIF &amp; INÉDIT · +300 € de soins &amp; yoga inclus
               </span>
               <span className="hsb-alma-tag">
                 <span>Facilité Alma</span>
@@ -149,7 +149,7 @@ export default function Home() {
               <ul className="hsb-value-stack">
                 <li>
                   <Check size={15} className="hsb-check" />
-                  <span><strong>+ de 300 € de soins de beauté inclus</strong> : Soin visage Haute Technologie, massage expert, luminothérapie LED &amp; auto-massage</span>
+                  <span><strong>EXCLUSIF &amp; INÉDIT — + de 300 € de soins esthétiques &amp; cours de yoga inclus</strong> : Soin visage Haute Technologie, massage expert, LED, auto-massage &amp; yoga</span>
                 </li>
                 <li>
                   <Check size={15} className="hsb-check" />

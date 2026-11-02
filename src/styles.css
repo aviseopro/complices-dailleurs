@@ -40,7 +40,14 @@ h1{font-size:clamp(2.4rem,6vw,4.6rem)} h2{font-size:clamp(1.9rem,4vw,3rem)} h3{f
 .header{position:fixed;inset:0 0 auto 0;z-index:50;transition:background .3s,box-shadow .3s}
 .header.solid{background:rgba(250,246,239,.94);backdrop-filter:blur(10px);box-shadow:0 1px 0 rgba(0,0,0,.06)}
 .header:not(.solid){background:linear-gradient(rgba(250,246,239,.95),rgba(250,246,239,.7))}
-.header-in{display:flex;align-items:center;justify-content:space-between;gap:.9rem;width:min(1440px,96vw);margin:0 auto;padding:.55rem 0}
+.header-promo-bar{background:linear-gradient(90deg,#1d3550 0%,#284f6b 50%,#1b6b63 100%);color:#fff;font-size:.76rem;padding:.34rem .9rem;border-bottom:1px solid rgba(235,213,179,.32)}
+.header-promo-in{display:flex;align-items:center;justify-content:center;gap:.65rem;flex-wrap:wrap;width:min(1440px,96vw);margin:0 auto;text-align:center}
+.header-promo-badge{display:inline-flex;align-items:center;gap:.25rem;background:linear-gradient(135deg,#e6a972,#c87042);color:#fff;font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;padding:.15rem .55rem;border-radius:999px;box-shadow:0 0 12px rgba(230,169,114,.45)}
+.header-promo-text{letter-spacing:.02em;line-height:1.3}
+.header-promo-text strong{color:#fce4be;font-weight:600}
+.header-promo-link{color:#fce4be;font-weight:600;text-decoration:underline;text-underline-offset:3px;font-size:.73rem;white-space:nowrap}
+.header-promo-link:hover{color:#fff}
+.header-in{display:flex;align-items:center;justify-content:space-between;gap:.9rem;width:min(1440px,96vw);margin:0 auto;padding:.5rem 0}
 .logo-brand{display:inline-flex;align-items:center;gap:.65rem;text-decoration:none;color:var(--navy);flex-shrink:0;transition:opacity .2s}
 .logo-brand:hover{opacity:.9}
 .logo-lockup{display:flex;flex-direction:column}
@@ -96,7 +103,7 @@ h1{font-size:clamp(2.4rem,6vw,4.6rem)} h2{font-size:clamp(1.9rem,4vw,3rem)} h3{f
 .burger{display:none;background:none;border:0;color:var(--navy);margin-left:auto}
 @media(max-width:1180px){
   .burger{display:block}.head-cta{display:none}
-  .nav{position:fixed;inset:72px 0 auto 0;flex-direction:column;background:var(--cream);padding:1.5rem;gap:.85rem;transform:translateY(-120%);transition:transform .35s;box-shadow:0 20px 30px rgba(0,0,0,.1);margin:0}
+  .nav{position:fixed;inset:108px 0 auto 0;flex-direction:column;background:var(--cream);padding:1.5rem;gap:.85rem;transform:translateY(-120%);transition:transform .35s;box-shadow:0 20px 30px rgba(0,0,0,.1);margin:0}
   .nav.open{transform:none}
   .nav-dropdown{flex-direction:column;width:100%}
   .nav-drop-menu{position:static;transform:none;box-shadow:none;width:100%;max-width:340px;margin-top:.4rem;display:none;opacity:1;visibility:visible;pointer-events:auto}
@@ -114,7 +121,7 @@ h1{font-size:clamp(2.4rem,6vw,4.6rem)} h2{font-size:clamp(1.9rem,4vw,3rem)} h3{f
 .hero-canvas.active{opacity:1}
 .hero-bg img{width:100%;height:100%;object-fit:cover;object-position:center 40%;transform:scale(1.05);will-change:transform}
 .hero-shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(12,26,42,.62) 0%,rgba(12,26,42,.28) 52%,rgba(12,26,42,.18) 100%),linear-gradient(0deg,rgba(12,26,42,.48) 0%,transparent 55%)}
-.hero-in{position:relative;padding-top:115px;padding-bottom:3.2rem;z-index:2}
+.hero-in{position:relative;padding-top:145px;padding-bottom:3.2rem;z-index:2}
 .hero-split{display:grid;grid-template-columns:1.15fr .95fr;gap:2.8rem;align-items:end}
 .hero-left{display:flex;flex-direction:column;align-items:flex-start}
 .hero-badge{display:inline-flex;align-items:center;gap:.55rem;padding:.38rem .95rem;border-radius:999px;background:rgba(15,30,46,.52);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.25);color:#fff;font-size:.73rem;text-transform:uppercase;letter-spacing:.2em;margin-bottom:1rem;box-shadow:0 4px 16px rgba(0,0,0,.15)}
@@ -430,19 +437,19 @@ input,select,textarea{font:inherit;padding:.75rem 1rem;border:1px solid var(--sa
 .page-hero{position:relative;color:#fff;min-height:55vh;display:flex;align-items:flex-end}
 .ph-hero{position:absolute;inset:0;border-radius:0}
 .page-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(8,18,30,.85) 0%,rgba(8,18,30,.52) 55%,rgba(8,18,30,.2) 100%)}
-.page-hero-in{position:relative;z-index:2;padding:7rem 0 2.5rem;text-shadow:0 2px 14px rgba(0,0,0,.75),0 4px 28px rgba(0,0,0,.55)}.page-hero h1{color:#fff;margin:.3rem 0}
+.page-hero-in{position:relative;z-index:2;padding:8.8rem 0 2.5rem;text-shadow:0 2px 14px rgba(0,0,0,.75),0 4px 28px rgba(0,0,0,.55)}.page-hero h1{color:#fff;margin:.3rem 0}
 .pill{display:inline-block;padding:.25rem .9rem;border-radius:99px;background:#fff;color:var(--navy);font-size:.75rem;text-transform:uppercase;letter-spacing:.1em}
 .pill.open{background:#d7ebd5}.pill.soon{background:#f3e3c4}
 .detail{display:grid;grid-template-columns:1fr 340px;gap:3rem;padding:3rem 0;align-items:start}
 @media(max-width:900px){.detail{grid-template-columns:1fr}}
 .gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:.7rem}
 .program{padding-left:1.2rem}.program>li{margin-bottom:1rem}
-.booking-card{position:sticky;top:100px;background:#fff;border-radius:var(--r);padding:1.5rem;box-shadow:0 10px 40px rgba(0,0,0,.08)}
+.booking-card{position:sticky;top:125px;background:#fff;border-radius:var(--r);padding:1.5rem;box-shadow:0 10px 40px rgba(0,0,0,.08)}
 dl{margin:0}dt{font-size:.75rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-top:.7rem}dd{margin:0}
 .theme-marrakech h2,.theme-marrakech .eyebrow{color:var(--terra)}
-.page .section:first-child,.page>.section{padding-top:8rem}
-section.section.page{padding-top:8rem}
-section.section:has(.form),section.section:has(.legal),section.section:has(.admin){padding-top:8rem}
+.page .section:first-child,.page>.section{padding-top:9.5rem}
+section.section.page{padding-top:9.5rem}
+section.section:has(.form),section.section:has(.legal),section.section:has(.admin){padding-top:9.5rem}
 .form{display:grid;gap:1rem;margin:1.5rem 0}.form label{display:grid;gap:.3rem;font-size:.9rem}.form label.check{display:flex}
 .form em{color:#b3261e;font-size:.8rem;font-style:normal}.error{color:#b3261e}
 fieldset{border:1px solid var(--sand2);border-radius:12px}
@@ -838,3 +845,12 @@ blockquote{font:italic 1.6rem var(--serif);color:var(--navy);border-left:3px sol
 .mk-book-recap-row:last-child{border-bottom:none}
 .mk-book-recap-row.highlight{background:rgba(168,85,58,.06);margin:0 -1.5rem;padding:.75rem 1.5rem}
 .mk-book-recap-row strong{color:var(--navy)}
+
+/* Mise en avant Exclusif & Inédit : + de 300 € de soins esthétiques & cours de yoga inclus */
+.exclu-300-hero-badge{display:inline-flex;align-items:center;gap:.55rem;flex-wrap:wrap;background:linear-gradient(135deg,rgba(29,53,80,.88) 0%,rgba(27,107,99,.85) 100%);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1.5px solid rgba(235,213,179,.65);border-radius:999px;padding:.45rem 1.1rem;margin-top:.85rem;color:#fff;font-size:.82rem;line-height:1.35;box-shadow:0 8px 24px rgba(0,0,0,.35),0 0 18px rgba(230,169,114,.32);text-shadow:none}
+.exclu-300-hero-badge strong{color:#fce4be;font-weight:600}
+.exclu-300-pill{display:inline-flex;align-items:center;gap:.35rem;background:linear-gradient(135deg,#e6a972 0%,#c87042 100%);color:#fff;font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;padding:.18rem .6rem;border-radius:999px;box-shadow:0 2px 10px rgba(200,112,66,.45);flex-shrink:0}
+.exclu-300-card-box{background:linear-gradient(135deg,#fbf7f0 0%,#eef6f5 100%);border:1.5px solid rgba(27,107,99,.32);border-left:4px solid var(--terra);border-radius:14px;padding:.95rem 1.15rem;margin-bottom:1.1rem;box-shadow:0 6px 20px rgba(29,53,80,.06)}
+.exclu-300-card-tag{display:inline-flex;align-items:center;gap:.35rem;font-size:.67rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--terra);background:rgba(168,85,58,.1);border:1px solid rgba(168,85,58,.24);padding:.16rem .58rem;border-radius:999px;margin-bottom:.4rem}
+.exclu-300-card-box p{margin:0;font-size:.85rem;line-height:1.5;color:var(--ink)}
+.exclu-300-card-box p strong{color:var(--navy);font-weight:600}

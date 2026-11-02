@@ -92,15 +92,20 @@ export default function MarrakechExperienceShowcase() {
       {/* 1. Header & Accroche */}
       <Reveal>
         <div className="mk-hero-intro">
-          <span className="mk-pill-badge">
-            <Users size={14} /> 4 jours / 3 nuits · 6 à 8 participantes maximum · Accompagné par Émilie &amp; Virginie
-          </span>
+          <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: '.55rem', marginBottom: '.85rem' }}>
+            <span className="mk-pill-badge" style={{ marginBottom: 0 }}>
+              <Users size={14} /> 4 jours / 3 nuits · 6 à 8 participantes maximum · Accompagné par Émilie &amp; Virginie
+            </span>
+            <span className="exclu-300-pill">
+              ✨ EXCLUSIF &amp; INÉDIT : + de 300 € de soins esthétiques, massage &amp; cours de yoga INCLUS
+            </span>
+          </div>
           <h2>Marrakech entre femmes : souffler, se reconnecter et vivre la ville ocre à taille humaine</h2>
           <p className="script-sub" style={{ color: '#a8553a' }}>
-            Yoga doux, riad de charme, massage bien-être, atelier mosaïque &amp; complicité
+            Exclusif : + de 300 € de soins esthétiques &amp; cours de yoga inclus · Riad de charme, massage, atelier mosaïque &amp; complicité
           </p>
           <p className="mk-lead-narrative">
-            Prendre le temps de respirer, ralentir le rythme et vivre Marrakech loin de l’agitation et des groupes impersonnels. Nous vous invitons à une parenthèse chaleureuse et sincère, pensée par des femmes pour des femmes : <strong>exactement 4 jours et 3 nuits</strong>, <strong>un groupe intime de 6 à 8 participantes maximum</strong>, un hébergement de charme en Riad, <strong>des séances de yoga avec Virginie</strong>, <strong>un massage bien-être inclus</strong>, <strong>un atelier mosaïque pour créer votre propre souvenir personnel</strong>, et notre présence attentive à vos côtés pour partager les plus beaux moments tout en préservant votre entière liberté.
+            Prendre le temps de respirer, ralentir le rythme et vivre Marrakech loin de l’agitation et des groupes impersonnels. Nous vous invitons à une parenthèse chaleureuse et sincère, pensée par des femmes pour des femmes : <strong>exactement 4 jours et 3 nuits</strong>, <strong>un groupe intime de 6 à 8 participantes maximum</strong>, un hébergement de charme en Riad, et <strong>en exclusivité plus de 300 € de soins esthétiques, massage bien-être et cours de yoga quotidiens avec Virginie inclus</strong>, ainsi qu’<strong>un atelier mosaïque pour créer votre propre souvenir personnel</strong>, avec notre présence attentive à vos côtés tout en préservant votre entière liberté.
           </p>
         </div>
       </Reveal>

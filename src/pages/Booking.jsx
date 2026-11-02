@@ -254,6 +254,14 @@ export default function Booking() {
             : 'Réservation officielle'}
         </p>
         <h1>{e.title}</h1>
+        <div className="exclu-300-card-box" style={{ margin: '1rem 0 1.2rem' }}>
+          <span className="exclu-300-card-tag">💎 EXCLUSIF &amp; INÉDIT</span>
+          <strong>
+            {e.slug === 'corse'
+              ? '+ de 300 € de soins esthétiques & cours de Yoga Aérien (avec tissus) INCLUS dans votre séjour'
+              : '+ de 300 € de soins esthétiques & de cours de yoga INCLUS dans votre séjour'}
+          </strong>
+        </div>
 
         {/* Highlight Arcachon */}
         {isArca && (

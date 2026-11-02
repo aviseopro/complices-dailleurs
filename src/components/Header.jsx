@@ -47,6 +47,17 @@ export default function Header() {
 
   return (
     <header className={`header ${solid ? 'solid' : ''}`}>
+      <div className="header-promo-bar">
+        <div className="header-promo-in">
+          <span className="header-promo-badge">💎 EXCLUSIF &amp; INÉDIT</span>
+          <span className="header-promo-text">
+            <strong>+ de 300 € de soins esthétiques &amp; de cours de yoga INCLUS</strong> dans nos séjours — dont <strong>Yoga Aérien (avec tissus)</strong> en Corse !
+          </span>
+          <Link to="/experiences/corse" onClick={close} className="header-promo-link">
+            Voir la Corse →
+          </Link>
+        </div>
+      </div>
       <div className="header-in">
         <Logo />
         <nav className={`nav ${open ? 'open' : ''}`} aria-label="Navigation principale">
@@ -70,15 +81,15 @@ export default function Header() {
             <div className="nav-drop-menu" role="menu">
               <NavLink to="/experiences/arcachon-entre-femmes" onClick={close} className="drop-item drop-arcachon" role="menuitem">
                 <strong>Bassin d’Arcachon</strong>
-                <small>Week-end Phare · Villa, Spa &amp; Haute Beauté</small>
+                <small>Week-end Phare · +300 € de Soins Esthétiques &amp; Cours de Yoga inclus</small>
               </NavLink>
               <NavLink to="/experiences/corse" onClick={close} className="drop-item drop-corse" role="menuitem">
                 <strong>Corse du Sud (Sartène · Porto-Vecchio · Bonifacio)</strong>
-                <small>3–4 jours · Canoë Île de Piana, Yoga &amp; Bain sonore</small>
+                <small>3–4 jours · +300 € de Soins Esthétiques &amp; Yoga Aérien (tissus) inclus</small>
               </NavLink>
               <NavLink to="/experiences/trek-compostelle" onClick={close} className="drop-item drop-trek" role="menuitem">
                 <strong>Trek au féminin · Chemin de Compostelle</strong>
-                <small>2–3 jours · Marche, Bivouac &amp; Yoga en nature</small>
+                <small>2–3 jours · +300 € de Soins, Massages &amp; Cours de Yoga inclus</small>
               </NavLink>
             </div>
           </div>

@@ -35,7 +35,7 @@ function load() {
         const isLegacyArca = def.slug === 'arcachon-entre-femmes' && (!cur.lodging?.includes('Sauna') || cur.included?.[0]?.includes('90 €'));
         const isLegacyArcaMe = def.slug === 'arcachon-mere-enfant' && (cur.kind === 'future' || !cur.program?.length || !cur.intro?.includes('pâte Fimo'));
         const isLegacyTrek = def.slug === 'trek-compostelle' && (cur.kind === 'future' || !cur.included?.[1]?.includes('Pranayama'));
-        const isLegacyCorse = def.slug === 'corse' && (cur.kind === 'future' || !cur.program?.length || !cur.excluded?.some((x) => x.includes('restaurants')));
+        const isLegacyCorse = def.slug === 'corse' && (cur.kind === 'future' || !cur.program?.length || !cur.intro?.includes('Yoga Aérien'));
         const isLegacyMk = (def.slug === 'marrakech-entre-femmes' || def.slug === 'marrakech-mere-enfant') && (!cur.included?.some((x) => x.includes('mosaïque')) || cur.duration !== '4 jours / 3 nuits' || !cur.conditions?.options);
         const refresh = isLegacyArca || isLegacyArcaMe || isLegacyTrek || isLegacyCorse || isLegacyMk;
         return {
@@ -63,7 +63,7 @@ function load() {
           image: refresh ? def.image : (cur.image || def.image),
         };
       });
-      const faq = (!saved.faq || !saved.faq.some((f) => f.a?.includes('EasyJet'))) ? defaultData.faq : saved.faq;
+      const faq = (!saved.faq || !saved.faq.some((f) => f.a?.includes('Yoga Aérien'))) ? defaultData.faq : saved.faq;
       return { ...defaultData, ...saved, experiences: exps, faq };
     }
   } catch {
