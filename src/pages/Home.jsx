@@ -14,11 +14,10 @@ import Newsletter from '../components/Newsletter.jsx';
 import { useData } from '../data/store.js';
 
 const strip = [
-  [Gem, 'Exclusif & Inédit', '+300 € de soins esthétiques & yoga inclus'],
-  [Flower2, 'Yoga plein air & Aérien', 'tissus (Corse) & Yin/Hatha'],
+  [Flower2, 'Yoga intérieur & plein air', 'selon la météo'],
   [Sparkles, 'Méditation & cercle', 'guidés par Émilie'],
   [Leaf, 'Haute beauté & LED', 'machines dernier cri'],
-  [Shell, 'Bassin d’Arcachon & Corse', 'villas de charme & mer'],
+  [Shell, 'Bassin d’Arcachon', 'à 10 min à pied'],
   [Users, 'Entre femmes', '8 participantes max'],
 ];
 
@@ -99,90 +98,44 @@ export default function Home() {
         <div className="hero-shade" />
         <div className="wrap hero-in hero-split">
           <div className="hero-left">
-            <span className="hero-badge"><span className="hero-dot" /> EXCLUSIF &amp; INÉDIT · + de 300 € de Soins Esthétiques &amp; Cours de Yoga INCLUS</span>
-            <h1>Bien plus qu’un week-end <span className="script">bien-être…</span></h1>
-            <p className="sig light">Déposer ce qui pèse, se faire choyer et repartir le cœur léger</p>
-
-            <p className="hero-lead-text">
-              Une parenthèse rare et inédite entre femmes : <strong>plus de 300 € de soins esthétiques et de cours de yoga inclus</strong> dans nos séjours (au Bassin d’Arcachon dans notre loft avec spa et sauna privatisés, en Corse avec du <strong>Yoga Aérien dans les tissus</strong>, ou à Marrakech).
+            <p className="hero-kicker">BASSIN D’ARCACHON · WEEK-END ENTRE FEMMES</p>
+            <h1>Et si, pour une fois, on prenait soin de vous ?</h1>
+            <p className="hero-hook">
+              Le temps de souffler, de vous laisser choyer et de retrouver le plaisir de penser à vous.
             </p>
-
-            <div className="hero-highlights-pills">
-              <span>💎 EXCLUSIF : + de 300 € de soins esthétiques &amp; yoga INCLUS</span>
-              <span>🏡 Spa 7 places &amp; Sauna</span>
-              <span>🧘‍♀️ Yin, Hatha &amp; Yoga Aérien (Corse)</span>
-              <span>🤍 8 femmes max</span>
-            </div>
-
-            <div className="cta-row" style={{ marginTop: '1rem' }}>
-              <a href="#arcachon" className="btn btn-light">
-                Découvrir la villa &amp; tout le programme <ArrowRight size={16} />
+            <p className="hero-presentation">
+              Émilie et Virginie vous accueillent dans un loft privatisé avec spa et sauna, pour un week-end associant soins esthétiques professionnels, yoga et moments de complicité, en petit groupe de 8 femmes.
+            </p>
+            <div className="hero-cta-wrap">
+              <a href="#arcachon" className="btn hero-btn-secondary">
+                Découvrir mon week-end
               </a>
             </div>
           </div>
 
-          <div className="hero-sales-box" aria-label="Offre privilège de départ Bassin d'Arcachon">
-            <div className="hsb-top">
-              <span className="hsb-urgent-pill">
-                <Sparkles size={13} className="hsb-spark" /> EXCLUSIF &amp; INÉDIT · +300 € de soins &amp; yoga inclus
-              </span>
-              <span className="hsb-alma-tag">
-                <span>Facilité Alma</span>
-                <AlmaLogo height={14} />
-              </span>
+          <aside className="hero-value-card" aria-label="Valeur et réservation du week-end Bassin d'Arcachon">
+            <div className="hvc-value-block">
+              <p className="hvc-value-headline">
+                <strong className="hvc-value-amount">Plus de 300 €</strong>{' '}
+                <span className="hvc-value-label">de soins esthétiques et de yoga inclus dans votre séjour</span>
+              </p>
+              <p className="hvc-value-details">
+                Soin du visage haute technologie, massage relaxant, séance LED, atelier d’auto-massage et séances de yoga : vos rendez-vous bien-être sont déjà compris.
+              </p>
             </div>
 
-            <div className="hsb-main">
-              <div className="hsb-hook-lead">
-                Réservez votre place pour <strong className="hsb-deposit-highlight">{arca?.depositPerPlace || 95} €</strong> seulement
-              </div>
+            <div className="hvc-divider" />
 
-              <div className="hsb-pricing-row">
-                <div className="hsb-price-tag">
-                  <span className="hsb-old-price">{arca?.originalPrice || 550} €</span>
-                  <strong className="hsb-new-price">{arca?.pricePerPerson || 450} €</strong>
-                  <span className="hsb-per-person">tout compris / pers.</span>
-                </div>
-                <span className="hsb-save-badge">Économisez 100 €</span>
-              </div>
-
-              <ul className="hsb-value-stack">
-                <li>
-                  <Check size={15} className="hsb-check" />
-                  <span><strong>EXCLUSIF &amp; INÉDIT — + de 300 € de soins esthétiques &amp; cours de yoga inclus</strong> : Soin visage Haute Technologie, massage expert, LED, auto-massage &amp; yoga</span>
-                </li>
-                <li>
-                  <Check size={15} className="hsb-check" />
-                  <span><strong>Loft d’exception privatisé</strong> à 10 min du Bassin (Spa 7 places, Sauna 4 places, piscine chauffée)</span>
-                </li>
-                <li>
-                  <Check size={15} className="hsb-check" />
-                  <span><strong>Yoga avec Virginie &amp; Méditation avec Émilie</strong> + pension complète végétarienne saine &amp; gourmande</span>
-                </li>
-              </ul>
+            <div className="hvc-pricing-block">
+              <p className="hvc-total-price">{arca?.pricePerPerson || 450} € par personne</p>
+              <p className="hvc-price-includes">Hébergement, pension complète et programme bien-être inclus.</p>
+              <p className="hvc-deposit-line">Réservez avec {arca?.depositPerPlace || 95} € d’acompte.</p>
             </div>
 
-            <div className="hsb-action">
-              <Link to="/reserver/arcachon-entre-femmes" className="hsb-btn-cta">
-                <span className="hsb-btn-title">JE RÉSERVE MA PLACE — {arca?.depositPerPlace || 95} € D’ACOMPTE</span>
-                <span className="hsb-btn-sub">Bloquez votre chambre dès aujourd’hui · Solde plus tard</span>
-                <ArrowRight size={19} className="hsb-btn-arrow" />
-              </Link>
-              <div className="hsb-reassurance">
-                <span><ShieldCheck size={13} /> Paiement 100% sécurisé Stripe</span>
-                <span><Clock size={13} /> Annulation sereine</span>
-                <span><Users size={13} /> 8 participantes max</span>
-              </div>
-            </div>
-
-            <a href="#histoire" className="hsb-founders-footer">
-              <img src="/img/emilie-virginie-marrakech.jpg" alt="Émilie et Virginie" className="hsb-founders-avatar" />
-              <div className="hsb-founders-quote">
-                <em>« Nous vous accueillons personnellement comme des amies pour un week-end inoubliable. »</em>
-                <small>Émilie &amp; Virginie · Vos hôtes esthéticiennes &amp; prof de yoga</small>
-              </div>
-            </a>
-          </div>
+            <Link to="/reserver/arcachon-entre-femmes" className="btn btn-terra hvc-cta-btn">
+              Je réserve mon week-end
+            </Link>
+          </aside>
         </div>
       </section>
 

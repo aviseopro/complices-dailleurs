@@ -49,19 +49,15 @@ export default function Header() {
     <header className={`header ${solid ? 'solid' : ''}`}>
       <div className="header-promo-bar">
         <div className="header-promo-in">
-          <span className="header-promo-badge">💎 EXCLUSIF &amp; INÉDIT</span>
-          <span className="header-promo-text">
-            <strong>+ de 300 € de soins esthétiques &amp; de cours de yoga INCLUS</strong> dans nos séjours — dont <strong>Yoga Aérien (avec tissus)</strong> en Corse !
-          </span>
-          <Link to="/experiences/corse" onClick={close} className="header-promo-link">
-            Voir la Corse →
+          <Link to="/#arcachon" onClick={close} className="header-promo-link">
+            Voyages &amp; expériences au féminin — <span>Découvrez notre week-end sur le Bassin d’Arcachon</span>
           </Link>
         </div>
       </div>
       <div className="header-in">
         <Logo />
         <nav className={`nav ${open ? 'open' : ''}`} aria-label="Navigation principale">
-          <NavLink to="/" end onClick={close} className="nav-accueil">Accueil</NavLink>
+          <NavLink to="/" end onClick={close} className="nav-link">Accueil</NavLink>
 
           <div
             className={`nav-dropdown ${franceOpen ? 'is-open' : ''}`}
@@ -71,7 +67,7 @@ export default function Header() {
           >
             <button
               type="button"
-              className={`nav-drop-btn nav-arcachon ${isFranceActive ? 'active' : ''}`}
+              className={`nav-drop-btn ${isFranceActive ? 'active' : ''}`}
               aria-expanded={franceOpen}
               onClick={() => setFranceOpen((v) => !v)}
             >
@@ -79,29 +75,34 @@ export default function Header() {
               <ChevronDown size={14} className="nav-chev" />
             </button>
             <div className="nav-drop-menu" role="menu">
-              <NavLink to="/experiences/arcachon-entre-femmes" onClick={close} className="drop-item drop-arcachon" role="menuitem">
+              <NavLink to="/experiences/arcachon-entre-femmes" onClick={close} className="drop-item" role="menuitem">
                 <strong>Bassin d’Arcachon</strong>
-                <small>Week-end Phare · +300 € de Soins Esthétiques &amp; Cours de Yoga inclus</small>
+                <small>Week-end entre femmes · Loft privatisé, soins &amp; yoga</small>
               </NavLink>
-              <NavLink to="/experiences/corse" onClick={close} className="drop-item drop-corse" role="menuitem">
+              <NavLink to="/experiences/corse" onClick={close} className="drop-item" role="menuitem">
                 <strong>Corse du Sud (Sartène · Porto-Vecchio · Bonifacio)</strong>
-                <small>3–4 jours · +300 € de Soins Esthétiques &amp; Yoga Aérien (tissus) inclus</small>
+                <small>Séjour 3–4 jours · Entre mer, maquis &amp; bien-être</small>
               </NavLink>
-              <NavLink to="/experiences/trek-compostelle" onClick={close} className="drop-item drop-trek" role="menuitem">
+              <NavLink to="/experiences/trek-compostelle" onClick={close} className="drop-item" role="menuitem">
                 <strong>Trek au féminin · Chemin de Compostelle</strong>
-                <small>2–3 jours · +300 € de Soins, Massages &amp; Cours de Yoga inclus</small>
+                <small>2–3 jours · Marche douce, yoga &amp; reconnexion</small>
               </NavLink>
             </div>
           </div>
 
-          <NavLink to="/experiences/arcachon-mere-enfant" onClick={close} className="nav-mere-enfant">Ateliers &amp; Yoga Mère-Enfant</NavLink>
-          <NavLink to="/experiences/atelier-enfant" onClick={close} className="nav-atelier-enfant">Atelier Enfant</NavLink>
-          <Link to="/#marrakech" onClick={close} className="nav-marrakech">Marrakech</Link>
-          <Link to="/#faq" onClick={close}>FAQ</Link>
-          <NavLink to="/contact" onClick={close}>Contact</NavLink>
+          <NavLink to="/experiences/arcachon-mere-enfant" onClick={close} className="nav-link">Ateliers &amp; Yoga Mère-Enfant</NavLink>
+          <NavLink to="/experiences/atelier-enfant" onClick={close} className="nav-link">Atelier Enfant</NavLink>
+          <Link to="/#marrakech" onClick={close} className="nav-link">Marrakech</Link>
+          <Link to="/#faq" onClick={close} className="nav-link">FAQ</Link>
+          <NavLink to="/contact" onClick={close} className="nav-link">Contact</NavLink>
           <span aria-label="Instagram (bientôt disponible)" className="ig ig-disabled" title="Instagram (bientôt disponible)"><Instagram size={17} /></span>
+          <Link to="/reserver/arcachon-entre-femmes" onClick={close} className="btn btn-terra btn-sm nav-mobile-cta">
+            Réserver — 95 € d’acompte
+          </Link>
         </nav>
-        <Link to="/reserver/arcachon-entre-femmes" className="btn btn-blue btn-sm head-cta btn-commercial-glow">Je m’inscris — 95 €</Link>
+        <Link to="/reserver/arcachon-entre-femmes" className="btn btn-terra btn-sm head-cta">
+          Réserver — 95 € d’acompte
+        </Link>
         <button className="burger" aria-label={open ? 'Fermer le menu' : 'Ouvrir le menu'} aria-expanded={open} onClick={() => setOpen(!open)}>
           {open ? <X /> : <Menu />}
         </button>
