@@ -56,27 +56,45 @@ h1{font-size:clamp(2.4rem,6vw,4.6rem)} h2{font-size:clamp(1.9rem,4vw,3rem)} h3{f
 .logo-symbol{width:44px;height:26px;flex-shrink:0;transition:transform .3s ease}
 .logo-brand:hover .logo-symbol{transform:scale(1.04)}
 
-.nav{display:flex;gap:.45rem;align-items:center;justify-content:center;margin:0 auto;font-size:.74rem;text-transform:uppercase;letter-spacing:.08em;flex-wrap:nowrap}
-.nav a,.nav-link{display:inline-flex;align-items:center;justify-content:center;white-space:nowrap;text-align:center;text-decoration:none;color:#2a2420;font-weight:400;padding:.38rem .55rem;border-radius:8px;border-bottom:1.5px solid transparent;line-height:1.2;transition:color .2s ease,border-color .2s ease,background .2s ease}
-.nav a:hover,.nav a.active,.nav-link:hover,.nav-link.active{color:var(--terra);border-bottom-color:var(--terra)}
-.nav .ig{display:inline-flex;align-items:center;justify-content:center;padding:.3rem .35rem;color:#2a2420}
-.ig-disabled{opacity:.42;cursor:default;pointer-events:none;user-select:none}
+.nav{display:flex;gap:.55rem;align-items:center;justify-content:center;margin:0 auto;font-size:.71rem;text-transform:uppercase;letter-spacing:.07em;flex-wrap:nowrap}
+.nav a{display:inline-flex;align-items:center;justify-content:center;white-space:nowrap;text-align:center;text-decoration:none;padding:.3rem .35rem;border-bottom:1px solid transparent;line-height:1.15;transition:background .25s ease,border-color .25s ease,color .25s ease}
+.nav .ig{display:inline-flex;align-items:center;justify-content:center;padding:.3rem .35rem;color:var(--ink)}
+.ig-disabled{opacity:.45;cursor:default;pointer-events:none;user-select:none}
 .foot-grid span.ig-disabled{display:block;padding:.15rem 0}
+.nav a:hover,.nav a.active{border-color:var(--terra)}
+.nav a.nav-accueil{color:#5e4934;font-weight:500;background:rgba(214,188,150,.26);padding:.36rem .82rem;border-radius:999px;border:1px solid rgba(182,148,104,.46);box-shadow:0 0 13px rgba(198,162,114,.44),0 0 4px rgba(198,162,114,.28);animation:haloAccueil 3.2s ease-in-out infinite}
+.nav a.nav-accueil:hover,.nav a.nav-accueil.active{background:#5e4934;color:#fff;border-color:#5e4934;box-shadow:0 0 16px rgba(94,73,52,.55)}
+@keyframes haloAccueil{0%,100%{box-shadow:0 0 11px rgba(198,162,114,.38),0 0 4px rgba(198,162,114,.24)}50%{box-shadow:0 0 18px rgba(198,162,114,.62),0 0 7px rgba(198,162,114,.38)}}
+.nav a.nav-arcachon{color:#2c5573;font-weight:500;background:rgba(120,172,210,.2);padding:.36rem .78rem;border-radius:999px;border:1px solid rgba(79,126,163,.34);box-shadow:0 0 12px rgba(102,158,200,.36)}
+.nav a.nav-arcachon:hover,.nav a.nav-arcachon.active{background:#284f6b;color:#fff;border-color:#284f6b;box-shadow:0 0 16px rgba(40,79,107,.55)}
+.nav a.nav-mere-enfant{color:#9e472a;font-weight:500;background:rgba(226,138,96,.2);padding:.36rem .78rem;border-radius:999px;border:1px solid rgba(168,85,58,.36);box-shadow:0 0 12px rgba(218,128,86,.38)}
+.nav a.nav-mere-enfant:hover,.nav a.nav-mere-enfant.active{background:#8b4129;color:#fff;border-color:#8b4129;box-shadow:0 0 16px rgba(139,65,41,.55)}
+.nav a.nav-atelier-enfant{color:#8c3450;font-weight:600;background:rgba(218,124,152,.22);padding:.36rem .82rem;border-radius:999px;border:1px solid rgba(184,82,114,.48);box-shadow:0 0 14px rgba(214,108,142,.48),0 0 4px rgba(214,108,142,.3);animation:haloKids 3s ease-in-out infinite}
+.nav a.nav-atelier-enfant:hover,.nav a.nav-atelier-enfant.active{background:#8c3450;color:#fff;border-color:#8c3450;box-shadow:0 0 18px rgba(140,52,80,.65)}
+@keyframes haloKids{0%,100%{box-shadow:0 0 12px rgba(214,108,142,.42),0 0 4px rgba(214,108,142,.26)}50%{box-shadow:0 0 20px rgba(214,108,142,.68),0 0 8px rgba(214,108,142,.42)}}
+.nav a.nav-trek{color:#355634;font-weight:500;background:rgba(93,122,92,.16);padding:.36rem .78rem;border-radius:999px;border:1px solid rgba(93,122,92,.34)}
+.nav a.nav-trek:hover,.nav a.nav-trek.active{background:#3f5a3e;color:#fff;border-color:#3f5a3e}
+.nav a.nav-marrakech{color:#8a6214;font-weight:500;background:rgba(235,192,88,.24);padding:.36rem .78rem;border-radius:999px;border:1px solid rgba(204,154,48,.42);box-shadow:0 0 12px rgba(226,178,72,.38)}
+.nav a.nav-marrakech:hover,.nav a.nav-marrakech.active{background:#b5801c;color:#fff;border-color:#b5801c;box-shadow:0 0 16px rgba(181,128,28,.55)}
 
 /* Menu déroulant Destinations France */
 .nav-dropdown{position:relative;display:inline-flex;align-items:center}
-.nav-drop-btn{display:inline-flex;align-items:center;gap:.35rem;font-family:var(--sans);font-size:.74rem;text-transform:uppercase;letter-spacing:.08em;font-weight:400;color:#2a2420;background:transparent;padding:.38rem .55rem;border:0;border-bottom:1.5px solid transparent;cursor:pointer;white-space:nowrap;transition:color .2s ease,border-color .2s ease}
-.nav-drop-btn:hover,.nav-drop-btn.active,.nav-dropdown.is-open .nav-drop-btn,.nav-dropdown.open .nav-drop-btn{color:var(--terra);border-bottom-color:var(--terra)}
+.nav-drop-btn{display:inline-flex;align-items:center;gap:.35rem;font-family:var(--sans);font-size:.71rem;text-transform:uppercase;letter-spacing:.07em;font-weight:500;color:#2c5573;background:rgba(120,172,210,.22);padding:.38rem .82rem;border-radius:999px;border:1px solid rgba(79,126,163,.36);box-shadow:0 0 12px rgba(102,158,200,.38);cursor:pointer;white-space:nowrap;transition:background .25s ease,color .25s ease,border-color .25s ease,box-shadow .25s ease}
+.nav-drop-btn:hover,.nav-drop-btn.active,.nav-dropdown.is-open .nav-drop-btn,.nav-dropdown.open .nav-drop-btn{background:#284f6b;color:#fff;border-color:#284f6b;box-shadow:0 0 16px rgba(40,79,107,.55)}
 .nav-chev,.nav-caret{display:inline-block;transition:transform .25s ease;flex-shrink:0}
 .nav-dropdown.is-open .nav-chev,.nav-dropdown.open .nav-chev,.nav-dropdown:hover .nav-chev{transform:rotate(180deg)}
-.nav-drop-menu{position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%) translateY(6px);min-width:300px;background:#faf6ef;border:1px solid var(--sand2);border-radius:14px;padding:.5rem;box-shadow:0 16px 38px rgba(42,36,32,.14);display:flex;flex-direction:column;gap:.3rem;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .2s ease,transform .2s ease,visibility .2s;z-index:300}
+.nav-drop-menu{position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%) translateY(6px);min-width:295px;background:rgba(251,247,240,.98);backdrop-filter:blur(14px);border:1px solid var(--sand2);border-radius:16px;padding:.55rem;box-shadow:0 18px 42px rgba(29,53,80,.16);display:flex;flex-direction:column;gap:.42rem;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .2s ease,transform .2s ease,visibility .2s;z-index:300}
 .nav-drop-menu::before{content:"";position:absolute;top:-12px;left:0;right:0;height:12px}
 .nav-dropdown.is-open .nav-drop-menu,.nav-dropdown.open .nav-drop-menu,.nav-dropdown:hover .nav-drop-menu{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(-50%) translateY(0)}
-.nav-drop-menu a.drop-item{display:flex;flex-direction:column;align-items:flex-start;text-align:left;padding:.65rem .9rem;border-radius:10px;border:0;color:#2a2420;background:transparent;text-transform:none;letter-spacing:.01em;width:100%;white-space:normal;transition:background .2s ease,color .2s ease}
-.nav-drop-menu a.drop-item strong,.drop-title{font-weight:500;font-size:.86rem;line-height:1.25;display:block;color:#2a2420}
-.nav-drop-menu a.drop-item small,.drop-sub{font-size:.73rem;color:var(--muted);margin-top:.16rem;letter-spacing:.01em;line-height:1.35;display:block}
-.nav-drop-menu a.drop-item:hover,.nav-drop-menu a.drop-item.active{background:var(--sand);color:var(--terra)}
-.nav-drop-menu a.drop-item:hover strong,.nav-drop-menu a.drop-item.active strong{color:var(--terra)}
+.nav-drop-menu a.drop-item{display:flex;flex-direction:column;align-items:flex-start;text-align:left;padding:.6rem .9rem;border-radius:11px;border:1px solid transparent;text-transform:none;letter-spacing:.01em;width:100%;white-space:normal}
+.nav-drop-menu a.drop-item strong,.drop-title{font-weight:600;font-size:.82rem;line-height:1.25;display:block}
+.nav-drop-menu a.drop-item small,.drop-sub{font-size:.7rem;opacity:.86;margin-top:.16rem;letter-spacing:.02em;line-height:1.3;display:block}
+.nav-drop-menu a.drop-arcachon{background:rgba(120,172,210,.2);color:#2c5573;border-color:rgba(79,126,163,.3)}
+.nav-drop-menu a.drop-arcachon:hover,.nav-drop-menu a.drop-arcachon.active{background:#284f6b;color:#fff;border-color:#284f6b}
+.nav-drop-menu a.drop-corse{background:rgba(64,164,156,.2);color:#1d5e59;border-color:rgba(64,164,156,.34)}
+.nav-drop-menu a.drop-corse:hover,.nav-drop-menu a.drop-corse.active{background:#1b6b63;color:#fff;border-color:#1b6b63}
+.nav-drop-menu a.drop-trek{background:rgba(93,122,92,.18);color:#355634;border-color:rgba(93,122,92,.34)}
+.nav-drop-menu a.drop-trek:hover,.nav-drop-menu a.drop-trek.active{background:#3f5a3e;color:#fff;border-color:#3f5a3e}
 
 .head-cta{white-space:nowrap;flex-shrink:0;font-weight:500;padding:.62rem 1.25rem}
 .nav-mobile-cta{display:none!important}
@@ -406,12 +424,15 @@ h1{font-size:clamp(2.4rem,6vw,4.6rem)} h2{font-size:clamp(1.9rem,4vw,3rem)} h3{f
 .mk-airline-card:hover{transform:translateY(-3px);box-shadow:0 16px 36px rgba(0,0,0,.08)}
 .easyjet-card{border-top:4px solid #FF6600}
 .ram-card{border-top:4px solid #C8102E}
+.volotea-card{border-top:4px solid #CC0033}
 
 .mk-airline-top{display:flex;align-items:center;justify-content:space-between;gap:.65rem;margin-bottom:.9rem;flex-wrap:wrap}
 .easyjet-logo-txt{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;font-size:1.65rem;font-weight:900;letter-spacing:-0.04em;color:#FF6600;line-height:1}
 .ram-logo-txt{font-family:var(--serif);font-size:1.45rem;font-weight:700;letter-spacing:-0.01em;color:#C8102E;line-height:1}
+.volotea-logo-txt{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;font-size:1.5rem;font-weight:900;letter-spacing:0.06em;color:#CC0033;line-height:1}
 .mk-airline-tag{font-family:var(--sans);font-size:.67rem;font-weight:600;text-transform:uppercase;letter-spacing:.1em;padding:.22rem .6rem;border-radius:999px;background:rgba(255,102,0,.1);color:#d45500;border:1px solid rgba(255,102,0,.25)}
 .ram-tag{background:rgba(200,16,46,.08);color:#C8102E;border-color:rgba(200,16,46,.25)}
+.volotea-tag{background:rgba(204,0,51,.09);color:#CC0033;border-color:rgba(204,0,51,.25)}
 
 .mk-airline-card h4{font-family:var(--serif);font-size:1.32rem;color:var(--navy);margin:0 0 .4rem;line-height:1.25}
 .mk-airline-card p{font-size:.9rem;line-height:1.55;color:var(--muted);margin:0 0 1rem}
@@ -420,12 +441,21 @@ h1{font-size:clamp(2.4rem,6vw,4.6rem)} h2{font-size:clamp(1.9rem,4vw,3rem)} h3{f
 .mk-airline-points li{display:flex;align-items:center;gap:.45rem;font-size:.82rem;color:var(--ink)}
 .easyjet-card .mk-airline-points svg{color:#FF6600}
 .ram-card .mk-airline-points svg{color:#C8102E}
+.volotea-card .mk-airline-points svg{color:#CC0033}
 
 .btn-airline{display:inline-flex;align-items:center;justify-content:center;gap:.6rem;width:100%;padding:.88rem 1.4rem;border-radius:999px;font-family:var(--sans);font-size:.92rem;font-weight:600;text-decoration:none;cursor:pointer;transition:transform .25s ease,box-shadow .25s ease,filter .25s ease;box-shadow:0 6px 18px rgba(0,0,0,.1)}
 .btn-easyjet{background:linear-gradient(135deg,#FF6600 0%,#e55b00 100%);color:#fff!important;box-shadow:0 8px 22px rgba(255,102,0,.35)}
 .btn-easyjet:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(255,102,0,.5);filter:brightness(1.05)}
 .btn-ram{background:linear-gradient(135deg,#C8102E 0%,#9e0c24 100%);color:#fff!important;box-shadow:0 8px 22px rgba(200,16,46,.35)}
 .btn-ram:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(200,16,46,.5);filter:brightness(1.05)}
+.btn-volotea{background:linear-gradient(135deg,#CC0033 0%,#a10028 100%);color:#fff!important;box-shadow:0 8px 22px rgba(204,0,51,.35)}
+.btn-volotea:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(204,0,51,.5);filter:brightness(1.05)}
+
+.corse-flight-module{border-color:rgba(27,107,99,.28);background:linear-gradient(145deg,#fff 0%,#f2f9f8 100%)}
+.corse-flight-badge{background:rgba(27,107,99,.12);color:#1b6b63;border-color:rgba(27,107,99,.28)}
+.corse-flight-badge .mk-plane-icon{color:#1b6b63}
+.corse-flight-module .mk-tip-icon{color:#1b6b63}
+.corse-flight-module .mk-tip-item code{background:rgba(27,107,99,.12);color:#1b6b63}
 
 .mk-flight-tips{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem;padding-top:1.4rem;border-top:1px solid rgba(168,85,58,.16)}
 @media(max-width:860px){

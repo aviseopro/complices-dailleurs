@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Compass, Waves, Sun, Sparkles, Check, ArrowRight, X, ChevronLeft, ChevronRight, Gem } from 'lucide-react';
 import { Reveal } from './ui.jsx';
+import CorseFlightModule from './CorseFlightModule.jsx';
 
 export const CORSICA_PHOTOS = [
   {
@@ -226,6 +227,10 @@ export default function CorsicaShowcase({ embedded = false }) {
           </Reveal>
         ))}
       </div>
+
+      <Reveal delay={90}>
+        <CorseFlightModule />
+      </Reveal>
 
       {!embedded && (
         <Reveal delay={100}>
