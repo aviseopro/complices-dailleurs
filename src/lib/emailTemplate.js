@@ -5,6 +5,22 @@ export const OFFICIAL_EMAIL = 'complicesdailleurs@gmail.com';
 export const OFFICIAL_PHONE = '06 29 84 96 53';
 export const SITE_URL = 'https://complices-dailleurs.vercel.app';
 
+// Code Google Apps Script clé-en-main à coller sur script.google.com (connecté à complicesdailleurs@gmail.com)
+export const GOOGLE_APPS_SCRIPT_SNIPPET = `function doPost(e) {
+  var data = JSON.parse(e.postData.contents);
+  MailApp.sendEmail({
+    to: data.to,
+    bcc: "${OFFICIAL_EMAIL}",
+    replyTo: "${OFFICIAL_EMAIL}",
+    name: "Complices d'ailleurs — Émilie & Virginie",
+    subject: data.subject,
+    body: data.text,
+    htmlBody: data.html
+  });
+  return ContentService.createTextOutput(JSON.stringify({ ok: true }))
+    .setMimeType(ContentService.MimeType.JSON);
+}`;
+
 export function buildConfirmationEmailHtml({ booking, experience, origin = SITE_URL }) {
   const firstName = (booking?.name || 'Chère complice').split(' ')[0];
   const isCash = booking?.paymentMethod === 'cash';
@@ -16,7 +32,8 @@ export function buildConfirmationEmailHtml({ booking, experience, origin = SITE_
   const stayTotal = priceUnit * places;
   const alma3x = Math.round((stayTotal / 3) * 100) / 100;
   const alma4x = Math.round((stayTotal / 4) * 100) / 100;
-  const photoUrl = `${origin}/img/emilie-virginie-marrakech.jpg`;
+  const safeOrigin = !origin || origin.includes('localhost') || origin.includes('127.0.0.1') ? SITE_URL : origin;
+  const photoUrl = `${safeOrigin}/img/emilie-virginie-marrakech.jpg`;
 
   const paymentBadge = isCash
     ? 'Paiement en espèces (Cash) auprès d’Émilie & Virginie'
@@ -198,20 +215,37 @@ Téléphone / WhatsApp : ${OFFICIAL_PHONE}
 Site : ${SITE_URL}`;
 }
 
-export async function sendBookingConfirmationEmail({ booking, experience }) {
+export function buildGmailComposeUrl({ booking, experience }) {
+  const subject = `Confirmation de votre inscription — ${experience?.title || 'Complices d’ailleurs'} (Réf. ${booking?.reference})`;
+  const body = buildConfirmationPlainText({ booking, experience });
+  const params = new URLSearchParams({
+    view: 'cm',
+    fs: '1',
+    to: booking?.email || '',
+    bcc: OFFICIAL_EMAIL,
+    su: subject,
+    body,
+  });
+  return `https://mail.google.com/mail/?${params.toString()}`;
+}
+
+export async function sendBookingConfirmationEmail({ booking, experience, settings }) {
   const html = buildConfirmationEmailHtml({
     booking,
     experience,
-    origin: typeof window !== 'undefined' ? window.location.origin : SITE_URL,
+    origin: SITE_URL,
   });
   const text = buildConfirmationPlainText({ booking, experience });
-  const isCash = booking?.paymentMethod === 'cash';
-  const isAlma = booking?.paymentMethod === 'alma';
-  const paymentShortLabel = isCash ? 'Paiement CASH' : isAlma ? 'Paiement 3x/4x Alma' : 'Acompte 95 €';
+  const subjectParticipant = `Confirmation de votre inscription — ${experience?.title || 'Complices d’ailleurs'} (Réf. ${booking?.reference})`;
+  const googleScriptUrl =
+    settings?.googleScriptUrl ||
+    (typeof import.meta !== 'undefined' && import.meta.env ? import.meta.env.VITE_GOOGLE_SCRIPT_URL : '') ||
+    '';
+  const gmailAppPassword = settings?.gmailAppPassword || '';
 
-  const results = { apiSent: false, formSubmitSent: false };
+  const results = { sent: false, provider: null, reason: null };
 
-  // 1. Appel de notre endpoint serverless Vercel (/api/send-confirmation)
+  // 1. Appel de notre endpoint serverless (/api/send-confirmation) — supporte Gmail SMTP, Google Apps Script et Resend
   try {
     const res = await fetch('/api/send-confirmation', {
       method: 'POST',
@@ -222,47 +256,46 @@ export async function sendBookingConfirmationEmail({ booking, experience }) {
         html,
         text,
         officialEmail: OFFICIAL_EMAIL,
+        googleScriptUrl,
+        gmailAppPassword,
       }),
     });
     if (res.ok) {
-      results.apiSent = true;
+      const data = await res.json();
+      if (data && data.ok) {
+        results.sent = true;
+        results.provider = data.provider;
+        return results;
+      }
+      results.reason = data?.reason || data?.error || null;
     }
   } catch (_) {
-    // Fallback silencieux si hors-ligne
+    // Continue vers le relais Google Script direct si disponible
   }
 
-  // 2. Notification directe vers complicesdailleurs@gmail.com + auto-réponse participante via FormSubmit AJAX
-  try {
-    const resFs = await fetch(`https://formsubmit.co/ajax/${OFFICIAL_EMAIL}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
-      body: JSON.stringify({
-        _subject: `✨ Nouvelle inscription ${experience?.title || 'Arcachon'} — ${booking?.name} (${paymentShortLabel}) [${booking?.reference}]`,
-        _replyto: booking?.email,
-        email: booking?.email,
-        _autoresponse: text,
-        _template: 'box',
-        Référence: booking?.reference,
-        Séjour: experience?.title || 'Bassin d’Arcachon — Entre femmes',
-        Participante: booking?.name,
-        Email_Participante: booking?.email,
-        Téléphone: booking?.phone,
-        Nombre_de_places: booking?.places,
-        Mode_de_paiement: isCash
-          ? 'Paiement en espèces (CASH) auprès d’Émilie & Virginie'
-          : isAlma
-          ? 'Paiement en 3x ou 4x par carte bancaire avec Alma'
-          : `Acompte de ${booking?.amount || 95} € en ligne (Stripe)`,
-      }),
-    });
-    if (resFs.ok) {
-      results.formSubmitSent = true;
+  // 2. Relais direct navigateur -> Google Apps Script (si configuré)
+  if (googleScriptUrl && googleScriptUrl.startsWith('https://script.google.com/')) {
+    try {
+      await fetch(googleScriptUrl, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({
+          to: booking?.email,
+          bcc: OFFICIAL_EMAIL,
+          replyTo: OFFICIAL_EMAIL,
+          subject: subjectParticipant,
+          text,
+          html,
+          booking,
+        }),
+      });
+      results.sent = true;
+      results.provider = 'google_script_direct';
+      return results;
+    } catch (_) {
+      // Ignore network error
     }
-  } catch (_) {
-    // Ignore network error
   }
 
   return results;

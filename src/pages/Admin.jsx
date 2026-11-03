@@ -2,15 +2,54 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useData, update, resetData } from '../data/store.js';
 import { setStatus, toCsv, seatsLeft } from '../lib/booking.js';
-import { buildConfirmationEmailHtml, OFFICIAL_EMAIL } from '../lib/emailTemplate.js';
+import {
+  buildConfirmationEmailHtml,
+  buildGmailComposeUrl,
+  sendBookingConfirmationEmail,
+  GOOGLE_APPS_SCRIPT_SNIPPET,
+  OFFICIAL_EMAIL,
+} from '../lib/emailTemplate.js';
 
 const num = (v) => (v === '' ? null : Number(v));
 const lines = (v) => v.split('\n').map((s) => s.trim()).filter(Boolean);
 
 function Bookings() {
-  const { bookings, experiences } = useData();
+  const { bookings, experiences, settings } = useData();
   const [copied, setCopied] = useState(false);
+  const [copiedScript, setCopiedScript] = useState(false);
+  const [testEmailStatus, setTestEmailStatus] = useState('');
   const directUrl = `${typeof window !== 'undefined' ? window.location.origin : 'https://complices-dailleurs.vercel.app'}/paiement`;
+  const setSetting = (k, v) => update((s) => { s.settings[k] = v; return s; });
+
+  const copyScript = async () => {
+    try {
+      await navigator.clipboard.writeText(GOOGLE_APPS_SCRIPT_SNIPPET);
+      setCopiedScript(true);
+      setTimeout(() => setCopiedScript(false), 3000);
+    } catch (_) {}
+  };
+
+  const testSendMail = async () => {
+    setTestEmailStatus('Envoi du mail de test en cours…');
+    const res = await sendBookingConfirmationEmail({
+      booking: {
+        reference: 'CDA-TEST01',
+        name: 'Émilie & Virginie (Test)',
+        email: OFFICIAL_EMAIL,
+        phone: '06 29 84 96 53',
+        places: 1,
+        amount: 95,
+        paymentMethod: 'deposit_95',
+      },
+      experience: experiences[0],
+      settings,
+    });
+    if (res.sent) {
+      setTestEmailStatus(`✓ Mail HTML envoyé avec succès (${res.provider}) vers ${OFFICIAL_EMAIL} !`);
+    } else {
+      setTestEmailStatus('⚠️ Renseignez ci-dessous le Mot de passe d’application Gmail ou l’URL Google Script pour activer l’envoi automatique.');
+    }
+  };
 
   const csv = () => {
     const a = document.createElement('a');
@@ -50,6 +89,42 @@ function Bookings() {
           Email officiel configuré : <strong>{OFFICIAL_EMAIL}</strong> — 3 choix proposés sur la page : <strong>1. Acompte 95 € (Stripe)</strong>, <strong>2. Paiement en 3x ou 4x avec Alma</strong>, ou <strong>3. Paiement Cash (Espèces)</strong>.
         </small>
       </div>
+
+      <div className="adm-card" style={{ borderLeft: '4px solid #1d5e3a', marginBottom: '1.2rem' }}>
+        <strong>📧 Connexion de la boîte Gmail ({OFFICIAL_EMAIL}) pour l’envoi automatique aux clientes :</strong>
+        <p style={{ margin: '.25rem 0 .6rem', fontSize: '.86rem', color: 'var(--muted)' }}>
+          Pour que Gmail autorise l’envoi automatique du beau mail HTML (avec votre photo et logo) directement dans la boîte de chaque cliente dès qu’elle valide son inscription, renseignez <strong>l’une des deux options</strong> ci-dessous :
+        </p>
+        <div className="grid2">
+          <label>
+            Option A — Mot de passe d’application Gmail (16 lettres du compte {OFFICIAL_EMAIL})
+            <input
+              type="password"
+              placeholder="xxxx xxxx xxxx xxxx"
+              value={settings.gmailAppPassword || ''}
+              onChange={(ev) => setSetting('gmailAppPassword', ev.target.value)}
+            />
+          </label>
+          <label>
+            Option B — URL Google Apps Script (gratuit, sans mot de passe sur script.google.com)
+            <input
+              type="url"
+              placeholder="https://script.google.com/macros/s/.../exec"
+              value={settings.googleScriptUrl || ''}
+              onChange={(ev) => setSetting('googleScriptUrl', ev.target.value)}
+            />
+          </label>
+        </div>
+        <div style={{ display: 'flex', gap: '.6rem', flexWrap: 'wrap', alignItems: 'center', marginTop: '.4rem' }}>
+          <button type="button" className="btn btn-sm btn-ghost" onClick={copyScript}>
+            {copiedScript ? '✓ Code Google Script copié !' : 'Copier le code Google Script (10 lignes)'}
+          </button>
+          <button type="button" className="btn btn-sm btn-terra" onClick={testSendMail}>
+            Tester l’envoi d’un mail maintenant
+          </button>
+          {testEmailStatus && <small style={{ fontWeight: 600 }}>{testEmailStatus}</small>}
+        </div>
+      </div>
       <p><button className="btn btn-sm btn-terra" onClick={csv}>Exporter en CSV</button></p>
       {bookings.length === 0 && <p>Aucune inscription pour le moment.</p>}
       <div className="table-wrap"><table>
@@ -86,6 +161,14 @@ function Bookings() {
             <td>{b.status}<details><summary>journal</summary>{b.log.map((l, i) => <div key={i}><small>{l.at.slice(0, 16)} · {l.status} {l.note}</small></div>)}</details></td>
             <td>
               <button onClick={() => openEmailPreview(b)}>Voir le mail (Photo &amp; Logo)</button>{' '}
+              <a
+                href={buildGmailComposeUrl({ booking: b, experience: experiences.find((e) => e.slug === b.exp) || experiences[0] })}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ fontSize: '.82rem', textDecoration: 'underline', marginRight: '.35rem' }}
+              >
+                Envoyer via Gmail
+              </a>{' '}
               <button onClick={() => act(b.reference, 'paid', 'Marqué payé')}>Payé</button>{' '}
               <button onClick={() => act(b.reference, 'cancelled', 'Annulé')}>Annuler</button>{' '}
               <button onClick={() => confirm('Marquer comme remboursé ? (le remboursement réel se fait chez le prestataire de paiement)') && act(b.reference, 'refunded', 'Remboursement')}>Rembourser</button>

@@ -20,6 +20,7 @@ import {
   OFFICIAL_EMAIL,
   OFFICIAL_PHONE,
   buildConfirmationEmailHtml,
+  buildGmailComposeUrl,
   sendBookingConfirmationEmail,
 } from '../lib/emailTemplate.js';
 
@@ -150,10 +151,16 @@ export default function Booking() {
     });
 
     // Envoi automatique du mail de confirmation (à la participante + complicesdailleurs@gmail.com)
-    await sendBookingConfirmationEmail({ booking: res.booking, experience: e });
+    await sendBookingConfirmationEmail({ booking: res.booking, experience: e, settings });
     setSubmitting(false);
     setDone(res.booking);
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const selectMethodAndScroll = (method) => {
+    setF((prev) => ({ ...prev, paymentMethod: method }));
+    const el = document.getElementById('vip-form-start');
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
   const printConfirmationMail = (bookingObj) => {
@@ -244,9 +251,19 @@ export default function Booking() {
           <div className="vip-email-preview-wrap">
             <div className="vip-email-preview-toolbar">
               <span>📧 Votre e-mail officiel de confirmation ({OFFICIAL_EMAIL})</span>
-              <button type="button" onClick={() => printConfirmationMail(done)} className="btn btn-sm btn-ghost">
-                <Printer size={14} /> Imprimer / Enregistrer mon invitation (PDF)
-              </button>
+              <div style={{ display: 'flex', gap: '.5rem', flexWrap: 'wrap' }}>
+                <a
+                  href={buildGmailComposeUrl({ booking: done, experience: e })}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-sm btn-ghost"
+                >
+                  <Mail size={14} /> Recevoir / Ouvrir dans Gmail
+                </a>
+                <button type="button" onClick={() => printConfirmationMail(done)} className="btn btn-sm btn-ghost">
+                  <Printer size={14} /> Imprimer / Enregistrer mon invitation (PDF)
+                </button>
+              </div>
             </div>
 
             <div className="vip-email-card">
@@ -396,8 +413,8 @@ export default function Booking() {
               <div
                 role="button"
                 tabIndex={0}
-                onClick={() => setF({ ...f, paymentMethod: 'deposit_95' })}
-                onKeyDown={(ev) => (ev.key === 'Enter' || ev.key === ' ') && setF({ ...f, paymentMethod: 'deposit_95' })}
+                onClick={() => selectMethodAndScroll('deposit_95')}
+                onKeyDown={(ev) => (ev.key === 'Enter' || ev.key === ' ') && selectMethodAndScroll('deposit_95')}
                 className={`vip-top-pay-pill ${f.paymentMethod === 'deposit_95' ? 'active' : ''}`}
               >
                 <div className="vip-top-pay-pill-head">
@@ -411,8 +428,8 @@ export default function Booking() {
               <div
                 role="button"
                 tabIndex={0}
-                onClick={() => setF({ ...f, paymentMethod: 'alma' })}
-                onKeyDown={(ev) => (ev.key === 'Enter' || ev.key === ' ') && setF({ ...f, paymentMethod: 'alma' })}
+                onClick={() => selectMethodAndScroll('alma')}
+                onKeyDown={(ev) => (ev.key === 'Enter' || ev.key === ' ') && selectMethodAndScroll('alma')}
                 className={`vip-top-pay-pill alma ${f.paymentMethod === 'alma' ? 'active' : ''}`}
               >
                 <div className="vip-top-pay-pill-head">
@@ -438,8 +455,8 @@ export default function Booking() {
               <div
                 role="button"
                 tabIndex={0}
-                onClick={() => setF({ ...f, paymentMethod: 'cash' })}
-                onKeyDown={(ev) => (ev.key === 'Enter' || ev.key === ' ') && setF({ ...f, paymentMethod: 'cash' })}
+                onClick={() => selectMethodAndScroll('cash')}
+                onKeyDown={(ev) => (ev.key === 'Enter' || ev.key === ' ') && selectMethodAndScroll('cash')}
                 className={`vip-top-pay-pill cash ${f.paymentMethod === 'cash' ? 'active' : ''}`}
               >
                 <div className="vip-top-pay-pill-head">
@@ -472,7 +489,7 @@ export default function Booking() {
           </div>
         </div>
 
-        <form onSubmit={submit} noValidate className="vip-form-card">
+        <form id="vip-form-start" onSubmit={submit} noValidate className="vip-form-card">
           <div className="vip-form-section-head">
             <span className="vip-step-num">1</span>
             <div>
