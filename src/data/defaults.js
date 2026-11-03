@@ -10,7 +10,7 @@ export const defaultData = {
     heroVideo: '/videos/hero-arcachon.mp4?v=2',
     stripePaymentUrl: 'https://buy.stripe.com/5kQaEZb38efo3Nh8x6afS00',
     whatsapp: '0629849653',
-    contactEmail: 'contact@exemple.fr',
+    contactEmail: 'complicesdailleurs@gmail.com',
     instagram: 'https://www.instagram.com/complicesdailleurs',
     adminPassword: 'demo',
     cancellationPolicy:

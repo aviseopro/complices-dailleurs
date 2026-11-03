@@ -11,6 +11,9 @@ export default function Footer() {
         <div>
           <Logo />
           <p className="small">Voyages au féminin — une expérience rare, imaginée par des femmes, pour des femmes.</p>
+          <p className="small" style={{ marginTop: '.4rem' }}>
+            📧 <a href={`mailto:${settings.contactEmail || 'complicesdailleurs@gmail.com'}`}>{settings.contactEmail || 'complicesdailleurs@gmail.com'}</a>
+          </p>
         </div>
         <div>
           <h3>Explorer</h3>

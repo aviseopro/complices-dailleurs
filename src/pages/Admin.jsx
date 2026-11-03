@@ -2,29 +2,75 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useData, update, resetData } from '../data/store.js';
 import { setStatus, toCsv, seatsLeft } from '../lib/booking.js';
+import { buildConfirmationEmailHtml, OFFICIAL_EMAIL } from '../lib/emailTemplate.js';
 
 const num = (v) => (v === '' ? null : Number(v));
 const lines = (v) => v.split('\n').map((s) => s.trim()).filter(Boolean);
 
 function Bookings() {
   const { bookings, experiences } = useData();
+  const [copied, setCopied] = useState(false);
+  const directUrl = `${typeof window !== 'undefined' ? window.location.origin : 'https://complices-dailleurs.vercel.app'}/paiement`;
+
   const csv = () => {
     const a = document.createElement('a');
     a.href = URL.createObjectURL(new Blob(['\ufeff' + toCsv(bookings)], { type: 'text/csv;charset=utf-8' }));
     a.download = 'inscriptions.csv';
     a.click();
   };
+  const copyLink = async () => {
+    try {
+      await navigator.clipboard.writeText(directUrl);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2500);
+    } catch (_) {}
+  };
+  const openEmailPreview = (b) => {
+    const exp = experiences.find((e) => e.slug === b.exp) || experiences[0];
+    const html = buildConfirmationEmailHtml({ booking: b, experience: exp, origin: window.location.origin });
+    const w = window.open('', '_blank');
+    if (w) {
+      w.document.write(html);
+      w.document.close();
+    }
+  };
   const act = (ref, status, note) => update((s) => { s.bookings = setStatus(s.bookings, ref, status, note); return s; });
   return (
     <>
+      <div className="adm-card" style={{ borderLeft: '4px solid var(--terra)', marginBottom: '1.2rem' }}>
+        <strong>🔗 Lien direct d’inscription &amp; paiement (participantes confirmées) :</strong>
+        <div style={{ display: 'flex', gap: '.6rem', alignItems: 'center', flexWrap: 'wrap' }}>
+          <code style={{ background: 'var(--cream)', padding: '.4rem .75rem', borderRadius: '8px', fontSize: '.9rem' }}>{directUrl}</code>
+          <button type="button" className="btn btn-sm btn-terra" onClick={copyLink}>
+            {copied ? '✓ Lien copié !' : 'Copier le lien à envoyer'}
+          </button>
+          <Link to="/paiement" className="btn btn-sm btn-ghost">Voir la page participante →</Link>
+        </div>
+        <small style={{ color: 'var(--muted)' }}>
+          Email officiel configuré : <strong>{OFFICIAL_EMAIL}</strong> — Choix proposé sur la page : <strong>Acompte 95 € (Stripe)</strong> ou <strong>Paiement Cash (Espèces)</strong>.
+        </small>
+      </div>
       <p><button className="btn btn-sm btn-terra" onClick={csv}>Exporter en CSV</button></p>
       {bookings.length === 0 && <p>Aucune inscription pour le moment.</p>}
       <div className="table-wrap"><table>
-        <thead><tr><th>Réf.</th><th>Séjour</th><th>Nom / email</th><th>Places</th><th>Montant</th><th>Envies / Options</th><th>Statut</th><th>Actions</th></tr></thead>
+        <thead><tr><th>Réf.</th><th>Séjour</th><th>Participante (Email &amp; Tél.)</th><th>Places</th><th>Règlement</th><th>Envies / Options</th><th>Statut</th><th>Actions</th></tr></thead>
         <tbody>{bookings.map((b) => (
           <tr key={b.reference}>
-            <td>{b.reference}</td><td>{experiences.find((e) => e.slug === b.exp)?.title}</td>
-            <td>{b.name}<br /><small>{b.email}</small></td><td>{b.places}</td><td>{b.amount != null ? `${b.amount} €` : '—'}</td>
+            <td><strong>{b.reference}</strong></td>
+            <td>{experiences.find((e) => e.slug === b.exp)?.title}</td>
+            <td>
+              <strong>{b.name}</strong><br />
+              <small>📧 {b.email}</small><br />
+              {b.phone && <small>📞 <strong>{b.phone}</strong></small>}
+            </td>
+            <td>{b.places}</td>
+            <td>
+              {b.paymentMethod === 'cash' ? (
+                <span className="pill soon" style={{ fontSize: '.72rem' }}>💵 Paiement Cash</span>
+              ) : (
+                <span className="pill open" style={{ fontSize: '.72rem' }}>💳 Acompte {b.amount != null ? `${b.amount} €` : '95 €'}</span>
+              )}
+            </td>
             <td>
               {b.options ? (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '.25rem' }}>
@@ -37,6 +83,7 @@ function Bookings() {
             </td>
             <td>{b.status}<details><summary>journal</summary>{b.log.map((l, i) => <div key={i}><small>{l.at.slice(0, 16)} · {l.status} {l.note}</small></div>)}</details></td>
             <td>
+              <button onClick={() => openEmailPreview(b)}>Voir le mail (Photo &amp; Logo)</button>{' '}
               <button onClick={() => act(b.reference, 'paid', 'Marqué payé')}>Payé</button>{' '}
               <button onClick={() => act(b.reference, 'cancelled', 'Annulé')}>Annuler</button>{' '}
               <button onClick={() => confirm('Marquer comme remboursé ? (le remboursement réel se fait chez le prestataire de paiement)') && act(b.reference, 'refunded', 'Remboursement')}>Rembourser</button>

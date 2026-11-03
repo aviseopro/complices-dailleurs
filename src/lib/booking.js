@@ -39,10 +39,13 @@ export function amountDue(exp, places) {
   return unit * places;
 }
 
-export function validate(form) {
+export function validate(form, { requirePhone = false } = {}) {
   const errors = {};
-  if (!form.name || form.name.trim().length < 2) errors.name = 'Merci d’indiquer votre nom.';
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email || '')) errors.email = 'Adresse email invalide.';
+  if (!form.name || form.name.trim().length < 2) errors.name = 'Merci d’indiquer votre prénom et nom.';
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email || '')) errors.email = 'Merci d’indiquer une adresse email valide.';
+  if (requirePhone && (!form.phone || form.phone.replace(/\s+/g, '').length < 8)) {
+    errors.phone = 'Merci d’indiquer votre numéro de téléphone.';
+  }
   if (!Number.isInteger(form.places) || form.places < 1 || form.places > 6) errors.places = 'Entre 1 et 6 places.';
   if (!form.consentRules) errors.consentRules = 'Ce consentement est nécessaire.';
   if (!form.consentData) errors.consentData = 'Ce consentement est nécessaire.';
@@ -50,8 +53,8 @@ export function validate(form) {
 }
 
 // Retourne { ok, booking? , error? } — ne modifie pas la liste d'entrée.
-export function createBooking(exp, bookings, form, { demo = true, now = new Date().toISOString(), rand = Math.random } = {}) {
-  const errors = validate(form);
+export function createBooking(exp, bookings, form, { demo = true, requirePhone = false, now = new Date().toISOString(), rand = Math.random } = {}) {
+  const errors = validate(form, { requirePhone });
   if (Object.keys(errors).length) return { ok: false, errors };
   const left = seatsLeft(exp, bookings, form.slot);
   if (left != null && form.places > left) {
@@ -64,7 +67,9 @@ export function createBooking(exp, bookings, form, { demo = true, now = new Date
   const existing = new Set(bookings.map((b) => b.reference));
   let reference = makeReference(rand);
   while (existing.has(reference)) reference = makeReference(rand);
+  const paymentMethod = form.paymentMethod || 'deposit_95';
   const status = demo ? 'paid_demo' : 'pending';
+  const methodLabel = paymentMethod === 'cash' ? 'Paiement Cash (espèces)' : 'Acompte 95 € en ligne (Stripe)';
   return {
     ok: true,
     booking: {
@@ -73,13 +78,14 @@ export function createBooking(exp, bookings, form, { demo = true, now = new Date
       slot: form.slot || 'general',
       name: form.name.trim(),
       email: form.email.trim(),
-      phone: form.phone || '',
+      phone: (form.phone || '').trim(),
       places: form.places,
       amount: amountDue(exp, form.places),
+      paymentMethod,
       options: form.options || null,
       status,
       createdAt: now,
-      log: [{ at: now, status, note: demo ? 'Mode démo — aucun paiement réel' : 'Création' }],
+      log: [{ at: now, status, note: demo ? 'Mode démo — aucun paiement réel' : `Inscription (${methodLabel})` }],
     },
   };
 }
@@ -89,7 +95,7 @@ export function setStatus(bookings, reference, status, note = '', now = new Date
 }
 
 export function toCsv(bookings) {
-  const head = ['reference', 'experience', 'date', 'nom', 'email', 'telephone', 'places', 'montant', 'statut', 'options', 'cree_le'];
+  const head = ['reference', 'experience', 'date', 'nom', 'email', 'telephone', 'places', 'montant', 'mode_paiement', 'statut', 'options', 'cree_le'];
   const esc = (v) => `"${String(v ?? '').replace(/"/g, '""')}"`;
   const formatOptions = (opt) => {
     if (!opt) return '';
@@ -99,6 +105,6 @@ export function toCsv(bookings) {
     if (opt.agafay) labels.push('Escapade Agafay');
     return labels.join(' + ');
   };
-  const rows = bookings.map((b) => [b.reference, b.exp, b.slot, b.name, b.email, b.phone, b.places, b.amount, b.status, formatOptions(b.options), b.createdAt]);
+  const rows = bookings.map((b) => [b.reference, b.exp, b.slot, b.name, b.email, b.phone, b.places, b.amount, b.paymentMethod === 'cash' ? 'Cash (Espèces)' : 'Acompte 95€ (Stripe)', b.status, formatOptions(b.options), b.createdAt]);
   return [head, ...rows].map((r) => r.map(esc).join(';')).join('\n');
 }

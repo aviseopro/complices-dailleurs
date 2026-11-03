@@ -28,6 +28,9 @@ function load() {
       if (!saved.settings?.instagram || saved.settings?.instagram === 'https://www.instagram.com/') {
         saved.settings = { ...saved.settings, instagram: defaultData.settings.instagram };
       }
+      if (!saved.settings?.contactEmail || saved.settings?.contactEmail === 'contact@exemple.fr') {
+        saved.settings = { ...saved.settings, contactEmail: defaultData.settings.contactEmail };
+      }
       const have = new Map((saved.experiences || []).map((e) => [e.slug, e]));
       const exps = defaultData.experiences.map((def) => {
         const cur = have.get(def.slug);

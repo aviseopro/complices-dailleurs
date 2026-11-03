@@ -895,3 +895,126 @@ blockquote{font:italic 1.6rem var(--serif);color:var(--navy);border-left:3px sol
 .exclu-300-card-tag{display:inline-flex;align-items:center;gap:.35rem;font-size:.67rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--terra);background:rgba(168,85,58,.1);border:1px solid rgba(168,85,58,.24);padding:.16rem .58rem;border-radius:999px;margin-bottom:.4rem}
 .exclu-300-card-box p{margin:0;font-size:.85rem;line-height:1.5;color:var(--ink)}
 .exclu-300-card-box p strong{color:var(--navy);font-weight:600}
+
+/* Page d'inscription & paiement VIP (lien direct participantes confirmées) */
+.vip-booking-page{padding-top:9.2rem;padding-bottom:4.5rem;background:linear-gradient(180deg,#faf6ef 0%,#f3e9db 100%)}
+.vip-share-bar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.65rem;background:rgba(255,255,255,.78);border:1px solid var(--sand2);border-radius:999px;padding:.45rem .6rem .45rem 1.1rem;margin-bottom:1.25rem;font-size:.78rem;color:var(--muted)}
+.vip-copy-btn{display:inline-flex;align-items:center;gap:.4rem;background:#2a2420;color:#faf6ef;border:0;border-radius:999px;padding:.38rem .9rem;font:500 .75rem var(--sans);cursor:pointer;transition:background .2s ease}
+.vip-copy-btn:hover{background:var(--terra)}
+
+.vip-invitation-card{background:#fff;border:1px solid #e2d3be;border-radius:24px;padding:clamp(1.5rem,3.2vw,2.4rem);box-shadow:0 18px 46px rgba(42,36,32,.07);margin-bottom:1.8rem}
+.vip-invitation-top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.8rem;padding-bottom:1.3rem;margin-bottom:1.6rem;border-bottom:1px solid #efe4d4}
+.vip-invitation-badge{font-size:.72rem;text-transform:uppercase;letter-spacing:.13em;font-weight:600;color:var(--terra);background:rgba(168,85,58,.09);border:1px solid rgba(168,85,58,.24);padding:.32rem .85rem;border-radius:999px}
+
+.vip-invitation-hero{display:grid;grid-template-columns:165px 1fr;gap:1.8rem;align-items:center;margin-bottom:1.7rem}
+@media(max-width:660px){
+  .vip-invitation-hero{grid-template-columns:1fr;text-align:center;justify-items:center;gap:1.1rem}
+}
+.vip-invitation-photo-wrap{display:flex;flex-direction:column;align-items:center;gap:.45rem}
+.vip-invitation-photo{width:148px;height:148px;border-radius:50%;object-fit:cover;object-position:50% 25%;border:4px solid #faf6ef;box-shadow:0 10px 28px rgba(42,36,32,.16)}
+.vip-invitation-names{font-family:var(--serif);font-style:italic;font-size:1.05rem;color:var(--terra);font-weight:500}
+.vip-invitation-kicker{font-size:.73rem;text-transform:uppercase;letter-spacing:.18em;color:var(--terra);font-weight:600;margin:0 0 .35rem}
+.vip-invitation-text h1{font-size:clamp(1.85rem,3.2vw,2.55rem);color:#2a2420;margin:0 0 .65rem;line-height:1.15}
+.vip-invitation-lead{font-size:.98rem;line-height:1.68;color:#4a3f38;margin:0}
+
+.vip-stay-summary-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:.9rem;background:#faf6ef;border:1px solid #e6d7c3;border-radius:16px;padding:1.1rem 1.25rem}
+@media(max-width:720px){
+  .vip-stay-summary-strip{grid-template-columns:1fr}
+}
+.vip-stay-summary-strip div{display:flex;flex-direction:column;gap:.18rem}
+.vip-stay-summary-strip strong{font-family:var(--serif);font-size:1.14rem;color:#2a2420;font-weight:600}
+.vip-stay-summary-strip span{font-size:.82rem;color:var(--muted);line-height:1.42}
+
+.vip-form-card{background:#fff;border:1px solid #e2d3be;border-radius:24px;padding:clamp(1.5rem,3.2vw,2.4rem);box-shadow:0 18px 46px rgba(42,36,32,.07)}
+.vip-form-section-head{display:flex;align-items:flex-start;gap:.9rem;margin-bottom:1.3rem}
+.vip-step-num{width:32px;height:32px;border-radius:50%;background:var(--terra);color:#fff;font-family:var(--serif);font-size:1.1rem;font-weight:600;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.1rem}
+.vip-form-section-head h2{font-size:1.5rem;color:#2a2420;margin:0 0 .2rem}
+.vip-form-section-head p{font-size:.88rem;color:var(--muted);margin:0}
+
+.vip-fields-grid{display:grid;gap:1.1rem}
+.vip-fields-row2{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem}
+@media(max-width:660px){
+  .vip-fields-row2{grid-template-columns:1fr}
+}
+.vip-field{display:flex;flex-direction:column;gap:.35rem;font-size:.9rem;font-weight:500;color:#2a2420}
+.vip-field>span{display:inline-flex;align-items:center;gap:.4rem}
+.vip-field>span svg{color:var(--terra)}
+.vip-field input,.vip-field select{background:#faf6ef;border:1.5px solid #dfd0bc;border-radius:12px;padding:.82rem 1rem;font-weight:400;transition:border-color .2s,background .2s}
+.vip-field input:focus,.vip-field select:focus{background:#fff;border-color:var(--terra);outline:none}
+.vip-field-hint{font-size:.76rem;color:var(--muted);font-weight:400}
+.vip-field em{color:#b3261e;font-size:.8rem;font-style:normal;font-weight:400}
+
+/* Cartes de choix de règlement : 95 € ou Cash */
+.vip-payment-choices{display:grid;grid-template-columns:1fr 1fr;gap:1.15rem;margin:1rem 0 1.6rem}
+@media(max-width:680px){
+  .vip-payment-choices{grid-template-columns:1fr}
+}
+.vip-pay-card{position:relative;display:flex;flex-direction:column;justify-content:space-between;background:#faf6ef;border:2px solid #dfd0bc;border-radius:18px;padding:1.35rem 1.4rem;cursor:pointer;transition:all .22s ease}
+.vip-pay-card:hover{border-color:rgba(168,85,58,.55);background:#fff}
+.vip-pay-card.selected{background:#fffaf4;border-color:var(--terra);box-shadow:0 12px 30px rgba(168,85,58,.14)}
+.vip-pay-card input[type="radio"]{position:absolute;top:1.25rem;right:1.25rem;width:20px;height:20px;accent-color:var(--terra);cursor:pointer}
+.vip-pay-card-top{display:flex;align-items:center;gap:.6rem;margin-bottom:.75rem;padding-right:1.8rem}
+.vip-pay-icon{width:38px;height:38px;border-radius:10px;background:rgba(168,85,58,.12);color:var(--terra);display:inline-flex;align-items:center;justify-content:center}
+.vip-pay-icon.cash{background:rgba(63,90,62,.12);color:#3f5a3e}
+.vip-pay-badge{font-size:.69rem;text-transform:uppercase;letter-spacing:.1em;font-weight:600;color:var(--terra);background:rgba(168,85,58,.1);padding:.2rem .6rem;border-radius:999px}
+.vip-pay-badge.cash{color:#3f5a3e;background:rgba(63,90,62,.12)}
+.vip-pay-card h3{font-size:1.32rem;color:#2a2420;margin:0 0 .4rem;line-height:1.2}
+.vip-pay-card p{font-size:.86rem;line-height:1.55;color:#544840;margin:0 0 1rem}
+.vip-pay-amount{display:flex;align-items:baseline;justify-content:space-between;padding-top:.75rem;border-top:1px solid #e6d7c3;font-size:.82rem;color:var(--muted)}
+.vip-pay-amount strong{font-family:var(--serif);font-size:1.4rem;color:var(--terra);font-weight:600}
+
+.vip-consents{display:grid;gap:.65rem;margin:1.2rem 0 1.5rem;padding:1.1rem 1.25rem;background:#faf6ef;border-radius:14px;border:1px solid #e6d7c3}
+.vip-consents em{color:#b3261e;font-style:normal;font-size:.8rem}
+.vip-submit-btn{width:100%;justify-content:center;font-size:1.02rem;font-weight:500;padding:1.05rem 1.6rem;box-shadow:0 10px 28px rgba(168,85,58,.28)}
+.vip-form-footer-note{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:.55rem;margin-top:1.1rem;font-size:.8rem;color:var(--muted);text-align:center}
+.vip-form-footer-note span{display:inline-flex;align-items:center;gap:.35rem}
+.vip-form-footer-note a{color:var(--terra);font-weight:500}
+
+/* Écran de confirmation & Aperçu du beau mail avec photo et logo */
+.vip-done-banner{background:#fff;border:1.5px solid #dfd0bc;border-radius:22px;padding:1.6rem 1.8rem;margin-bottom:1.8rem;box-shadow:0 14px 36px rgba(42,36,32,.07)}
+.vip-done-status{display:flex;align-items:center;gap:.85rem;padding-bottom:1.2rem;margin-bottom:1.2rem;border-bottom:1px solid #efe4d4;color:#1d5e3a}
+.vip-done-status div{display:flex;flex-direction:column;gap:.15rem}
+.vip-done-status strong{font-size:1rem;color:#1d4d2b}
+.vip-done-status span{font-size:.83rem;color:var(--muted)}
+
+.vip-stripe-step-box,.vip-cash-step-box{background:#faf6ef;border:1px solid #e2d3be;border-radius:16px;padding:1.35rem 1.5rem;display:flex;flex-direction:column;gap:.85rem}
+.vip-step-pill{align-self:flex-start;font-size:.69rem;text-transform:uppercase;letter-spacing:.12em;font-weight:600;background:rgba(168,85,58,.12);color:var(--terra);padding:.22rem .7rem;border-radius:999px}
+.vip-step-pill.cash{background:#d7ebd5;color:#1d4d2b}
+.vip-stripe-step-box h3,.vip-cash-step-box h3{font-size:1.4rem;color:#2a2420;margin:0}
+.vip-stripe-step-box p,.vip-cash-step-box p{font-size:.92rem;color:#4a3f38;margin:0;line-height:1.55}
+.vip-stripe-cta{align-self:flex-start;font-weight:500;padding:.95rem 1.7rem}
+
+.vip-email-preview-wrap{margin-top:1.5rem}
+.vip-email-preview-toolbar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.75rem;margin-bottom:.75rem;font-size:.82rem;color:var(--muted)}
+.vip-email-card{background:#faf6ef;border:1px solid #dfd0bc;border-radius:22px;overflow:hidden;box-shadow:0 18px 46px rgba(42,36,32,.09)}
+.vip-email-header{background:linear-gradient(180deg,#fffaf3 0%,#f3e8d8 100%);padding:1.6rem 1.5rem 1.2rem;border-bottom:1px solid #e6d7c3;display:flex;flex-direction:column;align-items:center;text-align:center}
+.vip-email-sub{font-size:.73rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:.5rem 0 0}
+.vip-email-founders{padding:1.8rem 1.8rem 1rem;text-align:center;display:flex;flex-direction:column;align-items:center}
+.vip-email-photo{width:136px;height:136px;border-radius:50%;object-fit:cover;object-position:50% 25%;border:4px solid #fff;box-shadow:0 8px 24px rgba(42,36,32,.15);margin-bottom:.75rem}
+.vip-email-ref-pill{display:inline-block;background:#d7ebd5;color:#1d4d2b;font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.12em;padding:.26rem .85rem;border-radius:999px;margin-bottom:.7rem}
+.vip-email-founders h2{font-size:1.75rem;color:#2a2420;margin:0 0 .5rem}
+.vip-email-founders p{font-size:.95rem;color:#4a3f38;max-width:52ch;margin:0;line-height:1.62}
+
+.vip-email-details-box{background:#fff;border:1px solid #e6d7c3;border-radius:16px;margin:.8rem 1.8rem 1.2rem;padding:1.3rem 1.5rem}
+@media(max-width:600px){
+  .vip-email-details-box,.vip-email-inclusions{margin-left:1rem;margin-right:1rem}
+}
+.vip-email-details-title{font-size:.72rem;text-transform:uppercase;letter-spacing:.14em;color:var(--terra);font-weight:600;margin-bottom:.8rem;padding-bottom:.5rem;border-bottom:1px solid #f1e7d8}
+.vip-email-details-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:.9rem}
+@media(max-width:560px){
+  .vip-email-details-grid{grid-template-columns:1fr}
+}
+.vip-email-details-grid small,.vip-email-payment-summary small{display:block;font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.vip-email-details-grid strong{font-size:.92rem;color:#2a2420}
+.vip-email-payment-summary{padding-top:.75rem;border-top:1px dashed #e6d7c3}
+.vip-email-payment-summary strong{font-size:.96rem;color:var(--terra)}
+
+.vip-email-inclusions{background:#f4eadc;border-left:4px solid var(--terra);border-radius:0 14px 14px 0;margin:0 1.8rem 1.5rem;padding:1rem 1.25rem}
+.vip-email-inclusions strong{display:block;font-family:var(--serif);font-size:1.15rem;color:#2a2420;margin-bottom:.25rem}
+.vip-email-inclusions p{font-size:.85rem;color:#4a3f38;margin:0;line-height:1.55}
+
+.vip-email-footer{background:#f1e7d8;border-top:1px solid #e2d3be;padding:1.4rem 1.8rem;text-align:center}
+.vip-email-quote{font-family:var(--serif);font-style:italic;font-size:1.15rem;color:#2a2420;margin:0 0 .35rem}
+.vip-email-sign{font-size:.88rem;font-weight:600;color:var(--terra);margin:0 0 .65rem}
+.vip-email-contact-line{display:flex;justify-content:center;flex-wrap:wrap;gap:.5rem;font-size:.82rem;color:#4a3f38}
+.vip-email-contact-line a{color:var(--terra);font-weight:600}

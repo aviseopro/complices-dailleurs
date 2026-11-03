@@ -1,14 +1,35 @@
 import React, { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { Sparkles, Info, Check, ArrowRight, ShieldCheck, Heart } from 'lucide-react';
+import {
+  Sparkles,
+  Check,
+  ArrowRight,
+  ShieldCheck,
+  Mail,
+  Phone,
+  User,
+  CreditCard,
+  Banknote,
+  Copy,
+  Printer,
+  CheckCircle2,
+  Heart,
+} from 'lucide-react';
 import { useData, update, euro } from '../data/store.js';
-import { Price, AlmaLogo } from '../components/ui.jsx';
+import { Logo, Price, AlmaLogo } from '../components/ui.jsx';
 import { createBooking, seatsLeft, amountDue } from '../lib/booking.js';
+import {
+  OFFICIAL_EMAIL,
+  OFFICIAL_PHONE,
+  buildConfirmationEmailHtml,
+  sendBookingConfirmationEmail,
+} from '../lib/emailTemplate.js';
 
 export default function Booking() {
-  const { slug } = useParams();
+  const { slug: paramSlug } = useParams();
+  const slug = paramSlug || 'arcachon-entre-femmes';
   const { experiences, bookings, settings } = useData();
-  const e = experiences.find((x) => x.slug === slug);
+  const e = experiences.find((x) => x.slug === slug) || experiences[0];
   const isMarrakechFemmes = e?.slug === 'marrakech-entre-femmes';
 
   const [f, setF] = useState({
@@ -17,6 +38,7 @@ export default function Booking() {
     phone: '',
     places: 1,
     slot: e?.dates?.[0]?.id || 'general',
+    paymentMethod: 'deposit_95', // 'deposit_95' | 'cash'
     consentRules: false,
     consentData: false,
   });
@@ -37,7 +59,9 @@ export default function Booking() {
   const [errors, setErrors] = useState({});
   const [err, setErr] = useState('');
   const [done, setDone] = useState(null);
-  const [pay, setPay] = useState('card');
+  const [submitting, setSubmitting] = useState(false);
+  const [emailStatus, setEmailStatus] = useState('');
+  const [copiedLink, setCopiedLink] = useState(false);
 
   if (!e || e.kind === 'future') {
     return (
@@ -53,58 +77,92 @@ export default function Booking() {
   const preorder = e.kind === 'preorder';
   const blocked = e.status === 'soon' && !isMarrakechFemmes;
   const left = seatsLeft(e, bookings, f.slot);
+  const depositAmount = (e.depositPerPlace || 95) * Number(f.places || 1);
+  const fullStayAmount = (e.pricePerPerson || 450) * Number(f.places || 1);
   const total = amountDue(e, f.places);
   const paymentLink = e.paymentLink || settings.stripePaymentUrl;
+
   const set = (k) => (ev) =>
     setF({ ...f, [k]: ev.target.type === 'checkbox' ? ev.target.checked : ev.target.value });
 
-  const submit = (ev) => {
+  const buildStripeUrl = (bookingRef) => {
+    if (!paymentLink) return null;
+    try {
+      const u = new URL(paymentLink);
+      if (f.email) u.searchParams.set('prefilled_email', f.email.trim());
+      if (bookingRef) u.searchParams.set('client_reference_id', bookingRef);
+      return u.toString();
+    } catch (_) {
+      return paymentLink;
+    }
+  };
+
+  const copyDirectLink = async () => {
+    const shareUrl = `${window.location.origin}/paiement`;
+    try {
+      await navigator.clipboard.writeText(shareUrl);
+      setCopiedLink(true);
+      setTimeout(() => setCopiedLink(false), 3000);
+    } catch (_) {
+      window.prompt('Copiez ce lien direct à envoyer aux participantes :', shareUrl);
+    }
+  };
+
+  const submit = async (ev) => {
     ev.preventDefault();
     setErr('');
+    setErrors({});
+
     const payload = {
       ...f,
       places: Number(f.places),
       slot: f.slot,
+      paymentMethod: f.paymentMethod,
       options: isMarrakechFemmes ? options : null,
     };
+
     const res = createBooking(
       e,
       JSON.parse(localStorage.getItem('cda-data-v1') || 'null')?.bookings || bookings,
       payload,
-      { demo: false }
+      { demo: false, requirePhone: true }
     );
+
     if (!res.ok) {
       setErrors(res.errors || {});
       setErr(res.error || '');
       return;
     }
+
+    setSubmitting(true);
     update((s) => {
       s.bookings.push(res.booking);
       return s;
     });
 
-    // Pour Marrakech : aucun débit immédiat, affichage direct de la confirmation et transmission
-    if (isMarrakechFemmes) {
-      setDone(res.booking);
-      return;
-    }
-
-    if (paymentLink) {
-      try {
-        const u = new URL(paymentLink);
-        if (f.email) u.searchParams.set('prefilled_email', f.email);
-        if (res.booking?.reference) u.searchParams.set('client_reference_id', res.booking.reference);
-        window.location.href = u.toString();
-        return;
-      } catch (_) {
-        window.location.href = paymentLink;
-        return;
-      }
-    }
+    // Envoi automatique du mail de confirmation (à la participante + complicesdailleurs@gmail.com)
+    await sendBookingConfirmationEmail({ booking: res.booking, experience: e });
+    setEmailStatus('sent');
+    setSubmitting(false);
     setDone(res.booking);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  // Écran Récapitulatif après enregistrement (Done)
+  const printConfirmationMail = (bookingObj) => {
+    const html = buildConfirmationEmailHtml({
+      booking: bookingObj,
+      experience: e,
+      origin: window.location.origin,
+    });
+    const w = window.open('', '_blank');
+    if (w) {
+      w.document.write(html);
+      w.document.close();
+      setTimeout(() => w.print(), 400);
+    }
+  };
+
+  // Écran Récapitulatif & Confirmation Mail après validation (Done)
   if (done) {
     if (isMarrakechFemmes) {
       const hasOptions = done.options && (done.options.hammam || done.options.soireeFestive || done.options.agafay);
@@ -113,20 +171,19 @@ export default function Booking() {
           <div className="wrap narrow" role="status">
             <div className="mk-done-card">
               <span className="pill open" style={{ marginBottom: '.8rem', display: 'inline-block' }}>
-                ✓ Demande enregistrée avec succès
+                ✓ Demande enregistrée &amp; confirmation envoyée par mail
               </span>
               <h1 style={{ fontSize: 'clamp(1.7rem, 2.8vw, 2.3rem)', color: 'var(--navy)', marginBottom: '.5rem' }}>
-                Merci {done.name.split(' ')[0]} 🌿
+                Merci {done.name.split(' ')[0]}
               </h1>
               <p className="lead" style={{ color: 'var(--ink)', marginBottom: '1.4rem' }}>
-                Votre demande pour <strong>Marrakech entre femmes</strong> a bien été enregistrée et transmise à Émilie et Virginie.
+                Votre demande pour <strong>Marrakech entre femmes</strong> a bien été enregistrée et transmise à Émilie et Virginie ({OFFICIAL_EMAIL}).
               </p>
               <div className="mk-done-ref-box">
                 <span>Référence de votre demande :</span>
                 <strong>{done.reference}</strong>
               </div>
 
-              {/* Séparation visuelle : 1. Séjour à réserver */}
               <div className="mk-done-section">
                 <h3 className="mk-done-section-title">1. Votre séjour</h3>
                 <div className="mk-done-stay-card">
@@ -135,7 +192,7 @@ export default function Booking() {
                     <span className="pill waitlist">6 à 8 participantes maximum</span>
                   </div>
                   <ul className="mk-done-stay-list">
-                    <li><strong>Participante(s) :</strong> {done.places} place{done.places > 1 ? 's' : ''} ({done.name} · {done.email}{done.phone ? ` · ${done.phone}` : ''})</li>
+                    <li><strong>Participante(s) :</strong> {done.places} place{done.places > 1 ? 's' : ''} ({done.name} · {done.email} · {done.phone})</li>
                     <li><strong>Accompagnement :</strong> Présence d’Émilie &amp; Virginie tout au long du séjour</li>
                     <li><strong>Inclusions comprises :</strong> Yoga quotidien avec Virginie (professeure diplômée), 1 massage bien-être par participante, atelier mosaïque (matériel &amp; création personnelle), hébergement de charme en Riad 3 nuits avec petits-déjeuners, transferts aéroport RAK</li>
                     <li>
@@ -147,7 +204,6 @@ export default function Booking() {
                 </div>
               </div>
 
-              {/* Séparation visuelle : 2. Envies sélectionnées (payables sur place) */}
               <div className="mk-done-section">
                 <h3 className="mk-done-section-title">2. Vos envies sélectionnées (à régler directement sur place)</h3>
                 {hasOptions ? (
@@ -182,29 +238,18 @@ export default function Booking() {
                         </div>
                       </div>
                     )}
-                    <p className="mk-done-disclaimer">
-                      ℹ️ <em>Ces budgets indicatifs ne sont jamais ajoutés au montant du séjour et restent payables directement sur place aux prestataires si vous confirmez ces choix.</em>
-                    </p>
                   </div>
                 ) : (
                   <div className="mk-done-empty-options">
                     <p>
-                      Vous n’avez sélectionné aucune option facultative : vous profiterez pleinement des activités incluses (yoga quotidien, massage individuel, atelier mosaïque) et de vos moments de repos en liberté au Riad.
+                      Vous n’avez sélectionné aucune option facultative : vous profiterez pleinement des activités incluses et de vos moments de repos au Riad.
                     </p>
                   </div>
                 )}
               </div>
 
-              <div className="mk-done-next-steps">
-                <h4>Et maintenant ?</h4>
-                <p>
-                  Émilie et Virginie prennent connaissance de votre demande et de vos envies. Nous vous recontacterons très vite (par email ou téléphone) pour échanger avec vous de vive voix, caler les créneaux et répondre à toutes vos questions avant tout engagement formel.
-                </p>
-              </div>
-
               <div style={{ marginTop: '2rem', display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
                 <Link to="/" className="btn btn-terra">Retour à l’accueil</Link>
-                <Link to="/contact" className="btn btn-light">Une question ? Écrivez-nous</Link>
               </div>
             </div>
           </div>
@@ -212,315 +257,438 @@ export default function Booking() {
       );
     }
 
+    const isCash = done.paymentMethod === 'cash';
+    const stripeUrl = buildStripeUrl(done.reference);
+    const firstName = done.name.split(' ')[0];
+
     return (
-      <section className="section">
-        <div className="wrap narrow center" role="status">
-          <h1>Merci {done.name.split(' ')[0]} 🌿</h1>
-          <p>Votre {preorder ? 'pré-réservation' : 'réservation'} est bien enregistrée.</p>
-          <p>Référence : <strong>{done.reference}</strong></p>
-          <p>Montant : <strong>{euro(total)}</strong> ({f.places} place{f.places > 1 ? 's' : ''})</p>
-          {paymentLink ? (
-            <div style={{ margin: '2rem 0' }}>
-              <p>Pour finaliser et garantir votre place, procédez au paiement sécurisé en ligne :</p>
-              <a href={paymentLink} className="btn btn-blue">
-                Payer maintenant avec Stripe — {euro(total)}
-              </a>
+      <section className="section vip-booking-page">
+        <div className="wrap narrow" role="status">
+          {/* Bandeau d'état en haut */}
+          <div className="vip-done-banner">
+            <div className="vip-done-status">
+              <CheckCircle2 size={22} />
+              <div>
+                <strong>Inscription enregistrée — Confirmation envoyée par e-mail à {done.email}</strong>
+                <span>Une copie a également été transmise à Émilie &amp; Virginie ({OFFICIAL_EMAIL})</span>
+              </div>
             </div>
-          ) : (
-            <p className="small">
-              Votre demande a été prise en compte. Un lien de règlement sécurisé Stripe vous sera transmis par email.
-            </p>
-          )}
-          <div style={{ marginTop: '2rem' }}>
-            <Link to="/" className="btn btn-terra">Retour à l’accueil</Link>
+
+            {/* Action immédiate selon le mode de paiement choisi */}
+            {!isCash && stripeUrl ? (
+              <div className="vip-stripe-step-box">
+                <div className="vip-stripe-step-text">
+                  <span className="vip-step-pill">Dernière étape · Règlement sécurisé de l’acompte</span>
+                  <h3>Finalisez votre réservation de {depositAmount} €</h3>
+                  <p>
+                    Cliquez sur le bouton ci-dessous pour régler votre acompte de <strong>{depositAmount} €</strong> par carte bancaire sécurisée Stripe (votre email <em>{done.email}</em> est déjà pré-rempli) :
+                  </p>
+                </div>
+                <a href={stripeUrl} className="btn btn-terra vip-stripe-cta">
+                  <CreditCard size={18} />
+                  <span>Régler mes {depositAmount} € de réservation maintenant</span>
+                  <ArrowRight size={18} />
+                </a>
+              </div>
+            ) : (
+              <div className="vip-cash-step-box">
+                <span className="vip-step-pill cash">✓ Option Paiement Cash enregistrée</span>
+                <h3>Votre place est réservée avec règlement en espèces (Cash)</h3>
+                <p>
+                  Émilie et Virginie ont bien reçu vos coordonnées (<strong>{done.phone}</strong> · <strong>{done.email}</strong>) et vous recontactent très vite pour convenir du règlement en espèces.
+                </p>
+              </div>
+            )}
+          </div>
+
+          {/* APERÇU DU BEAU MAIL DE CONFIRMATION (AVEC LOGO & PHOTO D'ÉMILIE ET VIRGINIE) */}
+          <div className="vip-email-preview-wrap">
+            <div className="vip-email-preview-toolbar">
+              <span>📧 Aperçu de votre e-mail officiel de confirmation ({OFFICIAL_EMAIL})</span>
+              <button type="button" onClick={() => printConfirmationMail(done)} className="btn btn-sm btn-ghost">
+                <Printer size={14} /> Imprimer / Enregistrer mon invitation (PDF)
+              </button>
+            </div>
+
+            <div className="vip-email-card">
+              <div className="vip-email-header">
+                <Logo />
+                <p className="vip-email-sub">Confirmation officielle d’inscription · {OFFICIAL_EMAIL}</p>
+              </div>
+
+              <div className="vip-email-founders">
+                <img
+                  src="/img/emilie-virginie-marrakech.jpg"
+                  alt="Émilie et Virginie — Complices d’ailleurs"
+                  className="vip-email-photo"
+                />
+                <span className="vip-email-ref-pill">✓ Inscription confirmée · Réf. {done.reference}</span>
+                <h2>Bienvenue parmi nous, {firstName} !</h2>
+                <p>
+                  Quel bonheur de vous compter parmi nos participantes pour notre parenthèse{' '}
+                  <strong>{e.title}</strong>. Nous avons tellement hâte de prendre soin de vous et de partager ces moments précieux à vos côtés.
+                </p>
+              </div>
+
+              <div className="vip-email-details-box">
+                <div className="vip-email-details-title">Récapitulatif de votre inscription</div>
+                <div className="vip-email-details-grid">
+                  <div>
+                    <small>Référence dossier</small>
+                    <strong>{done.reference}</strong>
+                  </div>
+                  <div>
+                    <small>Participante</small>
+                    <strong>{done.name} ({done.places} place{done.places > 1 ? 's' : ''})</strong>
+                  </div>
+                  <div>
+                    <small>Adresse e-mail</small>
+                    <strong>{done.email}</strong>
+                  </div>
+                  <div>
+                    <small>Téléphone</small>
+                    <strong>{done.phone}</strong>
+                  </div>
+                </div>
+
+                <div className="vip-email-payment-summary">
+                  <small>Mode de règlement choisi</small>
+                  <strong>
+                    {isCash
+                      ? 'Paiement en espèces (Cash) directement auprès d’Émilie & Virginie'
+                      : `Acompte de réservation de ${depositAmount} € par carte bancaire (sur ${fullStayAmount} € tout compris)`}
+                  </strong>
+                </div>
+              </div>
+
+              <div className="vip-email-inclusions">
+                <strong>Plus de 300 € de soins esthétiques &amp; de yoga inclus dans votre séjour</strong>
+                <p>
+                  Loft privatisé avec Spa 7 places, Sauna 4 places et piscine chauffée, pension complète gourmande, soin du visage haute technologie, massage relaxant, séance LED, atelier d’auto-massage et séances de yoga avec Virginie &amp; Émilie.
+                </p>
+              </div>
+
+              <div className="vip-email-footer">
+                <p className="vip-email-quote">
+                  « Nous vous recontactons très vite au {done.phone} pour préparer votre arrivée. »
+                </p>
+                <p className="vip-email-sign">Avec toute notre affection, Émilie &amp; Virginie</p>
+                <div className="vip-email-contact-line">
+                  <span>📧 <a href={`mailto:${OFFICIAL_EMAIL}`}>{OFFICIAL_EMAIL}</a></span>
+                  <span>·</span>
+                  <span>📞 WhatsApp / Tél : <strong>{OFFICIAL_PHONE}</strong></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div style={{ marginTop: '2rem', textAlign: 'center' }}>
+            <Link to="/" className="btn btn-ghost">← Retour à la page d’accueil</Link>
           </div>
         </div>
       </section>
     );
   }
 
-  const isArca = e.slug === 'arcachon-entre-femmes';
-
   return (
-    <section className={`section theme-${e.theme}`}>
+    <section className={`section vip-booking-page theme-${e.theme}`}>
       <div className="wrap narrow">
-        <p className="eyebrow">
-          {isMarrakechFemmes
-            ? 'Demande d’inscription prioritaire & Personnalisation'
-            : isArca
-            ? 'Inscription & Réservation de place'
-            : preorder
-            ? 'Pré-réservation'
-            : 'Réservation officielle'}
-        </p>
-        <h1>{e.title}</h1>
-        <div className="exclu-300-card-box" style={{ margin: '1rem 0 1.2rem' }}>
-          <span className="exclu-300-card-tag">💎 EXCLUSIF &amp; INÉDIT</span>
-          <strong>
-            {e.slug === 'corse'
-              ? '+ de 300 € de soins esthétiques & cours de Yoga Aérien (avec tissus) INCLUS dans votre séjour'
-              : '+ de 300 € de soins esthétiques & de cours de yoga INCLUS dans votre séjour'}
-          </strong>
+        {/* Barre supérieure pour copier facilement le lien direct */}
+        <div className="vip-share-bar">
+          <span>Lien d’inscription directe participantes confirmées</span>
+          <button type="button" onClick={copyDirectLink} className="vip-copy-btn">
+            <Copy size={14} />
+            <span>{copiedLink ? '✓ Lien copié !' : 'Copier le lien à envoyer'}</span>
+          </button>
         </div>
 
-        {/* Highlight Arcachon */}
-        {isArca && (
-          <div className="bk-arca-highlight" style={{ margin: '1rem 0 1.5rem' }}>
-            <div className="bk-arca-dep">
-              Réservez votre place pour <strong>{e.depositPerPlace || 95} € d’acompte</strong> seulement
-            </div>
-            <div
-              className="bk-arca-total"
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                flexWrap: 'wrap',
-                gap: '.5rem',
-                marginTop: '.4rem',
-              }}
-            >
-              <span>
-                Séjour tout compris : <span className="bk-old-price">{euro(e.originalPrice || 550)}</span>{' '}
-                <strong className="bk-new-price" style={{ fontSize: '1.2rem' }}>
-                  {euro(e.pricePerPerson || 450)}
-                </strong>{' '}
-                (solde plus tard)
-              </span>
-              <span style={{ display: 'inline-flex', alignItems: 'center', gap: '.35rem', fontSize: '.8rem', color: 'var(--navy)' }}>
-                Paiement en plusieurs fois avec <AlmaLogo height={14} />
-              </span>
-            </div>
+        {/* CARTE D'ACCUEIL TRÈS JOLIE AVEC PHOTO D'ÉMILIE & VIRGINIE + LOGO */}
+        <div className="vip-invitation-card">
+          <div className="vip-invitation-top">
+            <Logo />
+            <span className="vip-invitation-badge">Invitation &amp; Inscription Privée · 8 participantes max</span>
           </div>
-        )}
 
-        {/* Highlight Marrakech */}
-        {isMarrakechFemmes && (
-          <div
-            className="bk-arca-highlight"
-            style={{
-              margin: '1rem 0 1.5rem',
-              background: 'linear-gradient(135deg, rgba(168,85,58,.1), rgba(212,143,56,.1))',
-              borderColor: 'rgba(168,85,58,.3)',
-            }}
-          >
-            <span className="bk-arca-tag" style={{ background: 'linear-gradient(135deg, #a8553a, #c75c2c)' }}>
-              <Sparkles size={13} /> 4 jours / 3 nuits · 6 à 8 participantes maximum · Accompagné par Émilie &amp; Virginie
-            </span>
-            <div className="bk-arca-dep" style={{ color: 'var(--navy)', marginTop: '.5rem' }}>
-              Hypothèse de travail : <strong>790 € / participante</strong>{' '}
-              <span style={{ fontSize: '.84rem', fontWeight: 400, color: 'var(--muted)' }}>(hors vol personnel)</span>
+          <div className="vip-invitation-hero">
+            <div className="vip-invitation-photo-wrap">
+              <img
+                src="/img/emilie-virginie-marrakech.jpg"
+                alt="Émilie et Virginie — Fondatrices de Complices d’ailleurs"
+                className="vip-invitation-photo"
+              />
+              <span className="vip-invitation-names">Émilie &amp; Virginie</span>
             </div>
-            <p style={{ fontSize: '.84rem', lineHeight: 1.5, color: 'var(--ink)', margin: '.4rem 0 0' }}>
-              <strong>Inclus dans le séjour :</strong> Yoga quotidien avec Virginie (professeure diplômée), 1 massage bien-être par participante, l’atelier mosaïque (matériel &amp; création personnelle), Riad de charme 3 nuits avec petits-déjeuners marocains, transferts RAK et présence d’Émilie &amp; Virginie.
-            </p>
-            <div style={{ fontSize: '.8rem', color: 'var(--terra)', fontWeight: 600, marginTop: '.4rem' }}>
-              ✓ 0 € prélevé aujourd’hui : aucun débit immédiat, enregistrement de votre demande sans engagement financier.
+
+            <div className="vip-invitation-text">
+              <p className="vip-invitation-kicker">BASSIN D’ARCACHON · WEEK-END ENTRE FEMMES</p>
+              <h1>Validez votre place parmi nous</h1>
+              <p className="vip-invitation-lead">
+                « Quel bonheur de vous accueillir pour cette parenthèse rien que pour vous ! Indiquez votre e-mail et votre numéro de téléphone ci-dessous, choisissez votre mode de règlement (<strong>95 € d’acompte</strong> ou <strong>paiement Cash</strong>), et recevez immédiatement votre belle confirmation d’inscription par mail. »
+              </p>
             </div>
           </div>
-        )}
+
+          {/* Rappel élégant de ce qui est compris */}
+          <div className="vip-stay-summary-strip">
+            <div>
+              <strong>Plus de 300 € inclus</strong>
+              <span>Soins esthétiques haute technologie, massage, LED &amp; cours de yoga</span>
+            </div>
+            <div>
+              <strong>Loft privatisé</strong>
+              <span>Spa 7 places, Sauna 4 places, piscine chauffée &amp; pension complète</span>
+            </div>
+            <div>
+              <strong>Tarif tout compris : {e.pricePerPerson || 450} €</strong>
+              <span>Réservation avec {e.depositPerPlace || 95} € d’acompte ou règlement Cash</span>
+            </div>
+          </div>
+        </div>
 
         {blocked ? (
-          <p>Ce séjour n’est pas encore ouvert à la réservation. <Link to="/contact">Contactez-nous</Link> pour être prévenue.</p>
+          <p>
+            Ce séjour n’est pas encore ouvert à la réservation. <Link to="/contact">Contactez-nous</Link> pour être prévenue.
+          </p>
         ) : (
-          <form onSubmit={submit} noValidate className="form">
-            <label>
-              Nom complet *
-              <input value={f.name} onChange={set('name')} aria-invalid={!!errors.name} autoComplete="name" />
-              {errors.name && <em>{errors.name}</em>}
-            </label>
-            <label>
-              Email *
-              <input type="email" value={f.email} onChange={set('email')} aria-invalid={!!errors.email} autoComplete="email" />
-              {errors.email && <em>{errors.email}</em>}
-            </label>
-            <label>
-              Téléphone {isMarrakechFemmes ? '(recommandé pour échanger ensemble)' : '(optionnel)'}
-              <input type="tel" value={f.phone} onChange={set('phone')} autoComplete="tel" />
-            </label>
+          <form onSubmit={submit} noValidate className="vip-form-card">
+            <div className="vip-form-section-head">
+              <span className="vip-step-num">1</span>
+              <div>
+                <h2>Vos coordonnées personnelles</h2>
+                <p>Pour vous envoyer votre confirmation officielle par e-mail et vous joindre sur WhatsApp.</p>
+              </div>
+            </div>
 
-            {e.dates.length > 0 && (
-              <label>
-                Date
-                <select value={f.slot} onChange={set('slot')}>
-                  {e.dates.map((d) => (
-                    <option key={d.id} value={d.id}>
-                      {d.label}
-                    </option>
-                  ))}
-                </select>
+            <div className="vip-fields-grid">
+              <label className="vip-field">
+                <span><User size={15} /> Prénom &amp; Nom complet *</span>
+                <input
+                  value={f.name}
+                  onChange={set('name')}
+                  placeholder="Ex : Sophie Martin"
+                  aria-invalid={!!errors.name}
+                  autoComplete="name"
+                />
+                {errors.name && <em>{errors.name}</em>}
               </label>
-            )}
 
-            <label>
-              {isMarrakechFemmes ? 'Nombre de participantes (groupe de 6 à 8 max)' : preorder ? 'Nombre de places' : 'Nombre de participantes'}
-              <input type="number" min="1" max="6" value={f.places} onChange={set('places')} />
-              {errors.places && <em>{errors.places}</em>}
-              {left != null && <small>{left} place(s) restante(s)</small>}
-            </label>
+              <div className="vip-fields-row2">
+                <label className="vip-field">
+                  <span><Mail size={15} /> Votre adresse e-mail *</span>
+                  <input
+                    type="email"
+                    value={f.email}
+                    onChange={set('email')}
+                    placeholder="Ex : sophie.martin@gmail.com"
+                    aria-invalid={!!errors.email}
+                    autoComplete="email"
+                  />
+                  <small className="vip-field-hint">Vous y recevrez immédiatement votre mail de confirmation.</small>
+                  {errors.email && <em>{errors.email}</em>}
+                </label>
+
+                <label className="vip-field">
+                  <span><Phone size={15} /> Votre numéro de téléphone *</span>
+                  <input
+                    type="tel"
+                    value={f.phone}
+                    onChange={set('phone')}
+                    placeholder="Ex : 06 12 34 56 78"
+                    aria-invalid={!!errors.phone}
+                    autoComplete="tel"
+                  />
+                  <small className="vip-field-hint">Indispensable pour qu’Émilie &amp; Virginie préparent votre arrivée.</small>
+                  {errors.phone && <em>{errors.phone}</em>}
+                </label>
+              </div>
+
+              <div className="vip-fields-row2">
+                <label className="vip-field">
+                  <span>Nombre de places réservées</span>
+                  <select value={f.places} onChange={set('places')}>
+                    {[1, 2, 3, 4, 5, 6].map((n) => (
+                      <option key={n} value={n}>
+                        {n} participante{n > 1 ? 's' : ''} ({n === 1 ? '1 place' : `${n} places`})
+                      </option>
+                    ))}
+                  </select>
+                  {errors.places && <em>{errors.places}</em>}
+                  {left != null && <small>{left} place(s) restante(s)</small>}
+                </label>
+
+                {e.dates.length > 0 && (
+                  <label className="vip-field">
+                    <span>Date du séjour</span>
+                    <select value={f.slot} onChange={set('slot')}>
+                      {e.dates.map((d) => (
+                        <option key={d.id} value={d.id}>
+                          {d.label}
+                        </option>
+                      ))}
+                    </select>
+                  </label>
+                )}
+              </div>
+            </div>
 
             {/* Rubrique Personnalisez votre expérience pour Marrakech */}
             {isMarrakechFemmes && (
               <div className="mk-book-options-section">
                 <h3>Personnalisez votre expérience</h3>
                 <p className="mk-book-options-subtitle">
-                  Indiquez vos envies pour nous permettre d’organiser les créneaux et les déplacements. Nous confirmerons ensemble les disponibilités et les tarifs avant toute réservation auprès des prestataires. Ces choix expriment un intérêt. Ils ne déclenchent ni paiement ni réservation automatique.
+                  Indiquez vos envies pour nous permettre d’organiser les créneaux et les déplacements. Nous confirmerons ensemble les disponibilités et les tarifs avant toute réservation auprès des prestataires.
                 </p>
 
-                {/* Option 1 : Hammam */}
                 <div className={`mk-book-option-box ${options.hammam ? 'is-active' : ''}`}>
                   <label className="mk-book-option-label">
-                    <input
-                      type="checkbox"
-                      checked={options.hammam}
-                      onChange={() => toggleOption('hammam')}
-                    />
+                    <input type="checkbox" checked={options.hammam} onChange={() => toggleOption('hammam')} />
                     <div className="mk-book-option-text">
                       <strong>1. Une parenthèse au hammam (Mythic Oriental Spa)</strong>
-                      <p>
-                        « Envie de prolonger la douceur ? Nous vous accompagnons jusqu’au hammam pour découvrir un rituel marocain et vous offrir une pause rien qu’à vous. »
-                      </p>
-                      <p style={{ fontSize: '.79rem', color: 'var(--muted)', margin: '0 0 .2rem' }}>
-                        Hammam beldi, gommage au savon noir et hydratation (40 min de soin). Créneau provisoire de 1 h 30 à 2 h avec accueil, change et déplacement à pied.
-                      </p>
-                      <small>Budget indicatif : ~450 DH (environ 45 €) / pers. · Facultatif — à régler directement au spa sur place (distinct du massage déjà inclus).</small>
+                      <p>Hammam beldi, gommage au savon noir et hydratation (40 min de soin).</p>
+                      <small>Budget indicatif : ~450 DH (environ 45 €) / pers. · À régler sur place</small>
                     </div>
                   </label>
                 </div>
 
-                {/* Option 2 : Soirée festive */}
                 <div className={`mk-book-option-box ${options.soireeFestive ? 'is-active' : ''}`}>
                   <label className="mk-book-option-label">
-                    <input
-                      type="checkbox"
-                      checked={options.soireeFestive}
-                      onChange={() => toggleOption('soireeFestive')}
-                    />
+                    <input type="checkbox" checked={options.soireeFestive} onChange={() => toggleOption('soireeFestive')} />
                     <div className="mk-book-option-text">
                       <strong>2. Une soirée festive à Marrakech avec le groupe</strong>
-                      <p>
-                        « Et si l’on découvrait aussi Marrakech à la nuit tombée ? Pour celles qui en ont envie, partageons une soirée festive et le plaisir de sortir ensemble. »
-                      </p>
-                      <p style={{ fontSize: '.79rem', color: 'var(--muted)', margin: '0 0 .2rem' }}>
-                        Proposition et budget communiqués avant confirmation. Dépenses de soirée à régler sur place selon la formule choisie (repas, boissons, entrée et transport distingués).
-                      </p>
+                      <p>Proposition et budget communiqués avant confirmation.</p>
                       <small>Option sans engagement · Dépenses à régler sur place</small>
                     </div>
                   </label>
                 </div>
 
-                {/* Option 3 : Désert d'Agafay */}
                 <div className={`mk-book-option-box ${options.agafay ? 'is-active' : ''}`}>
                   <label className="mk-book-option-label">
-                    <input
-                      type="checkbox"
-                      checked={options.agafay}
-                      onChange={() => toggleOption('agafay')}
-                    />
+                    <input type="checkbox" checked={options.agafay} onChange={() => toggleOption('agafay')} />
                     <div className="mk-book-option-text">
                       <strong>3. Une échappée dans le désert d’Agafay (Agafay Pearl Camp)</strong>
-                      <p>
-                        Échappée féerique face aux collines de pierre minérales et sous la voûte étoilée.
-                      </p>
-                      <p style={{ fontSize: '.79rem', color: 'var(--muted)', margin: '0 0 .2rem' }}>
-                        Affichage séparé : Prestation au camp [selon formule choisie] + Transport A/R (estimation de travail de 200 € pour deux véhicules, part recalculée selon les participantes réelles).
-                      </p>
-                      <small>Expérience facultative, à régler sur place aux prestataires. Prix indiqués pour préparer votre budget.</small>
+                      <p>Prestation au camp + Transport A/R partagé.</p>
+                      <small>Expérience facultative, à régler sur place aux prestataires.</small>
                     </div>
                   </label>
                 </div>
               </div>
             )}
 
-            {/* Récapitulatif avec séparation visuelle stricte */}
-            {isMarrakechFemmes ? (
-              <div className="mk-book-recap-split" aria-live="polite">
-                <div className="mk-book-recap-row">
+            {/* ÉTAPE 2 : CHOIX DU MODE DE PAIEMENT (95 € DE RÉSERVATION OU CASH) */}
+            {!isMarrakechFemmes && (
+              <>
+                <div className="vip-form-section-head" style={{ marginTop: '1.8rem' }}>
+                  <span className="vip-step-num">2</span>
                   <div>
-                    <strong>Séjour à réserver (4 jours / 3 nuits) :</strong>
-                    <div style={{ fontSize: '.82rem', color: 'var(--muted)' }}>
-                      Hypothèse de travail de 790 € / pers. (hors vol personnel) × {f.places}
+                    <h2>Choisissez votre mode de règlement</h2>
+                    <p>Vous pouvez régler les <strong>{depositAmount} € de réservation</strong> maintenant par carte ou choisir de <strong>payer en Cash</strong>.</p>
+                  </div>
+                </div>
+
+                <div className="vip-payment-choices" role="radiogroup" aria-label="Mode de règlement">
+                  {/* Option A : 95 € de réservation en ligne */}
+                  <label
+                    className={`vip-pay-card ${f.paymentMethod === 'deposit_95' ? 'selected' : ''}`}
+                    onClick={() => setF({ ...f, paymentMethod: 'deposit_95' })}
+                  >
+                    <input
+                      type="radio"
+                      name="paymentMethod"
+                      value="deposit_95"
+                      checked={f.paymentMethod === 'deposit_95'}
+                      onChange={() => setF({ ...f, paymentMethod: 'deposit_95' })}
+                    />
+                    <div className="vip-pay-card-top">
+                      <span className="vip-pay-icon"><CreditCard size={20} /></span>
+                      <span className="vip-pay-badge">Paiement en ligne sécurisé</span>
                     </div>
-                  </div>
-                  <strong>~{790 * Number(f.places || 1)} € <span style={{ fontSize: '.78rem', fontWeight: 400, color: 'var(--muted)' }}>(indicatif)</span></strong>
-                </div>
+                    <h3>Régler les {depositAmount} € de réservation</h3>
+                    <p>
+                      Je bloque ma place immédiatement en réglant l’acompte de <strong>{depositAmount} €</strong> par carte bancaire (Stripe). Le solde du séjour sera réglé plus tard.
+                    </p>
+                    <div className="vip-pay-amount">
+                      <span>À régler aujourd’hui :</span>
+                      <strong>{depositAmount} €</strong>
+                    </div>
+                  </label>
 
-                <div className="mk-book-recap-row highlight">
-                  <span><strong>À régler aujourd’hui lors de l’inscription :</strong></span>
-                  <strong style={{ fontSize: '1.25rem', color: 'var(--terra)' }}>0 €</strong>
+                  {/* Option B : Payer Cash (Espèces) */}
+                  <label
+                    className={`vip-pay-card ${f.paymentMethod === 'cash' ? 'selected' : ''}`}
+                    onClick={() => setF({ ...f, paymentMethod: 'cash' })}
+                  >
+                    <input
+                      type="radio"
+                      name="paymentMethod"
+                      value="cash"
+                      checked={f.paymentMethod === 'cash'}
+                      onChange={() => setF({ ...f, paymentMethod: 'cash' })}
+                    />
+                    <div className="vip-pay-card-top">
+                      <span className="vip-pay-icon cash"><Banknote size={20} /></span>
+                      <span className="vip-pay-badge cash">Règlement en main propre</span>
+                    </div>
+                    <h3>Payer en Cash (Espèces)</h3>
+                    <p>
+                      Je confirme définitivement ma participation aujourd’hui et je règle en espèces (Cash) directement auprès d’Émilie et Virginie.
+                    </p>
+                    <div className="vip-pay-amount">
+                      <span>Mode choisi :</span>
+                      <strong>Paiement Cash</strong>
+                    </div>
+                  </label>
                 </div>
+              </>
+            )}
 
-                <div className="mk-book-recap-row" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '.3rem' }}>
-                  <div style={{ fontSize: '.84rem', fontWeight: 600, color: 'var(--navy)' }}>
-                    Vos envies sélectionnées (à régler sur place aux prestataires) :
-                  </div>
-                  {options.hammam || options.soireeFestive || options.agafay ? (
-                    <ul style={{ margin: 0, paddingLeft: '1.2rem', fontSize: '.82rem', color: 'var(--ink)' }}>
-                      {options.hammam && <li>Hammam traditionnel Mythic Oriental Spa (~45 € / 450 DH à régler au spa)</li>}
-                      {options.soireeFestive && <li>Soirée festive à Marrakech (budget communiqué avant confirmation, à régler sur place)</li>}
-                      {options.agafay && <li>Échappée Agafay Pearl Camp (prestation camp + transport partagé, à régler aux prestataires)</li>}
-                    </ul>
-                  ) : (
-                    <span style={{ fontSize: '.8rem', color: 'var(--muted)', fontStyle: 'italic' }}>
-                      Aucune option sélectionnée (programme avec inclusions seules).
-                    </span>
-                  )}
-                  <p style={{ fontSize: '.76rem', color: 'var(--muted)', margin: '.3rem 0 0', lineHeight: 1.45 }}>
-                    ℹ️ <em>Ces choix expriment un intérêt et ne déclenchent aucun paiement immédiat. Les budgets des options ne sont jamais ajoutés au montant du séjour.</em>
-                  </p>
-                </div>
-              </div>
-            ) : (
-              <div className="recap" aria-live="polite">
+            {/* Consentements */}
+            <div className="vip-consents">
+              <label className="check">
+                <input type="checkbox" checked={f.consentRules} onChange={set('consentRules')} />
                 <span>
-                  {preorder ? 'Pré-réservation' : 'Total'} : {f.places} ×{' '}
-                  <Price value={preorder ? e.depositPerPlace : e.pricePerPerson} />
-                  {preorder ? ' d’acompte' : ''}
+                  J’ai lu et j’accepte les <Link to="/cgv" target="_blank">conditions générales</Link>
+                  {e.minParticipants ? `, dont le départ maintenu dès ${e.minParticipants} participantes` : ''}. *
+                  {errors.consentRules && <em> {errors.consentRules}</em>}
                 </span>
-                <strong>{total == null ? <Price value={null} /> : `${euro(total)}${preorder ? ' d’acompte' : ''}`}</strong>
-              </div>
-            )}
-
-            {!preorder && !isMarrakechFemmes && (
-              <fieldset>
-                <legend>Paiement</legend>
-                <label className="check">
-                  <input type="radio" name="pay" checked={pay === 'card'} onChange={() => setPay('card')} /> Comptant (carte, via prestataire sécurisé)
-                </label>
-                <label className="check disabled">
-                  <input type="radio" name="pay" disabled /> Plusieurs fois avec Alma — {settings.almaActive ? 'selon éligibilité' : 'bientôt disponible'}
-                </label>
-              </fieldset>
-            )}
-
-            <label className="check">
-              <input type="checkbox" checked={f.consentRules} onChange={set('consentRules')} />
-              <span>
-                J’ai lu et j’accepte les <Link to="/cgv" target="_blank">conditions générales</Link>
-                {e.minParticipants ? `, dont le départ maintenu dès ${e.minParticipants} participantes` : ''}. *
-                {errors.consentRules && <em> {errors.consentRules}</em>}
-              </span>
-            </label>
-            <label className="check">
-              <input type="checkbox" checked={f.consentData} onChange={set('consentData')} />
-              J’accepte le traitement de mes données pour gérer ma demande (RGPD). *
-              {errors.consentData && <em> {errors.consentData}</em>}
-            </label>
+              </label>
+              <label className="check">
+                <input type="checkbox" checked={f.consentData} onChange={set('consentData')} />
+                <span>
+                  J’accepte de recevoir ma confirmation d’inscription par e-mail de la part de <strong>{OFFICIAL_EMAIL}</strong> et d’être recontactée par Émilie &amp; Virginie. *
+                  {errors.consentData && <em> {errors.consentData}</em>}
+                </span>
+              </label>
+            </div>
 
             {err && <p className="error" role="alert">{err}</p>}
 
             <button
-              className={`btn btn-blue ${isArca ? 'btn-commercial-glow' : ''}`}
+              className="btn btn-terra vip-submit-btn"
               type="submit"
+              disabled={submitting}
             >
-              {isMarrakechFemmes
-                ? 'Transmettre ma demande & mes envies (6 à 8 places)'
-                : isArca
-                ? `Confirmer mon inscription — ${total ? euro(total) : '95 € d’acompte'}`
-                : preorder
-                ? `Régler l’acompte — ${total ? euro(total) : '95 €'}`
-                : `Procéder au paiement — ${total ? euro(total) : ''}`}
+              {submitting ? (
+                <span>Enregistrement &amp; envoi de votre confirmation…</span>
+              ) : isMarrakechFemmes ? (
+                <span>Valider mon inscription &amp; recevoir ma confirmation par mail</span>
+              ) : f.paymentMethod === 'cash' ? (
+                <>
+                  <span>Valider mon inscription (Paiement Cash) &amp; recevoir mon mail</span>
+                  <ArrowRight size={18} />
+                </>
+              ) : (
+                <>
+                  <span>Valider mon inscription — Régler les {depositAmount} € de réservation</span>
+                  <ArrowRight size={18} />
+                </>
+              )}
             </button>
+
+            <div className="vip-form-footer-note">
+              <span><ShieldCheck size={15} /> Confirmation immédiate par mail avec notre photo &amp; logo</span>
+              <span>·</span>
+              <span>Contact officiel : <a href={`mailto:${OFFICIAL_EMAIL}`}>{OFFICIAL_EMAIL}</a></span>
+            </div>
           </form>
         )}
       </div>

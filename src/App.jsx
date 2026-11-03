@@ -46,6 +46,9 @@ export default function App() {
           <Route path="/notre-histoire" element={<Story />} />
           <Route path="/experiences/:slug" element={<Experience />} />
           <Route path="/reserver/:slug" element={<Booking />} />
+          <Route path="/paiement" element={<Booking />} />
+          <Route path="/paiement/:slug" element={<Booking />} />
+          <Route path="/inscription" element={<Booking />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/mentions-legales" element={<Legal />} />
           <Route path="/cgv" element={<Cgv />} />
