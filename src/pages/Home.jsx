@@ -290,28 +290,33 @@ export default function Home() {
 
             <Reveal delay={120}>
               <aside className="booking-card" aria-label="Réservation Bassin d'Arcachon" style={{ position: 'static' }}>
-                <span className="pill open" style={{ marginBottom: '.6rem' }}>Pré-réservations ouvertes</span>
-                <h3 style={{ margin: '.2rem 0 .8rem' }}>Bassin d’Arcachon — Entre femmes</h3>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '.75rem', paddingBottom: '.9rem', marginBottom: '.8rem', borderBottom: '1px solid var(--sand2)' }}>
+                  <img
+                    src="/img/emilie-virginie-marrakech.jpg"
+                    alt="Émilie et Virginie"
+                    style={{ width: 52, height: 52, borderRadius: '50%', objectFit: 'cover', objectPosition: '50% 25%', border: '2px solid var(--sand2)', flexShrink: 0 }}
+                  />
+                  <div>
+                    <span className="pill open" style={{ fontSize: '.68rem', padding: '.15rem .6rem' }}>Inscriptions ouvertes</span>
+                    <h3 style={{ margin: '.2rem 0 0', fontSize: '1.25rem' }}>Bassin d’Arcachon — Entre femmes</h3>
+                  </div>
+                </div>
                 <dl>
                   <dt>Lieu</dt><dd>{arca.location}</dd>
                   <dt>Hébergement</dt><dd>{arca.lodging}</dd>
                   <dt>Durée</dt><dd>{arca.duration}</dd>
-                  <dt>Offre de départ exclusive</dt>
+                  <dt>Tarif tout compris</dt>
                   <dd className="bk-privilege-row">
-                    <span className="bk-old-price">{arca?.originalPrice || 550} €</span>
                     <strong className="bk-new-price">{arca?.pricePerPerson || 450} €</strong>
                     <span className="bk-per-pers">/ personne</span>
                   </dd>
-                  <dt>Facilités de paiement</dt>
-                  <dd className="bk-alma-row">
-                    Paiement en plusieurs fois avec <AlmaLogo height={15} />
-                  </dd>
-                  <dt>Soins &amp; rituels sur place</dt><dd><strong>+ de 300 € de prestations incluses</strong></dd>
-                  <dt>Maintien du séjour</dt><dd>Dès {arca.minParticipants} participantes</dd>
-                  <dt>Réservation de la place</dt><dd><strong>{arca?.depositPerPlace || 95} € d’acompte</strong> (paiement sécurisé Stripe)</dd>
+                  <dt>Soins &amp; yoga sur place</dt><dd><strong>Plus de 300 € de prestations incluses</strong></dd>
+                  <dt>Maintien du séjour</dt><dd>Dès {arca.minParticipants} participantes (8 max)</dd>
+                  <dt>Modes de règlement</dt><dd><strong>{arca?.depositPerPlace || 95} € de réservation</strong> en ligne ou <strong>Paiement Cash</strong></dd>
+                  <dt>Confirmation</dt><dd>E-mail immédiat avec photo &amp; logo (<em>complicesdailleurs@gmail.com</em>)</dd>
                 </dl>
                 <div style={{ marginTop: '1.4rem', display: 'grid', gap: '.6rem' }}>
-                  <Link to="/reserver/arcachon-entre-femmes" className="btn btn-blue block btn-commercial-glow">Je m’inscris — {arca?.depositPerPlace || 95} € d’acompte</Link>
+                  <Link to="/reserver/arcachon-entre-femmes" className="btn btn-terra block">Je réserve mon week-end ({arca?.depositPerPlace || 95} € ou Cash)</Link>
                   <Link to="/contact" className="btn btn-ghost block">Poser une question à Émilie &amp; Virginie</Link>
                 </div>
               </aside>

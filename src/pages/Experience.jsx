@@ -218,7 +218,17 @@ export default function Experience() {
 
         {e.kind !== 'future' && (
           <aside className="booking-card" aria-label="Réservation">
-            <h2>{e.kind === 'preorder' ? 'Pré-réservation' : isMarrakechFemmes ? 'Séjour intimiste' : 'Réservation'}</h2>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '.75rem', paddingBottom: '.9rem', marginBottom: '.9rem', borderBottom: '1px solid var(--sand2)' }}>
+              <img
+                src="/img/emilie-virginie-marrakech.jpg"
+                alt="Émilie et Virginie"
+                style={{ width: 52, height: 52, borderRadius: '50%', objectFit: 'cover', objectPosition: '50% 25%', border: '2px solid var(--sand2)', flexShrink: 0 }}
+              />
+              <div>
+                <h2 style={{ fontSize: '1.35rem', margin: 0 }}>{isMarrakechFemmes ? 'Séjour intimiste' : 'Inscription & Réservation'}</h2>
+                <small style={{ color: 'var(--terra)', fontWeight: 500 }}>Avec Émilie &amp; Virginie · Confirmation par mail</small>
+              </div>
+            </div>
             <div className="exclu-300-card-box">
               <span className="exclu-300-card-tag"><Gem size={13} /> EXCLUSIF &amp; INÉDIT</span>
               <strong>+ de 300 € de soins esthétiques &amp; cours de yoga INCLUS</strong>
@@ -228,10 +238,10 @@ export default function Experience() {
               <div className="bk-arca-highlight">
                 <span className="bk-arca-tag"><Sparkles size={13} /> Offre exclusive de départ</span>
                 <div className="bk-arca-dep">
-                  Réservez votre place pour <strong>{e.depositPerPlace || 95} €</strong> seulement
+                  Réservez votre place : <strong>{e.depositPerPlace || 95} €</strong> ou <strong>Paiement Cash</strong>
                 </div>
                 <div className="bk-arca-total">
-                  Séjour complet tout compris : <span className="bk-old-price">{euro(e.originalPrice || 550)}</span> <strong className="bk-new-price">{euro(e.pricePerPerson || 450)}</strong>
+                  Séjour complet tout compris : <strong className="bk-new-price">{euro(e.pricePerPerson || 450)}</strong>
                 </div>
               </div>
             )}
@@ -243,7 +253,7 @@ export default function Experience() {
                 <div className="bk-arca-dep" style={{ color: 'var(--navy)' }}>
                   Hypothèse de travail : <strong>790 €</strong>
                   <div style={{ fontSize: '.82rem', fontWeight: 400, color: 'var(--muted)', marginTop: '.2rem' }}>
-                    Hors vols personnels · En attente de validation devis
+                    Hors vols personnels · Réservation 95 € ou Cash
                   </div>
                 </div>
               </div>
@@ -286,39 +296,18 @@ export default function Experience() {
                 </>
               )}
               {e.minParticipants && <><dt>Maintien du séjour</dt><dd>Dès {e.minParticipants} participantes</dd></>}
-              {arca ? (
-                <>
-                  <dt>Acompte d’inscription</dt>
-                  <dd><strong>{euro(e.depositPerPlace)}</strong> pour bloquer votre place</dd>
-                </>
-              ) : isMarrakechFemmes ? (
-                <>
-                  <dt>Encadrement</dt>
-                  <dd>Émilie &amp; Virginie présentes &amp; complices</dd>
-                </>
-              ) : (
-                e.depositPerPlace && (
-                  <>
-                    <dt>Pré-réservation</dt>
-                    <dd><strong>{euro(e.depositPerPlace)}</strong> pour bloquer votre place</dd>
-                  </>
-                )
-              )}
+              <dt>Modes de règlement</dt>
+              <dd><strong>{euro(e.depositPerPlace || 95)} d’acompte</strong> en ligne ou <strong>Paiement Cash</strong></dd>
+              <dt>Confirmation</dt>
+              <dd>E-mail immédiat avec photo &amp; logo (<em>complicesdailleurs@gmail.com</em>)</dd>
               <dt>Places</dt><dd>{left == null ? '8 participantes maximum' : `${left} restantes (8 max)`}</dd>
             </dl>
-            {isMarrakechFemmes ? (
-              <Link to="/reserver/marrakech-entre-femmes" className="btn btn-terra block">
-                Personnaliser &amp; réserver ma place (6 à 8 places)
+            <div style={{ marginTop: '1.1rem', display: 'grid', gap: '.55rem' }}>
+              <Link to={`/reserver/${e.slug}`} className="btn btn-terra block">
+                Je réserve ma place ({e.depositPerPlace || 95} € ou Cash)
               </Link>
-            ) : sellable ? (
-              <Link to={`/reserver/${e.slug}`} className={`btn btn-blue block ${arca ? 'btn-commercial-glow' : ''}`}>
-                {arca ? `Je m’inscris — ${e.depositPerPlace || 95} € d’acompte` : (e.kind === 'preorder' ? `Pré-réserver — ${e.depositPerPlace} € d’acompte` : 'Réserver')}
-              </Link>
-            ) : arcaMereEnfant || isAtelierEnfant ? (
-              <Link to="/contact" className="btn btn-terra block">{isAtelierEnfant ? 'Inscrire mon enfant à un atelier' : 'Réserver ou privatiser une journée'}</Link>
-            ) : (
-              <Link to="/contact" className="btn btn-ghost block">Être prévenue de l’ouverture</Link>
-            )}
+              <Link to="/contact" className="btn btn-ghost block">Poser une question à Émilie &amp; Virginie</Link>
+            </div>
           </aside>
         )}
       </div>
