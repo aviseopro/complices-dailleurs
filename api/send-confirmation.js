@@ -13,8 +13,14 @@ export default async function handler(req, res) {
     }
 
     const isCash = booking.paymentMethod === 'cash';
+    const isAlma = booking.paymentMethod === 'alma';
+    const paymentLabel = isCash
+      ? 'Paiement Cash (Espèces)'
+      : isAlma
+      ? 'Paiement 3x / 4x avec Alma'
+      : `Acompte 95 € (${booking.amount || 95} €)`;
     const subjectParticipant = `Confirmation de votre inscription — ${experienceTitle || 'Complices d’ailleurs'} (Réf. ${booking.reference})`;
-    const subjectAdmin = `Nouvelle inscription : ${booking.name} (${isCash ? 'Paiement Cash' : 'Acompte 95 €'}) — ${booking.reference}`;
+    const subjectAdmin = `Nouvelle inscription : ${booking.name} (${paymentLabel}) — ${booking.reference}`;
 
     // Si une clé RESEND_API_KEY est configurée sur Vercel, envoi direct du mail HTML riche
     if (process.env.RESEND_API_KEY) {
@@ -57,7 +63,7 @@ export default async function handler(req, res) {
         Email: booking.email,
         Téléphone: booking.phone,
         Places: booking.places,
-        Règlement: isCash ? 'Paiement Cash (Espèces)' : `Acompte 95 € (${booking.amount || 95} €)`,
+        Règlement: paymentLabel,
       }),
     });
 

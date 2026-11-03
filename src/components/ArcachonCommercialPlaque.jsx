@@ -17,7 +17,7 @@ export default function ArcachonCommercialPlaque({ e, variant = 'hero', classNam
             <Sparkles size={13} className="acc-spark" /> Offre de départ exclusive · 8 participantes max
           </span>
           <span className="acc-alma-pill">
-            <span className="acc-alma-text">Paiement en plusieurs fois avec</span>
+            <span className="acc-alma-text">Paiement en 3x ou 4x avec</span>
             <AlmaLogo height={15} />
           </span>
         </div>

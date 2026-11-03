@@ -5,10 +5,11 @@ export const defaultData = {
   settings: {
     demoMode: true, // aucune transaction réelle tant que false n'est pas validé
     salesEnabled: false, // vente officielle Marrakech désactivée tant que le cadre légal n'est pas validé
-    almaActive: false, // Alma affiché « bientôt disponible » tant que false
+    almaActive: true, // Paiement en 2x, 3x ou 4x avec Alma activé
     heroImage: '/img/hero-arcachon-net.jpg',
     heroVideo: '/videos/hero-arcachon.mp4?v=2',
     stripePaymentUrl: 'https://buy.stripe.com/5kQaEZb38efo3Nh8x6afS00',
+    almaPaymentUrl: 'https://almapay.com/fr-FR',
     whatsapp: '0629849653',
     contactEmail: 'complicesdailleurs@gmail.com',
     instagram: 'https://www.instagram.com/complicesdailleurs',

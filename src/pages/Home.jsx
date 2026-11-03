@@ -129,7 +129,9 @@ export default function Home() {
             <div className="hvc-pricing-block">
               <p className="hvc-total-price">{arca?.pricePerPerson || 450} € par personne</p>
               <p className="hvc-price-includes">Hébergement, pension complète et programme bien-être inclus.</p>
-              <p className="hvc-deposit-line">Réservez avec {arca?.depositPerPlace || 95} € d’acompte.</p>
+              <p className="hvc-deposit-line">
+                Réservez avec <strong>{arca?.depositPerPlace || 95} € d’acompte</strong>, en <strong>3x ou 4x avec <AlmaLogo height={13} /></strong> ou en <strong>Cash</strong>.
+              </p>
             </div>
 
             <Link to="/reserver/arcachon-entre-femmes" className="btn btn-terra hvc-cta-btn">
@@ -312,11 +314,20 @@ export default function Home() {
                   </dd>
                   <dt>Soins &amp; yoga sur place</dt><dd><strong>Plus de 300 € de prestations incluses</strong></dd>
                   <dt>Maintien du séjour</dt><dd>Dès {arca.minParticipants} participantes (8 max)</dd>
-                  <dt>Modes de règlement</dt><dd><strong>{arca?.depositPerPlace || 95} € de réservation</strong> en ligne ou <strong>Paiement Cash</strong></dd>
+                  <dt>Modes de règlement</dt>
+                  <dd>
+                    <strong>1. {arca?.depositPerPlace || 95} € de réservation</strong> (Carte / Stripe)<br />
+                    <strong>2. Paiement en 3x (150 €) ou 4x (112,50 €) avec <AlmaLogo height={13} /></strong>{' '}
+                    (<a href={arca?.almaPaymentLink || settings.almaPaymentUrl || 'https://almapay.com/fr-FR'} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--terra)', textDecoration: 'underline' }}>lien Alma</a>)<br />
+                    <strong>3. Paiement en Cash (Espèces)</strong>
+                  </dd>
                   <dt>Confirmation</dt><dd>E-mail immédiat avec photo &amp; logo (<em>complicesdailleurs@gmail.com</em>)</dd>
                 </dl>
                 <div style={{ marginTop: '1.4rem', display: 'grid', gap: '.6rem' }}>
-                  <Link to="/reserver/arcachon-entre-femmes" className="btn btn-terra block">Je réserve mon week-end ({arca?.depositPerPlace || 95} € ou Cash)</Link>
+                  <Link to="/reserver/arcachon-entre-femmes" className="btn btn-terra block">Je réserve ({arca?.depositPerPlace || 95} €, Alma 3x/4x ou Cash)</Link>
+                  <Link to="/reserver/arcachon-entre-femmes?pay=alma" className="btn btn-ghost block" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '.45rem' }}>
+                    <span>Payer en 3x ou 4x avec</span> <AlmaLogo height={14} />
+                  </Link>
                   <Link to="/contact" className="btn btn-ghost block">Poser une question à Émilie &amp; Virginie</Link>
                 </div>
               </aside>

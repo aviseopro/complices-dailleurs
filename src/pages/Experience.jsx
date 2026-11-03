@@ -297,14 +297,22 @@ export default function Experience() {
               )}
               {e.minParticipants && <><dt>Maintien du séjour</dt><dd>Dès {e.minParticipants} participantes</dd></>}
               <dt>Modes de règlement</dt>
-              <dd><strong>{euro(e.depositPerPlace || 95)} d’acompte</strong> en ligne ou <strong>Paiement Cash</strong></dd>
+              <dd>
+                <strong>1. {euro(e.depositPerPlace || 95)} d’acompte</strong> en ligne<br />
+                <strong>2. Paiement en 3x ou 4x avec <AlmaLogo height={14} /></strong>{' '}
+                (<a href={e.almaPaymentLink || settings.almaPaymentUrl || 'https://almapay.com/fr-FR'} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--terra)', textDecoration: 'underline' }}>lien Alma</a>)<br />
+                <strong>3. Paiement Cash (Espèces)</strong>
+              </dd>
               <dt>Confirmation</dt>
               <dd>E-mail immédiat avec photo &amp; logo (<em>complicesdailleurs@gmail.com</em>)</dd>
               <dt>Places</dt><dd>{left == null ? '8 participantes maximum' : `${left} restantes (8 max)`}</dd>
             </dl>
             <div style={{ marginTop: '1.1rem', display: 'grid', gap: '.55rem' }}>
               <Link to={`/reserver/${e.slug}`} className="btn btn-terra block">
-                Je réserve ma place ({e.depositPerPlace || 95} € ou Cash)
+                Je réserve ma place ({e.depositPerPlace || 95} €, Alma 3x/4x ou Cash)
+              </Link>
+              <Link to={`/reserver/${e.slug}?pay=alma`} className="btn btn-ghost block" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '.45rem' }}>
+                <span>Payer en 3x ou 4x avec</span> <AlmaLogo height={14} />
               </Link>
               <Link to="/contact" className="btn btn-ghost block">Poser une question à Émilie &amp; Virginie</Link>
             </div>

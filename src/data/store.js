@@ -22,6 +22,9 @@ function load() {
       if (!saved.settings?.stripePaymentUrl) {
         saved.settings = { ...saved.settings, stripePaymentUrl: defaultData.settings.stripePaymentUrl };
       }
+      if (!saved.settings?.almaPaymentUrl) {
+        saved.settings = { ...saved.settings, almaPaymentUrl: defaultData.settings.almaPaymentUrl, almaActive: true };
+      }
       if (!saved.settings?.whatsapp) {
         saved.settings = { ...saved.settings, whatsapp: defaultData.settings.whatsapp };
       }

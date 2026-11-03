@@ -47,7 +47,7 @@ function Bookings() {
           <Link to="/paiement" className="btn btn-sm btn-ghost">Voir la page participante →</Link>
         </div>
         <small style={{ color: 'var(--muted)' }}>
-          Email officiel configuré : <strong>{OFFICIAL_EMAIL}</strong> — Choix proposé sur la page : <strong>Acompte 95 € (Stripe)</strong> ou <strong>Paiement Cash (Espèces)</strong>.
+          Email officiel configuré : <strong>{OFFICIAL_EMAIL}</strong> — 3 choix proposés sur la page : <strong>1. Acompte 95 € (Stripe)</strong>, <strong>2. Paiement en 3x ou 4x avec Alma</strong>, ou <strong>3. Paiement Cash (Espèces)</strong>.
         </small>
       </div>
       <p><button className="btn btn-sm btn-terra" onClick={csv}>Exporter en CSV</button></p>
@@ -67,6 +67,8 @@ function Bookings() {
             <td>
               {b.paymentMethod === 'cash' ? (
                 <span className="pill soon" style={{ fontSize: '.72rem' }}>💵 Paiement Cash</span>
+              ) : b.paymentMethod === 'alma' ? (
+                <span className="pill waitlist" style={{ fontSize: '.72rem' }}>🧡 Alma 3x / 4x</span>
               ) : (
                 <span className="pill open" style={{ fontSize: '.72rem' }}>💳 Acompte {b.amount != null ? `${b.amount} €` : '95 €'}</span>
               )}
@@ -106,6 +108,7 @@ function Experiences() {
         <label>Tarif / personne (€)<input type="number" value={e.pricePerPerson ?? ''} onChange={(ev) => edit(e.slug, (x) => (x.pricePerPerson = num(ev.target.value)))} /></label>
         {e.kind === 'preorder' && <label>Pré-réservation / place (€)<input type="number" value={e.depositPerPlace ?? ''} onChange={(ev) => edit(e.slug, (x) => (x.depositPerPlace = num(ev.target.value)))} /></label>}
         <label>Lien de paiement Stripe (ex: https://buy.stripe.com/...)<input value={e.paymentLink || ''} placeholder="https://buy.stripe.com/..." onChange={(ev) => edit(e.slug, (x) => (x.paymentLink = ev.target.value))} /></label>
+        <label>Lien de paiement Alma 3x / 4x (ex: https://pay.getalma.eu/...)<input value={e.almaPaymentLink || ''} placeholder="https://almapay.com/fr-FR" onChange={(ev) => edit(e.slug, (x) => (x.almaPaymentLink = ev.target.value))} /></label>
         <label>Capacité globale (vide = non communiquée)<input type="number" value={e.capacity ?? ''} onChange={(ev) => edit(e.slug, (x) => (x.capacity = num(ev.target.value)))} /></label>
         <label>Participantes minimum pour maintenir le séjour<input type="number" value={e.minParticipants ?? ''} onChange={(ev) => edit(e.slug, (x) => (x.minParticipants = num(ev.target.value)))} /></label>
         <label>Durée<input value={e.duration || ''} onChange={(ev) => edit(e.slug, (x) => (x.duration = ev.target.value))} /></label>
@@ -177,7 +180,8 @@ function Settings() {
     <>
       <T k="demoMode" label="Mode démo (aucune transaction réelle)" />
       <T k="salesEnabled" label="Vente officielle Marrakech activée (uniquement après validation légale)" />
-      <T k="almaActive" label="Alma actif (uniquement si contrat et intégration validés)" />
+      <T k="almaActive" label="Alma actif (paiement en 2x, 3x ou 4x)" />
+      <I k="almaPaymentUrl" label="Lien de paiement Alma par défaut (ex: https://pay.getalma.eu/...)" />
       <I k="heroImage" label="Image du hero (chemin ou URL)" />
       <I k="heroVideo" label="Vidéo du hero (optionnelle : chemin .mp4 ou URL — sinon tableau vivant cinemagraph)" />
       <I k="whatsapp" label="Numéro WhatsApp (ex: 0629849653)" />

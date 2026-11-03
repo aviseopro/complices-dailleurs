@@ -11,9 +11,10 @@ import {
   Copy,
   Printer,
   CheckCircle2,
+  ExternalLink,
 } from 'lucide-react';
 import { useData, update } from '../data/store.js';
-import { Logo } from '../components/ui.jsx';
+import { Logo, AlmaLogo } from '../components/ui.jsx';
 import { createBooking, seatsLeft } from '../lib/booking.js';
 import {
   OFFICIAL_EMAIL,
@@ -29,15 +30,22 @@ export default function Booking() {
   const e = experiences.find((x) => x.slug === slug) || experiences[0];
   const isMarrakechFemmes = e?.slug === 'marrakech-entre-femmes';
 
-  const [f, setF] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    places: 1,
-    slot: e?.dates?.[0]?.id || 'general',
-    paymentMethod: 'deposit_95', // 'deposit_95' | 'cash'
-    consentRules: false,
-    consentData: false,
+  const [f, setF] = useState(() => {
+    let initialPay = 'deposit_95';
+    if (typeof window !== 'undefined') {
+      const p = new URLSearchParams(window.location.search).get('pay');
+      if (p === 'alma' || p === 'cash' || p === 'deposit_95') initialPay = p;
+    }
+    return {
+      name: '',
+      email: '',
+      phone: '',
+      places: 1,
+      slot: e?.dates?.[0]?.id || 'general',
+      paymentMethod: initialPay, // 'deposit_95' | 'alma' | 'cash'
+      consentRules: false,
+      consentData: false,
+    };
   });
 
   // Options « Personnalisez votre expérience » pour Marrakech
@@ -75,7 +83,10 @@ export default function Booking() {
   const depositAmount = unitDeposit * Number(f.places || 1);
   const unitPrice = e.pricePerPerson || (isMarrakechFemmes ? 790 : 450);
   const fullStayAmount = unitPrice * Number(f.places || 1);
+  const alma3x = Math.round((fullStayAmount / 3) * 100) / 100;
+  const alma4x = Math.round((fullStayAmount / 4) * 100) / 100;
   const paymentLink = e.paymentLink || settings.stripePaymentUrl;
+  const almaLink = e.almaPaymentLink || settings.almaPaymentUrl || 'https://almapay.com/fr-FR';
 
   const set = (k) => (ev) =>
     setF({ ...f, [k]: ev.target.type === 'checkbox' ? ev.target.checked : ev.target.value });
@@ -162,6 +173,7 @@ export default function Booking() {
   // Écran Récapitulatif & Confirmation Mail après validation (Done) — identique sur toutes les réservations
   if (done) {
     const isCash = done.paymentMethod === 'cash';
+    const isAlma = done.paymentMethod === 'alma';
     const stripeUrl = buildStripeUrl(done.reference);
     const firstName = done.name.split(' ')[0];
     const hasOptions = done.options && (done.options.hammam || done.options.soireeFestive || done.options.agafay);
@@ -179,8 +191,30 @@ export default function Booking() {
               </div>
             </div>
 
-            {/* Action immédiate selon le mode de paiement choisi (95 € en ligne ou Cash) */}
-            {!isCash && stripeUrl ? (
+            {/* Action immédiate selon le mode de paiement choisi (95 € en ligne, Alma 3x/4x ou Cash) */}
+            {isAlma ? (
+              <div className="vip-alma-step-box">
+                <div className="vip-stripe-step-text">
+                  <span className="vip-step-pill alma">
+                    <AlmaLogo height={13} /> Paiement en 2x, 3x ou 4x avec Alma
+                  </span>
+                  <h3>Réglez votre séjour en 3 fois ({alma3x} €) ou 4 fois ({alma4x} €)</h3>
+                  <p>
+                    Cliquez sur le bouton ci-dessous pour finaliser votre règlement échelonné sécurisé avec <strong>Alma</strong> (en 2, 3 ou 4 échéances par carte bancaire pour un total de <strong>{fullStayAmount} €</strong>) :
+                  </p>
+                </div>
+                <a
+                  href={almaLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn vip-alma-cta"
+                >
+                  <AlmaLogo height={16} />
+                  <span>Payer en 3x ({alma3x} €) ou 4x ({alma4x} €) sur Alma</span>
+                  <ExternalLink size={17} />
+                </a>
+              </div>
+            ) : !isCash && stripeUrl ? (
               <div className="vip-stripe-step-box">
                 <div className="vip-stripe-step-text">
                   <span className="vip-step-pill">Dernière étape · Règlement sécurisé de l’acompte</span>
@@ -261,6 +295,8 @@ export default function Booking() {
                   <strong>
                     {isCash
                       ? 'Paiement en espèces (Cash) directement auprès d’Émilie & Virginie'
+                      : isAlma
+                      ? `Paiement en 3x (${alma3x} €) ou 4x (${alma4x} €) avec Alma (sur ${fullStayAmount} €)`
                       : `Acompte de réservation de ${depositAmount} € par carte bancaire (sur ${fullStayAmount} €)`}
                   </strong>
                 </div>
@@ -343,12 +379,79 @@ export default function Booking() {
               <p className="vip-invitation-kicker">{e.title.toUpperCase()}</p>
               <h1>Réservez votre place parmi nous</h1>
               <p className="vip-invitation-lead">
-                « Quel bonheur de vous accueillir pour cette parenthèse rien que pour vous ! Indiquez votre e-mail et votre numéro de téléphone ci-dessous, choisissez votre mode de règlement (<strong>{unitDeposit} € de réservation</strong> ou <strong>paiement Cash</strong>), et recevez immédiatement votre belle confirmation d’inscription par mail. »
+                « Quel bonheur de vous accueillir pour cette parenthèse rien que pour vous ! Indiquez votre e-mail et votre numéro de téléphone ci-dessous, choisissez votre mode de règlement (<strong>{unitDeposit} € de réservation</strong>, <strong>paiement en 3x ou 4x avec Alma</strong>, ou <strong>paiement Cash</strong>), et recevez immédiatement votre belle confirmation d’inscription par mail. »
               </p>
             </div>
           </div>
 
-          {/* Rappel élégant de ce qui est compris */}
+          {/* MODES DE RÈGLEMENT EN HAUT DE PAGE : ENTRE LE TEXTE ET LE TABLEAU "PLUS DE 300 € INCLUS" */}
+          <div className="vip-top-payment-banner" aria-label="Modes de règlement disponibles dès le début de la page">
+            <div className="vip-top-payment-header">
+              <span className="vip-top-payment-eyebrow">3 modes de règlement au choix · Cliquez pour sélectionner</span>
+              <span className="vip-top-payment-total">Séjour tout compris : <strong>{unitPrice} € / pers.</strong></span>
+            </div>
+
+            <div className="vip-top-payment-grid">
+              {/* Moyen 1 : 95 € de réservation */}
+              <div
+                role="button"
+                tabIndex={0}
+                onClick={() => setF({ ...f, paymentMethod: 'deposit_95' })}
+                onKeyDown={(ev) => (ev.key === 'Enter' || ev.key === ' ') && setF({ ...f, paymentMethod: 'deposit_95' })}
+                className={`vip-top-pay-pill ${f.paymentMethod === 'deposit_95' ? 'active' : ''}`}
+              >
+                <div className="vip-top-pay-pill-head">
+                  <span className="vip-top-pay-icon"><CreditCard size={16} /></span>
+                  <strong>1. Donner les {depositAmount} € de réservation</strong>
+                </div>
+                <p>Bloquez votre place aujourd’hui par carte bancaire sécurisée (Stripe).</p>
+              </div>
+
+              {/* Moyen 2 : Paiement en 2x, 3x ou 4x avec Alma + Lien direct */}
+              <div
+                role="button"
+                tabIndex={0}
+                onClick={() => setF({ ...f, paymentMethod: 'alma' })}
+                onKeyDown={(ev) => (ev.key === 'Enter' || ev.key === ' ') && setF({ ...f, paymentMethod: 'alma' })}
+                className={`vip-top-pay-pill alma ${f.paymentMethod === 'alma' ? 'active' : ''}`}
+              >
+                <div className="vip-top-pay-pill-head">
+                  <AlmaLogo height={16} />
+                  <strong>2. Paiement en 3x ou 4x avec Alma</strong>
+                </div>
+                <p>
+                  Réglez en <strong>3 × {alma3x} €</strong> ou <strong>4 × {alma4x} €</strong> par carte (aussi disponible en 2x).
+                </p>
+                <a
+                  href={almaLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(ev) => ev.stopPropagation()}
+                  className="vip-top-alma-link"
+                >
+                  <span>Accéder au paiement Alma (3x / 4x)</span>
+                  <ExternalLink size={12} />
+                </a>
+              </div>
+
+              {/* Moyen 3 : Paiement Cash */}
+              <div
+                role="button"
+                tabIndex={0}
+                onClick={() => setF({ ...f, paymentMethod: 'cash' })}
+                onKeyDown={(ev) => (ev.key === 'Enter' || ev.key === ' ') && setF({ ...f, paymentMethod: 'cash' })}
+                className={`vip-top-pay-pill cash ${f.paymentMethod === 'cash' ? 'active' : ''}`}
+              >
+                <div className="vip-top-pay-pill-head">
+                  <span className="vip-top-pay-icon cash"><Banknote size={16} /></span>
+                  <strong>3. Payer en Cash (Espèces)</strong>
+                </div>
+                <p>Confirmez votre place maintenant et réglez en espèces auprès d’Émilie &amp; Virginie.</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Rappel élégant de ce qui est compris ("Plus de 300 € inclus") */}
           <div className="vip-stay-summary-strip">
             <div>
               <strong>Plus de 300 € inclus</strong>
@@ -363,7 +466,7 @@ export default function Booking() {
               <span>{e.lodging || e.location}</span>
             </div>
             <div>
-              <strong>Réservation : {unitDeposit} € ou Cash</strong>
+              <strong>{unitDeposit} €, Alma 3x/4x ou Cash</strong>
               <span>Tarif du séjour : {unitPrice} € / pers. · Confirmation immédiate par mail</span>
             </div>
           </div>
@@ -493,17 +596,19 @@ export default function Booking() {
             </div>
           )}
 
-          {/* ÉTAPE 2 : CHOIX DU MODE DE PAIEMENT (95 € DE RÉSERVATION OU CASH) SUR TOUTES LES PAGES DE RÉSERVATION */}
+          {/* ÉTAPE 2 : CHOIX DU MODE DE PAIEMENT (95 € DE RÉSERVATION, ALMA 3x/4x OU CASH) SUR TOUTES LES PAGES DE RÉSERVATION */}
           <div className="vip-form-section-head" style={{ marginTop: '1.8rem' }}>
             <span className="vip-step-num">2</span>
             <div>
               <h2>Choisissez votre mode de règlement</h2>
-              <p>Vous pouvez donner les <strong>{depositAmount} € de réservation</strong> maintenant par carte ou choisir de <strong>payer en Cash</strong>.</p>
+              <p>
+                Vous pouvez donner les <strong>{depositAmount} € de réservation</strong> maintenant, régler en <strong>3x ou 4x avec Alma</strong>, ou choisir de <strong>payer en Cash</strong>.
+              </p>
             </div>
           </div>
 
           <div className="vip-payment-choices" role="radiogroup" aria-label="Mode de règlement">
-            {/* Option A : 95 € de réservation en ligne */}
+            {/* Option 1 : 95 € de réservation en ligne */}
             <label
               className={`vip-pay-card ${f.paymentMethod === 'deposit_95' ? 'selected' : ''}`}
               onClick={() => setF({ ...f, paymentMethod: 'deposit_95' })}
@@ -529,7 +634,45 @@ export default function Booking() {
               </div>
             </label>
 
-            {/* Option B : Payer Cash (Espèces) */}
+            {/* Option 2 : Paiement en 2x, 3x ou 4x avec Alma */}
+            <label
+              className={`vip-pay-card alma ${f.paymentMethod === 'alma' ? 'selected' : ''}`}
+              onClick={() => setF({ ...f, paymentMethod: 'alma' })}
+            >
+              <input
+                type="radio"
+                name="paymentMethod"
+                value="alma"
+                checked={f.paymentMethod === 'alma'}
+                onChange={() => setF({ ...f, paymentMethod: 'alma' })}
+              />
+              <div className="vip-pay-card-top">
+                <span className="vip-pay-icon alma"><AlmaLogo height={16} /></span>
+                <span className="vip-pay-badge alma">2x · 3x · 4x par carte</span>
+              </div>
+              <h3>Payer en 3x ou 4x avec Alma</h3>
+              <p>
+                Échelonnez le règlement de votre séjour ({fullStayAmount} €) en <strong>3 × {alma3x} €</strong> ou <strong>4 × {alma4x} €</strong> par carte bancaire avec Alma.
+              </p>
+              <div className="vip-pay-alma-link-row">
+                <a
+                  href={almaLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(ev) => ev.stopPropagation()}
+                  className="vip-card-alma-link"
+                >
+                  <span>Lien de paiement Alma (3x / 4x)</span>
+                  <ExternalLink size={13} />
+                </a>
+              </div>
+              <div className="vip-pay-amount">
+                <span>Mensualités Alma :</span>
+                <strong>3 × {alma3x} € ou 4 × {alma4x} €</strong>
+              </div>
+            </label>
+
+            {/* Option 3 : Payer Cash (Espèces) */}
             <label
               className={`vip-pay-card ${f.paymentMethod === 'cash' ? 'selected' : ''}`}
               onClick={() => setF({ ...f, paymentMethod: 'cash' })}
@@ -587,6 +730,11 @@ export default function Booking() {
             ) : f.paymentMethod === 'cash' ? (
               <>
                 <span>Valider mon inscription (Paiement Cash) &amp; recevoir mon mail</span>
+                <ArrowRight size={18} />
+              </>
+            ) : f.paymentMethod === 'alma' ? (
+              <>
+                <span>Valider mon inscription — Payer en 3x ({alma3x} €) ou 4x ({alma4x} €) avec Alma</span>
                 <ArrowRight size={18} />
               </>
             ) : (

@@ -69,7 +69,12 @@ export function createBooking(exp, bookings, form, { demo = true, requirePhone =
   while (existing.has(reference)) reference = makeReference(rand);
   const paymentMethod = form.paymentMethod || 'deposit_95';
   const status = demo ? 'paid_demo' : 'pending';
-  const methodLabel = paymentMethod === 'cash' ? 'Paiement Cash (espèces)' : 'Acompte 95 € en ligne (Stripe)';
+  const methodLabel =
+    paymentMethod === 'cash'
+      ? 'Paiement Cash (espèces)'
+      : paymentMethod === 'alma'
+      ? 'Paiement en 3x ou 4x avec Alma'
+      : 'Acompte 95 € en ligne (Stripe)';
   return {
     ok: true,
     booking: {
@@ -105,6 +110,11 @@ export function toCsv(bookings) {
     if (opt.agafay) labels.push('Escapade Agafay');
     return labels.join(' + ');
   };
-  const rows = bookings.map((b) => [b.reference, b.exp, b.slot, b.name, b.email, b.phone, b.places, b.amount, b.paymentMethod === 'cash' ? 'Cash (Espèces)' : 'Acompte 95€ (Stripe)', b.status, formatOptions(b.options), b.createdAt]);
+  const formatMethod = (m) => {
+    if (m === 'cash') return 'Cash (Espèces)';
+    if (m === 'alma') return 'Alma (2x, 3x ou 4x)';
+    return 'Acompte 95€ (Stripe)';
+  };
+  const rows = bookings.map((b) => [b.reference, b.exp, b.slot, b.name, b.email, b.phone, b.places, b.amount, formatMethod(b.paymentMethod), b.status, formatOptions(b.options), b.createdAt]);
   return [head, ...rows].map((r) => r.map(esc).join(';')).join('\n');
 }

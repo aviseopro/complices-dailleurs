@@ -8,19 +8,26 @@ export const SITE_URL = 'https://complices-dailleurs.vercel.app';
 export function buildConfirmationEmailHtml({ booking, experience, origin = SITE_URL }) {
   const firstName = (booking?.name || 'Chère complice').split(' ')[0];
   const isCash = booking?.paymentMethod === 'cash';
+  const isAlma = booking?.paymentMethod === 'alma';
   const depositUnit = experience?.depositPerPlace || 95;
   const priceUnit = experience?.pricePerPerson || 450;
   const places = Number(booking?.places || 1);
   const depositTotal = depositUnit * places;
   const stayTotal = priceUnit * places;
+  const alma3x = Math.round((stayTotal / 3) * 100) / 100;
+  const alma4x = Math.round((stayTotal / 4) * 100) / 100;
   const photoUrl = `${origin}/img/emilie-virginie-marrakech.jpg`;
 
   const paymentBadge = isCash
     ? 'Paiement en espèces (Cash) auprès d’Émilie & Virginie'
+    : isAlma
+    ? `Paiement en 2x, 3x ou 4x avec Alma (ex. 3 × ${alma3x} € ou 4 × ${alma4x} €)`
     : `Acompte de réservation de ${depositTotal} € (${places > 1 ? `${places} × ${depositUnit} €` : `${depositUnit} €`})`;
 
   const paymentExplanation = isCash
     ? `Vous avez choisi de régler votre participation en espèces (Cash). Votre place est réservée sous la référence ${booking?.reference} ; le règlement s’effectuera directement en main propre auprès d’Émilie et Virginie.`
+    : isAlma
+    ? `Vous avez choisi le paiement en plusieurs fois avec Alma (en 2x, 3x ou 4x par carte bancaire sur un total de ${stayTotal} €). Votre dossier est enregistré sous la référence ${booking?.reference}.`
     : `Vous avez choisi de bloquer votre place avec l’acompte de ${depositTotal} € par carte bancaire sécurisée. Le solde du séjour (${stayTotal - depositTotal} € sur un total de ${stayTotal} €) sera réglé ultérieurement.`;
 
   return `<!DOCTYPE html>
@@ -153,11 +160,14 @@ export function buildConfirmationEmailHtml({ booking, experience, origin = SITE_
 export function buildConfirmationPlainText({ booking, experience }) {
   const firstName = (booking?.name || '').split(' ')[0] || 'Chère complice';
   const isCash = booking?.paymentMethod === 'cash';
+  const isAlma = booking?.paymentMethod === 'alma';
   const depositUnit = experience?.depositPerPlace || 95;
   const priceUnit = experience?.pricePerPerson || 450;
   const places = Number(booking?.places || 1);
   const depositTotal = depositUnit * places;
   const stayTotal = priceUnit * places;
+  const alma3x = Math.round((stayTotal / 3) * 100) / 100;
+  const alma4x = Math.round((stayTotal / 4) * 100) / 100;
 
   return `Bonjour ${firstName},
 
@@ -171,6 +181,8 @@ RÉCAPITULATIF DE VOTRE INSCRIPTION :
 - Mode de règlement : ${
     isCash
       ? 'Paiement en espèces (Cash) directement auprès d’Émilie et Virginie'
+      : isAlma
+      ? `Paiement en 3x ou 4x avec Alma (3 × ${alma3x} € ou 4 × ${alma4x} € — total ${stayTotal} €)`
       : `Acompte de ${depositTotal} € en ligne (sur un total de ${stayTotal} € tout compris)`
   }
 
@@ -194,6 +206,8 @@ export async function sendBookingConfirmationEmail({ booking, experience }) {
   });
   const text = buildConfirmationPlainText({ booking, experience });
   const isCash = booking?.paymentMethod === 'cash';
+  const isAlma = booking?.paymentMethod === 'alma';
+  const paymentShortLabel = isCash ? 'Paiement CASH' : isAlma ? 'Paiement 3x/4x Alma' : 'Acompte 95 €';
 
   const results = { apiSent: false, formSubmitSent: false };
 
@@ -226,7 +240,7 @@ export async function sendBookingConfirmationEmail({ booking, experience }) {
         Accept: 'application/json',
       },
       body: JSON.stringify({
-        _subject: `✨ Nouvelle inscription ${experience?.title || 'Arcachon'} — ${booking?.name} (${isCash ? 'Paiement CASH' : 'Acompte 95 €'}) [${booking?.reference}]`,
+        _subject: `✨ Nouvelle inscription ${experience?.title || 'Arcachon'} — ${booking?.name} (${paymentShortLabel}) [${booking?.reference}]`,
         _replyto: booking?.email,
         email: booking?.email,
         _autoresponse: text,
@@ -239,6 +253,8 @@ export async function sendBookingConfirmationEmail({ booking, experience }) {
         Nombre_de_places: booking?.places,
         Mode_de_paiement: isCash
           ? 'Paiement en espèces (CASH) auprès d’Émilie & Virginie'
+          : isAlma
+          ? 'Paiement en 3x ou 4x par carte bancaire avec Alma'
           : `Acompte de ${booking?.amount || 95} € en ligne (Stripe)`,
       }),
     });
