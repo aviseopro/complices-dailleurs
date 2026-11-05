@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { ArrowRight } from 'lucide-react';
 import { Photo, Reveal } from '../components/ui.jsx';
 
 export default function Story() {
@@ -7,24 +8,51 @@ export default function Story() {
     <section className="section page">
       <div className="wrap">
         <p className="eyebrow">Notre histoire</p>
-        <h1>Émilie &amp; Virginie</h1>
-        <div className="exclu-300-card-box" style={{ maxWidth: '720px', margin: '1rem 0 1.8rem' }}>
-          <span className="exclu-300-card-tag">💎 EXCLUSIF &amp; INÉDIT</span>
-          <strong>Plus de 300 € de soins esthétiques &amp; de cours de yoga INCLUS dans nos séjours entre femmes</strong>
-          <small>Soins visage haute technologie, massages sur-mesure par vos deux esthéticiennes diplômées, Yin &amp; Hatha Yoga — et <strong>Yoga Aérien avec tissus</strong> en Corse !</small>
-        </div>
-        <div className="founders" style={{ marginTop: '1.8rem' }}>
-          <Reveal><Photo src="/img/emilie-virginie-marrakech.jpg" label="Émilie et Virginie à Marrakech" theme="sand" className="portrait zoom" /></Reveal>
-          <Reveal delay={100}>
-            <p>Complices d’ailleurs est né de notre harmonie évidente à toutes les deux. Nous sommes deux femmes simples, authentiques et passionnées par l’humain. Notre souhait le plus cher est d’offrir aux femmes une parenthèse vraie, loin des injonctions du quotidien, où chacune peut venir déposer ses bagages, livrer ses soucis en toute confiance et repartir le cœur et l’esprit plus légers.</p>
-            <ul className="plain">
-              <li><strong>Émilie</strong> — esthéticienne diplômée, experte en soins haute technologie et massages, elle anime également la méditation, les cercles de femmes et les ateliers pour vous aider à déposer vos soucis.</li>
-              <li><strong>Virginie</strong> — esthéticienne diplômée et professeure de yoga diplômée, elle enseigne les séances de Yin Yoga, de Hatha Yoga ainsi que le <strong>Yoga Aérien (dans les tissus suspendus)</strong> en Corse avec douceur et bienveillance.</li>
-            </ul>
-            <blockquote>Ici, tout est simple : on dépose ce qui pèse, on se laisse choyer avec plus de 300 € de soins esthétiques et de yoga inclus, et l’on repart plus légère.</blockquote>
-            <div className="cta-row">
-              <Link to="/experiences/arcachon-entre-femmes" className="btn btn-blue">Découvrir le Bassin d’Arcachon</Link>
-              <Link to="/experiences/corse" className="btn btn-corse">Découvrir la Corse (Yoga Aérien)</Link>
+        <h1>Émilie et Virginie</h1>
+
+        <div className="founders-clean" style={{ marginTop: '2rem' }}>
+          <Reveal>
+            <Photo
+              src="/img/emilie-virginie-marrakech.jpg"
+              label="Émilie et Virginie — Complices d’ailleurs"
+              theme="sand"
+              className="portrait zoom"
+            />
+          </Reveal>
+
+          <Reveal delay={100} className="founders-text-col">
+            <p className="founders-intro">
+              Complices d’ailleurs est né de notre envie de créer des séjours et des journées à taille humaine, où l’on prend le temps de souffler, de partager de bons repas, de bouger à son rythme et de faire quelque chose de ses mains.
+            </p>
+
+            <div className="founder-voice-card">
+              <h3>Émilie · Soins du visage et ateliers créatifs</h3>
+              <p>
+                « Je suis esthéticienne diplômée. Je réalise les soins du visage, dont les soins hydrafacial selon l’expérience, et j’anime les ateliers créatifs. J’aime proposer des moments où l’on prend le temps de faire quelque chose de ses mains, de laisser aller son imagination et de retrouver le plaisir de créer. »
+              </p>
+            </div>
+
+            <div className="founder-voice-card">
+              <h3>Virginie · Yoga</h3>
+              <p>
+                « Je suis professeure de yoga diplômée. Je vous guide dans des séances de Yin et de Hatha Yoga, avec une attention au rythme de chacune. »
+              </p>
+            </div>
+
+            <p style={{ marginTop: '1.2rem', color: 'var(--ink)', lineHeight: 1.68 }}>
+              Que ce soit pour un week-end dans notre loft sur le Bassin d’Arcachon, une escapade en Corse du Sud, un séjour en riad à Marrakech, un trek sur le chemin de Compostelle ou un atelier créatif sur le Bassin, nous vous accompagnons personnellement en petit groupe.
+            </p>
+
+            <div className="cta-row" style={{ marginTop: '1.6rem' }}>
+              <Link to="/experiences/arcachon-entre-femmes" className="btn btn-terra">
+                Découvrir le week-end à Arcachon <ArrowRight size={16} />
+              </Link>
+              <Link to="/#escapades" className="btn btn-ghost">
+                Voir toutes nos escapades
+              </Link>
+              <Link to="/#ateliers" className="btn btn-ghost">
+                Voir nos ateliers
+              </Link>
             </div>
           </Reveal>
         </div>
