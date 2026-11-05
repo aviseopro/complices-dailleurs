@@ -14,7 +14,7 @@ function useParallax() {
     if (m.matches) return;
     const onScroll = () => {
       if (ref.current) {
-        ref.current.style.transform = `translate3d(0, ${Math.min(80, window.scrollY * 0.16)}px, 0) scale(1.04)`;
+        ref.current.style.transform = `translate3d(0, ${Math.min(40, window.scrollY * 0.1)}px, 0)`;
       }
     };
     window.addEventListener('scroll', onScroll, { passive: true });
