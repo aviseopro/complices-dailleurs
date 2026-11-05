@@ -75,6 +75,7 @@ export default function Home() {
   const mkFemmes = experiences.find((e) => e.slug === 'marrakech-entre-femmes');
   const arcaMereEnfant = experiences.find((e) => e.slug === 'arcachon-mere-enfant');
   const atelierEnfant = experiences.find((e) => e.slug === 'atelier-enfant');
+  const journeeCopines = experiences.find((e) => e.slug === 'journee-entre-copines');
 
   const validatedDates =
     arca?.dates && arca.dates.length > 0
@@ -154,7 +155,7 @@ export default function Home() {
               <span className="alv-tag">Prestations incluses dans le programme</span>
               <h2>Plus de 300 € de soins et de yoga inclus dans le week-end</h2>
               <p>
-                Soin du visage haute technologie avec Émilie (rituel Jeunesse ou Glow), massage relaxant, cours d’auto-massage du visage et séance de luminothérapie LED, atelier créatif, ainsi que les séances de Yin et de Hatha Yoga avec Virginie et l’accès au spa et au sauna du loft.
+                Soins du visage (dont soin hydrafacial selon la formule) et massages réalisés par Émilie et Virginie, toutes deux esthéticiennes diplômées, cours d’auto-massage du visage et séance de luminothérapie LED, atelier créatif avec Émilie, séances de Yin et de Hatha Yoga avec Virginie et accès au spa et au sauna du loft.
               </p>
             </div>
 
@@ -229,20 +230,20 @@ export default function Home() {
             <p className="eyebrow">Qui sommes-nous</p>
             <h2>Émilie et Virginie</h2>
             <p className="founders-intro">
-              Nous vous accueillons toutes les deux sur chacune de nos expériences, avec l’envie de créer un cadre simple, chaleureux et soigné où chacune se sent immédiatement à l’aise.
+              <strong>Émilie et Virginie sont toutes les deux esthéticiennes diplômées et réalisent les soins du visage et les massages</strong> lors de vos séjours et journées. Chacune vous accompagne ensuite avec sa spécialité complémentaire : <strong>le yoga avec Virginie</strong> et <strong>les ateliers créatifs avec Émilie</strong>.
             </p>
 
             <div className="founder-voice-card">
-              <h3>Émilie · Soins du visage et ateliers créatifs</h3>
+              <h3>Émilie · Esthéticienne diplômée &amp; ateliers créatifs</h3>
               <p>
-                « Je suis esthéticienne diplômée. Je réalise les soins du visage, dont les soins hydrafacial selon l’expérience, et j’anime les ateliers créatifs. J’aime proposer des moments où l’on prend le temps de faire quelque chose de ses mains, de laisser aller son imagination et de retrouver le plaisir de créer. »
+                « Je suis esthéticienne diplômée. Avec Virginie, nous réalisons les soins du visage — dont les soins hydrafacial selon l’expérience — et les massages bien-être. J’anime également les ateliers créatifs : j’aime proposer des moments où l’on prend le temps de faire quelque chose de ses mains, de laisser aller son imagination et de retrouver le plaisir de créer. »
               </p>
             </div>
 
             <div className="founder-voice-card">
-              <h3>Virginie · Yoga</h3>
+              <h3>Virginie · Esthéticienne diplômée &amp; professeure de yoga</h3>
               <p>
-                « Je suis professeure de yoga diplômée. Je vous guide dans des séances de Yin et de Hatha Yoga, avec une attention au rythme de chacune. »
+                « Je suis moi aussi esthéticienne diplômée et je réalise les soins du visage et les massages à vos côtés. Je suis également professeure de yoga diplômée : je vous guide dans des séances de Yin et de Hatha Yoga, avec une attention au rythme de chacune. »
               </p>
             </div>
 
@@ -279,7 +280,7 @@ export default function Home() {
                     <span className="escapade-loc">Sur le Bassin d’Arcachon</span>
                     <h3>Week-end entre femmes sur le Bassin d’Arcachon</h3>
                     <p>
-                      Week-end en loft privatisé avec spa et sauna : soin du visage et atelier créatif avec Émilie, Yin et Hatha Yoga avec Virginie, balades et repas partagés.
+                      Week-end en loft privatisé avec spa et sauna : soins du visage et massages avec Émilie et Virginie (toutes deux esthéticiennes diplômées), Yin et Hatha Yoga avec Virginie, atelier créatif avec Émilie, balades et repas partagés.
                     </p>
                     <p className="escapade-meta">
                       <strong>Du 29 au 31 janvier 2027</strong> · <strong>450 € / pers.</strong> · Acompte 95 €
@@ -302,7 +303,7 @@ export default function Home() {
                     <span className="escapade-loc">Sartène · Porto-Vecchio · Bonifacio</span>
                     <h3>Corse du Sud entre femmes</h3>
                     <p>
-                      Villa de charme, soins esthétiques avec Émilie, yoga sur la plage et yoga aérien (avec tissus) avec Virginie, sortie en canoë vers l’île de Piana et bain sonore.
+                      Villa de charme, soins esthétiques et massages avec Émilie et Virginie, yoga sur la plage et yoga aérien (avec tissus) avec Virginie, sortie en canoë vers l’île de Piana et bain sonore.
                     </p>
                     <p className="escapade-meta">
                       Groupe de 8 femmes · Dates et tarif définitif à venir
@@ -384,21 +385,53 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 5. NOS ATELIERS */}
+      {/* 5. NOS JOURNÉES & ATELIERS */}
       <section className="section sand" id="ateliers">
         <div className="wrap home-wrap">
           <Reveal className="section-head-clean">
-            <p className="eyebrow">Sur le Bassin d’Arcachon</p>
-            <h2>Nos ateliers</h2>
+            <p className="eyebrow">Près de Bordeaux &amp; sur le Bassin d’Arcachon</p>
+            <h2>Nos journées &amp; ateliers</h2>
             <p className="section-sub-clean">
-              Des journées mère-enfant à partager ensemble et des rendez-vous créatifs où les enfants façonnent de leurs mains un objet qu’ils rapportent à la maison.
+              Une journée entre copines à la carte près de Bordeaux, des journées mère-enfant à partager ensemble et des rendez-vous créatifs pour les enfants.
             </p>
           </Reveal>
 
           <div className="ateliers-grid2">
-            {/* Atelier 1 : Journées mère-enfant sur le Bassin */}
+            {/* Carte 1 : Une journée entre copines */}
+            <Reveal>
+              <article className="escapade-card atelier-card featured">
+                <Link to="/experiences/journee-entre-copines" className="escapade-img-link">
+                  <img
+                    src={journeeCopines?.image || '/img/villa-jacuzzi.jpg'}
+                    alt="Une journée entre copines"
+                    loading="lazy"
+                  />
+                  <span className="escapade-status-pill open">À la carte · Bordeaux &amp; environs</span>
+                </Link>
+                <div className="escapade-body">
+                  <span className="escapade-loc">Soins, yoga et détente à la carte près de Bordeaux</span>
+                  <h3>Une journée entre copines</h3>
+                  <p>
+                    Enfin une journée où l’on prend le temps de se retrouver : soins du visage et massages réalisés par Émilie et Virginie (toutes deux esthéticiennes diplômées), yoga avec Virginie, atelier créatif avec Émilie et détente au jacuzzi ou au sauna selon le loft retenu.
+                  </p>
+                  <p className="escapade-meta">
+                    Bordeaux &amp; environs · Lieu, déroulé et tarif adaptés à votre groupe
+                  </p>
+                  <div className="home-card-actions">
+                    <Link to="/experiences/journee-entre-copines" className="btn btn-terra btn-sm">
+                      Découvrir la journée
+                    </Link>
+                    <Link to="/experiences/journee-entre-copines#organiser" className="btn btn-ghost btn-sm">
+                      Organiser notre journée
+                    </Link>
+                  </div>
+                </div>
+              </article>
+            </Reveal>
+
+            {/* Carte 2 : Journées mère-enfant sur le Bassin */}
             {arcaMereEnfant && (
-              <Reveal>
+              <Reveal delay={70}>
                 <article className="escapade-card atelier-card">
                   <Link to="/experiences/arcachon-mere-enfant" className="escapade-img-link">
                     <img src={arcaMereEnfant.image} alt="Journées mère-enfant sur le Bassin" loading="lazy" />
@@ -419,9 +452,9 @@ export default function Home() {
               </Reveal>
             )}
 
-            {/* Atelier 2 : Ateliers créatifs pour enfants */}
+            {/* Carte 3 : Ateliers créatifs pour enfants */}
             {atelierEnfant && (
-              <Reveal delay={100}>
+              <Reveal delay={120}>
                 <article className="escapade-card atelier-card">
                   <Link to="/experiences/atelier-enfant" className="escapade-img-link">
                     <img src={atelierEnfant.image} alt="Ateliers créatifs pour enfants" loading="lazy" />

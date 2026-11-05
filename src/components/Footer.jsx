@@ -18,6 +18,7 @@ export default function Footer() {
         <div>
           <h3>Explorer</h3>
           <Link to="/experiences/arcachon-entre-femmes">Bassin d’Arcachon — Entre femmes</Link>
+          <Link to="/experiences/journee-entre-copines">Une journée entre copines — Près de Bordeaux</Link>
           <Link to="/experiences/corse">Corse du Sud — Entre femmes</Link>
           <Link to="/experiences/trek-compostelle">Trek au féminin — Compostelle</Link>
           <Link to="/experiences/arcachon-mere-enfant">Bassin d’Arcachon — Ateliers Mère-Enfant</Link>

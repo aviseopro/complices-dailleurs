@@ -1245,3 +1245,94 @@ blockquote{font:italic 1.6rem var(--serif);color:var(--navy);border-left:3px sol
 .mk-dual-btn strong{font-size:.89rem;color:#2a2420;font-weight:600}
 .mk-dual-btn span{font-size:.76rem;color:#544840;line-height:1.32}
 .mk-dual-btn svg{color:var(--terra);flex-shrink:0}
+.founders-common-lead{font-size:.91rem;line-height:1.58;color:#3d332c;margin:0 0 .25rem}
+
+/* ==========================================================================
+   PAGE DÉDIÉE « UNE JOURNÉE ENTRE COPINES »
+   ========================================================================== */
+.friends-hero{padding:7.8rem 0 3.2rem;background:linear-gradient(180deg,#f5ece0 0%,#faf6ef 100%);border-bottom:1px solid #e8d9c5}
+@media(max-width:768px){
+  .friends-hero{padding:6.6rem 0 2.4rem}
+}
+.friends-hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:2.2rem;align-items:center}
+@media(max-width:860px){
+  .friends-hero-grid{grid-template-columns:1fr;gap:1.5rem}
+}
+.friends-hero-text h1{font-size:clamp(2.15rem,3.8vw,3.1rem);color:#2a2420;margin:0 0 .55rem;line-height:1.1}
+.friends-hero-hook{font-family:var(--serif);font-size:clamp(1.25rem,1.9vw,1.52rem);color:var(--terra);margin:0 0 .85rem;line-height:1.3}
+.friends-hero-lead{font-size:.98rem;line-height:1.68;color:#3d332c;margin:0}
+.friends-hero-img-card{position:relative;border-radius:20px;overflow:hidden;box-shadow:0 16px 38px rgba(42,36,32,.12);border:1px solid #dfd0bc;max-height:360px}
+.friends-hero-img-card img{width:100%;height:340px;object-fit:cover;display:block}
+.friends-hero-badge{position:absolute;bottom:.85rem;left:.85rem;display:inline-flex;align-items:center;gap:.38rem;background:rgba(250,246,239,.95);color:#2a2420;font-size:.74rem;font-weight:600;padding:.34rem .78rem;border-radius:999px;box-shadow:0 6px 18px rgba(0,0,0,.15)}
+.friends-hero-badge svg{color:var(--terra)}
+
+/* Quatre blocs courts */
+.friends-four-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.2rem}
+@media(max-width:740px){
+  .friends-four-grid{grid-template-columns:1fr}
+}
+.friends-block-card{background:#fff;border:1px solid #e5d6c2;border-radius:18px;overflow:hidden;box-shadow:0 8px 24px rgba(42,36,32,.05);display:flex;flex-direction:column}
+.friends-block-img{position:relative;height:190px;overflow:hidden;background:#efe5d8}
+.friends-block-img img{width:100%;height:100%;object-fit:cover;transition:transform .45s ease}
+.friends-block-card:hover .friends-block-img img{transform:scale(1.04)}
+.friends-block-icon{position:absolute;top:.75rem;left:.75rem;width:36px;height:36px;border-radius:50%;background:rgba(250,246,239,.95);color:var(--terra);display:inline-flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,.12)}
+.friends-block-body{padding:1.2rem 1.3rem 1.35rem}
+.friends-block-body h3{font-size:1.24rem;color:#2a2420;margin:0 0 .42rem;line-height:1.25}
+.friends-block-body p{font-size:.9rem;line-height:1.6;color:#4a3f38;margin:0}
+
+/* Galerie regroupée par loft avec équipements confirmés */
+.lofts-stack{display:flex;flex-direction:column;gap:1.5rem}
+.loft-group-card{background:#fff;border:1px solid #e2d2bd;border-radius:20px;padding:1.45rem 1.55rem;box-shadow:0 10px 28px rgba(42,36,32,.05)}
+.loft-group-head h3{font-size:1.4rem;color:#2a2420;margin:0 0 .25rem}
+.loft-group-head p{font-size:.9rem;color:#544840;margin:0 0 1rem}
+.loft-equipments-wrap{background:#faf5ed;border:1px solid #eadbc7;border-radius:14px;padding:.85rem 1.05rem;margin-bottom:1.15rem}
+.loft-eq-label{display:block;font-size:.7rem;text-transform:uppercase;letter-spacing:.12em;font-weight:700;color:var(--terra);margin-bottom:.5rem}
+.loft-eq-pills{display:flex;flex-wrap:wrap;gap:.45rem}
+.loft-eq-pill{display:inline-flex;align-items:center;gap:.3rem;background:#fff;border:1px solid #dfd0bc;border-radius:999px;padding:.24rem .68rem;font-size:.78rem;color:#2a2420;font-weight:500}
+.loft-eq-pill svg{color:var(--terra);flex-shrink:0}
+.loft-photos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.85rem}
+@media(max-width:780px){
+  .loft-photos-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:520px){
+  .loft-photos-grid{grid-template-columns:1fr}
+}
+.loft-photo-item{position:relative;border:0;padding:0;border-radius:13px;overflow:hidden;background:#efe5d8;cursor:pointer;text-align:left;height:165px;display:block}
+.loft-photo-item img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease}
+.loft-photo-item:hover img{transform:scale(1.04)}
+.loft-photo-item span{position:absolute;inset:auto 0 0 0;background:linear-gradient(0deg,rgba(24,18,14,.74) 0%,transparent 100%);color:#fff;font-size:.74rem;padding:1.2rem .65rem .48rem;line-height:1.25}
+.loft-coming-soon-box{background:#faf6ef;border:1px dashed #d5c3ab;border-radius:13px;padding:1.1rem 1.25rem;color:#544840;font-size:.88rem}
+.loft-coming-soon-box p{margin:0}
+
+/* Formulaire Demande personnalisée « Organiser notre journée » */
+.friends-request-card{background:#fff;border:1px solid #dfd0bc;border-radius:22px;padding:clamp(1.4rem,3vw,2.2rem);box-shadow:0 16px 40px rgba(42,36,32,.07)}
+.friends-request-head{max-width:620px;margin-bottom:1.4rem}
+.friends-request-head h2{font-size:clamp(1.75rem,3vw,2.35rem);color:#2a2420;margin:.18rem 0 .45rem}
+.friends-closing-promise{font-size:.98rem;line-height:1.6;color:#3d332c;margin:0}
+.friends-request-form{display:flex;flex-direction:column;gap:1.1rem}
+.frf-grid2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.frf-grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+@media(max-width:740px){
+  .frf-grid2,.frf-grid3{grid-template-columns:1fr}
+}
+.frf-field{display:flex;flex-direction:column;gap:.35rem;font-size:.85rem;font-weight:500;color:#2a2420}
+.frf-field span{display:inline-flex;align-items:center;gap:.35rem}
+.frf-field span svg{color:var(--terra)}
+.frf-field input,.frf-field textarea{width:100%;padding:.72rem .9rem;border-radius:11px;border:1px solid #d8c7b0;background:#faf6ef;font:400 .92rem var(--sans);color:#2a2420}
+.frf-field input:focus,.frf-field textarea:focus{outline:2px solid var(--terra);background:#fff}
+
+.frf-activities-group{display:flex;flex-direction:column;gap:.55rem}
+.frf-group-label{font-size:.86rem;font-weight:600;color:#2a2420}
+.frf-activities-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.6rem}
+@media(max-width:700px){
+  .frf-activities-grid{grid-template-columns:1fr}
+}
+.frf-activity-choice{display:flex;align-items:center;gap:.65rem;background:#faf6ef;border:1.5px solid #e2d2bd;border-radius:12px;padding:.68rem .88rem;cursor:pointer;font-size:.86rem;line-height:1.35;color:#2a2420;transition:all .2s ease}
+.frf-activity-choice input{position:absolute;opacity:0;pointer-events:none}
+.frf-activity-choice.is-checked{background:#fff8f2;border-color:var(--terra);box-shadow:0 4px 12px rgba(168,85,58,.1)}
+.frf-check-box{width:20px;height:20px;border-radius:6px;border:1.5px solid #bfa88e;background:#fff;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;color:#fff}
+.frf-activity-choice.is-checked .frf-check-box{background:var(--terra);border-color:var(--terra)}
+.frf-closing-line{background:#faf5ed;border-left:4px solid var(--terra);border-radius:0 12px 12px 0;padding:.85rem 1.1rem;margin:.2rem 0;font-size:.93rem;color:#2a2420}
+.frf-actions{display:flex;flex-wrap:wrap;gap:.75rem;align-items:center}
+.friends-request-done{text-align:center;background:#faf6ef;border:1px solid #dfd0bc;border-radius:16px;padding:1.8rem 1.4rem}
+.frd-badge{display:inline-flex;align-items:center;gap:.4rem;background:#e3f1e1;color:#1d4d2b;font-size:.78rem;font-weight:600;padding:.3rem .85rem;border-radius:999px;margin-bottom:.75rem}

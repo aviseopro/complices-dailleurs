@@ -9,6 +9,7 @@ import VillaShowcase from '../components/VillaShowcase.jsx';
 import MotherChildShowcase from '../components/MotherChildShowcase.jsx';
 import KidsWorkshopShowcase from '../components/KidsWorkshopShowcase.jsx';
 import CorsicaShowcase from '../components/CorsicaShowcase.jsx';
+import FriendsDayShowcase from '../components/FriendsDayShowcase.jsx';
 import { useData, euro } from '../data/store.js';
 import { seatsLeft } from '../lib/booking.js';
 
@@ -26,6 +27,10 @@ const COND_LABELS = {
 export default function Experience() {
   const { slug } = useParams();
   const { experiences, bookings, settings } = useData();
+  if (slug === 'journee-entre-copines') {
+    document.title = 'Une journée entre copines — Complices d’ailleurs';
+    return <FriendsDayShowcase />;
+  }
   const e = experiences.find((x) => x.slug === slug);
   if (!e)
     return (
@@ -224,7 +229,7 @@ export default function Experience() {
                 </Reveal>
               )}
 
-              {/* Présentation harmonisée d'Émilie et Virginie à la première personne sur chaque fiche */}
+              {/* Présentation harmonisée d'Émilie et Virginie sur chaque fiche */}
               <Reveal>
                 <div className="exp-founders-harmonized">
                   <div className="exp-founders-photo-col">
@@ -234,19 +239,22 @@ export default function Experience() {
                       className="exp-founders-avatar"
                     />
                     <strong>Émilie &amp; Virginie</strong>
-                    <span>Vos deux accompagnatrices</span>
+                    <span>Toutes deux esthéticiennes diplômées</span>
                   </div>
                   <div className="exp-founders-voices">
+                    <p className="founders-common-lead">
+                      <strong>Émilie et Virginie sont toutes les deux esthéticiennes diplômées et réalisent les soins du visage et les massages.</strong> Elles vous accompagnent ensuite chacune avec leur spécialité complémentaire : <strong>le yoga avec Virginie</strong> et <strong>les ateliers créatifs avec Émilie</strong>.
+                    </p>
                     <div className="founder-voice-card">
-                      <h3>Émilie · Soins du visage et ateliers créatifs</h3>
+                      <h3>Émilie · Esthéticienne diplômée &amp; ateliers créatifs</h3>
                       <p>
-                        « Je suis esthéticienne diplômée. Je réalise les soins du visage, dont les soins hydrafacial selon l’expérience, et j’anime les ateliers créatifs. J’aime proposer des moments où l’on prend le temps de faire quelque chose de ses mains, de laisser aller son imagination et de retrouver le plaisir de créer. »
+                        « Je suis esthéticienne diplômée. Avec Virginie, nous réalisons les soins du visage — dont les soins hydrafacial selon l’expérience — et les massages bien-être. J’anime également les ateliers créatifs : j’aime proposer des moments où l’on prend le temps de faire quelque chose de ses mains, de laisser aller son imagination et de retrouver le plaisir de créer. »
                       </p>
                     </div>
                     <div className="founder-voice-card">
-                      <h3>Virginie · Yoga</h3>
+                      <h3>Virginie · Esthéticienne diplômée &amp; professeure de yoga</h3>
                       <p>
-                        « Je suis professeure de yoga diplômée. Je vous guide dans des séances de Yin et de Hatha Yoga, avec une attention au rythme de chacune. »
+                        « Je suis moi aussi esthéticienne diplômée et je réalise les soins du visage et les massages à vos côtés. Je suis également professeure de yoga diplômée : je vous guide dans des séances de Yin et de Hatha Yoga, avec une attention au rythme de chacune. »
                       </p>
                     </div>
                   </div>

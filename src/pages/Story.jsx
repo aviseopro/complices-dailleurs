@@ -22,36 +22,36 @@ export default function Story() {
 
           <Reveal delay={100} className="founders-text-col">
             <p className="founders-intro">
-              Complices d’ailleurs est né de notre envie de créer des séjours et des journées à taille humaine, où l’on prend le temps de souffler, de partager de bons repas, de bouger à son rythme et de faire quelque chose de ses mains.
+              Complices d’ailleurs est né de notre envie de créer des séjours et des journées à taille humaine, où l’on prend le temps de souffler, de partager de bons repas, de bouger à son rythme et de faire quelque chose de ses mains. <strong>Toutes les deux esthéticiennes diplômées, nous réalisons les soins du visage et les massages bien-être</strong>, puis nous vous accompagnons chacune avec notre spécialité complémentaire : <strong>le yoga avec Virginie</strong> et <strong>les ateliers créatifs avec Émilie</strong>.
             </p>
 
             <div className="founder-voice-card">
-              <h3>Émilie · Soins du visage et ateliers créatifs</h3>
+              <h3>Émilie · Esthéticienne diplômée &amp; ateliers créatifs</h3>
               <p>
-                « Je suis esthéticienne diplômée. Je réalise les soins du visage, dont les soins hydrafacial selon l’expérience, et j’anime les ateliers créatifs. J’aime proposer des moments où l’on prend le temps de faire quelque chose de ses mains, de laisser aller son imagination et de retrouver le plaisir de créer. »
+                « Je suis esthéticienne diplômée. Avec Virginie, nous réalisons les soins du visage — dont les soins hydrafacial selon l’expérience — et les massages bien-être. J’anime également les ateliers créatifs : j’aime proposer des moments où l’on prend le temps de faire quelque chose de ses mains, de laisser aller son imagination et de retrouver le plaisir de créer. »
               </p>
             </div>
 
             <div className="founder-voice-card">
-              <h3>Virginie · Yoga</h3>
+              <h3>Virginie · Esthéticienne diplômée &amp; professeure de yoga</h3>
               <p>
-                « Je suis professeure de yoga diplômée. Je vous guide dans des séances de Yin et de Hatha Yoga, avec une attention au rythme de chacune. »
+                « Je suis moi aussi esthéticienne diplômée et je réalise les soins du visage et les massages à vos côtés. Je suis également professeure de yoga diplômée : je vous guide dans des séances de Yin et de Hatha Yoga, avec une attention au rythme de chacune. »
               </p>
             </div>
 
             <p style={{ marginTop: '1.2rem', color: 'var(--ink)', lineHeight: 1.68 }}>
-              Que ce soit pour un week-end dans notre loft sur le Bassin d’Arcachon, une escapade en Corse du Sud, un séjour en riad à Marrakech, un trek sur le chemin de Compostelle ou un atelier créatif sur le Bassin, nous vous accompagnons personnellement en petit groupe.
+              Que ce soit pour un week-end dans notre loft sur le Bassin d’Arcachon, une journée entre copines près de Bordeaux, une escapade en Corse du Sud, un séjour en riad à Marrakech, un trek sur le chemin de Compostelle ou un atelier créatif sur le Bassin, nous vous accompagnons personnellement en petit groupe.
             </p>
 
             <div className="cta-row" style={{ marginTop: '1.6rem' }}>
               <Link to="/experiences/arcachon-entre-femmes" className="btn btn-terra">
-                Découvrir le week-end à Arcachon <ArrowRight size={16} />
+                Découvrir le week-end sur le Bassin d’Arcachon <ArrowRight size={16} />
               </Link>
-              <Link to="/#escapades" className="btn btn-ghost">
-                Voir toutes nos escapades
+              <Link to="/experiences/journee-entre-copines" className="btn btn-ghost">
+                Une journée entre copines
               </Link>
               <Link to="/#ateliers" className="btn btn-ghost">
-                Voir nos ateliers
+                Voir nos journées &amp; ateliers
               </Link>
             </div>
           </Reveal>

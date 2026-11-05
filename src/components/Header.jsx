@@ -19,6 +19,7 @@ export default function Header() {
     pathname.includes('trek-compostelle');
 
   const isAtelierActive =
+    pathname.includes('journee-entre-copines') ||
     pathname.includes('arcachon-mere-enfant') ||
     pathname.includes('atelier-enfant');
 
@@ -101,7 +102,7 @@ export default function Header() {
             </div>
           </div>
 
-          {/* 2. Nos ateliers (avec menu déroulant dynamique + ancre #ateliers) */}
+          {/* 2. Nos journées & ateliers (avec menu déroulant dynamique + ancre #ateliers) */}
           <div
             className={`nav-dropdown ${atelOpen ? 'is-open' : ''}`}
             ref={atelRef}
@@ -114,10 +115,14 @@ export default function Header() {
               aria-expanded={atelOpen}
               onClick={() => setAtelOpen((v) => !v)}
             >
-              <span>Nos ateliers</span>
+              <span>Nos journées &amp; ateliers</span>
               <ChevronDown size={14} className="nav-chev" />
             </button>
             <div className="nav-drop-menu" role="menu">
+              <NavLink to="/experiences/journee-entre-copines" onClick={close} className="drop-item drop-arcachon" role="menuitem">
+                <strong>Une journée entre copines</strong>
+                <small>Soins, yoga et détente à la carte près de Bordeaux</small>
+              </NavLink>
               <NavLink to="/experiences/arcachon-mere-enfant" onClick={close} className="drop-item drop-mere-enfant" role="menuitem">
                 <strong>Journées mère-enfant sur le Bassin</strong>
                 <small>Yoga en duo, massage complice, spa mamans &amp; atelier créatif</small>
@@ -127,7 +132,7 @@ export default function Header() {
                 <small>Argile, mosaïque &amp; bijoux en pâte Fimo sur le Bassin</small>
               </NavLink>
               <Link to="/#ateliers" onClick={close} className="drop-item-footer" role="menuitem">
-                Voir tous nos ateliers sur l’accueil →
+                Voir toutes nos journées &amp; ateliers sur l’accueil →
               </Link>
             </div>
           </div>

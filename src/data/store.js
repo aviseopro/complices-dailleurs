@@ -38,7 +38,7 @@ function load() {
       const exps = defaultData.experiences.map((def) => {
         const cur = have.get(def.slug);
         if (!cur) return def;
-        const isLegacyArca = def.slug === 'arcachon-entre-femmes' && (!cur.lodging?.includes('Sauna') || cur.included?.[0]?.includes('90 €') || cur.capacity == null || !cur.included?.[0]?.includes('hydrafacial') || !cur.dates?.length);
+        const isLegacyArca = def.slug === 'arcachon-entre-femmes' && (!cur.lodging?.includes('Sauna') || cur.included?.[0]?.includes('90 €') || cur.capacity == null || !cur.included?.[0]?.includes('hydrafacial') || !cur.dates?.length || !cur.intro?.includes('toutes deux esthéticiennes diplômées'));
         const isLegacyArcaMe = def.slug === 'arcachon-mere-enfant' && (cur.kind === 'future' || !cur.program?.length || !cur.intro?.includes('pâte Fimo'));
         const isLegacyTrek = def.slug === 'trek-compostelle' && (cur.kind === 'future' || !cur.included?.[1]?.includes('Pranayama'));
         const isLegacyCorse = def.slug === 'corse' && (cur.kind === 'future' || !cur.program?.length || !cur.intro?.includes('Yoga Aérien'));
