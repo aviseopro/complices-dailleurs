@@ -250,7 +250,9 @@ export default function HeroCinemagraph({
         const visibleW = c_ar / i_ar;
         sx = visibleW;
         sy = 1.0;
-        ox = 0.5 * (1.0 - visibleW);
+        // Sur mobile, ancre à 34% horizontalement pour garder la cabane sur l'eau visible
+        const anchorX = window.innerWidth <= 768 ? 0.34 : 0.5;
+        ox = anchorX * (1.0 - visibleW);
         oy = 0.0;
       }
 

@@ -1,10 +1,27 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Calendar } from 'lucide-react';
 import { Photo, Reveal } from '../components/ui.jsx';
+import HeroCinemagraph from '../components/HeroCinemagraph.jsx';
 import Faq from '../components/Faq.jsx';
 import Newsletter from '../components/Newsletter.jsx';
 import { useData } from '../data/store.js';
+
+function useParallax() {
+  const ref = useRef(null);
+  useEffect(() => {
+    const m = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (m.matches) return;
+    const onScroll = () => {
+      if (ref.current) {
+        ref.current.style.transform = `translate3d(0, ${Math.min(80, window.scrollY * 0.16)}px, 0) scale(1.04)`;
+      }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+  return ref;
+}
 
 const arcachonMoments = [
   {
@@ -24,7 +41,6 @@ const arcachonMoments = [
   },
 ];
 
-// Adapte les boutons d'une carte au statut réel de l'expérience
 function ExperienceCardActions({ exp, defaultDiscoverLabel = 'Découvrir l’expérience' }) {
   const hasConfirmedBooking =
     exp &&
@@ -52,11 +68,11 @@ function ExperienceCardActions({ exp, defaultDiscoverLabel = 'Découvrir l’exp
 
 export default function Home() {
   const { settings, experiences, testimonials } = useData();
+  const px = useParallax();
   const arca = experiences.find((e) => e.slug === 'arcachon-entre-femmes');
   const corse = experiences.find((e) => e.slug === 'corse');
   const trek = experiences.find((e) => e.slug === 'trek-compostelle');
   const mkFemmes = experiences.find((e) => e.slug === 'marrakech-entre-femmes');
-  const mkMereEnfant = experiences.find((e) => e.slug === 'marrakech-mere-enfant');
   const arcaMereEnfant = experiences.find((e) => e.slug === 'arcachon-mere-enfant');
   const atelierEnfant = experiences.find((e) => e.slug === 'atelier-enfant');
 
@@ -67,17 +83,18 @@ export default function Home() {
 
   return (
     <>
-      {/* 1. PREMIER ÉCRAN : PHOTO ACTUELLE DU BASSIN D'ARCACHON (CABANE SUR L'EAU, PINASSES & DUNE) */}
+      {/* 1. PREMIER ÉCRAN DYNAMIQUE (CINEMAGRAPH / VIDÉO HAUTE QUALITÉ DU BASSIN D'ARCACHON) */}
       <section className="hero hero-clean">
         <div className="hero-bg">
-          <img
+          <HeroCinemagraph
+            containerRef={px}
             src={settings.heroImage || '/img/hero-arcachon-net.jpg'}
+            videoSrc={settings.heroVideo}
             alt="Bassin d’Arcachon, cabane sur l’eau, pinasses et dune"
-            className="hero-arcachon-photo"
           />
         </div>
         <div className="hero-shade hero-shade-soft" />
-        <div className="wrap hero-in hero-single">
+        <div className="wrap home-wrap hero-in hero-single">
           <div className="hero-content-box">
             <div className="hero-kicker-row">
               <p className="hero-kicker">BASSIN D’ARCACHON · WEEK-END ENTRE FEMMES</p>
@@ -106,9 +123,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* BLOC LÉGER JUSTE EN DESSOUS DU PREMIER ÉCRAN : VALEUR DES PRESTATIONS VS TARIF DU SÉJOUR */}
+      {/* BLOC LÉGER ET COMPACT JUSTE EN DESSOUS DU PREMIER ÉCRAN */}
       <section className="arca-value-bar-wrap" aria-label="Prestations incluses et tarif du week-end Bassin d'Arcachon">
-        <div className="wrap">
+        <div className="wrap home-wrap">
           <div className="arca-light-value-box">
             <div className="alv-left">
               <span className="alv-tag">Prestations incluses dans le programme</span>
@@ -122,13 +139,15 @@ export default function Home() {
 
             <div className="alv-right">
               <span className="alv-price-label">Tarif du séjour tout compris</span>
-              <strong className="alv-price-figure">{arca?.pricePerPerson || 450} € <span>/ personne</span></strong>
+              <strong className="alv-price-figure">
+                {arca?.pricePerPerson || 450} € <span>/ personne</span>
+              </strong>
               <p className="alv-price-note">
                 Hébergement en loft privatisé, repas et soins inclus · Réservation avec {arca?.depositPerPlace || 95} € d’acompte
               </p>
               <div className="alv-actions">
                 <Link to="/experiences/arcachon-entre-femmes" className="alv-link">
-                  Voir le programme et le lieu <ArrowRight size={15} />
+                  Voir le programme <ArrowRight size={14} />
                 </Link>
                 <Link to="/reserver/arcachon-entre-femmes" className="btn btn-terra btn-sm">
                   Réserver
@@ -139,9 +158,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 2. CE QUE L'ON VIT À ARCACHON (3 ENTRÉES COURTES ET VISUELLES) */}
+      {/* 2. CE QUE L'ON VIT À ARCACHON */}
       <section className="section home-moments-section" id="arcachon">
-        <div className="wrap">
+        <div className="wrap home-wrap">
           <Reveal className="section-head-clean">
             <p className="eyebrow">Bassin d’Arcachon · L’esprit du week-end</p>
             <h2>Ce que l’on vit à Arcachon</h2>
@@ -171,9 +190,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 3. ÉMILIE ET VIRGINIE (VRAIE PHOTO + PRÉSENTATIONS À LA PREMIÈRE PERSONNE) */}
+      {/* 3. ÉMILIE ET VIRGINIE */}
       <section className="section sand" id="histoire">
-        <div className="wrap founders-clean">
+        <div className="wrap home-wrap founders-clean">
           <Reveal>
             <Photo
               src="/img/emilie-virginie-marrakech.jpg"
@@ -204,7 +223,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div style={{ marginTop: '1.4rem' }}>
+            <div style={{ marginTop: '1.25rem' }}>
               <Link to="/notre-histoire" className="btn btn-ghost">
                 Découvrir notre histoire <ArrowRight size={16} />
               </Link>
@@ -215,7 +234,7 @@ export default function Home() {
 
       {/* 4. NOS ESCAPADES */}
       <section className="section" id="escapades">
-        <div className="wrap">
+        <div className="wrap home-wrap">
           <Reveal className="section-head-clean">
             <p className="eyebrow">Séjours en petit groupe</p>
             <h2>Nos escapades</h2>
@@ -237,10 +256,10 @@ export default function Home() {
                     <span className="escapade-loc">Bassin d’Arcachon</span>
                     <h3>Bassin d’Arcachon entre femmes</h3>
                     <p>
-                      Un week-end dans un loft privatisé avec piscine chauffée, spa et sauna : soin du visage et atelier créatif avec Émilie, Yin et Hatha Yoga avec Virginie, balades sous les pins et repas partagés.
+                      Week-end en loft privatisé avec spa et sauna : soin du visage et atelier créatif avec Émilie, Yin et Hatha Yoga avec Virginie, balades et repas partagés.
                     </p>
                     <p className="escapade-meta">
-                      <strong>450 € / personne</strong> · Acompte de 95 € · Plus de 300 € de soins et de yoga inclus
+                      <strong>450 € / pers.</strong> · Acompte 95 € · Plus de 300 € de soins &amp; yoga inclus
                     </p>
                     <ExperienceCardActions exp={arca} defaultDiscoverLabel="Découvrir l’expérience" />
                   </div>
@@ -260,7 +279,7 @@ export default function Home() {
                     <span className="escapade-loc">Sartène · Porto-Vecchio · Bonifacio</span>
                     <h3>Corse du Sud entre femmes</h3>
                     <p>
-                      Villa de charme, soins esthétiques avec Émilie, séances de yoga sur la plage et de yoga aérien (avec tissus) avec Virginie, sortie en canoë vers l’île de Piana et bain sonore.
+                      Villa de charme, soins esthétiques avec Émilie, yoga sur la plage et yoga aérien (avec tissus) avec Virginie, sortie en canoë vers l’île de Piana et bain sonore.
                     </p>
                     <p className="escapade-meta">
                       Groupe de 8 femmes · Dates et tarif définitif à venir
@@ -286,14 +305,14 @@ export default function Home() {
                   <span className="escapade-loc">Maroc · Riad dans la médina</span>
                   <h3>Marrakech</h3>
                   <p>
-                    Riad de charme, yoga avec Virginie, ateliers créatifs (mosaïque) et bien-être avec Émilie, couleurs des souks et temps pour soi — décliné en deux séjours distincts :
+                    Riad de charme, yoga avec Virginie, ateliers créatifs (mosaïque) et bien-être avec Émilie, couleurs des souks et temps pour soi :
                   </p>
 
                   <div className="marrakech-dual-links" aria-label="Choisir votre séjour à Marrakech">
                     <Link to="/experiences/marrakech-entre-femmes" className="mk-dual-btn">
                       <div>
                         <strong>Entre femmes</strong>
-                        <span>4 jours / 3 nuits · Yoga, massage &amp; atelier mosaïque (6 à 8 femmes)</span>
+                        <span>4 jours / 3 nuits · Yoga, massage &amp; atelier mosaïque</span>
                       </div>
                       <ArrowRight size={16} />
                     </Link>
@@ -301,7 +320,7 @@ export default function Home() {
                     <Link to="/experiences/marrakech-mere-enfant" className="mk-dual-btn">
                       <div>
                         <strong>Mère-enfant</strong>
-                        <span>Ateliers créatifs, activités partagées, souks &amp; temps pour les mamans</span>
+                        <span>Ateliers créatifs, activités partagées, souks &amp; temps mamans</span>
                       </div>
                       <ArrowRight size={16} />
                     </Link>
@@ -331,7 +350,7 @@ export default function Home() {
                       Oser partir marcher entre femmes pendant 2 à 3 jours : éveil corporel et Yin Yoga de récupération avec Virginie, cuisine en pleine nature et veillées au bivouac avec Émilie.
                     </p>
                     <p className="escapade-meta">
-                      Petit groupe de 6 à 10 femmes · Listes de matériel et de courses fournies
+                      Petit groupe de 6 à 10 femmes · Listes fournies en amont
                     </p>
                     <ExperienceCardActions exp={trek} />
                   </div>
@@ -342,9 +361,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 5. NOS ATELIERS (SECTION DISTINCTE) */}
+      {/* 5. NOS ATELIERS */}
       <section className="section sand" id="ateliers">
-        <div className="wrap">
+        <div className="wrap home-wrap">
           <Reveal className="section-head-clean">
             <p className="eyebrow">Sur le Bassin d’Arcachon</p>
             <h2>Nos ateliers</h2>
@@ -366,7 +385,7 @@ export default function Home() {
                     <span className="escapade-loc">Duo Maman &amp; Enfant</span>
                     <h3>Journées mère-enfant sur le Bassin</h3>
                     <p>
-                      Un vrai moment à vivre ensemble dans notre loft avec jardin et piscine : yoga ludique en duo avec Virginie, initiation au massage réciproque maman-enfant, lecture perchée dans le filet suspendu — puis un temps calme au spa pour les mamans pendant qu’Émilie anime l’atelier créatif des enfants.
+                      Un moment à vivre ensemble au loft : yoga ludique en duo avec Virginie, initiation au massage réciproque maman-enfant, lecture perchée dans le filet suspendu — puis temps au spa pour les mamans pendant l’atelier créatif des enfants avec Émilie.
                     </p>
                     <p className="escapade-meta">
                       Mercredis, samedis ou vacances scolaires · Déjeuner et goûter inclus
@@ -389,7 +408,7 @@ export default function Home() {
                     <span className="escapade-loc">Argile · Mosaïque · Pâte Fimo</span>
                     <h3>Ateliers créatifs pour enfants</h3>
                     <p>
-                      Un rendez-vous créatif animé par Émilie autour du modelage de l’argile (vide-poches, petits plats décoratifs), de la mosaïque ou de la création de bijoux en pâte Fimo. Tout le matériel et le goûter sont compris, et chaque enfant repart fier avec sa création.
+                      Un rendez-vous créatif animé par Émilie autour du modelage de l’argile (vide-poches, petits plats décoratifs), de la mosaïque ou des bijoux en pâte Fimo. Chaque enfant repart fier avec sa création.
                     </p>
                     <p className="escapade-meta">
                       Petit groupe de 6 à 10 enfants · Matériel créatif et goûter maison inclus
@@ -405,7 +424,7 @@ export default function Home() {
 
       {testimonials.length > 0 && (
         <section className="section">
-          <div className="wrap">
+          <div className="wrap home-wrap">
             <p className="eyebrow">Elles racontent</p>
             <h2>Témoignages</h2>
             <div className="testi">
