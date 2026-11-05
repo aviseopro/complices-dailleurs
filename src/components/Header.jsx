@@ -48,8 +48,8 @@ export default function Header() {
     <header className={`header ${solid ? 'solid' : ''}`}>
       <div className="header-promo-bar">
         <div className="header-promo-in">
-          <Link to="/experiences/arcachon-entre-femmes" onClick={close} className="header-promo-link">
-            Voyages &amp; expériences au féminin — <span>Découvrez notre week-end sur le Bassin d’Arcachon</span>
+          <Link to="/reserver/arcachon-entre-femmes" onClick={close} className="header-promo-link">
+            Prochaine édition — <span>Réservez notre prochain week-end sur le Bassin d’Arcachon · Du 29 au 31 janvier 2027</span>
           </Link>
         </div>
       </div>

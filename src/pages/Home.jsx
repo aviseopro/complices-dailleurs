@@ -35,7 +35,7 @@ const arcachonMoments = [
     img: '/img/arcachon-yoga-net.jpg',
   },
   {
-    title: 'Du temps sur le Bassin',
+    title: 'Du temps sur le Bassin d’Arcachon',
     text: 'Le spa, les balades et les repas partagés.',
     img: '/img/villa-jacuzzi.jpg',
   },
@@ -79,46 +79,69 @@ export default function Home() {
   const validatedDates =
     arca?.dates && arca.dates.length > 0
       ? arca.dates.map((d) => d.label).filter(Boolean).join(' · ')
-      : null;
+      : 'Du 29 au 31 janvier 2027';
 
   return (
     <>
-      {/* 1. PREMIER ÉCRAN DYNAMIQUE (CINEMAGRAPH / VIDÉO HAUTE QUALITÉ DU BASSIN D'ARCACHON) */}
+      {/* 1. PREMIER ÉCRAN DYNAMIQUE (CINEMAGRAPH / VIDÉO PLEINE LARGEUR SUR LE BASSIN D'ARCACHON) */}
       <section className="hero hero-clean">
         <div className="hero-bg">
           <HeroCinemagraph
             containerRef={px}
             src={settings.heroImage || '/img/hero-arcachon-net.jpg'}
             videoSrc={settings.heroVideo}
-            alt="Bassin d’Arcachon, cabane sur l’eau, pinasses et dune"
+            alt="Sur le Bassin d’Arcachon, cabane sur l’eau, pinasses et dune"
           />
         </div>
         <div className="hero-shade hero-shade-soft" />
         <div className="wrap home-wrap hero-in hero-single">
-          <div className="hero-content-box">
-            <div className="hero-kicker-row">
-              <p className="hero-kicker">BASSIN D’ARCACHON · WEEK-END ENTRE FEMMES</p>
-              {validatedDates && (
-                <span className="hero-dates-pill">
-                  <Calendar size={13} /> {validatedDates}
-                </span>
-              )}
-            </div>
+          <div className="hero-header-row">
+            <div className="hero-content-box">
+              <div className="hero-kicker-row">
+                <p className="hero-kicker">SUR LE BASSIN D’ARCACHON · WEEK-END ENTRE FEMMES</p>
+              </div>
 
-            <h1>Un week-end où l’on prend soin de vous.</h1>
+              <h1>Un week-end où l’on prend soin de vous.</h1>
 
-            <p className="hero-presentation">
-              Un soin du visage avec Émilie, du yoga avec Virginie, du temps au spa et de bons repas autour d’une même table. Nous vous accueillons dans un loft privatisé sur le Bassin, en petit groupe de huit femmes maximum. Vous pouvez venir seule ou avec une amie.
-            </p>
-
-            <div className="hero-cta-stack">
-              <Link to="/experiences/arcachon-entre-femmes" className="btn btn-terra hero-main-btn">
-                Découvrir le week-end
-              </Link>
-              <p className="hero-price-under-btn">
-                {arca?.pricePerPerson || 450} € par personne · Hébergement, repas et programme bien-être inclus
+              <p className="hero-presentation">
+                Un soin du visage avec Émilie, du yoga avec Virginie, du temps au spa et de bons repas autour d’une même table. Nous vous accueillons dans un loft privatisé sur le Bassin d’Arcachon, en petit groupe de huit femmes maximum. Vous pouvez venir seule ou avec une amie.
               </p>
+
+              <p className="hero-pro-booking-hook">
+                <Calendar size={15} />
+                <span>
+                  Réservez votre parenthèse pour notre prochain week-end <strong>sur le Bassin d’Arcachon</strong>, <strong>du 29 au 31 janvier 2027</strong>.
+                </span>
+              </p>
+
+              <div className="hero-cta-stack">
+                <div className="hero-cta-buttons-inline">
+                  <Link to="/experiences/arcachon-entre-femmes" className="btn btn-terra hero-main-btn">
+                    Découvrir le week-end
+                  </Link>
+                  <Link to="/reserver/arcachon-entre-femmes" className="btn btn-light hero-book-btn">
+                    Réserver · 29 au 31 janv. 2027
+                  </Link>
+                </div>
+                <p className="hero-price-under-btn">
+                  {arca?.pricePerPerson || 450} € par personne · Hébergement, repas et programme bien-être inclus
+                </p>
+              </div>
             </div>
+
+            {/* Petit rond élégant dans le Header avec les dates du prochain week-end */}
+            <Link
+              to="/reserver/arcachon-entre-femmes"
+              className="hero-date-circle"
+              aria-label={`Réserver notre prochain week-end sur le Bassin d’Arcachon, ${validatedDates}`}
+            >
+              <span className="hdc-ring" aria-hidden="true" />
+              <span className="hdc-eyebrow">Prochaine édition</span>
+              <strong className="hdc-days">29 — 31</strong>
+              <span className="hdc-month">Janvier 2027</span>
+              <span className="hdc-loc">Sur le Bassin d’Arcachon</span>
+              <span className="hdc-cta">Réserver →</span>
+            </Link>
           </div>
         </div>
       </section>
@@ -158,12 +181,12 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 2. CE QUE L'ON VIT À ARCACHON */}
+      {/* 2. CE QUE L'ON VIT SUR LE BASSIN D'ARCACHON */}
       <section className="section home-moments-section" id="arcachon">
         <div className="wrap home-wrap">
           <Reveal className="section-head-clean">
-            <p className="eyebrow">Bassin d’Arcachon · L’esprit du week-end</p>
-            <h2>Ce que l’on vit à Arcachon</h2>
+            <p className="eyebrow">Sur le Bassin d’Arcachon · L’esprit du week-end</p>
+            <h2>Ce que l’on vit sur le Bassin d’Arcachon</h2>
           </Reveal>
 
           <div className="moments-grid3">
@@ -250,16 +273,16 @@ export default function Home() {
                 <article className="escapade-card featured">
                   <Link to="/experiences/arcachon-entre-femmes" className="escapade-img-link">
                     <img src={arca.image} alt={arca.title} loading="lazy" />
-                    <span className="escapade-status-pill open">Inscriptions ouvertes · 8 femmes max</span>
+                    <span className="escapade-status-pill open">Du 29 au 31 janv. 2027 · 8 femmes max</span>
                   </Link>
                   <div className="escapade-body">
-                    <span className="escapade-loc">Bassin d’Arcachon</span>
-                    <h3>Bassin d’Arcachon entre femmes</h3>
+                    <span className="escapade-loc">Sur le Bassin d’Arcachon</span>
+                    <h3>Week-end entre femmes sur le Bassin d’Arcachon</h3>
                     <p>
                       Week-end en loft privatisé avec spa et sauna : soin du visage et atelier créatif avec Émilie, Yin et Hatha Yoga avec Virginie, balades et repas partagés.
                     </p>
                     <p className="escapade-meta">
-                      <strong>450 € / pers.</strong> · Acompte 95 € · Plus de 300 € de soins &amp; yoga inclus
+                      <strong>Du 29 au 31 janvier 2027</strong> · <strong>450 € / pers.</strong> · Acompte 95 €
                     </p>
                     <ExperienceCardActions exp={arca} defaultDiscoverLabel="Découvrir l’expérience" />
                   </div>

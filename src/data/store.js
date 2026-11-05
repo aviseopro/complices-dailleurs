@@ -38,7 +38,7 @@ function load() {
       const exps = defaultData.experiences.map((def) => {
         const cur = have.get(def.slug);
         if (!cur) return def;
-        const isLegacyArca = def.slug === 'arcachon-entre-femmes' && (!cur.lodging?.includes('Sauna') || cur.included?.[0]?.includes('90 €') || cur.capacity == null || !cur.included?.[0]?.includes('hydrafacial'));
+        const isLegacyArca = def.slug === 'arcachon-entre-femmes' && (!cur.lodging?.includes('Sauna') || cur.included?.[0]?.includes('90 €') || cur.capacity == null || !cur.included?.[0]?.includes('hydrafacial') || !cur.dates?.length);
         const isLegacyArcaMe = def.slug === 'arcachon-mere-enfant' && (cur.kind === 'future' || !cur.program?.length || !cur.intro?.includes('pâte Fimo'));
         const isLegacyTrek = def.slug === 'trek-compostelle' && (cur.kind === 'future' || !cur.included?.[1]?.includes('Pranayama'));
         const isLegacyCorse = def.slug === 'corse' && (cur.kind === 'future' || !cur.program?.length || !cur.intro?.includes('Yoga Aérien'));
@@ -54,6 +54,7 @@ function load() {
           capacity: refresh ? def.capacity : cur.capacity,
           minParticipants: refresh ? def.minParticipants : cur.minParticipants,
           duration: refresh ? def.duration : cur.duration,
+          dates: (refresh || !cur.dates?.length) ? def.dates : cur.dates,
           location: refresh ? def.location : cur.location,
           lodging: refresh ? def.lodging : cur.lodging,
           intro: refresh ? def.intro : cur.intro,

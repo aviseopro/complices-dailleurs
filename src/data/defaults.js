@@ -34,17 +34,19 @@ export const defaultData = {
       pricePerPerson: 450,
       originalPrice: 550,
       capacity: 8,
-      dates: [],
-      duration: 'Un week-end entre femmes (3 jours / 2 nuits — dates à confirmer)',
+      dates: [
+        { id: 'arca-jan-2027', label: 'Du 29 au 31 janvier 2027', spots: 8 },
+      ],
+      duration: 'Un week-end entre femmes · Du 29 au 31 janvier 2027 (3 jours / 2 nuits)',
       lodging: 'Loft d’exception privatisé (Piscine chauffée, Spa 7 places & Sauna 4 places)',
-      location: 'Bassin d’Arcachon — à 10 min à pied du Bassin et du sentier du littoral',
+      location: 'Sur le Bassin d’Arcachon — à 10 min à pied du Bassin et du sentier du littoral',
       intro:
         'Un soin du visage avec Émilie, du yoga avec Virginie, un atelier créatif pour faire quelque chose de ses mains, du temps au spa et de bons repas autour d’une même table. Nous vous accueillons dans un loft privatisé sur le Bassin d’Arcachon, avec piscine chauffée, Spa 7 places et Sauna 4 places, en petit groupe de huit femmes maximum. Vous pouvez venir seule ou avec une amie.',
       conditions: {
         imputation: null,
         remboursement: null,
         garantiePlace: null,
-        dates: null,
+        dates: 'Prochain week-end confirmé : du vendredi 29 au dimanche 31 janvier 2027',
         capacite: 'Petit groupe de 8 femmes maximum',
       },
       included: [
