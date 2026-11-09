@@ -27,8 +27,8 @@ export default async function handler(req, res) {
     const paymentLabel = isFullOnce
       ? `Paiement en une fois (${booking.amount || 450} €)`
       : isKlarna
-      ? `Montant total (${booking.amount || 450} €) en plusieurs fois avec Klarna`
-      : `Acompte 95 € en 1 fois`;
+      ? `Paiement en 3 × 150 € (150 € d’acompte + 2 × 150 €)`
+      : `Acompte 150 € en 1 fois`;
 
     const subjectParticipant = `Confirmation de votre inscription — ${experienceTitle || 'Complices d’ailleurs'} (Réf. ${booking.reference})`;
     const subjectAdmin = `✨ Nouvelle inscription : ${booking.name} (${paymentLabel}) — ${booking.reference}`;

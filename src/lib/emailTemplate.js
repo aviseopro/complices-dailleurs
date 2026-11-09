@@ -27,7 +27,7 @@ export function buildConfirmationEmailHtml({ booking, experience, origin = SITE_
   const firstName = (booking?.name || 'Chère complice').split(' ')[0];
   const isFullOnce = booking?.paymentMethod === 'full_450' || booking?.paymentMethod === 'cash';
   const isKlarna = booking?.paymentMethod === 'klarna' || booking?.paymentMethod === 'alma';
-  const depositUnit = experience?.depositPerPlace || 95;
+  const depositUnit = experience?.depositPerPlace || 150;
   const priceUnit = experience?.pricePerPerson || 450;
   const places = Number(booking?.places || 1);
   const depositTotal = depositUnit * places;
@@ -42,13 +42,13 @@ export function buildConfirmationEmailHtml({ booking, experience, origin = SITE_
   const paymentBadge = isFullOnce
     ? `Règlement intégral en une fois de ${stayTotal} € confirmé`
     : isKlarna
-    ? `Règlement du montant total (${stayTotal} €) en plusieurs fois avec Klarna confirmé (3 × ${klarna3x} €)`
+    ? `Échéancier 3 × ${klarna3x} € confirmé (${depositTotal} € d’acompte réglé + 2 mensualités automatiques de ${klarna3x} €)`
     : `Acompte de réservation de ${depositTotal} € réglé en 1 fois (${places > 1 ? `${places} × ${depositUnit} €` : `${depositUnit} €`})`;
 
   const letterParagraphByMethod = isFullOnce
     ? `Nous vous confirmons la bonne prise en compte de votre <strong>règlement intégral en une fois de ${stayTotal} €</strong>. Votre place est officiellement réservée sous la référence <strong>${booking?.reference}</strong>.`
     : isKlarna
-    ? `Nous vous confirmons la bonne prise en compte de votre <strong>règlement du montant total (${stayTotal} €) en plusieurs fois avec Klarna</strong>. Votre place est officiellement réservée sous la référence <strong>${booking?.reference}</strong>.`
+    ? `Nous vous confirmons la bonne prise en compte de votre <strong>paiement en 3 × ${klarna3x} €</strong> (<strong>${depositTotal} € d’acompte réglés aujourd’hui</strong> puis <strong>2 mensualités automatiques de ${klarna3x} €</strong>, soit ${stayTotal} € tout compris). Votre place est officiellement réservée sous la référence <strong>${booking?.reference}</strong>.`
     : `Nous vous confirmons la bonne prise en compte de votre <strong>acompte de réservation de ${depositTotal} €</strong>. Votre place est officiellement réservée sous la référence <strong>${booking?.reference}</strong> (le solde de <strong>${stayTotal - depositTotal} €</strong> sur un total tout compris de <strong>${stayTotal} €</strong> sera réglé ultérieurement).`;
 
   const paymentActionButtonHtml = '';
@@ -56,8 +56,8 @@ export function buildConfirmationEmailHtml({ booking, experience, origin = SITE_
   const paymentExplanation = isFullOnce
     ? `Votre règlement intégral en une fois de ${stayTotal} € est bien enregistré sous la référence ${booking?.reference}.`
     : isKlarna
-    ? `Votre règlement du montant total (${stayTotal} €) en plusieurs fois avec Klarna est bien enregistré sous la référence ${booking?.reference}.`
-    : `Votre acompte de ${depositTotal} € (payable en 1 fois par Carte bancaire ou Apple Pay) est bien enregistré. Le solde du séjour (${stayTotal - depositTotal} € sur un total de ${stayTotal} €) sera réglé ultérieurement.`;
+    ? `Votre échéancier de 3 × ${klarna3x} € (${depositTotal} € d’acompte aujourd’hui + 2 mensualités automatiques de ${klarna3x} €) est bien enregistré sous la référence ${booking?.reference}.`
+    : `Votre acompte de ${depositTotal} € est bien enregistré. Le solde du séjour (${stayTotal - depositTotal} € sur un total de ${stayTotal} €) sera réglé ultérieurement.`;
 
   return `<!DOCTYPE html>
 <html lang="fr">
@@ -195,7 +195,7 @@ export function buildConfirmationPlainText({ booking, experience }) {
   const firstName = (booking?.name || '').split(' ')[0] || 'Chère complice';
   const isFullOnce = booking?.paymentMethod === 'full_450' || booking?.paymentMethod === 'cash';
   const isKlarna = booking?.paymentMethod === 'klarna' || booking?.paymentMethod === 'alma';
-  const depositUnit = experience?.depositPerPlace || 95;
+  const depositUnit = experience?.depositPerPlace || 150;
   const priceUnit = experience?.pricePerPerson || 450;
   const places = Number(booking?.places || 1);
   const depositTotal = depositUnit * places;
@@ -215,7 +215,7 @@ RÉCAPITULATIF DE VOTRE INSCRIPTION :
     isFullOnce
       ? `Paiement en une fois (${stayTotal} €)`
       : isKlarna
-      ? `Paiement du montant total (${stayTotal} €) en plusieurs fois avec Klarna (3 × ${klarna3x} €)`
+      ? `Paiement en 3 × ${klarna3x} € (${depositTotal} € d’acompte aujourd’hui + 2 mensualités automatiques de ${klarna3x} € — total ${stayTotal} €)`
       : `Acompte de ${depositTotal} € en 1 fois (sur un total de ${stayTotal} € tout compris)`
   }
 

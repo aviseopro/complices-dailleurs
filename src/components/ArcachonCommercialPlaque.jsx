@@ -5,7 +5,7 @@ import { AlmaLogo } from './ui.jsx';
 import { euro } from '../data/store.js';
 
 export default function ArcachonCommercialPlaque({ e, variant = 'hero', className = '' }) {
-  const deposit = e?.depositPerPlace || 95;
+  const deposit = e?.depositPerPlace || 150;
   const price = e?.pricePerPerson || 450;
   const original = e?.originalPrice || 550;
 
@@ -17,8 +17,7 @@ export default function ArcachonCommercialPlaque({ e, variant = 'hero', classNam
             <Sparkles size={13} className="acc-spark" /> Offre de départ exclusive · 8 participantes max
           </span>
           <span className="acc-alma-pill">
-            <span className="acc-alma-text">Total ({euro(price)}) payable en plusieurs fois avec</span>
-            <AlmaLogo height={16} />
+            <span className="acc-alma-text">Paiement en 3 × 150 € (150 € d’acompte + 2 × 150 €)</span>
           </span>
         </div>
 

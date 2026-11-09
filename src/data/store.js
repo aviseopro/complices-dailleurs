@@ -69,7 +69,7 @@ function load() {
           excluded: refresh ? def.excluded : cur.excluded,
           program: refresh ? def.program : cur.program,
           gallery: refresh ? def.gallery : ((cur.gallery && cur.gallery[0]?.src) ? cur.gallery : def.gallery),
-          depositPerPlace: (!cur.depositPerPlace || cur.depositPerPlace === 35 || cur.depositPerPlace === 100) ? def.depositPerPlace : cur.depositPerPlace,
+          depositPerPlace: (!cur.depositPerPlace || cur.depositPerPlace === 35 || cur.depositPerPlace === 95 || cur.depositPerPlace === 100) ? def.depositPerPlace : cur.depositPerPlace,
           pricePerPerson: (cur.pricePerPerson == null && def.pricePerPerson != null) ? def.pricePerPerson : cur.pricePerPerson,
           originalPrice: cur.originalPrice || def.originalPrice,
           paymentLink: (cur.paymentLink && cur.paymentLink.length > 5) ? cur.paymentLink : def.paymentLink,

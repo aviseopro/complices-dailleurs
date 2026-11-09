@@ -84,14 +84,15 @@ export default function Booking() {
   }
 
   const left = seatsLeft(e, bookings, f.slot);
-  const unitDeposit = e.depositPerPlace || 95;
+  const unitDeposit = e.depositPerPlace || 150;
   const depositAmount = unitDeposit * Number(f.places || 1);
   const unitPrice = e.pricePerPerson || (isMarrakechFemmes ? 790 : 450);
   const fullStayAmount = unitPrice * Number(f.places || 1);
+  const remainingAmount = Math.max(0, fullStayAmount - depositAmount);
   const klarna3x = Math.round((fullStayAmount / 3) * 100) / 100;
-  // Lien 1 : Acompte de 95 € (payable uniquement en 1 fois)
+  // Lien 1 : Acompte de 150 € (payable en 1 fois)
   const depositLink = e.paymentLink || settings.stripePaymentUrl || 'https://buy.stripe.com/5kQaEZb38efo3Nh8x6afS00';
-  // Lien 2 : Montant total (450 €) en plusieurs fois avec Klarna
+  // Lien 2 : Paiement en 3 × 150 € (150 € d'acompte aujourd'hui + 2 mensualités automatiques de 150 € sur Stripe)
   const klarnaLink =
     (e.almaPaymentLink && !e.almaPaymentLink.includes('almapay.com') ? e.almaPaymentLink : null) ||
     (settings.almaPaymentUrl && !settings.almaPaymentUrl.includes('almapay.com') ? settings.almaPaymentUrl : null) ||
@@ -290,7 +291,7 @@ export default function Booking() {
           <div className="vip-done-banner" style={{ textAlign: 'center', padding: '2.2rem 1.8rem' }}>
             <span className={`vip-step-pill ${isKlarnaPay ? 'alma' : ''}`} style={{ alignSelf: 'center', marginBottom: '.85rem' }}>
               {isKlarnaPay
-                ? `Paiement de ${fullStayAmount} € en plusieurs fois avec Klarna en cours`
+                ? `Paiement en 3 × ${klarna3x} € (${depositAmount} € aujourd’hui + 2 × ${klarna3x} €) en cours`
                 : isFullOncePay
                 ? `Règlement en une fois de ${fullStayAmount} € en cours`
                 : `Règlement de l’acompte de ${depositAmount} € en cours`}
@@ -326,7 +327,7 @@ export default function Booking() {
                 >
                   <ExternalLink size={14} />{' '}
                   {isKlarnaPay
-                    ? `Aller sur la page de paiement Klarna (${fullStayAmount} € en plusieurs fois)`
+                    ? `Aller sur la page de paiement 3 × ${klarna3x} €`
                     : isFullOncePay
                     ? `Aller sur la page de paiement en une fois (${fullStayAmount} €)`
                     : `Aller sur la page de paiement de l’acompte (${depositAmount} €)`}
@@ -372,7 +373,7 @@ export default function Booking() {
                   {isFullOnce
                     ? `Règlement intégral de ${fullStayAmount} € confirmé — Lettre de bienvenue envoyée par e-mail à ${done.email}`
                     : isAlma
-                    ? `Règlement de ${fullStayAmount} € en plusieurs fois (Klarna) confirmé — Lettre de bienvenue envoyée par e-mail à ${done.email}`
+                    ? `Échéancier 3 × ${klarna3x} € (${depositAmount} € d’acompte + 2 × ${klarna3x} €) confirmé — Lettre de bienvenue envoyée à ${done.email}`
                     : `Règlement de l’acompte de ${depositAmount} € confirmé — Lettre de bienvenue envoyée par e-mail à ${done.email}`}
                 </strong>
                 <span>Une copie a également été transmise à Émilie &amp; Virginie ({OFFICIAL_EMAIL})</span>
@@ -425,11 +426,11 @@ export default function Booking() {
                     </>
                   ) : isAlma ? (
                     <>
-                      Nous vous confirmons la bonne prise en compte de votre <strong>règlement du montant total ({fullStayAmount} €) en plusieurs fois avec Klarna</strong>. Votre place est officiellement réservée sous la référence <strong>{done.reference}</strong>.
+                      Nous vous confirmons la bonne prise en compte de votre <strong>paiement en 3 × {klarna3x} €</strong> (<strong>{depositAmount} € d’acompte aujourd’hui</strong> puis <strong>2 mensualités automatiques de {klarna3x} €</strong>, soit {fullStayAmount} € tout compris). Votre place est officiellement réservée sous la référence <strong>{done.reference}</strong>.
                     </>
                   ) : (
                     <>
-                      Nous vous confirmons la bonne prise en compte de votre <strong>acompte de réservation de {depositAmount} €</strong>. Le solde de votre séjour (<strong>{fullStayAmount - depositAmount} €</strong> sur un total tout compris de <strong>{fullStayAmount} €</strong>) sera réglé ultérieurement.
+                      Nous vous confirmons la bonne prise en compte de votre <strong>acompte de réservation de {depositAmount} €</strong>. Le solde de votre séjour (<strong>{remainingAmount} €</strong> sur un total tout compris de <strong>{fullStayAmount} €</strong>) sera réglé ultérieurement.
                     </>
                   )}
                 </p>
@@ -462,8 +463,8 @@ export default function Booking() {
                     {isFullOnce
                       ? `Paiement en une fois (${fullStayAmount} € — Carte bancaire / Apple Pay)`
                       : isAlma
-                      ? `Paiement du montant total (${fullStayAmount} €) en plusieurs fois avec Klarna`
-                      : `Acompte de réservation de ${depositAmount} € (payable en 1 fois — Carte bancaire / Apple Pay)`}
+                      ? `Paiement en 3 × ${klarna3x} € (${depositAmount} € d’acompte aujourd’hui + 2 mensualités automatiques de ${klarna3x} €)`
+                      : `Acompte de réservation de ${depositAmount} € (solde de ${remainingAmount} € à régler ultérieurement)`}
                   </strong>
                 </div>
 
@@ -545,7 +546,7 @@ export default function Booking() {
               <p className="vip-invitation-kicker">{e.title.toUpperCase()}</p>
               <h1>Réservez votre place parmi nous</h1>
               <p className="vip-invitation-lead">
-                « Quel bonheur de vous accueillir pour cette parenthèse rien que pour vous ! Indiquez votre e-mail et votre numéro de téléphone ci-dessous, choisissez votre mode de règlement (<strong>acompte de {unitDeposit} €</strong>, <strong>montant total de {unitPrice} € en plusieurs fois avec Klarna</strong>, ou <strong>paiement en une fois de {unitPrice} €</strong>), et recevez votre belle confirmation d’inscription par mail dès votre règlement effectué. »
+                « Quel bonheur de vous accueillir pour cette parenthèse rien que pour vous ! Indiquez votre e-mail et votre numéro de téléphone ci-dessous, choisissez votre mode de règlement (<strong>acompte de {unitDeposit} €</strong>, <strong>paiement en 3 × {klarna3x} € ({unitDeposit} € d’acompte aujourd’hui + 2 mensualités automatiques de {klarna3x} €)</strong>, ou <strong>paiement en une fois de {unitPrice} €</strong>), et recevez votre belle confirmation d’inscription par mail dès votre règlement effectué. »
               </p>
             </div>
           </div>
@@ -558,7 +559,7 @@ export default function Booking() {
             </div>
 
             <div className="vip-top-payment-grid">
-              {/* Rectangle 1 : Acompte de 95 € (payable uniquement en 1 fois, jamais en 3 fois) */}
+              {/* Rectangle 1 : Acompte de 150 € */}
               <div
                 role="button"
                 tabIndex={0}
@@ -571,7 +572,7 @@ export default function Booking() {
                   <strong>1. Régler l’acompte de {depositAmount} €</strong>
                 </div>
                 <p>
-                  Bloquez votre place aujourd’hui en réglant uniquement l’acompte de <strong>{depositAmount} €</strong> en 1 fois (Carte bancaire ou Apple Pay).
+                  Bloquez votre place aujourd’hui en réglant uniquement l’acompte de <strong>{depositAmount} €</strong> en 1 fois (solde de {remainingAmount} € à régler plus tard).
                 </p>
                 <a
                   href={depositLink}
@@ -588,7 +589,7 @@ export default function Booking() {
                 </a>
               </div>
 
-              {/* Rectangle 2 : Montant total (450 €) payable en plusieurs fois avec Klarna */}
+              {/* Rectangle 2 : 3 × 150 € (150 € d'acompte aujourd'hui + 2 mensualités automatiques de 150 €) */}
               <div
                 role="button"
                 tabIndex={0}
@@ -597,11 +598,11 @@ export default function Booking() {
                 className={`vip-top-pay-pill alma ${f.paymentMethod === 'klarna' || f.paymentMethod === 'alma' ? 'active' : ''}`}
               >
                 <div className="vip-top-pay-pill-head">
-                  <AlmaLogo height={16} />
-                  <strong>2. Total ({fullStayAmount} €) en plusieurs fois</strong>
+                  <span className="vip-top-pay-icon"><CreditCard size={16} /></span>
+                  <strong>2. Payer en 3 × {klarna3x} € (automatique)</strong>
                 </div>
                 <p>
-                  Seul le montant total du séjour (<strong>{fullStayAmount} €</strong>) est payable en plusieurs fois avec <strong>Klarna</strong> (3 × {klarna3x} €).
+                  <strong>{depositAmount} € d’acompte aujourd’hui</strong> + les <strong>{remainingAmount} € restants</strong> prélevés automatiquement en <strong>2 mensualités de {klarna3x} €</strong> sur Stripe.
                 </p>
                 <a
                   href={klarnaLink}
@@ -613,7 +614,7 @@ export default function Booking() {
                   }}
                   className="vip-top-pay-link klarna"
                 >
-                  <span>Payer {fullStayAmount} € en plusieurs fois (Klarna)</span>
+                  <span>Payer en 3 × {klarna3x} € ({depositAmount} € aujourd’hui)</span>
                   <ExternalLink size={12} />
                 </a>
               </div>
@@ -665,7 +666,7 @@ export default function Booking() {
               <span>{e.lodging || e.location}</span>
             </div>
             <div>
-              <strong>Acompte {unitDeposit} €, Klarna ou 1 fois</strong>
+              <strong>Acompte {unitDeposit} €, 3 × {klarna3x} € ou 1 fois</strong>
               <span>Tarif du séjour : {unitPrice} € / pers. · Confirmation par mail après règlement</span>
             </div>
           </div>
@@ -795,19 +796,19 @@ export default function Booking() {
             </div>
           )}
 
-          {/* ÉTAPE 2 : CHOIX DU MODE DE PAIEMENT (ACOMPTE 95 €, MONTANT TOTAL EN PLUSIEURS FOIS AVEC KLARNA, OU PAYER EN UNE FOIS) */}
+          {/* ÉTAPE 2 : CHOIX DU MODE DE PAIEMENT (ACOMPTE 150 €, PAIEMENT EN 3 × 150 € AUTOMATIQUE, OU PAYER EN UNE FOIS 450 €) */}
           <div className="vip-form-section-head" style={{ marginTop: '1.8rem' }}>
             <span className="vip-step-num">2</span>
             <div>
               <h2>Choisissez votre mode de règlement</h2>
               <p>
-                Réglez l’<strong>acompte de {depositAmount} €</strong> en 1 fois, payez le <strong>montant total ({fullStayAmount} €) en plusieurs fois avec Klarna</strong>, ou choisissez de <strong>payer en une fois ({fullStayAmount} €)</strong>.
+                Réglez l’<strong>acompte de {depositAmount} €</strong> aujourd’hui, optez pour le <strong>paiement en 3 × {klarna3x} € ({depositAmount} € d’acompte + 2 mensualités automatiques de {klarna3x} €)</strong>, ou choisissez de <strong>payer en une fois ({fullStayAmount} €)</strong>.
               </p>
             </div>
           </div>
 
           <div className="vip-payment-choices" role="radiogroup" aria-label="Mode de règlement">
-            {/* Option 1 : 95 € d'acompte en ligne (uniquement en 1 fois) */}
+            {/* Option 1 : 150 € d'acompte en ligne */}
             <label
               className={`vip-pay-card ${f.paymentMethod === 'deposit_95' ? 'selected' : ''}`}
               onClick={() => setF({ ...f, paymentMethod: 'deposit_95' })}
@@ -825,7 +826,7 @@ export default function Booking() {
               </div>
               <h3>1. Régler l’acompte de {depositAmount} €</h3>
               <p>
-                Je bloque ma place immédiatement en réglant uniquement l’acompte de <strong>{depositAmount} €</strong> en 1 fois (Carte bancaire ou Apple Pay). Le solde ({fullStayAmount - depositAmount} €) sera réglé plus tard.
+                Je bloque ma place immédiatement en réglant l’acompte de <strong>{depositAmount} €</strong> en 1 fois (Carte bancaire ou Apple Pay). Le solde ({remainingAmount} €) sera réglé plus tard.
               </p>
               <div className="vip-pay-alma-link-row">
                 <a
@@ -843,12 +844,12 @@ export default function Booking() {
                 </a>
               </div>
               <div className="vip-pay-amount">
-                <span>Acompte en 1 fois :</span>
+                <span>Acompte aujourd’hui :</span>
                 <strong>{depositAmount} €</strong>
               </div>
             </label>
 
-            {/* Option 2 : Montant total (450 €) en plusieurs fois avec Klarna */}
+            {/* Option 2 : Paiement en 3 × 150 € (150 € d'acompte aujourd'hui + 2 mensualités automatiques de 150 €) */}
             <label
               className={`vip-pay-card alma ${f.paymentMethod === 'klarna' || f.paymentMethod === 'alma' ? 'selected' : ''}`}
               onClick={() => setF({ ...f, paymentMethod: 'klarna' })}
@@ -861,12 +862,12 @@ export default function Booking() {
                 onChange={() => setF({ ...f, paymentMethod: 'klarna' })}
               />
               <div className="vip-pay-card-top">
-                <span className="vip-pay-icon alma"><AlmaLogo height={16} /></span>
-                <span className="vip-pay-badge alma">Montant total · Plusieurs fois</span>
+                <span className="vip-pay-icon"><CreditCard size={20} /></span>
+                <span className="vip-pay-badge alma">3 × {klarna3x} € · Sans frais</span>
               </div>
-              <h3>2. Payer le total ({fullStayAmount} €) en plusieurs fois</h3>
+              <h3>2. Payer en 3 × {klarna3x} € (automatique)</h3>
               <p>
-                Seul le montant total du séjour (<strong>{fullStayAmount} €</strong>) est payable en plusieurs fois. Échelonnez vos <strong>{fullStayAmount} €</strong> (3 × {klarna3x} €) avec <strong>Klarna</strong>.
+                <strong>{depositAmount} € d’acompte aujourd’hui</strong>, puis les <strong>{remainingAmount} € restants</strong> prélevés automatiquement en <strong>2 mensualités de {klarna3x} €</strong> par Carte bancaire sur Stripe.
               </p>
               <div className="vip-pay-alma-link-row">
                 <a
@@ -879,12 +880,12 @@ export default function Booking() {
                   }}
                   className="vip-card-alma-link klarna"
                 >
-                  <span>Payer {fullStayAmount} € en plusieurs fois (Klarna)</span>
+                  <span>Payer en 3 × {klarna3x} € ({depositAmount} € aujourd’hui)</span>
                   <ExternalLink size={13} />
                 </a>
               </div>
               <div className="vip-pay-amount">
-                <span>Total en 3 fois :</span>
+                <span>Échéancier automatique :</span>
                 <strong>3 × {klarna3x} €</strong>
               </div>
             </label>
@@ -966,7 +967,7 @@ export default function Booking() {
               </>
             ) : f.paymentMethod === 'klarna' || f.paymentMethod === 'alma' ? (
               <>
-                <span>Procéder au paiement de {fullStayAmount} € en plusieurs fois avec Klarna</span>
+                <span>Procéder au paiement en 3 × {klarna3x} € ({depositAmount} € aujourd’hui)</span>
                 <ArrowRight size={18} />
               </>
             ) : (
