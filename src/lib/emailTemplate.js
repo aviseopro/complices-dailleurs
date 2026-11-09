@@ -34,12 +34,37 @@ export function buildConfirmationEmailHtml({ booking, experience, origin = SITE_
   const alma4x = Math.round((stayTotal / 4) * 100) / 100;
   const safeOrigin = !origin || origin.includes('localhost') || origin.includes('127.0.0.1') ? SITE_URL : origin;
   const photoUrl = `${safeOrigin}/img/emilie-virginie-marrakech.jpg`;
+  const dateLabel =
+    experience?.dates?.[0]?.label ||
+    (experience?.slug === 'arcachon-entre-femmes' ? 'Du vendredi 29 au dimanche 31 janvier 2027' : 'Dates communiquées par Émilie & Virginie');
+  const stripeUrl = experience?.paymentLink || 'https://buy.stripe.com/5kQaEZb38efo3Nh8x6afS00';
+  const almaUrl = experience?.almaPaymentLink || 'https://almapay.com/fr-FR';
 
   const paymentBadge = isCash
     ? 'Paiement en espèces (Cash) auprès d’Émilie & Virginie'
     : isAlma
-    ? `Paiement en 2x, 3x ou 4x avec Alma (ex. 3 × ${alma3x} € ou 4 × ${alma4x} €)`
+    ? `Paiement en 2x, 3x ou 4x avec Alma (3 × ${alma3x} € ou 4 × ${alma4x} €)`
     : `Acompte de réservation de ${depositTotal} € (${places > 1 ? `${places} × ${depositUnit} €` : `${depositUnit} €`})`;
+
+  const letterParagraphByMethod = isCash
+    ? `Nous avons bien noté votre choix de <strong>régler en espèces (Cash)</strong>. Votre place est officiellement réservée sous la référence <strong>${booking?.reference}</strong> pour un montant total tout compris de <strong>${stayTotal} €</strong>, que nous réglerons ensemble directement en main propre.`
+    : isAlma
+    ? `Nous avons bien noté votre choix de <strong>régler en plusieurs fois avec Alma</strong> (en <strong>3 × ${alma3x} €</strong> ou <strong>4 × ${alma4x} €</strong> par carte bancaire, soit <strong>${stayTotal} €</strong> tout compris). Si vous n’avez pas encore finalisé votre échéancier Alma, vous pouvez le faire à tout moment via le bouton ci-dessous.`
+    : `Nous avons bien noté votre choix de <strong>bloquer votre place avec l’acompte de ${depositTotal} € par carte bancaire</strong>. Le solde de votre séjour (<strong>${stayTotal - depositTotal} €</strong> sur un total tout compris de <strong>${stayTotal} €</strong>) sera réglé ultérieurement. Si vous n’avez pas encore finalisé le règlement de votre acompte sur Stripe, le bouton ci-dessous vous y conduit directement.`;
+
+  const paymentActionButtonHtml = isCash
+    ? ''
+    : isAlma
+    ? `<div style="margin-top:14px;text-align:center;">
+         <a href="${almaUrl}" target="_blank" rel="noopener noreferrer" style="display:inline-block;background-color:#2a2420;color:#ffffff;font-size:14px;font-weight:600;text-decoration:none;padding:12px 22px;border-radius:999px;">
+           Régler en 3x (${alma3x} €) ou 4x (${alma4x} €) avec Alma →
+         </a>
+       </div>`
+    : `<div style="margin-top:14px;text-align:center;">
+         <a href="${stripeUrl}?prefilled_email=${encodeURIComponent(booking?.email || '')}&client_reference_id=${encodeURIComponent(booking?.reference || '')}" target="_blank" rel="noopener noreferrer" style="display:inline-block;background-color:#a8553a;color:#ffffff;font-size:14px;font-weight:600;text-decoration:none;padding:12px 22px;border-radius:999px;">
+           Régler mon acompte de ${depositTotal} € par carte sécurisée →
+         </a>
+       </div>`;
 
   const paymentExplanation = isCash
     ? `Vous avez choisi de régler votre participation en espèces (Cash). Votre place est réservée sous la référence ${booking?.reference} ; le règlement s’effectuera directement en main propre auprès d’Émilie et Virginie.`
@@ -85,13 +110,17 @@ export function buildConfirmationEmailHtml({ booking, experience, origin = SITE_
                   </td>
                 </tr>
                 <tr>
-                  <td align="center" style="padding-bottom:14px;">
-                    <h1 style="font-family:Georgia,'Cormorant Garamond',serif;font-size:28px;font-weight:500;color:#2a2420;margin:0 0 10px;line-height:1.2;">
-                      Bienvenue parmi nous, ${firstName} !
+                  <td align="left" style="padding:8px 8px 16px;">
+                    <h1 style="font-family:Georgia,'Cormorant Garamond',serif;font-size:28px;font-weight:500;color:#2a2420;margin:0 0 12px;line-height:1.2;text-align:center;">
+                      Chère ${firstName}, bienvenue parmi nous !
                     </h1>
-                    <p style="font-size:15px;line-height:1.65;color:#4a3f38;margin:0;">
-                      Quel bonheur de vous compter parmi nos participantes pour notre parenthèse <strong>${experience?.title || 'Bassin d’Arcachon — Entre femmes'}</strong>. Nous avons tellement hâte de prendre soin de vous et de partager ces moments précieux à vos côtés.
+                    <p style="font-size:15px;line-height:1.7;color:#3d332c;margin:0 0 12px;">
+                      Quel bonheur de vous compter parmi nos participantes pour notre parenthèse <strong>${experience?.title || 'Bassin d’Arcachon — Entre femmes'}</strong> (<strong>${dateLabel}</strong>). Toutes les deux esthéticiennes diplômées, nous avons hâte de vous accueillir dans notre loft privatisé, de réaliser vos soins du visage et vos massages, et de partager avec vous les séances de yoga guidées par Virginie et l’atelier créatif animé par Émilie.
                     </p>
+                    <p style="font-size:15px;line-height:1.7;color:#3d332c;margin:0;">
+                      ${letterParagraphByMethod}
+                    </p>
+                    ${paymentActionButtonHtml}
                   </td>
                 </tr>
               </table>
@@ -115,6 +144,7 @@ export function buildConfirmationEmailHtml({ booking, experience, origin = SITE_
                 <tr>
                   <td style="padding-top:14px;font-size:14px;line-height:1.7;color:#2a2420;">
                     <div><strong>Référence dossier :</strong> <span style="color:#a8553a;font-weight:600;">${booking?.reference || ''}</span></div>
+                    <div><strong>Dates du séjour :</strong> ${dateLabel}</div>
                     <div><strong>Participante :</strong> ${booking?.name || ''} (${places} place${places > 1 ? 's' : ''})</div>
                     <div><strong>Email :</strong> ${booking?.email || ''}</div>
                     <div><strong>Téléphone :</strong> ${booking?.phone || ''}</div>

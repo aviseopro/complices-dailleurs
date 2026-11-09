@@ -279,10 +279,26 @@ export default function Booking() {
                   className="vip-email-photo"
                 />
                 <span className="vip-email-ref-pill">✓ Inscription confirmée · Réf. {done.reference}</span>
-                <h2>Bienvenue parmi nous, {firstName} !</h2>
+                <h2>Chère {firstName}, bienvenue parmi nous !</h2>
                 <p>
                   Quel bonheur de vous compter parmi nos participantes pour notre parenthèse{' '}
-                  <strong>{e.title}</strong>. Nous avons tellement hâte de prendre soin de vous et de partager ces moments précieux à vos côtés.
+                  <strong>{e.title}</strong>
+                  {e.dates?.[0]?.label ? <> (<strong>{e.dates[0].label}</strong>)</> : null}. Toutes les deux esthéticiennes diplômées, nous avons hâte de vous accueillir, de réaliser vos soins du visage et vos massages, et de partager avec vous les séances de yoga guidées par Virginie et l’atelier créatif animé par Émilie.
+                </p>
+                <p style={{ marginTop: '.65rem' }}>
+                  {isCash ? (
+                    <>
+                      Nous avons bien noté votre choix de <strong>régler en espèces (Cash)</strong>. Votre place est réservée sous la référence <strong>{done.reference}</strong> pour un montant total tout compris de <strong>{fullStayAmount} €</strong>, que nous réglerons ensemble directement en main propre.
+                    </>
+                  ) : isAlma ? (
+                    <>
+                      Nous avons bien noté votre choix de <strong>régler en plusieurs fois avec Alma</strong> (en <strong>3 × {alma3x} €</strong> ou <strong>4 × {alma4x} €</strong> par carte bancaire, soit <strong>{fullStayAmount} €</strong> tout compris).
+                    </>
+                  ) : (
+                    <>
+                      Nous avons bien noté votre choix de <strong>bloquer votre place avec l’acompte de {depositAmount} € par carte bancaire</strong>. Le solde de votre séjour (<strong>{fullStayAmount - depositAmount} €</strong> sur un total tout compris de <strong>{fullStayAmount} €</strong>) sera réglé ultérieurement.
+                    </>
+                  )}
                 </p>
               </div>
 
