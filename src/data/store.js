@@ -25,6 +25,9 @@ function load() {
       if (!saved.settings?.almaPaymentUrl) {
         saved.settings = { ...saved.settings, almaPaymentUrl: defaultData.settings.almaPaymentUrl, almaActive: true };
       }
+      if (!saved.settings?.googleScriptUrl) {
+        saved.settings = { ...saved.settings, googleScriptUrl: defaultData.settings.googleScriptUrl };
+      }
       if (!saved.settings?.whatsapp) {
         saved.settings = { ...saved.settings, whatsapp: defaultData.settings.whatsapp };
       }

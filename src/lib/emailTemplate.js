@@ -4,6 +4,8 @@
 export const OFFICIAL_EMAIL = 'complicesdailleurs@gmail.com';
 export const OFFICIAL_PHONE = '06 29 84 96 53';
 export const SITE_URL = 'https://complices-dailleurs.vercel.app';
+export const DEFAULT_GOOGLE_SCRIPT_URL =
+  'https://script.google.com/macros/s/AKfycbww9COYgKZyElF4jeaiy9uIoFGrqkF4iZgMdCi8_BqnJqDkZL13Sv_DKogxBj0nFGq_/exec';
 
 // Code Google Apps Script clé-en-main à coller sur script.google.com (connecté à complicesdailleurs@gmail.com)
 export const GOOGLE_APPS_SCRIPT_SNIPPET = `function doPost(e) {
@@ -270,7 +272,7 @@ export async function sendBookingConfirmationEmail({ booking, experience, settin
   const googleScriptUrl =
     settings?.googleScriptUrl ||
     (typeof import.meta !== 'undefined' && import.meta.env ? import.meta.env.VITE_GOOGLE_SCRIPT_URL : '') ||
-    '';
+    DEFAULT_GOOGLE_SCRIPT_URL;
   const gmailAppPassword = settings?.gmailAppPassword || '';
 
   const results = { sent: false, provider: null, reason: null };

@@ -58,10 +58,17 @@ export default async function handler(req, res) {
     }
 
     // 2. Envoi direct via Google Apps Script connecté au compte Gmail complicesdailleurs@gmail.com
-    const scriptUrl = process.env.GOOGLE_SCRIPT_URL || process.env.VITE_GOOGLE_SCRIPT_URL || googleScriptUrl;
+    const DEFAULT_GOOGLE_SCRIPT_URL =
+      'https://script.google.com/macros/s/AKfycbww9COYgKZyElF4jeaiy9uIoFGrqkF4iZgMdCi8_BqnJqDkZL13Sv_DKogxBj0nFGq_/exec';
+    const scriptUrl =
+      process.env.GOOGLE_SCRIPT_URL ||
+      process.env.VITE_GOOGLE_SCRIPT_URL ||
+      googleScriptUrl ||
+      DEFAULT_GOOGLE_SCRIPT_URL;
     if (scriptUrl && scriptUrl.startsWith('https://script.google.com/')) {
       const gsRes = await fetch(scriptUrl, {
         method: 'POST',
+        redirect: 'follow',
         headers: { 'Content-Type': 'text/plain;charset=utf-8' },
         body: JSON.stringify({
           to: booking.email,
@@ -74,7 +81,7 @@ export default async function handler(req, res) {
           booking,
         }),
       });
-      if (gsRes.ok) {
+      if (gsRes.ok || gsRes.status === 302) {
         return res.status(200).json({ ok: true, provider: 'google_script' });
       }
     }
