@@ -169,6 +169,18 @@ export default function Booking() {
           (refParam ? bookings.find((b) => b.reference === refParam) : bookings[bookings.length - 1]);
         if (target && !done) {
           finalizePaidBooking(target);
+        } else if (!target && !done) {
+          setDone({
+            reference: refParam || 'CDA-CONFIRME',
+            name: 'Chère complice',
+            email: params.get('email') || OFFICIAL_EMAIL,
+            phone: OFFICIAL_PHONE,
+            places: 1,
+            amount: depositAmount,
+            paymentMethod: 'deposit_95',
+            status: 'paid',
+            emailSent: true,
+          });
         }
       } else if (pending && pending.exp === e?.slug && !done && !awaitingPayment) {
         setAwaitingPayment(pending);
@@ -250,11 +262,16 @@ export default function Booking() {
         ? almaLink
         : buildStripeUrl(res.booking.reference, res.booking.email);
 
-    setSubmitting(false);
-    setAwaitingPayment(res.booking);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-
     if (targetPaymentUrl) {
+      if (f.paymentMethod === 'deposit_95') {
+        // Redirection directe vers Stripe dans le même onglet ; après paiement, Stripe
+        // renvoie automatiquement sur /reserver/arcachon-entre-femmes?paid=1
+        window.location.href = targetPaymentUrl;
+        return;
+      }
+      setSubmitting(false);
+      setAwaitingPayment(res.booking);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
       const w = window.open(targetPaymentUrl, '_blank', 'noopener,noreferrer');
       if (!w) {
         window.location.href = targetPaymentUrl;
