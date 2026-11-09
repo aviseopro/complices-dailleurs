@@ -5,11 +5,11 @@ export const defaultData = {
   settings: {
     demoMode: true, // aucune transaction réelle tant que false n'est pas validé
     salesEnabled: false, // vente officielle Marrakech désactivée tant que le cadre légal n'est pas validé
-    almaActive: true, // Paiement en 2x, 3x ou 4x avec Alma activé
+    almaActive: true, // Paiement en plusieurs fois avec Klarna activé
     heroImage: '/img/hero-arcachon-net.jpg',
     heroVideo: '/videos/hero-arcachon.mp4?v=2',
     stripePaymentUrl: 'https://buy.stripe.com/5kQaEZb38efo3Nh8x6afS00',
-    almaPaymentUrl: 'https://almapay.com/fr-FR',
+    almaPaymentUrl: 'https://buy.stripe.com/5kQaEZb38efo3Nh8x6afS00',
     googleScriptUrl: 'https://script.google.com/macros/s/AKfycbww9COYgKZyElF4jeaiy9uIoFGrqkF4iZgMdCi8_BqnJqDkZL13Sv_DKogxBj0nFGq_/exec',
     gmailAppPassword: '',
     whatsapp: '0629849653',
@@ -588,7 +588,7 @@ export const defaultData = {
     { q: 'Les soins sont-ils réalisés par des professionnelles ?', a: 'Oui : Émilie et Virginie sont toutes deux esthéticiennes diplômées et déplacent leurs machines esthétiques dernier cri directement sur le lieu du séjour. Les soins sont des soins de bien-être et de beauté, sans promesse médicale.' },
     { q: 'Qui anime le yoga (dont le Yoga Aérien), la méditation et les cercles de femmes ?', a: 'Virginie, professeure de yoga diplômée, enseigne les séances de Yin Yoga, Hatha Yoga ainsi que le Yoga Aérien avec tissus suspendus en Corse. Émilie guide les séances de méditation, les cercles de femmes et les ateliers pour vous permettre de déposer vos soucis et repartir plus légère.' },
     { q: 'Que garantit l’acompte de pré-réservation de 95 € ?', a: 'Les 95 € d’acompte vous permettent de pré-réserver votre place en priorité sur le séjour Bassin d’Arcachon. Les conditions détaillées (imputation de l’acompte sur le tarif final du séjour, remboursement) sont précisées avant validation.' },
-    { q: 'Puis-je payer en plusieurs fois ?', a: 'Pour Marrakech, le paiement en plusieurs fois via Alma sera proposé si vous êtes éligible, dès l’activation du service.' },
+    { q: 'Puis-je payer en plusieurs fois ?', a: 'Oui ! Le paiement en plusieurs fois avec Klarna (ainsi que Carte bancaire et Apple Pay) est proposé directement sur notre page de règlement sécurisée.' },
   ],
   testimonials: [], // uniquement des avis authentiques, ajoutés depuis l'admin
   bookings: [],

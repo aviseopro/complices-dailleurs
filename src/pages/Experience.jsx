@@ -379,7 +379,7 @@ export default function Experience() {
                   <Sparkles size={13} /> Tarif du séjour
                 </span>
                 <div className="bk-arca-dep">
-                  Réservation avec <strong>{e.depositPerPlace || 95} € d’acompte</strong>, Alma 3x/4x ou Cash
+                  Réservation avec <strong>{e.depositPerPlace || 95} € d’acompte</strong>, Klarna (paiement en plusieurs fois) ou Cash
                 </div>
                 <div className="bk-arca-total">
                   Séjour complet tout compris : <strong className="bk-new-price">{euro(e.pricePerPerson || 450)}</strong>
@@ -440,19 +440,19 @@ export default function Experience() {
                 <>
                   <dt>Modes de règlement</dt>
                   <dd>
-                    <strong>1. {euro(e.depositPerPlace || 95)} d’acompte</strong> en ligne
+                    <strong>1. {euro(e.depositPerPlace || 95)} d’acompte</strong> en ligne (Carte, Apple Pay)
                     <br />
                     <strong>
-                      2. Paiement en 3x ou 4x avec <AlmaLogo height={14} />
+                      2. Paiement en plusieurs fois avec <AlmaLogo height={15} />
                     </strong>{' '}
                     (
                     <a
-                      href={e.almaPaymentLink || settings.almaPaymentUrl || 'https://almapay.com/fr-FR'}
+                      href={e.paymentLink || settings.stripePaymentUrl || 'https://buy.stripe.com/5kQaEZb38efo3Nh8x6afS00'}
                       target="_blank"
                       rel="noopener noreferrer"
                       style={{ color: 'var(--terra)', textDecoration: 'underline' }}
                     >
-                      lien Alma
+                      lien Klarna / Stripe
                     </a>
                     )
                     <br />
@@ -479,11 +479,11 @@ export default function Experience() {
                     Réserver
                   </Link>
                   <Link
-                    to={`/reserver/${e.slug}?pay=alma`}
+                    to={`/reserver/${e.slug}?pay=klarna`}
                     className="btn btn-ghost block"
                     style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '.45rem' }}
                   >
-                    <span>Payer en 3x ou 4x avec</span> <AlmaLogo height={14} />
+                    <span>Paiement en plusieurs fois avec</span> <AlmaLogo height={15} />
                   </Link>
                 </>
               ) : (

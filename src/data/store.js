@@ -22,7 +22,7 @@ function load() {
       if (!saved.settings?.stripePaymentUrl) {
         saved.settings = { ...saved.settings, stripePaymentUrl: defaultData.settings.stripePaymentUrl };
       }
-      if (!saved.settings?.almaPaymentUrl) {
+      if (!saved.settings?.almaPaymentUrl || saved.settings?.almaPaymentUrl === 'https://almapay.com/fr-FR') {
         saved.settings = { ...saved.settings, almaPaymentUrl: defaultData.settings.almaPaymentUrl, almaActive: true };
       }
       if (!saved.settings?.googleScriptUrl) {

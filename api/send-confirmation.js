@@ -23,11 +23,11 @@ export default async function handler(req, res) {
     }
 
     const isCash = booking.paymentMethod === 'cash';
-    const isAlma = booking.paymentMethod === 'alma';
+    const isKlarna = booking.paymentMethod === 'klarna' || booking.paymentMethod === 'alma';
     const paymentLabel = isCash
       ? 'Paiement Cash (Espèces)'
-      : isAlma
-      ? 'Paiement 3x / 4x avec Alma'
+      : isKlarna
+      ? 'Paiement en plusieurs fois avec Klarna'
       : `Acompte 95 € (${booking.amount || 95} €)`;
 
     const subjectParticipant = `Confirmation de votre inscription — ${experienceTitle || 'Complices d’ailleurs'} (Réf. ${booking.reference})`;

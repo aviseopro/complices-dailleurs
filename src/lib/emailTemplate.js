@@ -26,41 +26,39 @@ export const GOOGLE_APPS_SCRIPT_SNIPPET = `function doPost(e) {
 export function buildConfirmationEmailHtml({ booking, experience, origin = SITE_URL }) {
   const firstName = (booking?.name || 'Chère complice').split(' ')[0];
   const isCash = booking?.paymentMethod === 'cash';
-  const isAlma = booking?.paymentMethod === 'alma';
+  const isKlarna = booking?.paymentMethod === 'klarna' || booking?.paymentMethod === 'alma';
   const depositUnit = experience?.depositPerPlace || 95;
   const priceUnit = experience?.pricePerPerson || 450;
   const places = Number(booking?.places || 1);
   const depositTotal = depositUnit * places;
   const stayTotal = priceUnit * places;
-  const alma3x = Math.round((stayTotal / 3) * 100) / 100;
-  const alma4x = Math.round((stayTotal / 4) * 100) / 100;
+  const klarna3x = Math.round((stayTotal / 3) * 100) / 100;
+  const klarna4x = Math.round((stayTotal / 4) * 100) / 100;
   const safeOrigin = !origin || origin.includes('localhost') || origin.includes('127.0.0.1') ? SITE_URL : origin;
   const photoUrl = `${safeOrigin}/img/emilie-virginie-marrakech.jpg`;
   const dateLabel =
     experience?.dates?.[0]?.label ||
     (experience?.slug === 'arcachon-entre-femmes' ? 'Du vendredi 29 au dimanche 31 janvier 2027' : 'Dates communiquées par Émilie & Virginie');
-  const stripeUrl = experience?.paymentLink || 'https://buy.stripe.com/5kQaEZb38efo3Nh8x6afS00';
-  const almaUrl = experience?.almaPaymentLink || 'https://almapay.com/fr-FR';
 
   const paymentBadge = isCash
     ? 'Paiement en espèces (Cash) auprès d’Émilie & Virginie'
-    : isAlma
-    ? `Règlement échelonné 2x, 3x ou 4x avec Alma confirmé (3 × ${alma3x} € ou 4 × ${alma4x} €)`
+    : isKlarna
+    ? `Paiement en plusieurs fois avec Klarna confirmé (ex: 3 × ${klarna3x} € ou 4 × ${klarna4x} €)`
     : `Acompte de réservation de ${depositTotal} € réglé (${places > 1 ? `${places} × ${depositUnit} €` : `${depositUnit} €`})`;
 
   const letterParagraphByMethod = isCash
     ? `Nous avons bien noté votre choix de <strong>régler en espèces (Cash)</strong>. Votre place est officiellement réservée sous la référence <strong>${booking?.reference}</strong> pour un montant total tout compris de <strong>${stayTotal} €</strong>, que nous réglerons ensemble directement en main propre.`
-    : isAlma
-    ? `Nous vous confirmons la bonne prise en compte de votre <strong>règlement en plusieurs fois avec Alma</strong> (en <strong>3 × ${alma3x} €</strong> ou <strong>4 × ${alma4x} €</strong> par carte bancaire, soit <strong>${stayTotal} €</strong> tout compris). Votre place est officiellement réservée sous la référence <strong>${booking?.reference}</strong>.`
-    : `Nous vous confirmons la bonne prise en compte de votre <strong>acompte de réservation de ${depositTotal} € par carte bancaire</strong>. Votre place est officiellement réservée sous la référence <strong>${booking?.reference}</strong> (le solde de <strong>${stayTotal - depositTotal} €</strong> sur un total tout compris de <strong>${stayTotal} €</strong> sera réglé ultérieurement).`;
+    : isKlarna
+    ? `Nous vous confirmons la bonne prise en compte de votre <strong>règlement en plusieurs fois avec Klarna</strong> (pour un montant de <strong>${stayTotal} €</strong> tout compris). Votre place est officiellement réservée sous la référence <strong>${booking?.reference}</strong>.`
+    : `Nous vous confirmons la bonne prise en compte de votre <strong>acompte de réservation de ${depositTotal} €</strong>. Votre place est officiellement réservée sous la référence <strong>${booking?.reference}</strong> (le solde de <strong>${stayTotal - depositTotal} €</strong> sur un total tout compris de <strong>${stayTotal} €</strong> sera réglé ultérieurement).`;
 
   const paymentActionButtonHtml = '';
 
   const paymentExplanation = isCash
     ? `Vous avez choisi de régler votre participation en espèces (Cash). Votre place est réservée sous la référence ${booking?.reference} ; le règlement s’effectuera directement en main propre auprès d’Émilie et Virginie.`
-    : isAlma
-    ? `Votre règlement échelonné avec Alma (en 2x, 3x ou 4x par carte bancaire sur un total de ${stayTotal} €) est bien enregistré sous la référence ${booking?.reference}.`
-    : `Votre acompte de ${depositTotal} € par carte bancaire sécurisée est bien enregistré. Le solde du séjour (${stayTotal - depositTotal} € sur un total de ${stayTotal} €) sera réglé ultérieurement.`;
+    : isKlarna
+    ? `Votre règlement en plusieurs fois avec Klarna est bien enregistré sous la référence ${booking?.reference}.`
+    : `Votre acompte de ${depositTotal} € (Carte bancaire, Apple Pay ou Klarna) est bien enregistré. Le solde du séjour (${stayTotal - depositTotal} € sur un total de ${stayTotal} €) sera réglé ultérieurement.`;
 
   return `<!DOCTYPE html>
 <html lang="fr">
@@ -197,14 +195,14 @@ export function buildConfirmationEmailHtml({ booking, experience, origin = SITE_
 export function buildConfirmationPlainText({ booking, experience }) {
   const firstName = (booking?.name || '').split(' ')[0] || 'Chère complice';
   const isCash = booking?.paymentMethod === 'cash';
-  const isAlma = booking?.paymentMethod === 'alma';
+  const isKlarna = booking?.paymentMethod === 'klarna' || booking?.paymentMethod === 'alma';
   const depositUnit = experience?.depositPerPlace || 95;
   const priceUnit = experience?.pricePerPerson || 450;
   const places = Number(booking?.places || 1);
   const depositTotal = depositUnit * places;
   const stayTotal = priceUnit * places;
-  const alma3x = Math.round((stayTotal / 3) * 100) / 100;
-  const alma4x = Math.round((stayTotal / 4) * 100) / 100;
+  const klarna3x = Math.round((stayTotal / 3) * 100) / 100;
+  const klarna4x = Math.round((stayTotal / 4) * 100) / 100;
 
   return `Bonjour ${firstName},
 
@@ -218,8 +216,8 @@ RÉCAPITULATIF DE VOTRE INSCRIPTION :
 - Mode de règlement : ${
     isCash
       ? 'Paiement en espèces (Cash) directement auprès d’Émilie et Virginie'
-      : isAlma
-      ? `Paiement en 3x ou 4x avec Alma (3 × ${alma3x} € ou 4 × ${alma4x} € — total ${stayTotal} €)`
+      : isKlarna
+      ? `Paiement en plusieurs fois avec Klarna (ex: 3 × ${klarna3x} € ou 4 × ${klarna4x} € — total ${stayTotal} €)`
       : `Acompte de ${depositTotal} € en ligne (sur un total de ${stayTotal} € tout compris)`
   }
 

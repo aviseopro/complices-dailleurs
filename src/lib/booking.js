@@ -72,8 +72,8 @@ export function createBooking(exp, bookings, form, { demo = true, requirePhone =
   const methodLabel =
     paymentMethod === 'cash'
       ? 'Paiement Cash (espèces)'
-      : paymentMethod === 'alma'
-      ? 'Paiement en 3x ou 4x avec Alma'
+      : paymentMethod === 'klarna' || paymentMethod === 'alma'
+      ? 'Paiement en plusieurs fois avec Klarna'
       : 'Acompte 95 € en ligne (Stripe)';
   return {
     ok: true,
@@ -112,7 +112,7 @@ export function toCsv(bookings) {
   };
   const formatMethod = (m) => {
     if (m === 'cash') return 'Cash (Espèces)';
-    if (m === 'alma') return 'Alma (2x, 3x ou 4x)';
+    if (m === 'klarna' || m === 'alma') return 'Klarna (Paiement en plusieurs fois)';
     return 'Acompte 95€ (Stripe)';
   };
   const rows = bookings.map((b) => [b.reference, b.exp, b.slot, b.name, b.email, b.phone, b.places, b.amount, formatMethod(b.paymentMethod), b.status, formatOptions(b.options), b.createdAt]);

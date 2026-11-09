@@ -172,10 +172,10 @@ h1{font-size:clamp(2.4rem,6vw,4.6rem)} h2{font-size:clamp(1.9rem,4vw,3rem)} h3{f
 .hpp-alma{display:inline-flex;align-items:center;gap:.45rem;font-family:var(--serif);font-size:1.15rem;color:#fff;line-height:1.15}
 .alma-pill{font-family:var(--sans);font-style:normal;font-size:.65rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;padding:.18rem .58rem;border-radius:999px;background:rgba(232,207,168,.22);border:1px solid rgba(232,207,168,.55);color:#f7e4c6}
 
-/* Badge & Logo Alma officiel */
-.alma-badge-tag{display:inline-flex;align-items:center;justify-content:center;background:#fff;border-radius:6px;padding:2px 7px;box-shadow:0 1px 3px rgba(0,0,0,.15);vertical-align:middle;margin:0 .25rem;line-height:1;transition:transform .2s ease}
-.alma-badge-tag:hover{transform:scale(1.04)}
-.alma-svg{display:inline-block;height:15px;width:auto;vertical-align:middle}
+/* Badge & Logo Klarna officiel */
+.alma-badge-tag,.klarna-badge-tag{display:inline-flex;align-items:center;justify-content:center;border-radius:7px;padding:0;vertical-align:middle;margin:0 .22rem;line-height:1;transition:transform .2s ease}
+.alma-badge-tag:hover,.klarna-badge-tag:hover{transform:scale(1.04)}
+.alma-svg,.klarna-svg{display:inline-block;height:18px;width:auto;vertical-align:middle}
 
 /* Bouton commercial avec halo lumineux */
 .btn-commercial-glow{box-shadow:0 0 16px rgba(44,85,115,.45),0 4px 14px rgba(0,0,0,.15)!important;font-weight:600!important}
