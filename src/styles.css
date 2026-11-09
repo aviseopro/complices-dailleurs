@@ -932,18 +932,22 @@ blockquote{font:italic 1.6rem var(--serif);color:var(--navy);border-left:3px sol
 @media(max-width:780px){
   .vip-top-payment-grid{grid-template-columns:1fr}
 }
-.vip-top-pay-pill{background:#fff;border:1.5px solid #dfd0bc;border-radius:14px;padding:.9rem 1rem;cursor:pointer;transition:all .2s ease;display:flex;flex-direction:column;justify-content:space-between;gap:.4rem}
+.vip-top-pay-pill{background:#fff;border:1.5px solid #dfd0bc;border-radius:14px;padding:.95rem 1rem;cursor:pointer;transition:all .2s ease;display:flex;flex-direction:column;justify-content:space-between;gap:.45rem}
 .vip-top-pay-pill:hover{border-color:var(--terra);transform:translateY(-1px)}
 .vip-top-pay-pill.active{border-color:var(--terra);background:#fffcf8;box-shadow:0 8px 22px rgba(168,85,58,.14)}
-.vip-top-pay-pill.alma.active{border-color:#fa5022;box-shadow:0 8px 22px rgba(250,80,34,.15)}
-.vip-top-pay-pill.cash.active{border-color:#3f5a3e;box-shadow:0 8px 22px rgba(63,90,62,.14)}
+.vip-top-pay-pill.alma.active{border-color:#d84b7e;box-shadow:0 8px 22px rgba(216,75,126,.16)}
+.vip-top-pay-pill.full.active{border-color:#2a2420;box-shadow:0 8px 22px rgba(42,36,32,.14)}
 .vip-top-pay-pill-head{display:flex;align-items:center;gap:.45rem}
 .vip-top-pay-pill-head strong{font-size:.88rem;color:#2a2420;line-height:1.25}
 .vip-top-pay-icon{width:28px;height:28px;border-radius:8px;background:rgba(168,85,58,.12);color:var(--terra);display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
-.vip-top-pay-icon.cash{background:rgba(63,90,62,.12);color:#3f5a3e}
+.vip-top-pay-icon.full{background:rgba(42,36,32,.1);color:#2a2420}
 .vip-top-pay-pill p{font-size:.79rem;line-height:1.45;color:#544840;margin:0}
-.vip-top-alma-link{display:inline-flex;align-items:center;gap:.3rem;font-size:.76rem;font-weight:600;color:#fa5022;text-decoration:underline;margin-top:.15rem}
-.vip-top-alma-link:hover{color:#c93810}
+.vip-top-pay-link,.vip-top-alma-link{display:inline-flex;align-items:center;justify-content:center;gap:.35rem;font-size:.76rem;font-weight:600;color:var(--terra);background:rgba(168,85,58,.09);border:1px solid rgba(168,85,58,.28);border-radius:999px;padding:.34rem .75rem;text-decoration:none;margin-top:.2rem;transition:all .2s ease}
+.vip-top-pay-link:hover,.vip-top-alma-link:hover{background:var(--terra);color:#fff;border-color:var(--terra)}
+.vip-top-pay-link.klarna{color:#0b051d;background:#ffb3c7;border-color:#f292ad}
+.vip-top-pay-link.klarna:hover{background:#0b051d;color:#ffb3c7;border-color:#0b051d}
+.vip-top-pay-link.full{color:#2a2420;background:rgba(42,36,32,.08);border-color:rgba(42,36,32,.25)}
+.vip-top-pay-link.full:hover{background:#2a2420;color:#faf6ef;border-color:#2a2420}
 
 .vip-stay-summary-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:.9rem;background:#faf6ef;border:1px solid #e6d7c3;border-radius:16px;padding:1.1rem 1.25rem}
 @media(max-width:720px){
@@ -980,23 +984,29 @@ blockquote{font:italic 1.6rem var(--serif);color:var(--navy);border-left:3px sol
 .vip-pay-card{position:relative;display:flex;flex-direction:column;justify-content:space-between;background:#faf6ef;border:2px solid #dfd0bc;border-radius:18px;padding:1.25rem 1.2rem;cursor:pointer;transition:all .22s ease}
 .vip-pay-card:hover{border-color:rgba(168,85,58,.55);background:#fff}
 .vip-pay-card.selected{background:#fffaf4;border-color:var(--terra);box-shadow:0 12px 30px rgba(168,85,58,.14)}
-.vip-pay-card.alma.selected{border-color:#fa5022;box-shadow:0 12px 30px rgba(250,80,34,.15)}
+.vip-pay-card.alma.selected{border-color:#d84b7e;box-shadow:0 12px 30px rgba(216,75,126,.15)}
+.vip-pay-card.full.selected{border-color:#2a2420;box-shadow:0 12px 30px rgba(42,36,32,.14)}
 .vip-pay-card input[type="radio"]{position:absolute;top:1.15rem;right:1.1rem;width:20px;height:20px;accent-color:var(--terra);cursor:pointer}
 .vip-pay-card-top{display:flex;align-items:center;gap:.5rem;margin-bottom:.75rem;padding-right:1.8rem;flex-wrap:wrap}
 .vip-pay-icon{width:38px;height:38px;border-radius:10px;background:rgba(168,85,58,.12);color:var(--terra);display:inline-flex;align-items:center;justify-content:center}
-.vip-pay-icon.alma{background:rgba(250,80,34,.11);padding:0 .45rem;width:auto}
-.vip-pay-icon.cash{background:rgba(63,90,62,.12);color:#3f5a3e}
+.vip-pay-icon.alma{background:transparent;padding:0;width:auto;height:auto}
+.vip-pay-icon.full{background:rgba(42,36,32,.1);color:#2a2420}
 .vip-pay-badge{font-size:.66rem;text-transform:uppercase;letter-spacing:.09em;font-weight:600;color:var(--terra);background:rgba(168,85,58,.1);padding:.2rem .55rem;border-radius:999px}
-.vip-pay-badge.alma{color:#c93810;background:rgba(250,80,34,.12)}
-.vip-pay-badge.cash{color:#3f5a3e;background:rgba(63,90,62,.12)}
+.vip-pay-badge.alma{color:#8c224b;background:rgba(255,179,199,.38)}
+.vip-pay-badge.full{color:#2a2420;background:rgba(42,36,32,.1)}
 .vip-pay-card h3{font-size:1.22rem;color:#2a2420;margin:0 0 .4rem;line-height:1.22}
 .vip-pay-card p{font-size:.84rem;line-height:1.52;color:#544840;margin:0 0 .75rem}
 .vip-pay-alma-link-row{margin-bottom:.75rem}
-.vip-card-alma-link{display:inline-flex;align-items:center;gap:.35rem;font-size:.79rem;font-weight:600;color:#fa5022;background:rgba(250,80,34,.09);border:1px solid rgba(250,80,34,.28);border-radius:999px;padding:.28rem .75rem;transition:all .2s ease}
-.vip-card-alma-link:hover{background:#fa5022;color:#fff}
+.vip-card-alma-link{display:inline-flex;align-items:center;gap:.35rem;font-size:.79rem;font-weight:600;color:var(--terra);background:rgba(168,85,58,.09);border:1px solid rgba(168,85,58,.28);border-radius:999px;padding:.3rem .8rem;transition:all .2s ease;text-decoration:none}
+.vip-card-alma-link:hover{background:var(--terra);color:#fff}
+.vip-card-alma-link.klarna{color:#0b051d;background:#ffb3c7;border-color:#f292ad}
+.vip-card-alma-link.klarna:hover{background:#0b051d;color:#ffb3c7;border-color:#0b051d}
+.vip-card-alma-link.full{color:#2a2420;background:rgba(42,36,32,.08);border-color:rgba(42,36,32,.25)}
+.vip-card-alma-link.full:hover{background:#2a2420;color:#faf6ef;border-color:#2a2420}
 .vip-pay-amount{display:flex;align-items:baseline;justify-content:space-between;gap:.4rem;flex-wrap:wrap;padding-top:.75rem;border-top:1px solid #e6d7c3;font-size:.8rem;color:var(--muted)}
 .vip-pay-amount strong{font-family:var(--serif);font-size:1.22rem;color:var(--terra);font-weight:600}
-.vip-pay-card.alma .vip-pay-amount strong{color:#fa5022}
+.vip-pay-card.alma .vip-pay-amount strong{color:#a82b5c}
+.vip-pay-card.full .vip-pay-amount strong{color:#2a2420}
 
 .vip-consents{display:grid;gap:.65rem;margin:1.2rem 0 1.5rem;padding:1.1rem 1.25rem;background:#faf6ef;border-radius:14px;border:1px solid #e6d7c3}
 .vip-consents em{color:#b3261e;font-style:normal;font-size:.8rem}

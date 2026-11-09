@@ -86,7 +86,7 @@ function Bookings() {
           <Link to="/paiement" className="btn btn-sm btn-ghost">Voir la page participante →</Link>
         </div>
         <small style={{ color: 'var(--muted)' }}>
-          Email officiel configuré : <strong>{OFFICIAL_EMAIL}</strong> — 3 choix proposés sur la page : <strong>1. Acompte 95 € (Carte / Apple Pay / Klarna)</strong>, <strong>2. Paiement en plusieurs fois avec Klarna</strong>, ou <strong>3. Paiement Cash (Espèces)</strong>.
+          Email officiel configuré : <strong>{OFFICIAL_EMAIL}</strong> — 3 choix proposés sur la page : <strong>1. Acompte 95 € (en 1 fois)</strong>, <strong>2. Montant total (450 €) en plusieurs fois avec Klarna</strong>, ou <strong>3. Payer en une fois (450 €)</strong>.
         </small>
       </div>
 
@@ -140,10 +140,10 @@ function Bookings() {
             </td>
             <td>{b.places}</td>
             <td>
-              {b.paymentMethod === 'cash' ? (
-                <span className="pill soon" style={{ fontSize: '.72rem' }}>💵 Paiement Cash</span>
+              {b.paymentMethod === 'full_450' || b.paymentMethod === 'cash' ? (
+                <span className="pill soon" style={{ fontSize: '.72rem' }}>💳 Payé en 1 fois ({b.amount || 450} €)</span>
               ) : b.paymentMethod === 'klarna' || b.paymentMethod === 'alma' ? (
-                <span className="pill waitlist" style={{ fontSize: '.72rem' }}>🩷 Klarna (plusieurs fois)</span>
+                <span className="pill waitlist" style={{ fontSize: '.72rem' }}>🩷 Klarna ({b.amount || 450} € en plusieurs fois)</span>
               ) : (
                 <span className="pill open" style={{ fontSize: '.72rem' }}>💳 Acompte {b.amount != null ? `${b.amount} €` : '95 €'}</span>
               )}
@@ -190,8 +190,9 @@ function Experiences() {
         <label>Titre<input value={e.title} onChange={(ev) => edit(e.slug, (x) => (x.title = ev.target.value))} /></label>
         <label>Tarif / personne (€)<input type="number" value={e.pricePerPerson ?? ''} onChange={(ev) => edit(e.slug, (x) => (x.pricePerPerson = num(ev.target.value)))} /></label>
         {e.kind === 'preorder' && <label>Pré-réservation / place (€)<input type="number" value={e.depositPerPlace ?? ''} onChange={(ev) => edit(e.slug, (x) => (x.depositPerPlace = num(ev.target.value)))} /></label>}
-        <label>Lien de paiement Stripe / Klarna (ex: https://buy.stripe.com/...)<input value={e.paymentLink || ''} placeholder="https://buy.stripe.com/..." onChange={(ev) => edit(e.slug, (x) => (x.paymentLink = ev.target.value))} /></label>
-        <label>Lien de paiement Klarna en plusieurs fois (optionnel)<input value={e.almaPaymentLink || ''} placeholder="https://buy.stripe.com/..." onChange={(ev) => edit(e.slug, (x) => (x.almaPaymentLink = ev.target.value))} /></label>
+        <label>1. Lien Stripe — Acompte 95 € (en 1 fois)<input value={e.paymentLink || ''} placeholder="https://buy.stripe.com/..." onChange={(ev) => edit(e.slug, (x) => (x.paymentLink = ev.target.value))} /></label>
+        <label>2. Lien Stripe — Total 450 € en plusieurs fois avec Klarna<input value={e.almaPaymentLink || ''} placeholder="https://buy.stripe.com/..." onChange={(ev) => edit(e.slug, (x) => (x.almaPaymentLink = ev.target.value))} /></label>
+        <label>3. Lien Stripe — Total 450 € en une fois<input value={e.fullPaymentLink || ''} placeholder="https://buy.stripe.com/..." onChange={(ev) => edit(e.slug, (x) => (x.fullPaymentLink = ev.target.value))} /></label>
         <label>Capacité globale (vide = non communiquée)<input type="number" value={e.capacity ?? ''} onChange={(ev) => edit(e.slug, (x) => (x.capacity = num(ev.target.value)))} /></label>
         <label>Participantes minimum pour maintenir le séjour<input type="number" value={e.minParticipants ?? ''} onChange={(ev) => edit(e.slug, (x) => (x.minParticipants = num(ev.target.value)))} /></label>
         <label>Durée<input value={e.duration || ''} onChange={(ev) => edit(e.slug, (x) => (x.duration = ev.target.value))} /></label>
@@ -263,8 +264,10 @@ function Settings() {
     <>
       <T k="demoMode" label="Mode démo (aucune transaction réelle)" />
       <T k="salesEnabled" label="Vente officielle Marrakech activée (uniquement après validation légale)" />
-      <T k="almaActive" label="Klarna actif (paiement en plusieurs fois)" />
-      <I k="almaPaymentUrl" label="Lien de paiement Klarna par défaut (ex: https://buy.stripe.com/...)" />
+      <T k="almaActive" label="Klarna actif (paiement du montant total en plusieurs fois)" />
+      <I k="stripePaymentUrl" label="1. Lien Stripe — Acompte 95 € en 1 fois" />
+      <I k="almaPaymentUrl" label="2. Lien Stripe — Montant total (450 €) en plusieurs fois avec Klarna" />
+      <I k="fullPaymentUrl" label="3. Lien Stripe — Montant total (450 €) en une fois" />
       <I k="heroImage" label="Image du hero (chemin ou URL)" />
       <I k="heroVideo" label="Vidéo du hero (optionnelle : chemin .mp4 ou URL — sinon tableau vivant cinemagraph)" />
       <I k="whatsapp" label="Numéro WhatsApp (ex: 0629849653)" />

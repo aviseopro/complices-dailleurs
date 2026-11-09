@@ -70,11 +70,11 @@ export function createBooking(exp, bookings, form, { demo = true, requirePhone =
   const paymentMethod = form.paymentMethod || 'deposit_95';
   const status = demo ? 'paid_demo' : 'pending';
   const methodLabel =
-    paymentMethod === 'cash'
-      ? 'Paiement Cash (espèces)'
+    paymentMethod === 'full_450' || paymentMethod === 'cash'
+      ? 'Paiement en une fois (450 €)'
       : paymentMethod === 'klarna' || paymentMethod === 'alma'
-      ? 'Paiement en plusieurs fois avec Klarna'
-      : 'Acompte 95 € en ligne (Stripe)';
+      ? 'Montant total en plusieurs fois avec Klarna'
+      : 'Acompte 95 € en 1 fois';
   return {
     ok: true,
     booking: {
@@ -111,9 +111,9 @@ export function toCsv(bookings) {
     return labels.join(' + ');
   };
   const formatMethod = (m) => {
-    if (m === 'cash') return 'Cash (Espèces)';
-    if (m === 'klarna' || m === 'alma') return 'Klarna (Paiement en plusieurs fois)';
-    return 'Acompte 95€ (Stripe)';
+    if (m === 'full_450' || m === 'cash') return 'Paiement en 1 fois (450€)';
+    if (m === 'klarna' || m === 'alma') return 'Klarna (Total 450€ en plusieurs fois)';
+    return 'Acompte 95€ (en 1 fois)';
   };
   const rows = bookings.map((b) => [b.reference, b.exp, b.slot, b.name, b.email, b.phone, b.places, b.amount, formatMethod(b.paymentMethod), b.status, formatOptions(b.options), b.createdAt]);
   return [head, ...rows].map((r) => r.map(esc).join(';')).join('\n');

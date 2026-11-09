@@ -36,7 +36,8 @@ export default function Booking() {
     if (typeof window !== 'undefined') {
       const p = new URLSearchParams(window.location.search).get('pay');
       if (p === 'klarna' || p === 'alma') initialPay = 'klarna';
-      else if (p === 'cash' || p === 'deposit_95') initialPay = p;
+      else if (p === 'full' || p === 'full_450' || p === 'once') initialPay = 'full_450';
+      else if (p === 'deposit_95') initialPay = 'deposit_95';
     }
     return {
       name: '',
@@ -44,7 +45,7 @@ export default function Booking() {
       phone: '',
       places: 1,
       slot: e?.dates?.[0]?.id || 'general',
-      paymentMethod: initialPay, // 'deposit_95' | 'klarna' | 'cash'
+      paymentMethod: initialPay, // 'deposit_95' | 'klarna' | 'full_450'
       consentRules: false,
       consentData: false,
     };
@@ -87,21 +88,24 @@ export default function Booking() {
   const depositAmount = unitDeposit * Number(f.places || 1);
   const unitPrice = e.pricePerPerson || (isMarrakechFemmes ? 790 : 450);
   const fullStayAmount = unitPrice * Number(f.places || 1);
-  const alma3x = Math.round((fullStayAmount / 3) * 100) / 100;
-  const alma4x = Math.round((fullStayAmount / 4) * 100) / 100;
-  const paymentLink = e.paymentLink || settings.stripePaymentUrl || 'https://buy.stripe.com/5kQaEZb38efo3Nh8x6afS00';
+  const klarna3x = Math.round((fullStayAmount / 3) * 100) / 100;
+  // Lien 1 : Acompte de 95 € (payable uniquement en 1 fois)
+  const depositLink = e.paymentLink || settings.stripePaymentUrl || 'https://buy.stripe.com/5kQaEZb38efo3Nh8x6afS00';
+  // Lien 2 : Montant total (450 €) en plusieurs fois avec Klarna
   const klarnaLink =
-    e.almaPaymentLink && !e.almaPaymentLink.includes('almapay.com')
-      ? e.almaPaymentLink
-      : paymentLink;
+    (e.almaPaymentLink && !e.almaPaymentLink.includes('almapay.com') ? e.almaPaymentLink : null) ||
+    (settings.almaPaymentUrl && !settings.almaPaymentUrl.includes('almapay.com') ? settings.almaPaymentUrl : null) ||
+    depositLink;
+  // Lien 3 : Montant total (450 €) en une seule fois
+  const fullLink = e.fullPaymentLink || settings.fullPaymentUrl || klarnaLink || depositLink;
 
   const set = (k) => (ev) =>
     setF({ ...f, [k]: ev.target.type === 'checkbox' ? ev.target.checked : ev.target.value });
 
-  // Conserve exactement le lien Stripe d'origine sans modifier les paramètres afin que tous les moyens
-  // de paiement configurés sur Stripe (Carte bancaire, Apple Pay, Klarna, Link) s'affichent normalement
-  const buildStripeUrl = () => {
-    return paymentLink || null;
+  const getPaymentUrlForMethod = (method) => {
+    if (method === 'klarna' || method === 'alma') return klarnaLink;
+    if (method === 'full_450' || method === 'full') return fullLink;
+    return depositLink;
   };
 
   // Finalise le règlement une fois payé : envoie le mail de confirmation et affiche le message de bienvenue
@@ -223,8 +227,9 @@ export default function Booking() {
       return;
     }
 
-    // S'assure que le montant d'acompte est bien renseigné sur la réservation
-    res.booking.amount = depositAmount;
+    // Montant selon le mode choisi : 95 € pour l'acompte, ou 450 € pour le montant total (en 1 fois ou en plusieurs fois avec Klarna)
+    const isFullAmount = f.paymentMethod === 'klarna' || f.paymentMethod === 'alma' || f.paymentMethod === 'full_450';
+    res.booking.amount = isFullAmount ? fullStayAmount : depositAmount;
     res.booking.emailSent = false;
 
     setSubmitting(true);
@@ -238,30 +243,15 @@ export default function Booking() {
       return s;
     });
 
-    // Cas 1 : Paiement Cash (pas de règlement par carte en ligne) -> envoi immédiat
-    if (f.paymentMethod === 'cash') {
-      res.booking.emailSent = true;
-      await sendBookingConfirmationEmail({ booking: res.booking, experience: e, settings });
-      setSubmitting(false);
-      setDone(res.booking);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      return;
-    }
-
-    // Cas 2 : Règlement en ligne (95 € ou Paiement en plusieurs fois avec Klarna via Stripe)
+    // Règlement en ligne (1. Acompte 95 €, 2. Montant total 450 € en plusieurs fois avec Klarna, ou 3. Montant total 450 € en une fois)
     // On N'AFFICHE PAS le message de bienvenue et on N'ENVOIE PAS le mail tant que le règlement n'est pas effectué !
     try {
       localStorage.setItem('cda-pending-booking-v1', JSON.stringify(res.booking));
     } catch (_) {}
 
-    const targetPaymentUrl =
-      f.paymentMethod === 'klarna' || f.paymentMethod === 'alma'
-        ? klarnaLink
-        : buildStripeUrl();
+    const targetPaymentUrl = getPaymentUrlForMethod(f.paymentMethod);
 
     if (targetPaymentUrl) {
-      // Redirection directe vers la page de paiement Stripe (Carte, Apple Pay, Klarna) dans le même onglet ;
-      // après paiement, Stripe renvoie automatiquement sur /reserver/arcachon-entre-femmes?paid=1
       window.location.href = targetPaymentUrl;
       return;
     }
@@ -287,24 +277,29 @@ export default function Booking() {
     }
   };
 
-  // Écran intermédiaire sobre pendant le règlement en ligne (95 € ou Klarna via Stripe) :
+  // Écran intermédiaire sobre pendant le règlement en ligne :
   // AUCUN message « Bienvenue » et AUCUN envoi de mail tant que le règlement n'est pas effectué.
   if (awaitingPayment && !done) {
     const isKlarnaPay = awaitingPayment.paymentMethod === 'klarna' || awaitingPayment.paymentMethod === 'alma';
-    const targetPayUrl = isKlarnaPay ? klarnaLink : buildStripeUrl();
+    const isFullOncePay = awaitingPayment.paymentMethod === 'full_450';
+    const targetPayUrl = getPaymentUrlForMethod(awaitingPayment.paymentMethod);
 
     return (
       <section className="section vip-booking-page">
         <div className="wrap narrow" role="status">
           <div className="vip-done-banner" style={{ textAlign: 'center', padding: '2.2rem 1.8rem' }}>
             <span className={`vip-step-pill ${isKlarnaPay ? 'alma' : ''}`} style={{ alignSelf: 'center', marginBottom: '.85rem' }}>
-              {isKlarnaPay ? 'Paiement en plusieurs fois avec Klarna en cours' : `Règlement sécurisé de ${depositAmount} € en cours`}
+              {isKlarnaPay
+                ? `Paiement de ${fullStayAmount} € en plusieurs fois avec Klarna en cours`
+                : isFullOncePay
+                ? `Règlement en une fois de ${fullStayAmount} € en cours`
+                : `Règlement de l’acompte de ${depositAmount} € en cours`}
             </span>
             <h2 style={{ margin: '0 0 .6rem', color: '#2a2420' }}>
               Finalisez votre règlement pour valider votre inscription
             </h2>
             <p style={{ maxWidth: '52ch', margin: '0 auto 1.4rem', color: '#4a3f38', fontSize: '.95rem', lineHeight: 1.6 }}>
-              La page de paiement sécurisée {isKlarnaPay ? 'Klarna / Stripe' : `Stripe (${depositAmount} €)`} est prête pour régler votre réservation.{' '}
+              La page de paiement sécurisée est prête pour régler votre réservation.{' '}
               <strong>Une fois votre règlement effectué</strong>, cliquez sur le bouton ci-dessous pour afficher votre message de bienvenue et recevoir votre lettre de confirmation par e-mail de la part de <strong>{OFFICIAL_EMAIL}</strong>.
             </p>
 
@@ -329,7 +324,12 @@ export default function Booking() {
                   href={targetPayUrl}
                   className="btn btn-sm btn-ghost"
                 >
-                  <ExternalLink size={14} /> Aller sur la page de paiement {isKlarnaPay ? 'Klarna / Stripe' : `Stripe (${depositAmount} €)`}
+                  <ExternalLink size={14} />{' '}
+                  {isKlarnaPay
+                    ? `Aller sur la page de paiement Klarna (${fullStayAmount} € en plusieurs fois)`
+                    : isFullOncePay
+                    ? `Aller sur la page de paiement en une fois (${fullStayAmount} €)`
+                    : `Aller sur la page de paiement de l’acompte (${depositAmount} €)`}
                 </a>
               )}
 
@@ -355,7 +355,7 @@ export default function Booking() {
 
   // Écran Récapitulatif, Message de Bienvenue & Lettre de Confirmation (affiché UNIQUEMENT une fois le règlement effectué)
   if (done) {
-    const isCash = done.paymentMethod === 'cash';
+    const isFullOnce = done.paymentMethod === 'full_450' || done.paymentMethod === 'cash';
     const isAlma = done.paymentMethod === 'klarna' || done.paymentMethod === 'alma';
     const firstName = done.name.split(' ')[0];
     const hasOptions = done.options && (done.options.hammam || done.options.soireeFestive || done.options.agafay);
@@ -369,11 +369,11 @@ export default function Booking() {
               <CheckCircle2 size={24} />
               <div>
                 <strong>
-                  {isCash
-                    ? `Inscription confirmée (Paiement Cash) — E-mail envoyé à ${done.email}`
+                  {isFullOnce
+                    ? `Règlement intégral de ${fullStayAmount} € confirmé — Lettre de bienvenue envoyée par e-mail à ${done.email}`
                     : isAlma
-                    ? `Règlement Klarna confirmé — Lettre de bienvenue envoyée par e-mail à ${done.email}`
-                    : `Règlement de ${depositAmount} € confirmé — Lettre de bienvenue envoyée par e-mail à ${done.email}`}
+                    ? `Règlement de ${fullStayAmount} € en plusieurs fois (Klarna) confirmé — Lettre de bienvenue envoyée par e-mail à ${done.email}`
+                    : `Règlement de l’acompte de ${depositAmount} € confirmé — Lettre de bienvenue envoyée par e-mail à ${done.email}`}
                 </strong>
                 <span>Une copie a également été transmise à Émilie &amp; Virginie ({OFFICIAL_EMAIL})</span>
               </div>
@@ -419,13 +419,13 @@ export default function Booking() {
                   {e.dates?.[0]?.label ? <> (<strong>{e.dates[0].label}</strong>)</> : null}. Toutes les deux esthéticiennes diplômées, nous avons hâte de vous accueillir, de réaliser vos soins du visage et vos massages, et de partager avec vous les séances de yoga guidées par Virginie et l’atelier créatif animé par Émilie.
                 </p>
                 <p style={{ marginTop: '.65rem' }}>
-                  {isCash ? (
+                  {isFullOnce ? (
                     <>
-                      Nous avons bien noté votre choix de <strong>régler en espèces (Cash)</strong>. Votre place est réservée sous la référence <strong>{done.reference}</strong> pour un montant total tout compris de <strong>{fullStayAmount} €</strong>, que nous réglerons ensemble directement en main propre.
+                      Nous vous confirmons la bonne prise en compte de votre <strong>règlement intégral en une fois de {fullStayAmount} €</strong>. Votre place est officiellement réservée sous la référence <strong>{done.reference}</strong>.
                     </>
                   ) : isAlma ? (
                     <>
-                      Nous vous confirmons la bonne prise en compte de votre <strong>règlement en plusieurs fois avec Klarna</strong>. Votre place est officiellement réservée sous la référence <strong>{done.reference}</strong>.
+                      Nous vous confirmons la bonne prise en compte de votre <strong>règlement du montant total ({fullStayAmount} €) en plusieurs fois avec Klarna</strong>. Votre place est officiellement réservée sous la référence <strong>{done.reference}</strong>.
                     </>
                   ) : (
                     <>
@@ -459,11 +459,11 @@ export default function Booking() {
                 <div className="vip-email-payment-summary">
                   <small>Mode de règlement choisi</small>
                   <strong>
-                    {isCash
-                      ? 'Paiement en espèces (Cash) directement auprès d’Émilie & Virginie'
+                    {isFullOnce
+                      ? `Paiement en une fois (${fullStayAmount} € — Carte bancaire / Apple Pay)`
                       : isAlma
-                      ? `Paiement en plusieurs fois avec Klarna (sur ${fullStayAmount} €)`
-                      : `Acompte de réservation de ${depositAmount} € (Carte bancaire / Apple Pay / Klarna)`}
+                      ? `Paiement du montant total (${fullStayAmount} €) en plusieurs fois avec Klarna`
+                      : `Acompte de réservation de ${depositAmount} € (payable en 1 fois — Carte bancaire / Apple Pay)`}
                   </strong>
                 </div>
 
@@ -545,7 +545,7 @@ export default function Booking() {
               <p className="vip-invitation-kicker">{e.title.toUpperCase()}</p>
               <h1>Réservez votre place parmi nous</h1>
               <p className="vip-invitation-lead">
-                « Quel bonheur de vous accueillir pour cette parenthèse rien que pour vous ! Indiquez votre e-mail et votre numéro de téléphone ci-dessous, choisissez votre mode de règlement (<strong>{unitDeposit} € de réservation</strong>, <strong>paiement en plusieurs fois avec Klarna</strong>, ou <strong>paiement Cash</strong>), et recevez votre belle confirmation d’inscription par mail dès votre règlement effectué. »
+                « Quel bonheur de vous accueillir pour cette parenthèse rien que pour vous ! Indiquez votre e-mail et votre numéro de téléphone ci-dessous, choisissez votre mode de règlement (<strong>acompte de {unitDeposit} €</strong>, <strong>montant total de {unitPrice} € en plusieurs fois avec Klarna</strong>, ou <strong>paiement en une fois de {unitPrice} €</strong>), et recevez votre belle confirmation d’inscription par mail dès votre règlement effectué. »
               </p>
             </div>
           </div>
@@ -558,7 +558,7 @@ export default function Booking() {
             </div>
 
             <div className="vip-top-payment-grid">
-              {/* Moyen 1 : 95 € de réservation */}
+              {/* Rectangle 1 : Acompte de 95 € (payable uniquement en 1 fois, jamais en 3 fois) */}
               <div
                 role="button"
                 tabIndex={0}
@@ -568,12 +568,27 @@ export default function Booking() {
               >
                 <div className="vip-top-pay-pill-head">
                   <span className="vip-top-pay-icon"><CreditCard size={16} /></span>
-                  <strong>1. Donner les {depositAmount} € de réservation</strong>
+                  <strong>1. Régler l’acompte de {depositAmount} €</strong>
                 </div>
-                <p>Bloquez votre place aujourd’hui (Carte bancaire, Apple Pay, Klarna sur Stripe).</p>
+                <p>
+                  Bloquez votre place aujourd’hui en réglant uniquement l’acompte de <strong>{depositAmount} €</strong> en 1 fois (Carte bancaire ou Apple Pay).
+                </p>
+                <a
+                  href={depositLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(ev) => {
+                    ev.stopPropagation();
+                    setF((prev) => ({ ...prev, paymentMethod: 'deposit_95' }));
+                  }}
+                  className="vip-top-pay-link"
+                >
+                  <span>Payer l’acompte de {depositAmount} €</span>
+                  <ExternalLink size={12} />
+                </a>
               </div>
 
-              {/* Moyen 2 : Paiement en plusieurs fois avec Klarna + Lien direct */}
+              {/* Rectangle 2 : Montant total (450 €) payable en plusieurs fois avec Klarna */}
               <div
                 role="button"
                 tabIndex={0}
@@ -583,36 +598,54 @@ export default function Booking() {
               >
                 <div className="vip-top-pay-pill-head">
                   <AlmaLogo height={16} />
-                  <strong>2. Paiement en plusieurs fois avec Klarna</strong>
+                  <strong>2. Total ({fullStayAmount} €) en plusieurs fois</strong>
                 </div>
                 <p>
-                  Réglez en plusieurs fois (3x sans frais avec <strong>Klarna</strong> directement sur notre page de paiement Stripe).
+                  Seul le montant total du séjour (<strong>{fullStayAmount} €</strong>) est payable en plusieurs fois avec <strong>Klarna</strong> (3 × {klarna3x} €).
                 </p>
                 <a
                   href={klarnaLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  onClick={(ev) => ev.stopPropagation()}
-                  className="vip-top-alma-link"
+                  onClick={(ev) => {
+                    ev.stopPropagation();
+                    setF((prev) => ({ ...prev, paymentMethod: 'klarna' }));
+                  }}
+                  className="vip-top-pay-link klarna"
                 >
-                  <span>Accéder au paiement Klarna (plusieurs fois)</span>
+                  <span>Payer {fullStayAmount} € en plusieurs fois (Klarna)</span>
                   <ExternalLink size={12} />
                 </a>
               </div>
 
-              {/* Moyen 3 : Paiement Cash */}
+              {/* Rectangle 3 : Payer en une fois (450 €) */}
               <div
                 role="button"
                 tabIndex={0}
-                onClick={() => selectMethodAndScroll('cash')}
-                onKeyDown={(ev) => (ev.key === 'Enter' || ev.key === ' ') && selectMethodAndScroll('cash')}
-                className={`vip-top-pay-pill cash ${f.paymentMethod === 'cash' ? 'active' : ''}`}
+                onClick={() => selectMethodAndScroll('full_450')}
+                onKeyDown={(ev) => (ev.key === 'Enter' || ev.key === ' ') && selectMethodAndScroll('full_450')}
+                className={`vip-top-pay-pill full ${f.paymentMethod === 'full_450' ? 'active' : ''}`}
               >
                 <div className="vip-top-pay-pill-head">
-                  <span className="vip-top-pay-icon cash"><Banknote size={16} /></span>
-                  <strong>3. Payer en Cash (Espèces)</strong>
+                  <span className="vip-top-pay-icon full"><Banknote size={16} /></span>
+                  <strong>3. Payer en une fois ({fullStayAmount} €)</strong>
                 </div>
-                <p>Confirmez votre place maintenant et réglez en espèces auprès d’Émilie &amp; Virginie.</p>
+                <p>
+                  Réglez la totalité de votre séjour tout compris (<strong>{fullStayAmount} €</strong>) directement en une seule fois (Carte bancaire ou Apple Pay).
+                </p>
+                <a
+                  href={fullLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(ev) => {
+                    ev.stopPropagation();
+                    setF((prev) => ({ ...prev, paymentMethod: 'full_450' }));
+                  }}
+                  className="vip-top-pay-link full"
+                >
+                  <span>Payer {fullStayAmount} € en une fois</span>
+                  <ExternalLink size={12} />
+                </a>
               </div>
             </div>
           </div>
@@ -632,7 +665,7 @@ export default function Booking() {
               <span>{e.lodging || e.location}</span>
             </div>
             <div>
-              <strong>{unitDeposit} €, Klarna ou Cash</strong>
+              <strong>Acompte {unitDeposit} €, Klarna ou 1 fois</strong>
               <span>Tarif du séjour : {unitPrice} € / pers. · Confirmation par mail après règlement</span>
             </div>
           </div>
@@ -762,19 +795,19 @@ export default function Booking() {
             </div>
           )}
 
-          {/* ÉTAPE 2 : CHOIX DU MODE DE PAIEMENT (95 € DE RÉSERVATION, KLARNA PAIEMENT EN PLUSIEURS FOIS OU CASH) */}
+          {/* ÉTAPE 2 : CHOIX DU MODE DE PAIEMENT (ACOMPTE 95 €, MONTANT TOTAL EN PLUSIEURS FOIS AVEC KLARNA, OU PAYER EN UNE FOIS) */}
           <div className="vip-form-section-head" style={{ marginTop: '1.8rem' }}>
             <span className="vip-step-num">2</span>
             <div>
               <h2>Choisissez votre mode de règlement</h2>
               <p>
-                Vous pouvez donner les <strong>{depositAmount} € de réservation</strong> maintenant (Carte, Apple Pay, Klarna), régler en <strong>plusieurs fois avec Klarna</strong>, ou choisir de <strong>payer en Cash</strong>.
+                Réglez l’<strong>acompte de {depositAmount} €</strong> en 1 fois, payez le <strong>montant total ({fullStayAmount} €) en plusieurs fois avec Klarna</strong>, ou choisissez de <strong>payer en une fois ({fullStayAmount} €)</strong>.
               </p>
             </div>
           </div>
 
           <div className="vip-payment-choices" role="radiogroup" aria-label="Mode de règlement">
-            {/* Option 1 : 95 € de réservation en ligne */}
+            {/* Option 1 : 95 € d'acompte en ligne (uniquement en 1 fois) */}
             <label
               className={`vip-pay-card ${f.paymentMethod === 'deposit_95' ? 'selected' : ''}`}
               onClick={() => setF({ ...f, paymentMethod: 'deposit_95' })}
@@ -788,19 +821,34 @@ export default function Booking() {
               />
               <div className="vip-pay-card-top">
                 <span className="vip-pay-icon"><CreditCard size={20} /></span>
-                <span className="vip-pay-badge">Carte · Apple Pay · Klarna</span>
+                <span className="vip-pay-badge">Acompte · Carte ou Apple Pay</span>
               </div>
-              <h3>Donner les {depositAmount} € de réservation</h3>
+              <h3>1. Régler l’acompte de {depositAmount} €</h3>
               <p>
-                Je bloque ma place immédiatement en réglant l’acompte de <strong>{depositAmount} €</strong> sur Stripe (Carte bancaire, Apple Pay, Klarna). Le solde du séjour sera réglé plus tard.
+                Je bloque ma place immédiatement en réglant uniquement l’acompte de <strong>{depositAmount} €</strong> en 1 fois (Carte bancaire ou Apple Pay). Le solde ({fullStayAmount - depositAmount} €) sera réglé plus tard.
               </p>
+              <div className="vip-pay-alma-link-row">
+                <a
+                  href={depositLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(ev) => {
+                    ev.stopPropagation();
+                    setF({ ...f, paymentMethod: 'deposit_95' });
+                  }}
+                  className="vip-card-alma-link"
+                >
+                  <span>Payer l’acompte de {depositAmount} €</span>
+                  <ExternalLink size={13} />
+                </a>
+              </div>
               <div className="vip-pay-amount">
-                <span>À régler aujourd’hui :</span>
+                <span>Acompte en 1 fois :</span>
                 <strong>{depositAmount} €</strong>
               </div>
             </label>
 
-            {/* Option 2 : Paiement en plusieurs fois avec Klarna */}
+            {/* Option 2 : Montant total (450 €) en plusieurs fois avec Klarna */}
             <label
               className={`vip-pay-card alma ${f.paymentMethod === 'klarna' || f.paymentMethod === 'alma' ? 'selected' : ''}`}
               onClick={() => setF({ ...f, paymentMethod: 'klarna' })}
@@ -814,53 +862,71 @@ export default function Booking() {
               />
               <div className="vip-pay-card-top">
                 <span className="vip-pay-icon alma"><AlmaLogo height={16} /></span>
-                <span className="vip-pay-badge alma">Paiement en plusieurs fois</span>
+                <span className="vip-pay-badge alma">Montant total · Plusieurs fois</span>
               </div>
-              <h3>Payer en plusieurs fois avec Klarna</h3>
+              <h3>2. Payer le total ({fullStayAmount} €) en plusieurs fois</h3>
               <p>
-                Échelonnez votre règlement en <strong>3 fois sans frais avec Klarna</strong> directement sur notre page de paiement sécurisée Stripe.
+                Seul le montant total du séjour (<strong>{fullStayAmount} €</strong>) est payable en plusieurs fois. Échelonnez vos <strong>{fullStayAmount} €</strong> (3 × {klarna3x} €) avec <strong>Klarna</strong>.
               </p>
               <div className="vip-pay-alma-link-row">
                 <a
                   href={klarnaLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  onClick={(ev) => ev.stopPropagation()}
-                  className="vip-card-alma-link"
+                  onClick={(ev) => {
+                    ev.stopPropagation();
+                    setF({ ...f, paymentMethod: 'klarna' });
+                  }}
+                  className="vip-card-alma-link klarna"
                 >
-                  <span>Lien de paiement Klarna (plusieurs fois)</span>
+                  <span>Payer {fullStayAmount} € en plusieurs fois (Klarna)</span>
                   <ExternalLink size={13} />
                 </a>
               </div>
               <div className="vip-pay-amount">
-                <span>Option Klarna :</span>
-                <strong>Paiement en 3 fois</strong>
+                <span>Total en 3 fois :</span>
+                <strong>3 × {klarna3x} €</strong>
               </div>
             </label>
 
-            {/* Option 3 : Payer Cash (Espèces) */}
+            {/* Option 3 : Payer en une fois (450 €) */}
             <label
-              className={`vip-pay-card ${f.paymentMethod === 'cash' ? 'selected' : ''}`}
-              onClick={() => setF({ ...f, paymentMethod: 'cash' })}
+              className={`vip-pay-card full ${f.paymentMethod === 'full_450' ? 'selected' : ''}`}
+              onClick={() => setF({ ...f, paymentMethod: 'full_450' })}
             >
               <input
                 type="radio"
                 name="paymentMethod"
-                value="cash"
-                checked={f.paymentMethod === 'cash'}
-                onChange={() => setF({ ...f, paymentMethod: 'cash' })}
+                value="full_450"
+                checked={f.paymentMethod === 'full_450'}
+                onChange={() => setF({ ...f, paymentMethod: 'full_450' })}
               />
               <div className="vip-pay-card-top">
-                <span className="vip-pay-icon cash"><Banknote size={20} /></span>
-                <span className="vip-pay-badge cash">Règlement en main propre</span>
+                <span className="vip-pay-icon full"><Banknote size={20} /></span>
+                <span className="vip-pay-badge full">Séjour complet · 1 fois</span>
               </div>
-              <h3>Payer en Cash (Espèces)</h3>
+              <h3>3. Payer en une fois ({fullStayAmount} €)</h3>
               <p>
-                Je confirme définitivement ma participation aujourd’hui et je règle en espèces (Cash) directement auprès d’Émilie et Virginie.
+                Je règle dès aujourd’hui la totalité de mon séjour tout compris (<strong>{fullStayAmount} €</strong>) en une seule fois par Carte bancaire ou Apple Pay.
               </p>
+              <div className="vip-pay-alma-link-row">
+                <a
+                  href={fullLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(ev) => {
+                    ev.stopPropagation();
+                    setF({ ...f, paymentMethod: 'full_450' });
+                  }}
+                  className="vip-card-alma-link full"
+                >
+                  <span>Payer {fullStayAmount} € en une fois</span>
+                  <ExternalLink size={13} />
+                </a>
+              </div>
               <div className="vip-pay-amount">
-                <span>Mode choisi :</span>
-                <strong>Paiement Cash</strong>
+                <span>Total en 1 fois :</span>
+                <strong>{fullStayAmount} €</strong>
               </div>
             </label>
           </div>
@@ -893,19 +959,19 @@ export default function Booking() {
           >
             {submitting ? (
               <span>Ouverture du règlement sécurisé…</span>
-            ) : f.paymentMethod === 'cash' ? (
+            ) : f.paymentMethod === 'full_450' ? (
               <>
-                <span>Valider mon inscription (Paiement Cash) &amp; recevoir mon mail</span>
+                <span>Procéder au paiement en une fois de {fullStayAmount} €</span>
                 <ArrowRight size={18} />
               </>
             ) : f.paymentMethod === 'klarna' || f.paymentMethod === 'alma' ? (
               <>
-                <span>Procéder au paiement en plusieurs fois avec Klarna</span>
+                <span>Procéder au paiement de {fullStayAmount} € en plusieurs fois avec Klarna</span>
                 <ArrowRight size={18} />
               </>
             ) : (
               <>
-                <span>Procéder au règlement sécurisé de {depositAmount} €</span>
+                <span>Procéder au règlement de l’acompte de {depositAmount} €</span>
                 <ArrowRight size={18} />
               </>
             )}

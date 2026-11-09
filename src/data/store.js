@@ -25,6 +25,9 @@ function load() {
       if (!saved.settings?.almaPaymentUrl || saved.settings?.almaPaymentUrl === 'https://almapay.com/fr-FR') {
         saved.settings = { ...saved.settings, almaPaymentUrl: defaultData.settings.almaPaymentUrl, almaActive: true };
       }
+      if (!saved.settings?.fullPaymentUrl) {
+        saved.settings = { ...saved.settings, fullPaymentUrl: defaultData.settings.fullPaymentUrl };
+      }
       if (!saved.settings?.googleScriptUrl) {
         saved.settings = { ...saved.settings, googleScriptUrl: defaultData.settings.googleScriptUrl };
       }

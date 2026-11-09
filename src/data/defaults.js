@@ -10,6 +10,7 @@ export const defaultData = {
     heroVideo: '/videos/hero-arcachon.mp4?v=2',
     stripePaymentUrl: 'https://buy.stripe.com/5kQaEZb38efo3Nh8x6afS00',
     almaPaymentUrl: 'https://buy.stripe.com/5kQaEZb38efo3Nh8x6afS00',
+    fullPaymentUrl: 'https://buy.stripe.com/5kQaEZb38efo3Nh8x6afS00',
     googleScriptUrl: 'https://script.google.com/macros/s/AKfycbww9COYgKZyElF4jeaiy9uIoFGrqkF4iZgMdCi8_BqnJqDkZL13Sv_DKogxBj0nFGq_/exec',
     gmailAppPassword: '',
     whatsapp: '0629849653',

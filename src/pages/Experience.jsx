@@ -379,7 +379,7 @@ export default function Experience() {
                   <Sparkles size={13} /> Tarif du séjour
                 </span>
                 <div className="bk-arca-dep">
-                  Réservation avec <strong>{e.depositPerPlace || 95} € d’acompte</strong>, Klarna (paiement en plusieurs fois) ou Cash
+                  Réservation avec <strong>{e.depositPerPlace || 95} € d’acompte</strong>, paiement du total ({euro(e.pricePerPerson || 450)}) en plusieurs fois avec Klarna, ou paiement en une fois ({euro(e.pricePerPerson || 450)})
                 </div>
                 <div className="bk-arca-total">
                   Séjour complet tout compris : <strong className="bk-new-price">{euro(e.pricePerPerson || 450)}</strong>
@@ -440,23 +440,23 @@ export default function Experience() {
                 <>
                   <dt>Modes de règlement</dt>
                   <dd>
-                    <strong>1. {euro(e.depositPerPlace || 95)} d’acompte</strong> en ligne (Carte, Apple Pay)
+                    <strong>1. Acompte de {euro(e.depositPerPlace || 95)}</strong> en 1 fois (Carte, Apple Pay)
                     <br />
                     <strong>
-                      2. Paiement en plusieurs fois avec <AlmaLogo height={15} />
+                      2. Total ({euro(e.pricePerPerson || 450)}) en plusieurs fois avec <AlmaLogo height={15} />
                     </strong>{' '}
                     (
                     <a
-                      href={e.paymentLink || settings.stripePaymentUrl || 'https://buy.stripe.com/5kQaEZb38efo3Nh8x6afS00'}
+                      href={e.almaPaymentLink || e.paymentLink || settings.stripePaymentUrl || 'https://buy.stripe.com/5kQaEZb38efo3Nh8x6afS00'}
                       target="_blank"
                       rel="noopener noreferrer"
                       style={{ color: 'var(--terra)', textDecoration: 'underline' }}
                     >
-                      lien Klarna / Stripe
+                      lien Klarna
                     </a>
                     )
                     <br />
-                    <strong>3. Paiement Cash (Espèces)</strong>
+                    <strong>3. Payer en une fois ({euro(e.pricePerPerson || 450)})</strong>
                   </dd>
                 </>
               )}
