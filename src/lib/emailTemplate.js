@@ -45,34 +45,22 @@ export function buildConfirmationEmailHtml({ booking, experience, origin = SITE_
   const paymentBadge = isCash
     ? 'Paiement en espèces (Cash) auprès d’Émilie & Virginie'
     : isAlma
-    ? `Paiement en 2x, 3x ou 4x avec Alma (3 × ${alma3x} € ou 4 × ${alma4x} €)`
-    : `Acompte de réservation de ${depositTotal} € (${places > 1 ? `${places} × ${depositUnit} €` : `${depositUnit} €`})`;
+    ? `Règlement échelonné 2x, 3x ou 4x avec Alma confirmé (3 × ${alma3x} € ou 4 × ${alma4x} €)`
+    : `Acompte de réservation de ${depositTotal} € réglé (${places > 1 ? `${places} × ${depositUnit} €` : `${depositUnit} €`})`;
 
   const letterParagraphByMethod = isCash
     ? `Nous avons bien noté votre choix de <strong>régler en espèces (Cash)</strong>. Votre place est officiellement réservée sous la référence <strong>${booking?.reference}</strong> pour un montant total tout compris de <strong>${stayTotal} €</strong>, que nous réglerons ensemble directement en main propre.`
     : isAlma
-    ? `Nous avons bien noté votre choix de <strong>régler en plusieurs fois avec Alma</strong> (en <strong>3 × ${alma3x} €</strong> ou <strong>4 × ${alma4x} €</strong> par carte bancaire, soit <strong>${stayTotal} €</strong> tout compris). Si vous n’avez pas encore finalisé votre échéancier Alma, vous pouvez le faire à tout moment via le bouton ci-dessous.`
-    : `Nous avons bien noté votre choix de <strong>bloquer votre place avec l’acompte de ${depositTotal} € par carte bancaire</strong>. Le solde de votre séjour (<strong>${stayTotal - depositTotal} €</strong> sur un total tout compris de <strong>${stayTotal} €</strong>) sera réglé ultérieurement. Si vous n’avez pas encore finalisé le règlement de votre acompte sur Stripe, le bouton ci-dessous vous y conduit directement.`;
+    ? `Nous vous confirmons la bonne prise en compte de votre <strong>règlement en plusieurs fois avec Alma</strong> (en <strong>3 × ${alma3x} €</strong> ou <strong>4 × ${alma4x} €</strong> par carte bancaire, soit <strong>${stayTotal} €</strong> tout compris). Votre place est officiellement réservée sous la référence <strong>${booking?.reference}</strong>.`
+    : `Nous vous confirmons la bonne prise en compte de votre <strong>acompte de réservation de ${depositTotal} € par carte bancaire</strong>. Votre place est officiellement réservée sous la référence <strong>${booking?.reference}</strong> (le solde de <strong>${stayTotal - depositTotal} €</strong> sur un total tout compris de <strong>${stayTotal} €</strong> sera réglé ultérieurement).`;
 
-  const paymentActionButtonHtml = isCash
-    ? ''
-    : isAlma
-    ? `<div style="margin-top:14px;text-align:center;">
-         <a href="${almaUrl}" target="_blank" rel="noopener noreferrer" style="display:inline-block;background-color:#2a2420;color:#ffffff;font-size:14px;font-weight:600;text-decoration:none;padding:12px 22px;border-radius:999px;">
-           Régler en 3x (${alma3x} €) ou 4x (${alma4x} €) avec Alma →
-         </a>
-       </div>`
-    : `<div style="margin-top:14px;text-align:center;">
-         <a href="${stripeUrl}?prefilled_email=${encodeURIComponent(booking?.email || '')}&client_reference_id=${encodeURIComponent(booking?.reference || '')}" target="_blank" rel="noopener noreferrer" style="display:inline-block;background-color:#a8553a;color:#ffffff;font-size:14px;font-weight:600;text-decoration:none;padding:12px 22px;border-radius:999px;">
-           Régler mon acompte de ${depositTotal} € par carte sécurisée →
-         </a>
-       </div>`;
+  const paymentActionButtonHtml = '';
 
   const paymentExplanation = isCash
     ? `Vous avez choisi de régler votre participation en espèces (Cash). Votre place est réservée sous la référence ${booking?.reference} ; le règlement s’effectuera directement en main propre auprès d’Émilie et Virginie.`
     : isAlma
-    ? `Vous avez choisi le paiement en plusieurs fois avec Alma (en 2x, 3x ou 4x par carte bancaire sur un total de ${stayTotal} €). Votre dossier est enregistré sous la référence ${booking?.reference}.`
-    : `Vous avez choisi de bloquer votre place avec l’acompte de ${depositTotal} € par carte bancaire sécurisée. Le solde du séjour (${stayTotal - depositTotal} € sur un total de ${stayTotal} €) sera réglé ultérieurement.`;
+    ? `Votre règlement échelonné avec Alma (en 2x, 3x ou 4x par carte bancaire sur un total de ${stayTotal} €) est bien enregistré sous la référence ${booking?.reference}.`
+    : `Votre acompte de ${depositTotal} € par carte bancaire sécurisée est bien enregistré. Le solde du séjour (${stayTotal - depositTotal} € sur un total de ${stayTotal} €) sera réglé ultérieurement.`;
 
   return `<!DOCTYPE html>
 <html lang="fr">

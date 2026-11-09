@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import {
   ArrowRight,
@@ -64,8 +64,10 @@ export default function Booking() {
 
   const [errors, setErrors] = useState({});
   const [err, setErr] = useState('');
+  const [awaitingPayment, setAwaitingPayment] = useState(null);
   const [done, setDone] = useState(null);
   const [submitting, setSubmitting] = useState(false);
+  const [confirmingPay, setConfirmingPay] = useState(false);
   const [copiedLink, setCopiedLink] = useState(false);
 
   if (!e) {
@@ -92,17 +94,88 @@ export default function Booking() {
   const set = (k) => (ev) =>
     setF({ ...f, [k]: ev.target.type === 'checkbox' ? ev.target.checked : ev.target.value });
 
-  const buildStripeUrl = (bookingRef) => {
+  const buildStripeUrl = (bookingRef, customEmail) => {
     if (!paymentLink) return null;
     try {
       const u = new URL(paymentLink);
-      if (f.email) u.searchParams.set('prefilled_email', f.email.trim());
+      const em = customEmail || f.email;
+      if (em) u.searchParams.set('prefilled_email', em.trim());
       if (bookingRef) u.searchParams.set('client_reference_id', bookingRef);
       return u.toString();
     } catch (_) {
       return paymentLink;
     }
   };
+
+  // Finalise le règlement une fois payé : envoie le mail de confirmation et affiche le message de bienvenue
+  const finalizePaidBooking = async (bookingObj) => {
+    if (!bookingObj) return;
+    setConfirmingPay(true);
+    const paidBooking = {
+      ...bookingObj,
+      status: 'paid',
+      emailSent: true,
+    };
+
+    update((s) => {
+      const idx = s.bookings.findIndex((b) => b.reference === paidBooking.reference);
+      if (idx >= 0) {
+        s.bookings[idx] = {
+          ...s.bookings[idx],
+          status: 'paid',
+          emailSent: true,
+          log: [
+            ...(s.bookings[idx].log || []),
+            { at: new Date().toISOString(), status: 'paid', note: 'Règlement effectué & mail envoyé' },
+          ],
+        };
+      } else {
+        s.bookings.push(paidBooking);
+      }
+      return s;
+    });
+
+    if (!bookingObj.emailSent) {
+      await sendBookingConfirmationEmail({ booking: paidBooking, experience: e, settings });
+    }
+
+    try {
+      localStorage.removeItem('cda-pending-booking-v1');
+    } catch (_) {}
+
+    setConfirmingPay(false);
+    setAwaitingPayment(null);
+    setDone(paidBooking);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  // Détection automatique du retour depuis Stripe / Alma (?paid=1 ou ?success=1)
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const params = new URLSearchParams(window.location.search);
+    const isPaidReturn =
+      params.get('paid') === '1' ||
+      params.get('success') === '1' ||
+      params.get('payment') === 'success';
+    const refParam = params.get('ref') || params.get('client_reference_id');
+
+    try {
+      const rawPending = localStorage.getItem('cda-pending-booking-v1');
+      const pending = rawPending ? JSON.parse(rawPending) : null;
+
+      if (isPaidReturn) {
+        const target =
+          pending ||
+          (refParam ? bookings.find((b) => b.reference === refParam) : bookings[bookings.length - 1]);
+        if (target && !done) {
+          finalizePaidBooking(target);
+        }
+      } else if (pending && pending.exp === e?.slug && !done && !awaitingPayment) {
+        setAwaitingPayment(pending);
+      }
+    } catch (_) {}
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const copyDirectLink = async () => {
     const shareUrl = window.location.href;
@@ -143,18 +216,50 @@ export default function Booking() {
 
     // S'assure que le montant d'acompte est bien renseigné sur la réservation
     res.booking.amount = depositAmount;
+    res.booking.emailSent = false;
 
     setSubmitting(true);
     update((s) => {
-      s.bookings.push(res.booking);
+      const existingIdx = s.bookings.findIndex((b) => b.reference === res.booking.reference);
+      if (existingIdx >= 0) {
+        s.bookings[existingIdx] = res.booking;
+      } else {
+        s.bookings.push(res.booking);
+      }
       return s;
     });
 
-    // Envoi automatique du mail de confirmation (à la participante + complicesdailleurs@gmail.com)
-    await sendBookingConfirmationEmail({ booking: res.booking, experience: e, settings });
+    // Cas 1 : Paiement Cash (pas de règlement par carte en ligne) -> envoi immédiat
+    if (f.paymentMethod === 'cash') {
+      res.booking.emailSent = true;
+      await sendBookingConfirmationEmail({ booking: res.booking, experience: e, settings });
+      setSubmitting(false);
+      setDone(res.booking);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
+    // Cas 2 : Règlement en ligne (95 € Stripe ou Alma 3x/4x)
+    // On N'AFFICHE PAS le message de bienvenue et on N'ENVOIE PAS le mail tant que le règlement n'est pas effectué !
+    try {
+      localStorage.setItem('cda-pending-booking-v1', JSON.stringify(res.booking));
+    } catch (_) {}
+
+    const targetPaymentUrl =
+      f.paymentMethod === 'alma'
+        ? almaLink
+        : buildStripeUrl(res.booking.reference, res.booking.email);
+
     setSubmitting(false);
-    setDone(res.booking);
+    setAwaitingPayment(res.booking);
     window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    if (targetPaymentUrl) {
+      const w = window.open(targetPaymentUrl, '_blank', 'noopener,noreferrer');
+      if (!w) {
+        window.location.href = targetPaymentUrl;
+      }
+    }
   };
 
   const selectMethodAndScroll = (method) => {
@@ -177,74 +282,101 @@ export default function Booking() {
     }
   };
 
-  // Écran Récapitulatif & Confirmation Mail après validation (Done) — identique sur toutes les réservations
+  // Écran intermédiaire sobre pendant le règlement en ligne (95 € Stripe ou Alma) :
+  // AUCUN message « Bienvenue » et AUCUN envoi de mail tant que le règlement n'est pas effectué.
+  if (awaitingPayment && !done) {
+    const isAlmaPay = awaitingPayment.paymentMethod === 'alma';
+    const targetPayUrl = isAlmaPay
+      ? almaLink
+      : buildStripeUrl(awaitingPayment.reference, awaitingPayment.email);
+
+    return (
+      <section className="section vip-booking-page">
+        <div className="wrap narrow" role="status">
+          <div className="vip-done-banner" style={{ textAlign: 'center', padding: '2.2rem 1.8rem' }}>
+            <span className={`vip-step-pill ${isAlmaPay ? 'alma' : ''}`} style={{ alignSelf: 'center', marginBottom: '.85rem' }}>
+              {isAlmaPay ? 'Règlement Alma 3x / 4x en cours' : `Règlement sécurisé de ${depositAmount} € en cours`}
+            </span>
+            <h2 style={{ margin: '0 0 .6rem', color: '#2a2420' }}>
+              Finalisez votre règlement pour valider votre inscription
+            </h2>
+            <p style={{ maxWidth: '52ch', margin: '0 auto 1.4rem', color: '#4a3f38', fontSize: '.95rem', lineHeight: 1.6 }}>
+              La page de paiement sécurisée {isAlmaPay ? 'Alma' : `Stripe (${depositAmount} €)`} s’est ouverte pour régler votre réservation.{' '}
+              <strong>Une fois votre règlement effectué</strong>, cliquez sur le bouton ci-dessous pour afficher votre message de bienvenue et recevoir votre lettre de confirmation par e-mail de la part de <strong>{OFFICIAL_EMAIL}</strong>.
+            </p>
+
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '.85rem' }}>
+              <button
+                type="button"
+                className="btn btn-terra"
+                style={{ fontWeight: 600, padding: '1rem 1.8rem', fontSize: '1rem' }}
+                disabled={confirmingPay}
+                onClick={() => finalizePaidBooking(awaitingPayment)}
+              >
+                <CheckCircle2 size={19} />
+                <span>
+                  {confirmingPay
+                    ? 'Validation & envoi de votre mail de confirmation…'
+                    : `✓ Mon règlement est effectué — Voir ma confirmation & recevoir mon mail`}
+                </span>
+              </button>
+
+              {targetPayUrl && (
+                <a
+                  href={targetPayUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-sm btn-ghost"
+                >
+                  <ExternalLink size={14} /> Rouvrir la page de paiement {isAlmaPay ? 'Alma' : `Stripe (${depositAmount} €)`}
+                </a>
+              )}
+
+              <button
+                type="button"
+                className="btn btn-sm btn-ghost"
+                style={{ border: 0, fontSize: '.8rem', color: 'var(--muted)' }}
+                onClick={() => {
+                  try {
+                    localStorage.removeItem('cda-pending-booking-v1');
+                  } catch (_) {}
+                  setAwaitingPayment(null);
+                }}
+              >
+                ← Modifier mes informations avant de payer
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // Écran Récapitulatif, Message de Bienvenue & Lettre de Confirmation (affiché UNIQUEMENT une fois le règlement effectué)
   if (done) {
     const isCash = done.paymentMethod === 'cash';
     const isAlma = done.paymentMethod === 'alma';
-    const stripeUrl = buildStripeUrl(done.reference);
     const firstName = done.name.split(' ')[0];
     const hasOptions = done.options && (done.options.hammam || done.options.soireeFestive || done.options.agafay);
 
     return (
       <section className="section vip-booking-page">
         <div className="wrap narrow" role="status">
-          {/* Bandeau d'état en haut */}
+          {/* Bandeau d'état en haut : confirme que le règlement et l'envoi du mail sont effectués */}
           <div className="vip-done-banner">
-            <div className="vip-done-status">
-              <CheckCircle2 size={22} />
+            <div className="vip-done-status" style={{ borderBottom: 0, marginBottom: 0, paddingBottom: 0 }}>
+              <CheckCircle2 size={24} />
               <div>
-                <strong>Inscription enregistrée — Confirmation envoyée par e-mail à {done.email}</strong>
+                <strong>
+                  {isCash
+                    ? `Inscription confirmée (Paiement Cash) — E-mail envoyé à ${done.email}`
+                    : isAlma
+                    ? `Règlement Alma confirmé — Lettre de bienvenue envoyée par e-mail à ${done.email}`
+                    : `Règlement de ${depositAmount} € confirmé — Lettre de bienvenue envoyée par e-mail à ${done.email}`}
+                </strong>
                 <span>Une copie a également été transmise à Émilie &amp; Virginie ({OFFICIAL_EMAIL})</span>
               </div>
             </div>
-
-            {/* Action immédiate selon le mode de paiement choisi (95 € en ligne, Alma 3x/4x ou Cash) */}
-            {isAlma ? (
-              <div className="vip-alma-step-box">
-                <div className="vip-stripe-step-text">
-                  <span className="vip-step-pill alma">
-                    <AlmaLogo height={13} /> Paiement en 2x, 3x ou 4x avec Alma
-                  </span>
-                  <h3>Réglez votre séjour en 3 fois ({alma3x} €) ou 4 fois ({alma4x} €)</h3>
-                  <p>
-                    Cliquez sur le bouton ci-dessous pour finaliser votre règlement échelonné sécurisé avec <strong>Alma</strong> (en 2, 3 ou 4 échéances par carte bancaire pour un total de <strong>{fullStayAmount} €</strong>) :
-                  </p>
-                </div>
-                <a
-                  href={almaLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn vip-alma-cta"
-                >
-                  <AlmaLogo height={16} />
-                  <span>Payer en 3x ({alma3x} €) ou 4x ({alma4x} €) sur Alma</span>
-                  <ExternalLink size={17} />
-                </a>
-              </div>
-            ) : !isCash && stripeUrl ? (
-              <div className="vip-stripe-step-box">
-                <div className="vip-stripe-step-text">
-                  <span className="vip-step-pill">Dernière étape · Règlement sécurisé de l’acompte</span>
-                  <h3>Finalisez votre réservation de {depositAmount} €</h3>
-                  <p>
-                    Cliquez sur le bouton ci-dessous pour régler votre acompte de <strong>{depositAmount} €</strong> par carte bancaire sécurisée Stripe (votre email <em>{done.email}</em> est déjà pré-rempli) :
-                  </p>
-                </div>
-                <a href={stripeUrl} className="btn btn-terra vip-stripe-cta">
-                  <CreditCard size={18} />
-                  <span>Régler mes {depositAmount} € de réservation maintenant</span>
-                  <ArrowRight size={18} />
-                </a>
-              </div>
-            ) : (
-              <div className="vip-cash-step-box">
-                <span className="vip-step-pill cash">✓ Option Paiement Cash enregistrée</span>
-                <h3>Votre place est réservée avec règlement en espèces (Cash)</h3>
-                <p>
-                  Émilie et Virginie ont bien reçu vos coordonnées (<strong>{done.phone}</strong> · <strong>{done.email}</strong>) et vous recontactent très vite pour convenir du règlement en espèces.
-                </p>
-              </div>
-            )}
           </div>
 
           {/* APERÇU DU BEAU MAIL DE CONFIRMATION (AVEC LOGO & PHOTO D'ÉMILIE ET VIRGINIE) */}
@@ -759,7 +891,7 @@ export default function Booking() {
             disabled={submitting}
           >
             {submitting ? (
-              <span>Enregistrement &amp; envoi de votre confirmation…</span>
+              <span>Ouverture du règlement sécurisé…</span>
             ) : f.paymentMethod === 'cash' ? (
               <>
                 <span>Valider mon inscription (Paiement Cash) &amp; recevoir mon mail</span>
@@ -767,19 +899,19 @@ export default function Booking() {
               </>
             ) : f.paymentMethod === 'alma' ? (
               <>
-                <span>Valider mon inscription — Payer en 3x ({alma3x} €) ou 4x ({alma4x} €) avec Alma</span>
+                <span>Procéder au règlement en 3x ({alma3x} €) ou 4x ({alma4x} €) avec Alma</span>
                 <ArrowRight size={18} />
               </>
             ) : (
               <>
-                <span>Valider mon inscription — Régler les {depositAmount} € de réservation</span>
+                <span>Procéder au règlement sécurisé de {depositAmount} €</span>
                 <ArrowRight size={18} />
               </>
             )}
           </button>
 
           <div className="vip-form-footer-note">
-            <span><ShieldCheck size={15} /> Confirmation immédiate par mail avec notre photo &amp; logo</span>
+            <span><ShieldCheck size={15} /> Lettre de bienvenue envoyée par mail dès votre règlement effectué</span>
             <span>·</span>
             <span>Contact officiel : <a href={`mailto:${OFFICIAL_EMAIL}`}>{OFFICIAL_EMAIL}</a></span>
           </div>
