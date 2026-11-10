@@ -147,14 +147,24 @@ export default function Header() {
             Contact
           </NavLink>
 
+          {/* 5. Mon espace Complice (Espace membre personnalisé) */}
+          <NavLink to="/mon-espace" onClick={close} className="nav-member-btn nav-mobile-cta">
+            Mon espace Complice
+          </NavLink>
+
           <Link to="/reserver/arcachon-entre-femmes" onClick={close} className="btn btn-terra btn-sm nav-mobile-cta">
             Réserver ma place
           </Link>
         </nav>
 
-        <Link to="/reserver/arcachon-entre-femmes" className="btn btn-terra btn-sm head-cta">
-          Réserver ma place
-        </Link>
+        <div className="head-actions">
+          <NavLink to="/mon-espace" className="nav-member-btn head-member-cta">
+            Mon espace Complice
+          </NavLink>
+          <Link to="/reserver/arcachon-entre-femmes" className="btn btn-terra btn-sm head-cta">
+            Réserver ma place
+          </Link>
+        </div>
 
         <button
           className="burger"

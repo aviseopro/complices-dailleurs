@@ -1346,3 +1346,801 @@ blockquote{font:italic 1.6rem var(--serif);color:var(--navy);border-left:3px sol
 .frf-actions{display:flex;flex-wrap:wrap;gap:.75rem;align-items:center}
 .friends-request-done{text-align:center;background:#faf6ef;border:1px solid #dfd0bc;border-radius:16px;padding:1.8rem 1.4rem}
 .frd-badge{display:inline-flex;align-items:center;gap:.4rem;background:#e3f1e1;color:#1d4d2b;font-size:.78rem;font-weight:600;padding:.3rem .85rem;border-radius:999px;margin-bottom:.75rem}
+
+/* ==========================================================================
+   ESPACE MEMBRE (« MON ESPACE COMPLICE » / « MON CARNET D’AILLEURS »)
+   & BACK-OFFICE (« ADMINISTRATION — COMPLICES D’AILLEURS »)
+   ========================================================================== */
+
+/* Bouton discret mais visible dans le header : « Mon espace Complice » */
+.head-actions{display:flex;align-items:center;gap:.65rem;flex-shrink:0}
+.nav-member-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:.38rem;
+  font-size:.82rem;
+  font-weight:600;
+  color:#2a2420;
+  background:#faf4eb;
+  border:1.5px solid #decbb3;
+  padding:.5rem .95rem;
+  border-radius:999px;
+  transition:all .2s ease;
+  white-space:nowrap;
+}
+.nav-member-btn:hover,.nav-member-btn.active{
+  background:#f3e6d4;
+  border-color:var(--terra);
+  color:var(--terra-dark);
+}
+@media(max-width:960px){
+  .head-member-cta{display:none}
+}
+
+/* Page d'authentification Mon Carnet d'Ailleurs */
+.carnet-auth-section{
+  padding:8.4rem 0 4rem;
+  background:linear-gradient(180deg,#f5ece0 0%,#faf6ef 100%);
+  min-height:82vh;
+}
+.carnet-auth-hero{
+  text-align:center;
+  max-width:680px;
+  margin:0 auto 2.2rem;
+}
+.carnet-auth-hero h1{
+  font-size:clamp(2.2rem,4vw,3.2rem);
+  margin:.25rem 0 .6rem;
+}
+.carnet-auth-grid{
+  display:grid;
+  grid-template-columns:1fr 1.12fr;
+  gap:2rem;
+  align-items:start;
+}
+@media(max-width:900px){
+  .carnet-auth-grid{grid-template-columns:1fr}
+}
+.carnet-auth-benefits{
+  background:#fffaf3;
+  border:1px solid #e3d3be;
+  border-radius:22px;
+  padding:1.6rem;
+  box-shadow:0 12px 32px rgba(42,36,32,.05);
+}
+.carnet-benefit-photo{
+  position:relative;
+  border-radius:16px;
+  overflow:hidden;
+  margin-bottom:1.25rem;
+  border:1px solid #dfd0bc;
+}
+.carnet-benefit-photo img{
+  width:100%;
+  height:210px;
+  object-fit:cover;
+  object-position:center 25%;
+  display:block;
+}
+.carnet-benefit-caption{
+  padding:.85rem 1rem;
+  background:#f7efe3;
+  display:flex;
+  flex-direction:column;
+  gap:.15rem;
+  font-size:.84rem;
+}
+.carnet-benefit-list{
+  list-style:none;
+  padding:0;
+  margin:1rem 0 0;
+  display:flex;
+  flex-direction:column;
+  gap:.9rem;
+}
+.carnet-benefit-list li{
+  display:flex;
+  gap:.75rem;
+  align-items:flex-start;
+}
+.carnet-benefit-icon{
+  width:36px;
+  height:36px;
+  border-radius:50%;
+  background:#f3e6d4;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+  font-size:1rem;
+}
+.carnet-benefit-list strong{
+  display:block;
+  font-size:.94rem;
+  color:#2a2420;
+}
+.carnet-benefit-list p{
+  margin:.12rem 0 0;
+  font-size:.84rem;
+  line-height:1.5;
+  color:#544840;
+}
+.carnet-contest-banner{
+  margin-top:1.35rem;
+  padding:1.1rem 1.2rem;
+  border-radius:16px;
+  background:#faf2e6;
+  border:1.5px solid var(--terra);
+}
+.carnet-contest-banner h4{margin:.4rem 0 .25rem}
+.carnet-contest-banner p{font-size:.85rem;margin:0 0 .7rem}
+
+.carnet-auth-card{
+  background:#ffffff;
+  border:1px solid #dfd0bc;
+  border-radius:24px;
+  padding:clamp(1.4rem,3vw,2.2rem);
+  box-shadow:0 16px 40px rgba(42,36,32,.07);
+}
+.carnet-auth-tabs{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:.45rem;
+  background:#f4ece1;
+  padding:.35rem;
+  border-radius:999px;
+  margin-bottom:1.4rem;
+}
+.carnet-auth-tabs button{
+  border:0;
+  background:transparent;
+  padding:.62rem 1rem;
+  border-radius:999px;
+  font:600 .88rem var(--sans);
+  color:#544840;
+  cursor:pointer;
+  transition:all .2s ease;
+}
+.carnet-auth-tabs button.active{
+  background:#fff;
+  color:#2a2420;
+  box-shadow:0 4px 12px rgba(42,36,32,.08);
+}
+.carnet-form h2{
+  margin:0 0 .25rem;
+  font-size:1.75rem;
+}
+.muted-note{
+  font-size:.88rem;
+  color:var(--muted);
+  margin:0 0 .9rem;
+}
+.carnet-consents-box{
+  background:#faf6ef;
+  border:1px solid #e4d5c1;
+  border-radius:14px;
+  padding:.95rem 1.05rem;
+  font-size:.85rem;
+  line-height:1.5;
+}
+.carnet-consents-box a{
+  color:var(--terra);
+  text-decoration:underline;
+}
+.carnet-link-btn{
+  background:none;
+  border:0;
+  padding:0;
+  color:var(--terra);
+  font:500 .86rem var(--sans);
+  text-decoration:underline;
+  cursor:pointer;
+}
+.carnet-switch-prompt{
+  text-align:center;
+  font-size:.88rem;
+  margin:.6rem 0 0;
+  color:#544840;
+}
+.carnet-privacy-footnote{
+  font-size:.78rem;
+  color:var(--muted);
+  text-align:center;
+  margin:.4rem 0 0;
+}
+.carnet-alert{
+  padding:.85rem 1.05rem;
+  border-radius:12px;
+  font-size:.88rem;
+  margin-bottom:1rem;
+}
+.carnet-alert-error{
+  background:#fdf0ee;
+  border:1px solid #e3b2ab;
+  color:#8c271e;
+}
+.carnet-alert-success{
+  background:#edf6ee;
+  border:1px solid #b4d8b9;
+  color:#1d5e3a;
+}
+.carnet-verify-box{
+  text-align:center;
+  padding:1rem .5rem;
+}
+.carnet-verify-actions{
+  display:flex;
+  flex-direction:column;
+  gap:.65rem;
+  align-items:center;
+  margin-top:1.25rem;
+}
+
+/* Espace Personnel Connecté : « Mon Carnet d’Ailleurs » */
+.carnet-page{
+  min-height:85vh;
+  background:#faf6ef;
+}
+.carnet-hero{
+  padding:8.2rem 0 2.2rem;
+  background:linear-gradient(180deg,#f1e5d4 0%,#faf6ef 100%);
+  border-bottom:1px solid #e5d6c1;
+}
+.carnet-hero-inner{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  gap:1.5rem;
+  flex-wrap:wrap;
+}
+.carnet-hero h1{
+  font-size:clamp(2rem,3.6vw,2.9rem);
+  margin:.2rem 0 .45rem;
+}
+.carnet-subtitle{
+  font-size:1.02rem;
+  color:#4a3f38;
+  max-width:640px;
+  margin:0;
+}
+.carnet-hero-actions{
+  display:flex;
+  align-items:center;
+  gap:.65rem;
+  flex-wrap:wrap;
+}
+.carnet-profile-badge{
+  background:#fff;
+  border:1.5px solid var(--terra);
+  color:var(--terra-dark);
+  padding:.42rem .9rem;
+  border-radius:999px;
+  font-size:.82rem;
+  font-weight:600;
+}
+
+.carnet-nav-bar{
+  background:#fffaf3;
+  border-bottom:1px solid #e5d6c1;
+  position:sticky;
+  top:68px;
+  z-index:20;
+}
+.carnet-tabs{
+  display:flex;
+  gap:.4rem;
+  overflow-x:auto;
+  padding:.65rem 0;
+  scrollbar-width:thin;
+}
+.carnet-tabs button{
+  display:inline-flex;
+  align-items:center;
+  gap:.42rem;
+  border:1px solid transparent;
+  background:transparent;
+  padding:.55rem .95rem;
+  border-radius:999px;
+  font:500 .86rem var(--sans);
+  color:#4a3f38;
+  cursor:pointer;
+  white-space:nowrap;
+  transition:all .18s ease;
+}
+.carnet-tabs button:hover{
+  background:#f3e8d9;
+}
+.carnet-tabs button.active{
+  background:var(--terra);
+  color:#fff;
+  font-weight:600;
+}
+.carnet-tab-count{
+  background:rgba(255,255,255,.25);
+  padding:.05rem .45rem;
+  border-radius:999px;
+  font-size:.74rem;
+}
+
+.carnet-panel{
+  background:#fff;
+  border:1px solid #e4d5c1;
+  border-radius:24px;
+  padding:clamp(1.4rem,3vw,2.2rem);
+  box-shadow:0 12px 34px rgba(42,36,32,.05);
+}
+.carnet-panel-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:1rem;
+  flex-wrap:wrap;
+  margin-bottom:1.5rem;
+  padding-bottom:1.1rem;
+  border-bottom:1px solid #eee2d1;
+}
+.carnet-panel-head h2{
+  margin:.2rem 0 .35rem;
+}
+.carnet-panel-head p{
+  margin:0;
+  color:#544840;
+  max-width:680px;
+}
+
+/* Questionnaire interactif A. Mes envies d'ailleurs */
+.carnet-quiz-card{
+  max-width:680px;
+  margin:0 auto;
+  background:#faf6ef;
+  border:1px solid #e2d2bd;
+  border-radius:20px;
+  padding:clamp(1.2rem,2.8vw,1.9rem);
+}
+.carnet-quiz-progress-head{
+  display:flex;
+  justify-content:space-between;
+  font-size:.84rem;
+  color:#544840;
+  margin-bottom:.4rem;
+}
+.carnet-quiz-progress-bar{
+  height:8px;
+  background:#e6d8c5;
+  border-radius:999px;
+  overflow:hidden;
+  margin-bottom:1.4rem;
+}
+.carnet-quiz-progress-fill{
+  height:100%;
+  background:var(--terra);
+  transition:width .3s ease;
+}
+.carnet-quiz-options{
+  display:flex;
+  flex-direction:column;
+  gap:.65rem;
+  margin:1.1rem 0 1.5rem;
+}
+.carnet-quiz-option{
+  display:flex;
+  align-items:center;
+  gap:.75rem;
+  width:100%;
+  text-align:left;
+  background:#fff;
+  border:1.5px solid #dfd0bc;
+  border-radius:14px;
+  padding:.85rem 1.05rem;
+  font:500 .94rem var(--sans);
+  color:#2a2420;
+  cursor:pointer;
+  transition:all .18s ease;
+}
+.carnet-quiz-option:hover{
+  border-color:var(--terra);
+  background:#fffaf4;
+}
+.carnet-quiz-option.selected{
+  border-color:var(--terra);
+  background:#fdf3ea;
+  box-shadow:0 4px 14px rgba(168,85,58,.12);
+}
+.carnet-quiz-check{
+  width:22px;
+  height:22px;
+  border-radius:50%;
+  border:1.5px solid #bfa88e;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  font-size:.78rem;
+  color:#fff;
+  flex-shrink:0;
+}
+.carnet-quiz-option.selected .carnet-quiz-check{
+  background:var(--terra);
+  border-color:var(--terra);
+}
+.carnet-quiz-footer{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:.75rem;
+  flex-wrap:wrap;
+}
+.carnet-result-banner{
+  background:linear-gradient(135deg,#fff8f0 0%,#f4e6d4 100%);
+  border:1.5px solid var(--terra);
+  border-radius:20px;
+  padding:1.6rem 1.8rem;
+}
+.carnet-result-banner h3{
+  font-size:1.85rem;
+  color:var(--terra-dark);
+  margin:.2rem 0 .5rem;
+}
+.carnet-fav-btn{
+  background:#faf4eb;
+  border:1px solid #d9c6ae;
+  color:#544840;
+  padding:.38rem .78rem;
+  border-radius:999px;
+  font:600 .78rem var(--sans);
+  cursor:pointer;
+  transition:all .18s ease;
+}
+.carnet-fav-btn.active{
+  background:#fdebe6;
+  border-color:var(--terra);
+  color:var(--terra-dark);
+}
+
+/* Rubrique B : Mes rituels pour moi */
+.carnet-medical-disclaimer{
+  background:#f6efe4;
+  border-left:4px solid var(--sage);
+  padding:.9rem 1.15rem;
+  border-radius:0 12px 12px 0;
+  font-size:.85rem;
+  line-height:1.55;
+  color:#3d332c;
+}
+.carnet-ritual-card{
+  background:#faf6ef;
+  border:1px solid #e3d4c0;
+  border-radius:18px;
+  padding:1.35rem 1.45rem;
+}
+.carnet-ritual-card h3{
+  margin:.2rem 0 .85rem;
+}
+.carnet-checklist{
+  list-style:none;
+  padding:0;
+  margin:0;
+  display:flex;
+  flex-direction:column;
+  gap:.65rem;
+}
+.carnet-checklist li{
+  background:#fff;
+  border:1px solid #e5d6c3;
+  border-radius:12px;
+  padding:.75rem .95rem;
+  transition:all .18s ease;
+}
+.carnet-checklist li.done{
+  background:#f1f7f1;
+  border-color:#bdd6c0;
+}
+.carnet-checklist label{
+  display:flex;
+  align-items:flex-start;
+  gap:.7rem;
+  cursor:pointer;
+  margin:0;
+}
+.carnet-checklist input[type="checkbox"]{
+  width:18px;
+  height:18px;
+  margin-top:.2rem;
+  accent-color:var(--terra);
+  flex-shrink:0;
+}
+.carnet-checklist strong{
+  display:block;
+  font-size:.92rem;
+  color:#2a2420;
+}
+.carnet-checklist p{
+  margin:.15rem 0 0;
+  font-size:.82rem;
+  color:#544840;
+}
+.carnet-challenge-item{
+  background:#fff;
+  border:1px solid #e4d5c1;
+  border-radius:14px;
+  padding:.95rem 1.05rem;
+}
+.carnet-challenge-item.done{
+  background:#f1f7f1;
+  border-color:#9fc4a4;
+}
+.carnet-challenge-item label{
+  display:flex;
+  align-items:flex-start;
+  gap:.75rem;
+  cursor:pointer;
+}
+.carnet-challenge-item h4{margin:.15rem 0 .25rem}
+.carnet-challenge-item p{margin:0;font-size:.84rem;color:#544840}
+.carnet-tip-block{
+  background:#fff;
+  border:1px solid #e5d6c3;
+  border-radius:14px;
+  padding:1rem 1.1rem;
+  margin-bottom:.8rem;
+}
+.carnet-tip-block h4{margin:0 0 .35rem}
+.carnet-tip-block p{margin:0 0 .5rem;font-size:.88rem}
+.carnet-tip-steps{
+  white-space:pre-wrap;
+  font:400 .84rem/1.6 var(--sans);
+  background:#faf5ed;
+  padding:.75rem .9rem;
+  border-radius:10px;
+  margin:0;
+  color:#3d332c;
+}
+.carnet-tag-group{
+  display:flex;
+  flex-wrap:wrap;
+  gap:.45rem;
+  margin-top:.55rem;
+}
+.carnet-tag-btn{
+  background:#fff;
+  border:1px solid #dac8b0;
+  border-radius:999px;
+  padding:.42rem .85rem;
+  font:500 .82rem var(--sans);
+  color:#3d332c;
+  cursor:pointer;
+  transition:all .15s ease;
+}
+.carnet-tag-btn.active{
+  background:var(--terra);
+  border-color:var(--terra);
+  color:#fff;
+}
+
+/* Rubrique C : Mon Passeport Complices */
+.passport-book{
+  background:linear-gradient(145deg,#fffaf2 0%,#f3e7d6 100%);
+  border:2px solid #d4bea0;
+  border-radius:22px;
+  padding:clamp(1.3rem,3vw,2.2rem);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.7),0 14px 34px rgba(42,36,32,.07);
+}
+.passport-cover-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:1rem;
+  padding-bottom:1.2rem;
+  margin-bottom:1.5rem;
+  border-bottom:1.5px dashed #cbb393;
+}
+.passport-code{
+  font-size:.75rem;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--terra);
+  font-weight:700;
+}
+.passport-crest{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  width:86px;
+  height:86px;
+  border-radius:50%;
+  border:2px double var(--terra);
+  color:var(--terra);
+  text-align:center;
+  padding:.4rem;
+}
+.passport-crest span{font-size:1.3rem}
+.passport-crest small{font-size:.52rem;letter-spacing:.1em;font-weight:700}
+.passport-stamps-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:1.2rem;
+}
+@media(max-width:740px){
+  .passport-stamps-grid{grid-template-columns:1fr}
+}
+.passport-stamp-slot{
+  display:flex;
+  align-items:center;
+  gap:1.1rem;
+  background:rgba(255,255,255,.82);
+  border:1.5px dashed #d3be9f;
+  border-radius:18px;
+  padding:1.15rem 1.25rem;
+}
+.passport-stamp-slot.unlocked{
+  border-style:solid;
+  border-color:var(--terra);
+  background:#fff;
+}
+.passport-stamp-circle{
+  width:78px;
+  height:78px;
+  border-radius:50%;
+  border:2px dashed #bfa88e;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+  text-align:center;
+  transform:rotate(-6deg);
+}
+.passport-stamp-slot.unlocked .passport-stamp-circle{
+  border:2.5px double var(--terra);
+  background:#fdf2ea;
+  color:var(--terra-dark);
+}
+.passport-stamp-icon{font-size:1.45rem}
+.passport-stamp-status{
+  font-size:.55rem;
+  font-weight:700;
+  letter-spacing:.08em;
+  margin-top:.15rem;
+}
+.passport-stamp-info h4{margin:0 0 .2rem}
+.passport-stamp-info p{margin:0 0 .3rem;font-size:.86rem;color:#544840}
+.passport-date{color:#1d5e3a;font-weight:600;font-size:.78rem}
+.passport-hint{color:var(--muted);font-size:.78rem}
+
+/* Rubrique E : Mes cadeaux Complices */
+.carnet-gifts-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:1.25rem;
+}
+@media(max-width:780px){
+  .carnet-gifts-grid{grid-template-columns:1fr}
+}
+.carnet-gift-card{
+  background:#faf6ef;
+  border:1px solid #e2d2bd;
+  border-radius:18px;
+  padding:1.35rem 1.45rem;
+  display:flex;
+  flex-direction:column;
+  gap:.55rem;
+}
+.carnet-gift-card.featured-ebook{
+  grid-column:1 / -1;
+  background:linear-gradient(135deg,#fff9f1 0%,#f4e6d4 100%);
+  border:1.5px solid var(--terra);
+}
+.carnet-gift-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:.5rem;
+}
+.carnet-gift-sub{
+  font-weight:600;
+  color:var(--terra-dark);
+  margin:0;
+  font-size:.92rem;
+}
+.carnet-gift-actions{
+  display:flex;
+  align-items:center;
+  gap:.6rem;
+  flex-wrap:wrap;
+  margin-top:.4rem;
+}
+.carnet-gift-reader{
+  margin-top:.85rem;
+  padding-top:.85rem;
+  border-top:1px solid #e2d2bd;
+}
+
+/* Concours Instagram */
+.contest-steps-strip{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:.75rem;
+  margin-bottom:1.5rem;
+}
+@media(max-width:820px){
+  .contest-steps-strip{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:500px){
+  .contest-steps-strip{grid-template-columns:1fr}
+}
+.contest-step-pill{
+  background:#fffaf3;
+  border:1px solid #e2d2bd;
+  border-radius:14px;
+  padding:.75rem .95rem;
+  display:flex;
+  align-items:center;
+  gap:.6rem;
+  font-size:.84rem;
+  font-weight:500;
+}
+.contest-step-pill span{
+  width:26px;
+  height:26px;
+  border-radius:50%;
+  background:var(--terra);
+  color:#fff;
+  font-weight:700;
+  font-size:.78rem;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+}
+
+/* Administration — Complices d'ailleurs */
+.adm-top-bar{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  gap:1rem;
+  flex-wrap:wrap;
+  margin-bottom:1.25rem;
+  padding-bottom:1rem;
+  border-bottom:1px solid var(--line);
+}
+.adm-kpi-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(175px,1fr));
+  gap:.9rem;
+}
+.adm-kpi-card{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:1.1rem 1.2rem;
+  display:flex;
+  flex-direction:column;
+  gap:.2rem;
+}
+.adm-kpi-label{
+  font-size:.76rem;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  color:var(--muted);
+  font-weight:600;
+}
+.adm-kpi-value{
+  font-family:var(--serif);
+  font-size:2.2rem;
+  line-height:1.05;
+  color:var(--terra-dark);
+}
+.adm-detail-list{
+  list-style:none;
+  padding:0;
+  margin:.5rem 0 0;
+  display:flex;
+  flex-direction:column;
+  gap:.45rem;
+  font-size:.88rem;
+  line-height:1.5;
+}
+

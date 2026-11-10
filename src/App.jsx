@@ -12,6 +12,8 @@ import Contact from './pages/Contact.jsx';
 import Legal from './pages/Legal.jsx';
 import Cgv from './pages/Cgv.jsx';
 import Admin from './pages/Admin.jsx';
+import MemberSpace from './pages/MemberSpace.jsx';
+import Contest from './pages/Contest.jsx';
 
 function ScrollTop() {
   const { pathname, hash } = useLocation();
@@ -45,10 +47,14 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/notre-histoire" element={<Story />} />
           <Route path="/experiences/:slug" element={<Experience />} />
+          <Route path="/experience/:slug" element={<Experience />} />
           <Route path="/reserver/:slug" element={<Booking />} />
           <Route path="/paiement" element={<Booking />} />
           <Route path="/paiement/:slug" element={<Booking />} />
           <Route path="/inscription" element={<Booking />} />
+          <Route path="/mon-espace" element={<MemberSpace />} />
+          <Route path="/carnet" element={<MemberSpace />} />
+          <Route path="/concours" element={<Contest />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/mentions-legales" element={<Legal />} />
           <Route path="/cgv" element={<Cgv />} />

@@ -28,13 +28,15 @@ export default function Footer() {
           <Link to="/notre-histoire">Notre histoire</Link>
         </div>
         <div>
-          <h3>Informations</h3>
+          <h3>Informations &amp; Espace Membre</h3>
+          <Link to="/mon-espace">Mon espace Complice (Mon Carnet d’Ailleurs)</Link>
+          <Link to="/concours">Concours Complices d’ailleurs</Link>
           <Link to="/cgv">Conditions générales de vente</Link>
           <Link to="/mentions-legales">Mentions légales</Link>
-          <Link to="/mentions-legales#confidentialite">Confidentialité &amp; cookies</Link>
+          <Link to="/mentions-legales#confidentialite">Confidentialité &amp; RGPD</Link>
           <Link to="/contact">Contact</Link>
           <span className="muted ig-disabled" title="Instagram (bientôt disponible)">Instagram</span>
-          <Link to="/admin" className="muted">Espace organisatrices</Link>
+          <Link to="/admin" className="muted">Administration — Complices d’ailleurs</Link>
         </div>
       </div>
       <p className="small center">
