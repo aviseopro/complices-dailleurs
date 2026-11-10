@@ -371,6 +371,28 @@ export default function Booking() {
             </div>
           </div>
 
+          {/* ÉTAPE SUIVANTE IMMÉDIATE APRÈS PAIEMENT : CRÉER SON PROFIL + QUESTIONNAIRE + E-BOOK + TIRAGE MASSAGE 45 MIN VIRGINIE */}
+          <div className="olive-post-payment-cta">
+            <span className="olive-pill-gold">✨ Étape suivante · Votre E-book &amp; Tirage au sort Massage 45 min</span>
+            <h2>
+              À présent, pour suivre votre commande et votre expérience au week-end d’Arcachon : merci de créer votre profil
+            </h2>
+            <p>
+              Créez votre profil en 30 secondes et répondez à notre court questionnaire (routine beauté, voyageuse &amp; marcheuse) pour :
+              <br />
+              <strong>1. Recevoir immédiatement votre e-book offert</strong> (<em>« L’art de s’accorder une parenthèse »</em>)
+              <br />
+              <strong>2. Être sélectionnée au tirage au sort pour gagner le massage de 45 minutes réalisé par Virginie !</strong>
+            </p>
+            <Link
+              to={`/mon-espace?from_booking=1&name=${encodeURIComponent(done.name || '')}&email=${encodeURIComponent(done.email || '')}&phone=${encodeURIComponent(done.phone || '')}&ref=${encodeURIComponent(done.reference || '')}`}
+              className="olive-btn-primary"
+              style={{ marginTop: '.4rem' }}
+            >
+              🌿 Créer mon profil, répondre au questionnaire &amp; recevoir mon E-book →
+            </Link>
+          </div>
+
           {/* APERÇU DU BEAU MAIL DE CONFIRMATION (AVEC LOGO & PHOTO D'ÉMILIE ET VIRGINIE) */}
           <div className="vip-email-preview-wrap">
             <div className="vip-email-preview-toolbar">

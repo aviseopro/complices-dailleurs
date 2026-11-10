@@ -7,82 +7,72 @@ const SESSION_STORAGE_KEY = 'cda-member-session-v1';
 const PRIVATE_JOURNAL_PREFIX = 'cda-private-journal-v1-';
 
 // ============================================================================
-// 1. QUESTIONNAIRE INTERACTIF : « QUELLE ESCAPADE EST FAITE POUR VOUS ? »
+// 1. QUESTIONNAIRE D'ACCROCHE : ROUTINE BEAUTÉ, VOYAGEUSE & MARCHEUSE
 // ============================================================================
 export const ESCAPE_QUIZ_QUESTIONS = [
   {
-    id: 'q1_evasion',
+    id: 'q1_beaute_actuelle',
     step: 1,
-    question: 'Si vous pouviez vous évader demain, vous choisiriez :',
+    theme: 'Volet 1 · Votre routine beauté & institut',
+    question: 'Aujourd’hui, que faites-vous déjà en institut de beauté ou pour votre peau ?',
     multi: false,
     options: [
-      { value: 'ocean', label: 'Un week-end au bord de l’océan' },
-      { value: 'soleil_marrakech', label: 'Un voyage au soleil, comme Marrakech' },
-      { value: 'journee_copines', label: 'Une journée de détente entre copines' },
-      { value: 'nature_aventure', label: 'Une escapade nature et aventure' },
+      { value: 'institut_regulier', label: 'Je vais régulièrement en institut (soins visage, massages, détente…)' },
+      { value: 'institut_occasionnel', label: 'J’y vais occasionnellement pour m’offrir une parenthèse rien qu’à moi' },
+      { value: 'maison_quotidien', label: 'J’ai ma petite routine visage à la maison, mais je vais peu en institut' },
+      { value: 'aimerait_commencer', label: 'Je manque de temps et j’aimerais justement qu’on prenne soin de moi' },
     ],
   },
   {
-    id: 'q2_plaisir',
+    id: 'q2_beaute_envies',
     step: 2,
-    question: 'Dans une expérience idéale, qu’aimez-vous le plus ?',
+    theme: 'Volet 1 · Votre routine beauté & institut',
+    question: 'Qu’aimeriez-vous faire ou recevoir lors de votre prochaine parenthèse ?',
     multi: true,
     options: [
-      { value: 'soins_relaxation', label: 'Les soins et la relaxation' },
-      { value: 'rencontres_echanges', label: 'Les rencontres et les échanges' },
-      { value: 'decouvertes_visites', label: 'Les découvertes et les visites' },
-      { value: 'activites_creatives', label: 'Les activités créatives' },
-      { value: 'yoga_bien_etre', label: 'Le yoga et le bien-être' },
+      { value: 'soin_visage_expert', label: 'Un soin du visage expert & haute technologie (LED, éclat, hydratation)' },
+      { value: 'massage_corps_visage', label: 'Un grand massage relaxant pour relâcher toutes les tensions' },
+      { value: 'atelier_automassage', label: 'Apprendre les gestes d’auto-massage facial avec Émilie pour la maison' },
+      { value: 'diagnostic_routine', label: 'Des conseils simples et personnalisés pour ma routine beauté matin & soir' },
     ],
   },
   {
-    id: 'q3_compagnie',
+    id: 'q3_type_voyageuse',
     step: 3,
-    question: 'Vous préférez partir :',
+    theme: 'Volet 2 · Quel type de voyageuse êtes-vous ?',
+    question: 'En escapade, quel type de voyageuse êtes-vous ?',
     multi: false,
     options: [
-      { value: 'seule', label: 'Seule, pour rencontrer d’autres femmes' },
-      { value: 'amie', label: 'Avec une amie' },
-      { value: 'groupe_copines', label: 'Avec un groupe de copines' },
-      { value: 'avec_enfant', label: 'Avec votre enfant' },
+      { value: 'ocean_cocooning', label: 'Voyageuse Océan & Cocooning (villa avec spa, sauna, soins & douceur à Arcachon)' },
+      { value: 'soleil_marrakech', label: 'Voyageuse Soleil & Riad (dépaysement, couleurs, hammam & douceur à Marrakech)' },
+      { value: 'journee_copines', label: 'Voyageuse Parenthèse entre Copines (journée soins, yoga & rires près de Bordeaux)' },
+      { value: 'nature_corse', label: 'Voyageuse Nature & Grand Air (Corse du Sud, mer turquoise & yoga en plein air)' },
     ],
   },
   {
-    id: 'q4_besoin',
+    id: 'q4_compagnie',
     step: 4,
-    question: 'Quel est votre principal besoin actuellement ?',
+    theme: 'Volet 2 · Quel type de voyageuse êtes-vous ?',
+    question: 'Comment aimez-vous vivre vos parenthèses ?',
     multi: false,
     options: [
-      { value: 'reposer', label: 'Me reposer' },
-      { value: 'retrouver', label: 'Me retrouver' },
-      { value: 'amuser', label: 'M’amuser' },
-      { value: 'nouveaux_horizons', label: 'Découvrir de nouveaux horizons' },
-      { value: 'rencontrer', label: 'Rencontrer de nouvelles personnes' },
+      { value: 'seule', label: 'Seule, pour souffler et faire de belles rencontres entre femmes' },
+      { value: 'amie', label: 'En duo avec une amie' },
+      { value: 'groupe_copines', label: 'Avec mon groupe de copines' },
+      { value: 'avec_enfant', label: 'En duo complice avec mon enfant' },
     ],
   },
   {
-    id: 'q5_budget',
+    id: 'q5_type_marcheuse',
     step: 5,
-    question: 'Quel budget envisageriez-vous pour une escapade ?',
+    theme: 'Volet 3 · Quel type de marcheuse êtes-vous ?',
+    question: 'Et côté balades & nature, quel type de marcheuse êtes-vous ?',
     multi: false,
     options: [
-      { value: 'moins_150', label: 'Moins de 150 €' },
-      { value: '150_450', label: 'Entre 150 et 450 €' },
-      { value: '450_800', label: 'Entre 450 et 800 €' },
-      { value: 'plus_800', label: 'Plus de 800 €' },
-    ],
-  },
-  {
-    id: 'q6_destinations',
-    step: 6,
-    question: 'Quels types d’expériences souhaiteriez-vous découvrir prochainement ?',
-    multi: true,
-    options: [
-      { value: 'arcachon', label: 'Arcachon' },
-      { value: 'marrakech', label: 'Marrakech' },
-      { value: 'journees_copines', label: 'Journées entre copines' },
-      { value: 'sejours_nature', label: 'Séjours nature' },
-      { value: 'autres', label: 'Autres destinations' },
+      { value: 'flaneuse_douce', label: 'Flâneuse contemplative : marcher pieds nus sur le sable et respirer face à l’océan' },
+      { value: 'balade_foret_ocean', label: 'Marcheuse plaisir : de belles balades douces sous les pins et sur le littoral (1h à 2h)' },
+      { value: 'marche_yoga_energie', label: 'Marcheuse bien-être : allier marche tonique, respiration et yoga en pleine nature' },
+      { value: 'randonneuse_trek', label: 'Randonneuse & esprit Trek : j’aime marcher plusieurs heures sur les sentiers (Compostelle, Corse)' },
     ],
   },
 ];
@@ -90,7 +80,7 @@ export const ESCAPE_QUIZ_QUESTIONS = [
 // Calcule le profil personnalisé et les escapades réellement présentes sur le site
 export function computeEscapeRecommendations(answers = {}) {
   const scores = {
-    'arcachon-entre-femmes': 2,
+    'arcachon-entre-femmes': 3,
     'journee-entre-copines': 1,
     'marrakech-entre-femmes': 1,
     corse: 1,
@@ -98,75 +88,51 @@ export function computeEscapeRecommendations(answers = {}) {
     'arcachon-mere-enfant': 0,
   };
 
-  const q1 = answers.q1_evasion;
-  const q2 = Array.isArray(answers.q2_plaisir) ? answers.q2_plaisir : [answers.q2_plaisir].filter(Boolean);
-  const q3 = answers.q3_compagnie;
-  const q4 = answers.q4_besoin;
-  const q5 = answers.q5_budget;
-  const q6 = Array.isArray(answers.q6_destinations) ? answers.q6_destinations : [answers.q6_destinations].filter(Boolean);
+  const voyageuse = answers.q3_type_voyageuse || answers.q1_evasion;
+  const marcheuse = answers.q5_type_marcheuse;
+  const compagnie = answers.q4_compagnie || answers.q3_compagnie;
+  const enviesBeaute = Array.isArray(answers.q2_beaute_envies)
+    ? answers.q2_beaute_envies
+    : Array.isArray(answers.q2_plaisir)
+    ? answers.q2_plaisir
+    : [];
 
-  if (q1 === 'ocean') scores['arcachon-entre-femmes'] += 5;
-  if (q1 === 'soleil_marrakech') scores['marrakech-entre-femmes'] += 5;
-  if (q1 === 'journee_copines') scores['journee-entre-copines'] += 6;
-  if (q1 === 'nature_aventure') {
-    scores.corse += 4;
-    scores['trek-compostelle'] += 4;
-  }
-
-  if (q2.includes('soins_relaxation')) {
-    scores['arcachon-entre-femmes'] += 3;
-    scores['journee-entre-copines'] += 3;
-  }
-  if (q2.includes('activites_creatives')) {
-    scores['arcachon-entre-femmes'] += 2;
-    scores['journee-entre-copines'] += 3;
-    scores['marrakech-entre-femmes'] += 2;
-  }
-  if (q2.includes('yoga_bien_etre')) {
-    scores['arcachon-entre-femmes'] += 2;
-    scores.corse += 3;
-    scores['trek-compostelle'] += 2;
-  }
-  if (q2.includes('decouvertes_visites')) {
-    scores['marrakech-entre-femmes'] += 3;
-    scores.corse += 3;
-  }
-  if (q2.includes('rencontres_echanges')) {
-    scores['arcachon-entre-femmes'] += 2;
-    scores['marrakech-entre-femmes'] += 2;
+  if (voyageuse === 'ocean_cocooning' || voyageuse === 'ocean') scores['arcachon-entre-femmes'] += 6;
+  if (voyageuse === 'soleil_marrakech') scores['marrakech-entre-femmes'] += 6;
+  if (voyageuse === 'journee_copines') scores['journee-entre-copines'] += 6;
+  if (voyageuse === 'nature_corse' || voyageuse === 'nature_aventure') {
+    scores.corse += 5;
+    scores['trek-compostelle'] += 3;
   }
 
-  if (q3 === 'groupe_copines') scores['journee-entre-copines'] += 5;
-  if (q3 === 'avec_enfant') scores['arcachon-mere-enfant'] += 8;
-  if (q3 === 'seule' || q3 === 'amie') {
-    scores['arcachon-entre-femmes'] += 2;
-    scores['marrakech-entre-femmes'] += 2;
-  }
-
-  if (q4 === 'reposer' || q4 === 'retrouver') scores['arcachon-entre-femmes'] += 2;
-  if (q4 === 'amuser') scores['journee-entre-copines'] += 2;
-  if (q4 === 'nouveaux_horizons') {
-    scores['marrakech-entre-femmes'] += 2;
-    scores.corse += 2;
-  }
-
-  if (q5 === 'moins_150') scores['journee-entre-copines'] += 4;
-  if (q5 === '150_450') {
+  if (marcheuse === 'flaneuse_douce' || marcheuse === 'balade_foret_ocean') {
     scores['arcachon-entre-femmes'] += 4;
     scores['journee-entre-copines'] += 2;
   }
-  if (q5 === '450_800' || q5 === 'plus_800') {
-    scores['arcachon-entre-femmes'] += 2;
-    scores['marrakech-entre-femmes'] += 3;
-    scores.corse += 3;
+  if (marcheuse === 'marche_yoga_energie') {
+    scores['arcachon-entre-femmes'] += 3;
+    scores.corse += 4;
+  }
+  if (marcheuse === 'randonneuse_trek') {
+    scores['trek-compostelle'] += 6;
+    scores.corse += 4;
   }
 
-  if (q6.includes('arcachon')) scores['arcachon-entre-femmes'] += 4;
-  if (q6.includes('marrakech')) scores['marrakech-entre-femmes'] += 4;
-  if (q6.includes('journees_copines')) scores['journee-entre-copines'] += 4;
-  if (q6.includes('sejours_nature')) {
-    scores.corse += 3;
-    scores['trek-compostelle'] += 3;
+  if (compagnie === 'groupe_copines') scores['journee-entre-copines'] += 4;
+  if (compagnie === 'avec_enfant') scores['arcachon-mere-enfant'] += 8;
+  if (compagnie === 'seule' || compagnie === 'amie') {
+    scores['arcachon-entre-femmes'] += 2;
+    scores['marrakech-entre-femmes'] += 2;
+  }
+
+  if (enviesBeaute.includes('soin_visage_expert') || enviesBeaute.includes('atelier_automassage') || enviesBeaute.includes('soins_relaxation')) {
+    scores['arcachon-entre-femmes'] += 3;
+    scores['journee-entre-copines'] += 2;
+  }
+
+  if (Array.isArray(answers.q6_destinations)) {
+    if (answers.q6_destinations.includes('arcachon')) scores['arcachon-entre-femmes'] += 4;
+    if (answers.q6_destinations.includes('marrakech')) scores['marrakech-entre-femmes'] += 4;
   }
 
   const sortedSlugs = Object.entries(scores)
@@ -174,26 +140,26 @@ export function computeEscapeRecommendations(answers = {}) {
     .map(([slug]) => slug)
     .slice(0, 3);
 
-  let profileTitle = 'Complice d’Océan & de Douceur';
+  let profileTitle = 'Voyageuse Douceur, Soins & Océan';
   let profileSummary =
-    'Vous aspirez à une parenthèse enveloppante où les soins esthétiques, le yoga doux, les ateliers créatifs et la chaleur d’un petit groupe entre femmes vous permettent de souffler pleinement.';
+    'Vous aimez qu’on prenne soin de vous en douceur : soins du visage experts, massages enveloppants, balades ressourçantes sous les pins et moments chaleureux en petit groupe.';
 
   if (sortedSlugs[0] === 'journee-entre-copines') {
-    profileTitle = 'Complice des Parenthèses entre Amies';
+    profileTitle = 'Complice des Parenthèses Beauté entre Amies';
     profileSummary =
-      'Vous aimez partager des moments joyeux et ressourçants entourée de vos proches : soins du visage, massages, yoga avec Virginie, atelier créatif avec Émilie et détente au spa près de Bordeaux.';
+      'Vous aimez partager des moments joyeux et ressourçants : soins visage, massages, yoga doux avec Virginie et atelier avec Émilie dans un loft avec spa.';
   } else if (sortedSlugs[0] === 'marrakech-entre-femmes') {
-    profileTitle = 'Complice d’Orient & de Lumière';
+    profileTitle = 'Voyageuse Lumière, Riad & Bien-être';
     profileSummary =
-      'Vous rêvez de soleil, de couleurs et de dépaysement : la douceur d’un Riad intimiste à Marrakech, rythmée par les soins, le yoga et l’artisanat créatif.';
+      'Vous rêvez de soleil, de dépaysement et de rituels de beauté orientaux entre femmes dans l’intimité d’un Riad de charme.';
   } else if (sortedSlugs[0] === 'arcachon-mere-enfant') {
-    profileTitle = 'Complice en Duo Mère-Enfant';
+    profileTitle = 'Voyageuse Complice Mère-Enfant';
     profileSummary =
-      'Vous souhaitez vivre une parenthèse tendre et privilégiée avec votre enfant, mêlant ateliers créatifs complices et temps de détente rien que pour vous.';
-  } else if (sortedSlugs[0] === 'corse' || sortedSlugs[0] === 'trek-compostelle') {
-    profileTitle = 'Complice de Nature & d’Évasion';
+      'Vous souhaitez partager une parenthèse tendre avec votre enfant tout en profitant d’un vrai moment de soin et de spa rien que pour vous.';
+  } else if (sortedSlugs[0] === 'trek-compostelle' || sortedSlugs[0] === 'corse') {
+    profileTitle = 'Marcheuse Nature, Yoga & Grand Air';
     profileSummary =
-      'Vous ressentez l’appel du grand air, des paysages inspirants et de la reconnexion au corps à travers le yoga, la marche consciente et les soins bien-être.';
+      'Vous aimez allier le mouvement en pleine nature, la respiration, le yoga et le plaisir d’un soin relaxant après une belle journée dehors.';
   }
 
   return {
@@ -293,14 +259,14 @@ export const DEFAULT_MEMBER_RESOURCES = [
 
 export const DEFAULT_CONTEST = {
   id: 'concours-instagram-1',
-  slug: 'parenthese-complices',
-  title: 'Concours Instagram — Gagnez votre parenthèse bien-être Complices d’ailleurs',
-  prize: 'Une invitation privilégiée ou un soin haute beauté & l’e-book « L’art de s’accorder une parenthèse » offert à chaque participante',
-  startDate: '2026-11-15',
-  endDate: '2026-12-15',
+  slug: 'massage-virginie-45min',
+  title: 'Tirage au sort — Gagnez un massage de 45 minutes par Virginie',
+  prize: 'Un massage bien-être de 45 minutes réalisé par Virginie + nos e-books offerts (« L’art de s’accorder une parenthèse »)',
+  startDate: '2026-11-10',
+  endDate: '2027-01-31',
   rulesText:
-    'Jeu-concours gratuit sans obligation d’achat ni d’abonnement commercial, ouvert à toute femme majeure résidant en France métropolitaine. Une seule participation par personne (adresse e-mail vérifiée). Le tirage au sort est effectué de manière aléatoire et horodatée depuis l’interface d’administration de Complices d’ailleurs.',
-  isActive: false, // Désactivé par défaut tant que le règlement et les dates ne sont pas validés par Émilie et Virginie
+    'Toute utilisatrice ayant créé son profil Complice et répondu au questionnaire d’accroche reçoit l’e-book offert « L’art de s’accorder une parenthèse » et est automatiquement sélectionnée pour le tirage au sort permettant de gagner un massage de 45 minutes réalisé par Virginie.',
+  isActive: false, // Préparé en visuel, activable en 1 clic dans le back-office
   winnerUserId: null,
   drawHistory: [],
 };
@@ -406,17 +372,17 @@ export const FOUNDER_TEST_MEMBER = {
   updatedAt: '2026-11-10T09:30:00.000Z',
   escapeQuiz: {
     answers: {
-      q1_evasion: 'ocean',
-      q2_plaisir: ['soins_relaxation', 'activites_creatives', 'yoga_bien_etre'],
-      q3_compagnie: 'seule',
-      q4_besoin: 'retrouver',
-      q5_budget: '150_450',
-      q6_destinations: ['arcachon', 'journees_copines', 'marrakech'],
+      q1_beaute_actuelle: 'institut_occasionnel',
+      q2_beaute_envies: ['soin_visage_expert', 'massage_corps_visage', 'atelier_automassage'],
+      q3_type_voyageuse: 'ocean_cocooning',
+      q4_compagnie: 'seule',
+      q5_type_marcheuse: 'balade_foret_ocean',
     },
-    primaryProfile: 'Complice d’Océan & de Douceur',
+    primaryProfile: 'Voyageuse Douceur, Soins & Océan',
     profileSummary:
-      'Vous aspirez à une parenthèse enveloppante où les soins esthétiques, le yoga doux, les ateliers créatifs et la chaleur d’un petit groupe entre femmes vous permettent de souffler pleinement.',
+      'Vous aimez qu’on prenne soin de vous en douceur : soins du visage experts, massages enveloppants, balades ressourçantes sous les pins et moments chaleureux en petit groupe.',
     recommendedSlugs: ['arcachon-entre-femmes', 'journee-entre-copines', 'marrakech-entre-femmes'],
+    selectedForMassageDraw: true,
     updatedAt: '2026-11-10T09:15:00.000Z',
   },
   favorites: ['arcachon-entre-femmes', 'journee-entre-copines'],
@@ -1135,7 +1101,7 @@ export function saveMemberEscapeQuiz(userId, answers) {
   if (!stamps.some((s) => s.code === 'escape_quiz_completed')) {
     stamps.push({
       code: 'escape_quiz_completed',
-      label: 'Portrait d’escapade découvert',
+      label: 'Questionnaire complété & Sélection tirage massage 45 min',
       earnedAt: now,
     });
   }
@@ -1148,15 +1114,53 @@ export function saveMemberEscapeQuiz(userId, answers) {
       primaryProfile: result.primaryProfile,
       profileSummary: result.profileSummary,
       recommendedSlugs: result.recommendedSlugs,
+      selectedForMassageDraw: true,
       updatedAt: now,
     },
     stamps,
     updatedAt: now,
   };
+
+  // Enregistre automatiquement sa sélection au tirage au sort pour le massage de 45 min par Virginie
+  const contestId = communityState.contests?.[0]?.id || DEFAULT_CONTEST.id;
+  const alreadyInDraw = communityState.contestEntries.some(
+    (e) => e.contestId === contestId && e.userId === userId
+  );
+  const nextContestEntries = alreadyInDraw
+    ? communityState.contestEntries
+    : [
+        {
+          id: `ce-${generateSecureToken().slice(0, 10)}`,
+          contestId,
+          userId,
+          prizeLabel: 'Massage de 45 minutes par Virginie',
+          createdAt: now,
+        },
+        ...communityState.contestEntries,
+      ];
+
   saveCommunityState({
     ...communityState,
     members: nextMembers,
+    contestEntries: nextContestEntries,
   });
+
+  // Envoie l'e-mail automatique confirmant la sélection au tirage au sort du massage de 45 min par Virginie + accès aux e-books
+  const origin = typeof window !== 'undefined' ? window.location.origin : SITE_URL;
+  sendMemberTransactionalEmail({
+    to: member.email,
+    firstName: member.firstName,
+    subject: '✨ Félicitations ! Sélection tirage au sort Massage 45 min par Virginie & vos E-books offerts',
+    heading: `Félicitations ${member.firstName} !`,
+    bodyHtml: `<p>Merci d’avoir complété votre questionnaire <strong>Complices d’ailleurs</strong> !</p>
+      <div style="background-color:#e9efe5;border:1.5px solid #44533d;border-radius:14px;padding:16px 18px;margin:16px 0;color:#273123;">
+        <strong>🎉 Vous êtes officiellement sélectionnée pour le tirage au sort permettant de gagner le massage de 45 minutes réalisé par Virginie !</strong>
+      </div>
+      <p>En cadeau immédiat, vos <strong>e-books offerts</strong> (dont <em>« L’art de s’accorder une parenthèse »</em>) sont désormais débloqués dans votre espace personnel.</p>
+      <p>Votre profil d’évasion : <strong>${result.primaryProfile}</strong>.</p>`,
+    ctaLabel: 'Accéder à mes e-books offerts & à mon espace Complice',
+    ctaUrl: `${origin}/mon-espace`,
+  }).catch(() => {});
 
   return { ok: true, result: nextMembers[idx].escapeQuiz };
 }

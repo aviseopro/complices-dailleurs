@@ -422,49 +422,51 @@ function MembersDirectory({ selectedMemberId, setSelectedMemberId }) {
 
           <div className="grid2" style={{ marginTop: '1rem' }}>
             <div>
-              <h4>🧭 Réponses au questionnaire « Mes envies d’ailleurs »</h4>
+              <h4>🌿 Réponses au questionnaire Beauté, Voyageuse &amp; Marcheuse</h4>
               {selectedMember.escapeQuiz ? (
                 <ul className="adm-detail-list">
                   <li>
-                    <strong>Résultat principal :</strong>{' '}
+                    <strong>Profil principal :</strong>{' '}
                     <span className="pill open">{selectedMember.escapeQuiz.primaryProfile}</span>
                   </li>
                   <li>
-                    <strong>1. Évasion idéale demain :</strong>{' '}
-                    {formatQuizAnswer('q1_evasion', selectedMember.escapeQuiz.answers?.q1_evasion)}
+                    <strong>1. Routine beauté &amp; institut :</strong>{' '}
+                    {formatQuizAnswer('q1_beaute_actuelle', selectedMember.escapeQuiz.answers?.q1_beaute_actuelle)}
                   </li>
                   <li>
-                    <strong>2. Ce qu’elle aime le plus :</strong>{' '}
-                    {formatQuizAnswer('q2_plaisir', selectedMember.escapeQuiz.answers?.q2_plaisir)}
+                    <strong>2. Ce qu’elle aimerait faire / recevoir :</strong>{' '}
+                    {formatQuizAnswer('q2_beaute_envies', selectedMember.escapeQuiz.answers?.q2_beaute_envies)}
                   </li>
                   <li>
-                    <strong>3. Préférence de voyage :</strong>{' '}
-                    {formatQuizAnswer('q3_compagnie', selectedMember.escapeQuiz.answers?.q3_compagnie)}
+                    <strong>3. Type de voyageuse :</strong>{' '}
+                    {formatQuizAnswer('q3_type_voyageuse', selectedMember.escapeQuiz.answers?.q3_type_voyageuse)}
                   </li>
                   <li>
-                    <strong>4. Besoin actuel :</strong>{' '}
-                    {formatQuizAnswer('q4_besoin', selectedMember.escapeQuiz.answers?.q4_besoin)}
+                    <strong>4. Façon de partir :</strong>{' '}
+                    {formatQuizAnswer('q4_compagnie', selectedMember.escapeQuiz.answers?.q4_compagnie)}
                   </li>
                   <li>
-                    <strong>5. Budget envisagé :</strong>{' '}
-                    {formatQuizAnswer('q5_budget', selectedMember.escapeQuiz.answers?.q5_budget)}
-                  </li>
-                  <li>
-                    <strong>6. Destinations souhaitées :</strong>{' '}
-                    {formatQuizAnswer('q6_destinations', selectedMember.escapeQuiz.answers?.q6_destinations)}
+                    <strong>5. Type de marcheuse :</strong>{' '}
+                    {formatQuizAnswer('q5_type_marcheuse', selectedMember.escapeQuiz.answers?.q5_type_marcheuse)}
                   </li>
                 </ul>
               ) : (
-                <p className="muted-note">Cette utilisatrice n’a pas encore complété le questionnaire d’escapade.</p>
+                <p className="muted-note">Cette utilisatrice n’a pas encore complété le questionnaire.</p>
               )}
             </div>
 
             <div>
-              <h4>♥ Favoris, Concours, Réservations &amp; RGPD</h4>
+              <h4>♥ Tirage Massage 45 min Virginie, Favoris, Réservations &amp; RGPD</h4>
               <ul className="adm-detail-list">
                 <li>
                   <strong>Statut du compte :</strong>{' '}
                   {selectedMember.emailVerified ? '✓ Adresse e-mail vérifiée' : '⏳ En attente de validation e-mail'}
+                </li>
+                <li>
+                  <strong>Sélectionnée au tirage au sort Massage 45 min (Virginie) :</strong>{' '}
+                  {selectedMember.escapeQuiz?.selectedForMassageDraw || contestEntries.some((e) => e.userId === selectedMember.id)
+                    ? '✓ Oui (sélectionnée + e-book débloqué)'
+                    : 'En attente du questionnaire'}
                 </li>
                 <li>
                   <strong>Consentement e-mail marketing (RGPD) :</strong>{' '}
@@ -477,12 +479,6 @@ function MembersDirectory({ selectedMemberId, setSelectedMemberId }) {
                         .map((slug) => experiences.find((e) => e.slug === slug)?.title || slug)
                         .join(', ')
                     : 'Aucun favori enregistré'}
-                </li>
-                <li>
-                  <strong>Participation aux concours :</strong>{' '}
-                  {contestEntries.some((e) => e.userId === selectedMember.id)
-                    ? '✓ Oui (inscrite au concours)'
-                    : 'Non'}
                 </li>
                 <li>
                   <strong>Réservations de séjours associées :</strong>{' '}
