@@ -5,7 +5,6 @@ import { AlmaLogo } from './ui.jsx';
 import { euro } from '../data/store.js';
 
 export default function ArcachonCommercialPlaque({ e, variant = 'hero', className = '' }) {
-  const deposit = e?.depositPerPlace || 100;
   const price = e?.pricePerPerson || 450;
   const original = e?.originalPrice || 550;
 
@@ -24,7 +23,7 @@ export default function ArcachonCommercialPlaque({ e, variant = 'hero', classNam
 
         <div className="acc-main-pitch">
           <div className="acc-hook-title">
-            Réservez votre place pour <strong className="acc-deposit-val">{deposit} €</strong> seulement
+            Réservez votre séjour tout compris à <strong className="acc-deposit-val">{price} €</strong> (ou 3 × {Math.round(price / 3)} €)
           </div>
           <div className="acc-price-block">
             <span className="acc-sub-label">Séjour complet tout compris :</span>
@@ -40,8 +39,8 @@ export default function ArcachonCommercialPlaque({ e, variant = 'hero', classNam
 
       <div className="acc-right">
         <Link to="/reserver/arcachon-entre-femmes" className="acc-cta-btn">
-          <span className="acc-cta-main">Je m’inscris — {deposit} €</span>
-          <span className="acc-cta-sub">Bloquer ma place dès maintenant</span>
+          <span className="acc-cta-main">Je réserve ma place</span>
+          <span className="acc-cta-sub">En 1 fois (CB) ou 3 fois avec Klarna</span>
           <ArrowRight size={18} className="acc-cta-arrow" />
         </Link>
         <div className="acc-reassurance-list">

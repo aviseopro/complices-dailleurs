@@ -379,7 +379,7 @@ export default function Experience() {
                   <Sparkles size={13} /> Tarif du séjour
                 </span>
                 <div className="bk-arca-dep">
-                  Réservation avec <strong>{e.depositPerPlace || 100} € d’acompte (Carte bancaire)</strong>, <strong>3 fois sans frais avec Klarna</strong>, ou <strong>paiement en une fois ({euro(e.pricePerPerson || 450)} par Carte bancaire)</strong>
+                  Règlement en <strong>une fois ({euro(e.pricePerPerson || 450)} par Carte bancaire)</strong> ou en <strong>3 fois sans frais avec Klarna (3 × {Math.round((e.pricePerPerson || 450) / 3)} €)</strong>
                 </div>
                 <div className="bk-arca-total">
                   Séjour complet tout compris : <strong className="bk-new-price">{euro(e.pricePerPerson || 450)}</strong>
@@ -440,14 +440,12 @@ export default function Experience() {
                 <>
                   <dt>Modes de règlement</dt>
                   <dd>
-                    <strong>1. Acompte de {euro(e.depositPerPlace || 100)} par Carte bancaire</strong> (puis solde de 350 € en 1 fois ou en 3 fois avec Klarna)
+                    <strong>1. Je paye en une fois ({euro(e.pricePerPerson || 450)}) par Carte bancaire</strong> (sans Klarna)
                     <br />
                     <strong>
                       2. Je paye en 3 fois sans frais avec <AlmaLogo height={15} />
                     </strong>{' '}
-                    (3 × 150 € sur 450 €, ou 3 × 116,67 € sur les 350 € restants)
-                    <br />
-                    <strong>3. Je paye en une fois ({euro(e.pricePerPerson || 450)}) par Carte bancaire</strong>
+                    (3 × {Math.round((e.pricePerPerson || 450) / 3)} €)
                   </dd>
                 </>
               )}

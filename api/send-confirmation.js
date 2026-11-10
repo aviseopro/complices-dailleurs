@@ -22,13 +22,10 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: 'Email de la participante manquant' });
     }
 
-    const isFullOnce = booking.paymentMethod === 'full_450' || booking.paymentMethod === 'cash';
     const isKlarna = booking.paymentMethod === 'klarna' || booking.paymentMethod === 'alma';
-    const paymentLabel = isFullOnce
-      ? `Paiement en une fois (${booking.amount || 450} € par Carte bancaire)`
-      : isKlarna
+    const paymentLabel = isKlarna
       ? `Paiement en 3 fois sans frais avec Klarna`
-      : `Acompte 100 € par Carte bancaire`;
+      : `Paiement en une fois (${booking.amount || 450} € par Carte bancaire)`;
 
     const subjectParticipant = `Confirmation de votre inscription — ${experienceTitle || 'Complices d’ailleurs'} (Réf. ${booking.reference})`;
     const subjectAdmin = `✨ Nouvelle inscription : ${booking.name} (${paymentLabel}) — ${booking.reference}`;

@@ -148,12 +148,12 @@ export default function Header() {
           </NavLink>
 
           <Link to="/reserver/arcachon-entre-femmes" onClick={close} className="btn btn-terra btn-sm nav-mobile-cta">
-            Réserver — 100 € d’acompte
+            Réserver ma place
           </Link>
         </nav>
 
         <Link to="/reserver/arcachon-entre-femmes" className="btn btn-terra btn-sm head-cta">
-          Réserver — 100 € d’acompte
+          Réserver ma place
         </Link>
 
         <button

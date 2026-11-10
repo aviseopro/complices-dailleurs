@@ -928,7 +928,7 @@ blockquote{font:italic 1.6rem var(--serif);color:var(--navy);border-left:3px sol
 .vip-top-payment-eyebrow{font-size:.72rem;text-transform:uppercase;letter-spacing:.13em;font-weight:700;color:var(--terra)}
 .vip-top-payment-total{font-size:.83rem;color:#4a3f38}
 .vip-top-payment-total strong{color:#2a2420;font-weight:600}
-.vip-top-payment-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.85rem}
+.vip-top-payment-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.95rem}
 @media(max-width:780px){
   .vip-top-payment-grid{grid-template-columns:1fr}
 }
@@ -976,8 +976,8 @@ blockquote{font:italic 1.6rem var(--serif);color:var(--navy);border-left:3px sol
 .vip-field-hint{font-size:.76rem;color:var(--muted);font-weight:400}
 .vip-field em{color:#b3261e;font-size:.8rem;font-style:normal;font-weight:400}
 
-/* Cartes de choix de règlement : 95 €, Alma 3x/4x ou Cash */
-.vip-payment-choices{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1rem 0 1.6rem}
+/* Cartes de choix de règlement : 2 encarts (1 fois par CB ou 3 fois sans frais avec Klarna) */
+.vip-payment-choices{display:grid;grid-template-columns:repeat(2,1fr);gap:1.1rem;margin:1rem 0 1.6rem}
 @media(max-width:860px){
   .vip-payment-choices{grid-template-columns:1fr}
 }

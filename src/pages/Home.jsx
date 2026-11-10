@@ -167,7 +167,7 @@ export default function Home() {
                 {arca?.pricePerPerson || 450} € <span>/ personne</span>
               </strong>
               <p className="alv-price-note">
-                Hébergement en loft privatisé, repas et soins inclus · Réservation avec {arca?.depositPerPlace || 100} € d’acompte, 3 fois sans frais Klarna ou 1 fois
+                Hébergement en loft privatisé, repas et soins inclus · Paiement en 1 fois par Carte bancaire ou en 3 fois sans frais avec Klarna
               </p>
               <div className="alv-actions">
                 <Link to="/experiences/arcachon-entre-femmes" className="alv-link">
@@ -283,7 +283,7 @@ export default function Home() {
                       Week-end en loft privatisé avec spa et sauna : soins du visage et massages avec Émilie et Virginie (toutes deux esthéticiennes diplômées), Yin et Hatha Yoga avec Virginie, atelier créatif avec Émilie, balades et repas partagés.
                     </p>
                     <p className="escapade-meta">
-                      <strong>Du 29 au 31 janvier 2027</strong> · <strong>450 € / pers.</strong> · Acompte 100 € ou 3x sans frais Klarna
+                      <strong>Du 29 au 31 janvier 2027</strong> · <strong>450 € / pers.</strong> · En 1 fois (CB) ou 3x sans frais Klarna
                     </p>
                     <ExperienceCardActions exp={arca} defaultDiscoverLabel="Découvrir l’expérience" />
                   </div>

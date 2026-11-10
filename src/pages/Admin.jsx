@@ -38,8 +38,8 @@ function Bookings() {
         email: OFFICIAL_EMAIL,
         phone: '06 29 84 96 53',
         places: 1,
-        amount: 100,
-        paymentMethod: 'deposit_95',
+        amount: 450,
+        paymentMethod: 'full_450',
       },
       experience: experiences[0],
       settings,
@@ -86,7 +86,7 @@ function Bookings() {
           <Link to="/paiement" className="btn btn-sm btn-ghost">Voir la page participante →</Link>
         </div>
         <small style={{ color: 'var(--muted)' }}>
-          Email officiel configuré : <strong>{OFFICIAL_EMAIL}</strong> — 3 encarts proposés (Option A) : <strong>1. Acompte 100 € par Carte bancaire</strong>, <strong>2. Je paye en 3 fois sans frais avec Klarna</strong>, ou <strong>3. Je paye en une fois (450 €) par Carte bancaire</strong>.
+          Email officiel configuré : <strong>{OFFICIAL_EMAIL}</strong> — 2 encarts proposés : <strong>1. Je paye en une fois (450 €) par Carte bancaire (sans Klarna)</strong> et <strong>2. Je paye en 3 fois sans frais avec Klarna (3 × 150 €)</strong>.
         </small>
       </div>
 
@@ -140,12 +140,10 @@ function Bookings() {
             </td>
             <td>{b.places}</td>
             <td>
-              {b.paymentMethod === 'full_450' || b.paymentMethod === 'cash' ? (
-                <span className="pill soon" style={{ fontSize: '.72rem' }}>💳 Payé en 1 fois ({b.amount || 450} € CB)</span>
-              ) : b.paymentMethod === 'klarna' || b.paymentMethod === 'alma' ? (
+              {b.paymentMethod === 'klarna' || b.paymentMethod === 'alma' ? (
                 <span className="pill waitlist" style={{ fontSize: '.72rem' }}>🩷 Klarna (3 fois sans frais)</span>
               ) : (
-                <span className="pill open" style={{ fontSize: '.72rem' }}>💳 Acompte {b.amount != null ? `${b.amount} €` : '100 €'} (CB)</span>
+                <span className="pill soon" style={{ fontSize: '.72rem' }}>💳 Payé en 1 fois ({b.amount || 450} € CB)</span>
               )}
             </td>
             <td>
@@ -190,9 +188,8 @@ function Experiences() {
         <label>Titre<input value={e.title} onChange={(ev) => edit(e.slug, (x) => (x.title = ev.target.value))} /></label>
         <label>Tarif / personne (€)<input type="number" value={e.pricePerPerson ?? ''} onChange={(ev) => edit(e.slug, (x) => (x.pricePerPerson = num(ev.target.value)))} /></label>
         {e.kind === 'preorder' && <label>Pré-réservation / place (€)<input type="number" value={e.depositPerPlace ?? ''} onChange={(ev) => edit(e.slug, (x) => (x.depositPerPlace = num(ev.target.value)))} /></label>}
-        <label>1. Lien Stripe — Acompte 100 € par Carte bancaire<input value={e.paymentLink || ''} placeholder="https://buy.stripe.com/..." onChange={(ev) => edit(e.slug, (x) => (x.paymentLink = ev.target.value))} /></label>
-        <label>2. Lien Stripe — Je paye en 3 fois sans frais avec Klarna<input value={e.almaPaymentLink || ''} placeholder="https://buy.stripe.com/..." onChange={(ev) => edit(e.slug, (x) => (x.almaPaymentLink = ev.target.value))} /></label>
-        <label>3. Lien Stripe — Je paye en une fois (450 €) par Carte bancaire<input value={e.fullPaymentLink || ''} placeholder="https://buy.stripe.com/..." onChange={(ev) => edit(e.slug, (x) => (x.fullPaymentLink = ev.target.value))} /></label>
+        <label>1. Lien Stripe — Je paye en une fois (450 €) par Carte bancaire (sans Klarna)<input value={e.fullPaymentLink || e.paymentLink || ''} placeholder="https://buy.stripe.com/..." onChange={(ev) => edit(e.slug, (x) => { x.fullPaymentLink = ev.target.value; x.paymentLink = ev.target.value; })} /></label>
+        <label>2. Lien Stripe — Je paye en 3 fois sans frais avec Klarna (3 × 150 €)<input value={e.almaPaymentLink || ''} placeholder="https://buy.stripe.com/..." onChange={(ev) => edit(e.slug, (x) => (x.almaPaymentLink = ev.target.value))} /></label>
         <label>Capacité globale (vide = non communiquée)<input type="number" value={e.capacity ?? ''} onChange={(ev) => edit(e.slug, (x) => (x.capacity = num(ev.target.value)))} /></label>
         <label>Participantes minimum pour maintenir le séjour<input type="number" value={e.minParticipants ?? ''} onChange={(ev) => edit(e.slug, (x) => (x.minParticipants = num(ev.target.value)))} /></label>
         <label>Durée<input value={e.duration || ''} onChange={(ev) => edit(e.slug, (x) => (x.duration = ev.target.value))} /></label>
@@ -265,9 +262,8 @@ function Settings() {
       <T k="demoMode" label="Mode démo (aucune transaction réelle)" />
       <T k="salesEnabled" label="Vente officielle Marrakech activée (uniquement après validation légale)" />
       <T k="almaActive" label="Klarna actif (Je paye en 3 fois sans frais avec Klarna)" />
-      <I k="stripePaymentUrl" label="1. Lien Stripe — Acompte 100 € par Carte bancaire (sans Klarna)" />
-      <I k="almaPaymentUrl" label="2. Lien Stripe — Je paye en 3 fois sans frais avec Klarna" />
-      <I k="fullPaymentUrl" label="3. Lien Stripe — Je paye en une fois (450 €) par Carte bancaire (sans Klarna)" />
+      <I k="fullPaymentUrl" label="1. Lien Stripe — Je paye en une fois (450 €) par Carte bancaire (sans Klarna)" />
+      <I k="almaPaymentUrl" label="2. Lien Stripe — Je paye en 3 fois sans frais avec Klarna (3 × 150 €)" />
       <I k="heroImage" label="Image du hero (chemin ou URL)" />
       <I k="heroVideo" label="Vidéo du hero (optionnelle : chemin .mp4 ou URL — sinon tableau vivant cinemagraph)" />
       <I k="whatsapp" label="Numéro WhatsApp (ex: 0629849653)" />

@@ -67,14 +67,12 @@ export function createBooking(exp, bookings, form, { demo = true, requirePhone =
   const existing = new Set(bookings.map((b) => b.reference));
   let reference = makeReference(rand);
   while (existing.has(reference)) reference = makeReference(rand);
-  const paymentMethod = form.paymentMethod || 'deposit_95';
+  const paymentMethod = form.paymentMethod || 'full_450';
   const status = demo ? 'paid_demo' : 'pending';
   const methodLabel =
-    paymentMethod === 'full_450' || paymentMethod === 'cash'
-      ? 'Paiement en une fois (450 € par Carte bancaire)'
-      : paymentMethod === 'klarna' || paymentMethod === 'alma'
+    paymentMethod === 'klarna' || paymentMethod === 'alma'
       ? 'Je paye en 3 fois sans frais avec Klarna'
-      : 'Acompte 100 € par Carte bancaire';
+      : 'Je paye en une fois (450 € par Carte bancaire)';
   return {
     ok: true,
     booking: {
@@ -111,9 +109,8 @@ export function toCsv(bookings) {
     return labels.join(' + ');
   };
   const formatMethod = (m) => {
-    if (m === 'full_450' || m === 'cash') return 'Paiement en 1 fois (450€ CB)';
     if (m === 'klarna' || m === 'alma') return 'Klarna (3 fois sans frais)';
-    return 'Acompte 100€ (CB)';
+    return 'Paiement en 1 fois (450€ CB)';
   };
   const rows = bookings.map((b) => [b.reference, b.exp, b.slot, b.name, b.email, b.phone, b.places, b.amount, formatMethod(b.paymentMethod), b.status, formatOptions(b.options), b.createdAt]);
   return [head, ...rows].map((r) => r.map(esc).join(';')).join('\n');
