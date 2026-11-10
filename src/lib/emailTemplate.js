@@ -27,12 +27,14 @@ export function buildConfirmationEmailHtml({ booking, experience, origin = SITE_
   const firstName = (booking?.name || 'Chère complice').split(' ')[0];
   const isFullOnce = booking?.paymentMethod === 'full_450' || booking?.paymentMethod === 'cash';
   const isKlarna = booking?.paymentMethod === 'klarna' || booking?.paymentMethod === 'alma';
-  const depositUnit = experience?.depositPerPlace || 150;
+  const depositUnit = experience?.depositPerPlace || 100;
   const priceUnit = experience?.pricePerPerson || 450;
   const places = Number(booking?.places || 1);
   const depositTotal = depositUnit * places;
   const stayTotal = priceUnit * places;
+  const remainingTotal = Math.max(0, stayTotal - depositTotal);
   const klarna3x = Math.round((stayTotal / 3) * 100) / 100;
+  const klarnaRem3x = (remainingTotal / 3).toFixed(2).replace('.', ',');
   const safeOrigin = !origin || origin.includes('localhost') || origin.includes('127.0.0.1') ? SITE_URL : origin;
   const photoUrl = `${safeOrigin}/img/emilie-virginie-marrakech.jpg`;
   const dateLabel =
@@ -40,24 +42,24 @@ export function buildConfirmationEmailHtml({ booking, experience, origin = SITE_
     (experience?.slug === 'arcachon-entre-femmes' ? 'Du vendredi 29 au dimanche 31 janvier 2027' : 'Dates communiquées par Émilie & Virginie');
 
   const paymentBadge = isFullOnce
-    ? `Règlement intégral en une fois de ${stayTotal} € confirmé`
+    ? `Règlement intégral en une fois de ${stayTotal} € par Carte bancaire confirmé`
     : isKlarna
-    ? `Échéancier 3 × ${klarna3x} € confirmé (${depositTotal} € d’acompte réglé + 2 mensualités automatiques de ${klarna3x} €)`
-    : `Acompte de réservation de ${depositTotal} € réglé en 1 fois (${places > 1 ? `${places} × ${depositUnit} €` : `${depositUnit} €`})`;
+    ? `Paiement en 3 fois sans frais avec Klarna confirmé`
+    : `Acompte de réservation de ${depositTotal} € par Carte bancaire réglé`;
 
   const letterParagraphByMethod = isFullOnce
-    ? `Nous vous confirmons la bonne prise en compte de votre <strong>règlement intégral en une fois de ${stayTotal} €</strong>. Votre place est officiellement réservée sous la référence <strong>${booking?.reference}</strong>.`
+    ? `Nous vous confirmons la bonne prise en compte de votre <strong>règlement intégral en une fois de ${stayTotal} € par Carte bancaire</strong>. Votre place est officiellement réservée sous la référence <strong>${booking?.reference}</strong>.`
     : isKlarna
-    ? `Nous vous confirmons la bonne prise en compte de votre <strong>paiement en 3 × ${klarna3x} €</strong> (<strong>${depositTotal} € d’acompte réglés aujourd’hui</strong> puis <strong>2 mensualités automatiques de ${klarna3x} €</strong>, soit ${stayTotal} € tout compris). Votre place est officiellement réservée sous la référence <strong>${booking?.reference}</strong>.`
-    : `Nous vous confirmons la bonne prise en compte de votre <strong>acompte de réservation de ${depositTotal} €</strong>. Votre place est officiellement réservée sous la référence <strong>${booking?.reference}</strong> (le solde de <strong>${stayTotal - depositTotal} €</strong> sur un total tout compris de <strong>${stayTotal} €</strong> sera réglé ultérieurement).`;
+    ? `Nous vous confirmons la bonne prise en compte de votre <strong>paiement en 3 fois sans frais avec Klarna</strong>. Votre place est officiellement réservée sous la référence <strong>${booking?.reference}</strong>.`
+    : `Nous vous confirmons la bonne prise en compte de votre <strong>acompte de réservation de ${depositTotal} € par Carte bancaire</strong>. Votre place est officiellement réservée sous la référence <strong>${booking?.reference}</strong> (le solde de <strong>${remainingTotal} €</strong> sur un total tout compris de <strong>${stayTotal} €</strong> pourra être réglé en 1 fois ou en 3 fois sans frais avec Klarna : 3 × ${klarnaRem3x} €).`;
 
   const paymentActionButtonHtml = '';
 
   const paymentExplanation = isFullOnce
-    ? `Votre règlement intégral en une fois de ${stayTotal} € est bien enregistré sous la référence ${booking?.reference}.`
+    ? `Votre règlement intégral en une fois de ${stayTotal} € par Carte bancaire est bien enregistré sous la référence ${booking?.reference}.`
     : isKlarna
-    ? `Votre échéancier de 3 × ${klarna3x} € (${depositTotal} € d’acompte aujourd’hui + 2 mensualités automatiques de ${klarna3x} €) est bien enregistré sous la référence ${booking?.reference}.`
-    : `Votre acompte de ${depositTotal} € est bien enregistré. Le solde du séjour (${stayTotal - depositTotal} € sur un total de ${stayTotal} €) sera réglé ultérieurement.`;
+    ? `Votre règlement en 3 fois sans frais avec Klarna (3 × ${klarna3x} € sur ${stayTotal} €, ou 3 × ${klarnaRem3x} € sur les ${remainingTotal} € restants) est bien enregistré sous la référence ${booking?.reference}.`
+    : `Votre acompte de ${depositTotal} € par Carte bancaire est bien enregistré. Le solde du séjour (${remainingTotal} € sur un total de ${stayTotal} €) pourra être réglé en 1 fois ou en 3 fois sans frais avec Klarna (3 × ${klarnaRem3x} €).`;
 
   return `<!DOCTYPE html>
 <html lang="fr">
@@ -195,12 +197,14 @@ export function buildConfirmationPlainText({ booking, experience }) {
   const firstName = (booking?.name || '').split(' ')[0] || 'Chère complice';
   const isFullOnce = booking?.paymentMethod === 'full_450' || booking?.paymentMethod === 'cash';
   const isKlarna = booking?.paymentMethod === 'klarna' || booking?.paymentMethod === 'alma';
-  const depositUnit = experience?.depositPerPlace || 150;
+  const depositUnit = experience?.depositPerPlace || 100;
   const priceUnit = experience?.pricePerPerson || 450;
   const places = Number(booking?.places || 1);
   const depositTotal = depositUnit * places;
   const stayTotal = priceUnit * places;
+  const remainingTotal = Math.max(0, stayTotal - depositTotal);
   const klarna3x = Math.round((stayTotal / 3) * 100) / 100;
+  const klarnaRem3x = (remainingTotal / 3).toFixed(2).replace('.', ',');
 
   return `Bonjour ${firstName},
 
@@ -213,10 +217,10 @@ RÉCAPITULATIF DE VOTRE INSCRIPTION :
 - Téléphone : ${booking?.phone}
 - Mode de règlement : ${
     isFullOnce
-      ? `Paiement en une fois (${stayTotal} €)`
+      ? `Je paye en une fois (${stayTotal} € par Carte bancaire)`
       : isKlarna
-      ? `Paiement en 3 × ${klarna3x} € (${depositTotal} € d’acompte aujourd’hui + 2 mensualités automatiques de ${klarna3x} € — total ${stayTotal} €)`
-      : `Acompte de ${depositTotal} € en 1 fois (sur un total de ${stayTotal} € tout compris)`
+      ? `Je paye en 3 fois sans frais avec Klarna (3 × ${klarna3x} € sur ${stayTotal} €, ou 3 × ${klarnaRem3x} € sur les ${remainingTotal} € restants)`
+      : `Acompte de ${depositTotal} € par Carte bancaire (solde de ${remainingTotal} € payable en 1 fois ou en 3 fois avec Klarna)`
   }
 
 RAPPEL DE VOTRE SÉJOUR :

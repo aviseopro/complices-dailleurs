@@ -379,7 +379,7 @@ export default function Experience() {
                   <Sparkles size={13} /> Tarif du séjour
                 </span>
                 <div className="bk-arca-dep">
-                  Réservation avec <strong>{e.depositPerPlace || 150} € d’acompte</strong>, paiement en <strong>3 × 150 €</strong> (150 € d’acompte + 2 mensualités automatiques de 150 €), ou paiement en une fois ({euro(e.pricePerPerson || 450)})
+                  Réservation avec <strong>{e.depositPerPlace || 100} € d’acompte (Carte bancaire)</strong>, <strong>3 fois sans frais avec Klarna</strong>, ou <strong>paiement en une fois ({euro(e.pricePerPerson || 450)} par Carte bancaire)</strong>
                 </div>
                 <div className="bk-arca-total">
                   Séjour complet tout compris : <strong className="bk-new-price">{euro(e.pricePerPerson || 450)}</strong>
@@ -440,14 +440,14 @@ export default function Experience() {
                 <>
                   <dt>Modes de règlement</dt>
                   <dd>
-                    <strong>1. Acompte de {euro(e.depositPerPlace || 150)}</strong> (Carte, Apple Pay)
+                    <strong>1. Acompte de {euro(e.depositPerPlace || 100)} par Carte bancaire</strong> (puis solde de 350 € en 1 fois ou en 3 fois avec Klarna)
                     <br />
                     <strong>
-                      2. Paiement en 3 × 150 €
+                      2. Je paye en 3 fois sans frais avec <AlmaLogo height={15} />
                     </strong>{' '}
-                    (150 € d’acompte aujourd’hui + 2 mensualités automatiques de 150 €)
+                    (3 × 150 € sur 450 €, ou 3 × 116,67 € sur les 350 € restants)
                     <br />
-                    <strong>3. Payer en une fois ({euro(e.pricePerPerson || 450)})</strong>
+                    <strong>3. Je paye en une fois ({euro(e.pricePerPerson || 450)}) par Carte bancaire</strong>
                   </dd>
                 </>
               )}
@@ -474,7 +474,7 @@ export default function Experience() {
                     className="btn btn-ghost block"
                     style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '.45rem' }}
                   >
-                    <span>Payer en 3 × 150 € (150 € d’acompte + 2 × 150 €)</span>
+                    <span>Je paye en 3 fois sans frais avec</span> <AlmaLogo height={15} />
                   </Link>
                 </>
               ) : (

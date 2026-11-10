@@ -25,10 +25,10 @@ export default async function handler(req, res) {
     const isFullOnce = booking.paymentMethod === 'full_450' || booking.paymentMethod === 'cash';
     const isKlarna = booking.paymentMethod === 'klarna' || booking.paymentMethod === 'alma';
     const paymentLabel = isFullOnce
-      ? `Paiement en une fois (${booking.amount || 450} €)`
+      ? `Paiement en une fois (${booking.amount || 450} € par Carte bancaire)`
       : isKlarna
-      ? `Paiement en 3 × 150 € (150 € d’acompte + 2 × 150 €)`
-      : `Acompte 150 € en 1 fois`;
+      ? `Paiement en 3 fois sans frais avec Klarna`
+      : `Acompte 100 € par Carte bancaire`;
 
     const subjectParticipant = `Confirmation de votre inscription — ${experienceTitle || 'Complices d’ailleurs'} (Réf. ${booking.reference})`;
     const subjectAdmin = `✨ Nouvelle inscription : ${booking.name} (${paymentLabel}) — ${booking.reference}`;

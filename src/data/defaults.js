@@ -30,7 +30,7 @@ export const defaultData = {
       status: 'open', // open | waitlist | soon
       kind: 'preorder', // preorder | booking | future
       minParticipants: 8,
-      depositPerPlace: 150,
+      depositPerPlace: 100,
       paymentLink: 'https://buy.stripe.com/5kQaEZb38efo3Nh8x6afS00',
       pricePerPerson: 450,
       originalPrice: 550,
@@ -588,8 +588,8 @@ export const defaultData = {
     { q: 'Où se déroule exactement le séjour au Bassin d’Arcachon ?', a: 'Le séjour se déroule autour du Bassin d’Arcachon. Nous sélectionnons un lieu de charme d’exception adapté à notre groupe pour offrir un cocon intime et privilégié.' },
     { q: 'Les soins sont-ils réalisés par des professionnelles ?', a: 'Oui : Émilie et Virginie sont toutes deux esthéticiennes diplômées et déplacent leurs machines esthétiques dernier cri directement sur le lieu du séjour. Les soins sont des soins de bien-être et de beauté, sans promesse médicale.' },
     { q: 'Qui anime le yoga (dont le Yoga Aérien), la méditation et les cercles de femmes ?', a: 'Virginie, professeure de yoga diplômée, enseigne les séances de Yin Yoga, Hatha Yoga ainsi que le Yoga Aérien avec tissus suspendus en Corse. Émilie guide les séances de méditation, les cercles de femmes et les ateliers pour vous permettre de déposer vos soucis et repartir plus légère.' },
-    { q: 'Que garantit l’acompte de réservation de 150 € ?', a: 'Les 150 € d’acompte vous permettent de réserver votre place sur le séjour Bassin d’Arcachon. Vous pouvez ensuite régler les 300 € restants en 2 mensualités automatiques de 150 € (soit 3 × 150 € au total), ou régler le séjour en une seule fois (450 €).' },
-    { q: 'Puis-je payer en plusieurs fois ?', a: 'Oui ! Nous proposons le paiement en 3 × 150 € par carte bancaire sur Stripe : 150 € d’acompte à l’inscription puis 2 mensualités automatiques de 150 €.' },
+    { q: 'Que garantit l’acompte de réservation de 100 € ?', a: 'Les 100 € d’acompte par Carte bancaire vous permettent de réserver votre place sur le séjour Bassin d’Arcachon. Le solde de 350 € peut ensuite être réglé en 1 fois ou en 3 fois sans frais avec Klarna (3 × 116,67 €).' },
+    { q: 'Puis-je payer en plusieurs fois ?', a: 'Oui ! Vous pouvez choisir l’encart « Je paye en 3 fois sans frais avec Klarna » (3 × 150 € sur le séjour complet de 450 €, ou 3 × 116,67 € sur les 350 € restants après l’acompte de 100 €), ou payer en une fois (450 €) par Carte bancaire.' },
   ],
   testimonials: [], // uniquement des avis authentiques, ajoutés depuis l'admin
   bookings: [],
