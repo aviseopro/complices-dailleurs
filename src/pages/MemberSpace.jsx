@@ -20,6 +20,8 @@ import {
   updateMemberPersonalProfile,
   deleteMyAccount,
   awardPassportStamp,
+  loginAsFounderTestMember,
+  loginAsFounderAdmin,
 } from '../lib/memberStore.js';
 
 const SKIN_TYPES = [
@@ -364,6 +366,41 @@ export default function MemberSpace() {
 
             {/* Colonne droite : formulaires d'authentification */}
             <div className="carnet-auth-card">
+              {/* Encart d'accès rapide au profil test pour Émilie & Virginie */}
+              <div
+                style={{
+                  background: 'linear-gradient(135deg, #fff8f0 0%, #f4e6d4 100%)',
+                  border: '1.5px solid var(--terra)',
+                  borderRadius: '16px',
+                  padding: '1rem 1.15rem',
+                  marginBottom: '1.35rem',
+                }}
+              >
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '.4rem' }}>
+                  <strong style={{ fontSize: '.92rem', color: 'var(--terra-dark)' }}>
+                    👀 Aperçu Fondatrices — Notre profil d’utilisatrice test
+                  </strong>
+                  <span className="pill open" style={{ fontSize: '.72rem' }}>Prêt à visiter</span>
+                </div>
+                <p style={{ fontSize: '.83rem', margin: '.35rem 0 .7rem', color: '#4a3f38', lineHeight: 1.45 }}>
+                  Pour visiter immédiatement l’intérieur du <strong>Carnet d’Ailleurs</strong> avec votre profil d’utilisatrice test déjà rempli (questionnaire, rituels, Passeport, favoris et e-book) :
+                  <br />
+                  <small>Identifiant : <code>test@complicesdailleurs.fr</code> · Mot de passe : <code>Complices2026!</code></small>
+                </p>
+                <div style={{ display: 'flex', gap: '.5rem', flexWrap: 'wrap' }}>
+                  <button
+                    type="button"
+                    className="btn btn-sm btn-terra"
+                    onClick={() => loginAsFounderTestMember()}
+                  >
+                    ✨ Entrer en 1 clic avec notre profil d’utilisatrice test →
+                  </button>
+                  <Link to="/admin" className="btn btn-sm btn-ghost">
+                    🔐 Aller au Back-Office Admin
+                  </Link>
+                </div>
+              </div>
+
               {pendingVerification ? (
                 <div className="carnet-verify-box">
                   <span className="pill open">Vérification de votre adresse e-mail</span>
@@ -870,6 +907,18 @@ export default function MemberSpace() {
               <span className="carnet-profile-badge">
                 ✨ {myProfile.escapeQuiz.primaryProfile}
               </span>
+            )}
+            {(myProfile.isFounderTestProfile || myProfile.id === 'mbr-test-fondatrices') && (
+              <button
+                type="button"
+                className="btn btn-sm btn-terra"
+                onClick={() => {
+                  loginAsFounderAdmin('emilie');
+                  navigate('/admin');
+                }}
+              >
+                🔐 Basculer vers l’Administration →
+              </button>
             )}
             <button type="button" className="btn btn-sm btn-ghost" onClick={() => logoutSession()}>
               Se déconnecter

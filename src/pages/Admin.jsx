@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useData, update, resetData } from '../data/store.js';
 import { setStatus, toCsv, seatsLeft } from '../lib/booking.js';
 import {
@@ -20,6 +20,8 @@ import {
   adminPerformContestDraw,
   exportMembersCsv,
   adminChangeOwnPassword,
+  loginAsFounderTestMember,
+  loginAsFounderAdmin,
 } from '../lib/memberStore.js';
 
 const num = (v) => (v === '' ? null : Number(v));
@@ -1305,6 +1307,7 @@ function Settings() {
 // ============================================================================
 export default function Admin() {
   const { session, isAdmin, isMember } = useCommunity();
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState('');
@@ -1312,22 +1315,35 @@ export default function Admin() {
   const [selectedMemberId, setSelectedMemberId] = useState(null);
 
   // Sécurité : si une cliente (rôle 'member') tente d'accéder à /admin, accès refusé
+  // Mais on propose un bouton rapide aux fondatrices si elles visitent avec leur profil test
   if (isMember && !isAdmin) {
     return (
       <section className="section">
         <div className="wrap narrow">
           <div className="carnet-auth-card" style={{ textAlign: 'center' }}>
-            <span className="pill waitlist">Accès réservé aux fondatrices</span>
+            <span className="pill waitlist">Vous êtes actuellement sur votre profil d’utilisatrice test</span>
             <h1>Administration — Complices d’ailleurs</h1>
             <p>
-              Cet espace privé est strictement réservé aux deux gérantes de Complices d’ailleurs, Émilie et Virginie.
+              Vous naviguez actuellement avec le compte membre <strong>{session?.firstName}</strong>.
+              Basculez en 1 clic sur votre compte administratrice nominatif :
             </p>
-            <div className="cta-row" style={{ justifyContent: 'center', marginTop: '1.2rem' }}>
-              <Link to="/mon-espace" className="btn btn-terra">
-                Retourner dans Mon Carnet d’Ailleurs →
-              </Link>
-              <Link to="/" className="btn btn-ghost">
-                Retour à l’accueil
+            <div className="cta-row" style={{ justifyContent: 'center', marginTop: '1.2rem', flexWrap: 'wrap' }}>
+              <button
+                type="button"
+                className="btn btn-terra"
+                onClick={() => loginAsFounderAdmin('emilie')}
+              >
+                🔐 Entrer en Admin (Émilie)
+              </button>
+              <button
+                type="button"
+                className="btn btn-terra"
+                onClick={() => loginAsFounderAdmin('virginie')}
+              >
+                🔐 Entrer en Admin (Virginie)
+              </button>
+              <Link to="/mon-espace" className="btn btn-ghost">
+                ← Retourner dans Mon Carnet d’Ailleurs
               </Link>
             </div>
           </div>
@@ -1361,6 +1377,47 @@ export default function Admin() {
             <p className="muted-note">
               Connectez-vous avec votre identifiant nominatif (<strong>Émilie</strong> ou <strong>Virginie</strong>) pour accéder à votre tableau de bord commun et à la base « Nos Complices ».
             </p>
+
+            {/* Encart d'accès rapide en 1 clic pour Émilie & Virginie */}
+            <div
+              style={{
+                background: 'linear-gradient(135deg, #fff8f0 0%, #f4e6d4 100%)',
+                border: '1.5px solid var(--terra)',
+                borderRadius: '16px',
+                padding: '1rem 1.15rem',
+                marginBottom: '1.35rem',
+              }}
+            >
+              <strong style={{ fontSize: '.9rem', color: 'var(--terra-dark)', display: 'block', marginBottom: '.4rem' }}>
+                👀 Accès rapide Fondatrices (Test &amp; Prévisualisation en 1 clic) :
+              </strong>
+              <div style={{ display: 'flex', gap: '.5rem', flexWrap: 'wrap' }}>
+                <button
+                  type="button"
+                  className="btn btn-sm btn-terra"
+                  onClick={() => loginAsFounderAdmin('emilie')}
+                >
+                  Entrer en Admin — Émilie
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-sm btn-terra"
+                  onClick={() => loginAsFounderAdmin('virginie')}
+                >
+                  Entrer en Admin — Virginie
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-sm btn-ghost"
+                  onClick={() => {
+                    loginAsFounderTestMember();
+                    navigate('/mon-espace');
+                  }}
+                >
+                  ✨ Voir notre profil d’utilisatrice test (Carnet d’Ailleurs)
+                </button>
+              </div>
+            </div>
 
             {loginError && (
               <div className="carnet-alert carnet-alert-error" style={{ marginBottom: '1rem' }}>
@@ -1428,9 +1485,16 @@ export default function Admin() {
           </small>
         </div>
         <div style={{ display: 'flex', gap: '.5rem', alignItems: 'center', flexWrap: 'wrap' }}>
-          <Link to="/mon-espace" className="btn btn-sm btn-ghost">
-            Aperçu Espace Membre
-          </Link>
+          <button
+            type="button"
+            className="btn btn-sm btn-terra"
+            onClick={() => {
+              loginAsFounderTestMember();
+              navigate('/mon-espace');
+            }}
+          >
+            👀 Voir notre profil d’utilisatrice test (Mon Carnet d’Ailleurs)
+          </button>
           <Link to="/" className="btn btn-sm btn-ghost">
             Voir le site
           </Link>

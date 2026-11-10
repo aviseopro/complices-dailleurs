@@ -383,16 +383,75 @@ const authRateLimiter = {
 };
 
 // ============================================================================
-// 5. ÉTAT PERSISTANT & SYNCHRONISATION SUPABASE
+// 5. PROFIL D'UTILISATRICE TEST (POUR ÉMILIE & VIRGINIE) & ÉTAT PERSISTANT
 // ============================================================================
+export const FOUNDER_TEST_MEMBER = {
+  id: 'mbr-test-fondatrices',
+  isFounderTestProfile: true,
+  firstName: 'Camille',
+  lastName: 'Complice (Profil Test)',
+  email: 'test@complicesdailleurs.fr',
+  phone: '06 29 84 96 53',
+  birthDate: '1988-05-14',
+  role: 'member',
+  // Hash SHA-256 pour 'Complices2026!' avec 'test@complicesdailleurs.fr'
+  passwordHash: 'a4ae6cb451c8e8360a6e08a43fc7c2641aaebd0e312c44a9964755666dc25e6e',
+  emailVerified: true,
+  verificationToken: null,
+  resetToken: null,
+  resetTokenExpiresAt: null,
+  marketingOptIn: true,
+  termsAcceptedAt: '2026-11-10T09:00:00.000Z',
+  createdAt: '2026-11-10T09:00:00.000Z',
+  updatedAt: '2026-11-10T09:30:00.000Z',
+  escapeQuiz: {
+    answers: {
+      q1_evasion: 'ocean',
+      q2_plaisir: ['soins_relaxation', 'activites_creatives', 'yoga_bien_etre'],
+      q3_compagnie: 'seule',
+      q4_besoin: 'retrouver',
+      q5_budget: '150_450',
+      q6_destinations: ['arcachon', 'journees_copines', 'marrakech'],
+    },
+    primaryProfile: 'Complice d’Océan & de Douceur',
+    profileSummary:
+      'Vous aspirez à une parenthèse enveloppante où les soins esthétiques, le yoga doux, les ateliers créatifs et la chaleur d’un petit groupe entre femmes vous permettent de souffler pleinement.',
+    recommendedSlugs: ['arcachon-entre-femmes', 'journee-entre-copines', 'marrakech-entre-femmes'],
+    updatedAt: '2026-11-10T09:15:00.000Z',
+  },
+  favorites: ['arcachon-entre-femmes', 'journee-entre-copines'],
+  stamps: [
+    {
+      code: 'profile_completed',
+      label: 'Profil Complice complet',
+      earnedAt: '2026-11-10T09:00:00.000Z',
+    },
+    {
+      code: 'escape_quiz_completed',
+      label: 'Portrait d’escapade découvert',
+      earnedAt: '2026-11-10T09:15:00.000Z',
+    },
+    {
+      code: 'wellness_challenge',
+      label: 'Premier défi bien-être accompli',
+      earnedAt: '2026-11-10T09:25:00.000Z',
+    },
+  ],
+  consentHistory: [
+    { type: 'terms_privacy', granted: true, at: '2026-11-10T09:00:00.000Z' },
+    { type: 'marketing_email', granted: true, at: '2026-11-10T09:00:00.000Z' },
+  ],
+};
+
 function createInitialState() {
   return {
-    members: [], // Aucun faux compte en production : seules les vraies inscrites apparaissent
+    members: [FOUNDER_TEST_MEMBER], // Votre profil d'utilisatrice test prêt à explorer
     resources: DEFAULT_MEMBER_RESOURCES,
     contests: [DEFAULT_CONTEST],
     contestEntries: [],
     auditLogs: [],
     adminCustomHashes: {},
+    testProfileRemoved: false,
   };
 }
 
@@ -401,10 +460,14 @@ function loadCommunityState() {
     const raw = typeof localStorage !== 'undefined' ? localStorage.getItem(MEMBER_STORAGE_KEY) : null;
     if (raw) {
       const parsed = JSON.parse(raw);
+      let membersList = Array.isArray(parsed.members) ? parsed.members : [];
+      if (!parsed.testProfileRemoved && !membersList.some((m) => m.id === FOUNDER_TEST_MEMBER.id)) {
+        membersList = [FOUNDER_TEST_MEMBER, ...membersList];
+      }
       return {
         ...createInitialState(),
         ...parsed,
-        members: Array.isArray(parsed.members) ? parsed.members : [],
+        members: membersList,
         resources: Array.isArray(parsed.resources) && parsed.resources.length ? parsed.resources : DEFAULT_MEMBER_RESOURCES,
         contests: Array.isArray(parsed.contests) && parsed.contests.length ? parsed.contests : [DEFAULT_CONTEST],
         contestEntries: Array.isArray(parsed.contestEntries) ? parsed.contestEntries : [],
@@ -513,6 +576,19 @@ export function getMyPrivateWellnessJournal(userId) {
     const raw = localStorage.getItem(`${PRIVATE_JOURNAL_PREFIX}${userId}`);
     if (raw) return JSON.parse(raw);
   } catch (_) {}
+
+  if (userId === FOUNDER_TEST_MEMBER.id) {
+    return {
+      skinProfile: {
+        skinType: 'Peau normale à mixte',
+        concerns: ['Manque d’éclat et traits tirés', 'Besoin de lâcher-prise global'],
+        preferences: ['Huiles végétales & massages du visage', 'Soins cocooning du soir'],
+      },
+      completedRituals: { m1: true, m3: true, e1: true, e2: true },
+      completedChallenges: ['ch1', 'ch2'],
+    };
+  }
+
   return {
     skinProfile: {
       skinType: '',
@@ -1446,4 +1522,58 @@ export async function adminChangeOwnPassword(newPassword) {
   });
   return { ok: true };
 }
+
+// Connexion rapide en 1 clic au profil d'utilisatrice test d'Émilie & Virginie
+export function loginAsFounderTestMember() {
+  let testMember = communityState.members.find((m) => m.id === FOUNDER_TEST_MEMBER.id);
+  if (!testMember) {
+    testMember = FOUNDER_TEST_MEMBER;
+    saveCommunityState({
+      ...communityState,
+      testProfileRemoved: false,
+      members: [FOUNDER_TEST_MEMBER, ...communityState.members],
+    });
+  }
+  const sess = {
+    userId: testMember.id,
+    email: testMember.email,
+    firstName: testMember.firstName,
+    lastName: testMember.lastName,
+    role: 'member',
+    loginAt: new Date().toISOString(),
+  };
+  saveCurrentSession(sess);
+  return { ok: true, session: sess };
+}
+
+// Connexion rapide aux comptes administratrices nominatifs d'Émilie ou Virginie
+export function loginAsFounderAdmin(which = 'emilie') {
+  const adminMatch =
+    which === 'virginie'
+      ? NOMINATIVE_ADMINS[1]
+      : NOMINATIVE_ADMINS[0];
+  const now = new Date().toISOString();
+  const sess = {
+    userId: adminMatch.id,
+    email: adminMatch.email,
+    firstName: adminMatch.firstName,
+    lastName: adminMatch.lastName,
+    title: adminMatch.title,
+    role: 'admin',
+    loginAt: now,
+  };
+  saveCurrentSession(sess);
+  return { ok: true, session: sess };
+}
+
+export function adminDeleteMember(userId) {
+  requireAdmin();
+  saveCommunityState({
+    ...communityState,
+    testProfileRemoved: userId === FOUNDER_TEST_MEMBER.id ? true : communityState.testProfileRemoved,
+    members: communityState.members.filter((m) => m.id !== userId),
+    contestEntries: communityState.contestEntries.filter((e) => e.userId !== userId),
+  });
+}
+
 
